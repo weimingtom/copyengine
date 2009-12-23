@@ -4,6 +4,7 @@ package copyengine.resource
 
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import flash.events.Event;
 
 	public class LazyLoadContainer extends Sprite implements ILazyLoadContainer
 	{
@@ -24,6 +25,7 @@ package copyengine.resource
 			this._targetScaleX = _targetScaleX;
 			this._targetScaleY = _targetScaleY;
 
+			this.addEventListener(Event.REMOVED_FROM_STAGE , onRemoveFromStage);
 		}
 
 		public function onLoadComplate(_target : DisplayObject) : void
@@ -50,6 +52,15 @@ package copyengine.resource
 		public function get targetScaleY() : Number
 		{
 			return _targetScaleY;
+		}
+
+		private function onRemoveFromStage(e : Event) : void
+		{
+			if (e.target == this)
+			{
+				Utilities.removeTargetFromParent(lazyLoadIcon);
+				Utilities.removeTargetFromParent(this);
+			}
 		}
 
 

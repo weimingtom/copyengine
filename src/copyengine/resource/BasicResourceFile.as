@@ -13,6 +13,8 @@ package copyengine.resource
 		protected var _fileWeight : int;
 
 		protected var loadResourceQueue : LoadResourceQueue;
+		
+		protected var isFinished:Boolean = false;
 
 		private var loader : Loader
 
@@ -31,6 +33,7 @@ package copyengine.resource
 
 		public function start() : void
 		{
+			isFinished = false;
 			loader = new Loader();
 			loader.load(new URLRequest(_filePath));
 			loader.contentLoaderInfo.addEventListener(Event.COMPLETE , onLoaded);
@@ -63,6 +66,7 @@ package copyengine.resource
 		protected function onLoaded(e : Event) : void
 		{
 			loadResourceQueue.onResourceFileLoaded(this);
+			isFinished = true;
 		}
 
 		protected function onProgress(e : Event) : void
