@@ -1,35 +1,55 @@
 package copyengine.resource
 {
+	import flash.display.Loader;
+	import flash.events.Event;
+	import flash.events.IOErrorEvent;
+	import flash.net.URLRequest;
 
-public class ResHolder
-{
-	private static var _instance:ResHolder;
+	import org.puremvc.as3.patterns.proxy.Proxy;
 
-	public static function get instance () : ResHolder
+	public class ResHolder extends Proxy
 	{
-		if ( _instance == null )
+		private static var _instance : ResHolder;
+
+		public static function get instance() : ResHolder
 		{
-			_instance = new ResHolder();
+			if (_instance == null)
+			{
+				_instance = new ResHolder();
+			}
+			return _instance;
 		}
-		return _instance;
-	}
-	
-	
-	public function ResHolder ()
-	{
-	}
-	
-	public function init():void
-	{
-		
-	}
-	
-	public function start () : void
-	{
 
-	}
+		private var configLoader : Loader
 
 
+		public function ResHolder()
+		{
+		}
 
-}
+		public function start() : void
+		{
+		}
+
+		public function init() : void
+		{
+			configLoader = new Loader();
+			configLoader.load(new URLRequest("res/bin/LoadResConfig.bin"));
+			configLoader.contentLoaderInfo.addEventListener(Event.COMPLETE , onConfigLoadComplate);
+			configLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR , onConfigLoadError);
+		}
+
+		private function onConfigLoadComplate(e : Event) : void
+		{
+			//Do somethings
+			sendNotification(ProxyMessage.RESHOLDER_INIT_COMPLATE);
+		}
+
+		private function onConfigLoadError(e : Event) : void
+		{
+			sendNotification(ProxyMessage.RESHOLDER_INIT_FAILD);
+		}
+
+
+	}
 }
