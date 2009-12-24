@@ -1,4 +1,4 @@
-package copyengine
+package copyengine.resource
 {
 	/**
 	 * This class is use contain the message during the current loadResQueue runing.
