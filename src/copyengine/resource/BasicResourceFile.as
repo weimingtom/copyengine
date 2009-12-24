@@ -4,7 +4,9 @@ import copyengine.debug.DebugLog;
 
 import flash.display.Loader;
 import flash.events.Event;
+import flash.events.IOErrorEvent;
 import flash.events.ProgressEvent;
+import flash.net.URLRequest;
 
 public class BasicResourceFile
 {
@@ -25,12 +27,12 @@ public class BasicResourceFile
 	{
 	}
 
-	public function init (_name : String , _path : String , _weight : int , _loadQueue : LoadResourceQueue)
+	public function init (_name : String , _path : String , _weight : int , _loadQueue : LoadResourceQueue):void
 	{
 		_fileName = _name;
 		_filePath = _path;
 		_fileWeight = _weight;
-		loadResourceQueue = _loadResourceQueue;
+		loadResourceQueue = _loadQueue;
 	}
 
 	public function start () : void
@@ -60,7 +62,7 @@ public class BasicResourceFile
 		return _fileName;
 	}
 
-	public function get fileWeight () : String
+	public function get fileWeight () :int
 	{
 		return _fileWeight;
 	}

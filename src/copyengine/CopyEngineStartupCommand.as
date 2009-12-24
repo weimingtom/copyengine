@@ -1,7 +1,6 @@
 package copyengine
 {
-import copyengine.datas.DataInitialCommand;
-import copyengine.scenes.SceneInitialCommand;
+import copyengine.resource.ResourceInitalCommand;
 
 import org.puremvc.as3.patterns.command.MacroCommand;
 
@@ -16,8 +15,9 @@ public class CopyEngineStartupCommand extends MacroCommand
 
 	override protected function initializeMacroCommand () : void
 	{
-		addSubCommand(DataInitialCommand);
-		addSubCommand(SceneInitialCommand);
+//		addSubCommand(DataInitialCommand);
+//		addSubCommand(SceneInitialCommand);
+		addSubCommand( ResourceInitalCommand );
 	}
 }
 }

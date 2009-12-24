@@ -65,11 +65,11 @@ public class ResHolder extends Proxy
 	 */
 	private function initLoadQueue (_config:XML) : void
 	{
-		for each ( var loadQueue : XML in _config.loadQueue.queue )
+		for each ( var loadQueueXml : XML in _config.loadQueue.queue )
 		{
-			var loadQueue:LoadResourceQueue = new LoadResourceQueue();
-			loadQueue.queueName = loadQueue.@name;
-			loadQueue.priority = parseInt(loadQueue.@priority,10);
+			var newLoadQueue:LoadResourceQueue = new LoadResourceQueue();
+			newLoadQueue.queueName = loadQueueXml.@name;
+			newLoadQueue.priority = parseInt(loadQueueXml.@priority,10);
 		}
 		for each ( var file : XML in _config.loadFile.file )
 		{
