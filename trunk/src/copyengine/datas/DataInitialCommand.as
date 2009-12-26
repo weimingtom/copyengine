@@ -13,7 +13,7 @@ public class DataInitialCommand extends SimpleCommand
 	override public function execute (notification:INotification) : void
 	{
 		super.execute(notification);
-		trace("DataInitialCommand Call");
+		sendNotification(GameDataMessage.GAME_DATA_INIT_COMPLATE);
 	}
 }
 }
