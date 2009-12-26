@@ -6,9 +6,12 @@ public class LoadResourceQueue
 	public var queueName:String;
 
 	public var priority:int;
+	
+	public var allLoadQueueFile:Vector.<BasicResourceFile>;
 
 	public function LoadResourceQueue ()
 	{
+		allLoadQueueFile = new Vector.<BasicResourceFile>();
 	}
 
 	public function onResourceFileLoaded (_file : BasicResourceFile) : void

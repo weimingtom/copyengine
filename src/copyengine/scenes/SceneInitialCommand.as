@@ -14,7 +14,6 @@ public class SceneInitialCommand extends SimpleCommand
 	{
 		super.execute(notification);
 		CopyEngineFacade.instance.registerMediator( new PerLoadSceneMediator((notification.getBody() as CopyEngineAS).gamePerLoad ) );
-		trace("SceneInitialCommand Call");
 	}
 }
 }

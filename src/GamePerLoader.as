@@ -19,7 +19,7 @@ package
 		public function GamePerLoader()
 		{
 			screenLoader = new Loader();
-			screenLoader.load( new URLRequest("res/swf/preloader_asset.swf"));
+			screenLoader.load( new URLRequest("../res/swf/preloader_asset.swf"));
 			screenLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadComplate);
 			
 			mainLoader = new Loader();
