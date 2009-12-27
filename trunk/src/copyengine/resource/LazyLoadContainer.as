@@ -1,7 +1,8 @@
 package copyengine.resource
 {
 	import copyengine.utils.Utilities;
-
+	
+	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
