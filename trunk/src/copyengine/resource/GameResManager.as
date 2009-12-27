@@ -7,6 +7,7 @@ package copyengine.resource
 	import flash.net.URLLoader;
 	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
+	import flash.utils.ByteArray;
 	
 	import org.puremvc.as3.patterns.proxy.Proxy;
 
@@ -28,8 +29,8 @@ package copyengine.resource
 		private var allUnloadQueueList : Vector.<LoadResourceQueue> //hold the loadQueue that not loaded yet.
 
 		private var currentLoadQueue : LoadResourceQueue; // hold the queue that in loading
-		
-		private var _isInitFinished:Boolean = false; //when init resManager then set this number to true . so that other system can know about it.
+
+		private var _isInitFinished : Boolean = false; //when init resManager then set this number to true . so that other system can know about it.
 
 		public function GameResManager()
 		{
@@ -45,7 +46,7 @@ package copyengine.resource
 		public function init() : void
 		{
 			configLoader = new URLLoader();
-			configLoader.load(new URLRequest("../res/bin/LoadResConfig.xml"));
+			configLoader.load(new URLRequest("../res/bin/LoadResConfig.bin"));
 			configLoader.dataFormat = URLLoaderDataFormat.BINARY;
 			configLoader.addEventListener(Event.COMPLETE , onConfigLoadComplate);
 			configLoader.addEventListener(IOErrorEvent.IO_ERROR , onConfigLoadError);
@@ -53,13 +54,15 @@ package copyengine.resource
 
 		private function onConfigLoadComplate(e : Event) : void
 		{
-			initLoadQueue(new XML(configLoader.data));
-			
+			var byteArray:ByteArray = configLoader.data as ByteArray;
+			byteArray.uncompress();
+			initLoadQueue(new XML(byteArray));
+
 			configLoader.close();
 			configLoader = null;
-			
+
 			_isInitFinished = true;
-			
+
 			sendNotification(GameResMessage.GAME_RES_MANAGER_INIT_COMPLATE);
 		}
 
@@ -67,7 +70,7 @@ package copyengine.resource
 		{
 			configLoader.close();
 			configLoader = null;
-			
+
 			sendNotification(GameResMessage.GAME_RES_MANAGER_INIT_FAILD);
 		}
 
@@ -131,8 +134,8 @@ package copyengine.resource
 		{
 			sendNotification(GameResMessage.LOADRESOURCEQUEUE_LOADSTATE_CHANGE , _newLoadState);
 		}
-		
-		public function get isInitFinished():Boolean
+
+		public function get isInitFinished() : Boolean
 		{
 			return _isInitFinished;
 		}
