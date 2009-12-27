@@ -19,7 +19,12 @@ package copyengine.resource
 		 * when current loadResourceQueue state change ,will send this Notification also attach package ResLoadStatePackage
 		 * so that any receiver can know what's the state is.
 		 */
-		public static const LOADRESOURCEQUEUE_LOADSTATE_CHANGE : String = "LoadResourceQueue_LoadState_Change";
+		public static const LOAD_RESOURCE_QUEUE_LOADSTATE_CHANGE : String = "LoadResourceQueue_LoadState_Change";
+		
+		/**
+		 * 
+		 */		
+		public static const LOAD_RESOURCE_QUEUE_LOAD_COMPLATE:String = "LoadResourceQueue_Load_Complate"
 
 		public function GameResMessage()
 		{

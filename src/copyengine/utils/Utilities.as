@@ -53,7 +53,13 @@ package copyengine.utils
 				return false;
 			}
 		}
-
+		
+		public static function normalizingIntVlaue(_val:int , _low:int , _hight:int):int
+		{
+			_val = Math.max(_low,_val);
+			return Math.min(_val,_hight);
+		}
+		
 		/**
 		 * Add one target to an array ,
 		 * if the array already have the targat then return false , else return true
@@ -101,7 +107,7 @@ package copyengine.utils
 				var shouldTouchHere : Boolean = true;
 			}
 		}
-
+		
 		static public function compareNumber(n1 : Number , n2 : Number) : int
 		{
 			if (n1 == n2)
