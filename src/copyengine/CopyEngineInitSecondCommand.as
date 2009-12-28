@@ -8,9 +8,9 @@ package copyengine
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.MacroCommand;
 
-	public class CopyEngineSecondStepInitCommand extends MacroCommand
+	public class CopyEngineInitSecondCommand extends MacroCommand
 	{
-		public function CopyEngineSecondStepInitCommand()
+		public function CopyEngineInitSecondCommand()
 		{
 		}
 

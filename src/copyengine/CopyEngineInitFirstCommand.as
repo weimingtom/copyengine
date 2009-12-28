@@ -6,11 +6,11 @@ package copyengine
 
 	import org.puremvc.as3.patterns.command.MacroCommand;
 
-	public class CopyEngineFirstStepInitCommand extends MacroCommand
+	public class CopyEngineInitFirstCommand extends MacroCommand
 	{
 		public static const NAME : String = "CopyEngineStartupCommand";
 
-		public function CopyEngineFirstStepInitCommand()
+		public function CopyEngineInitFirstCommand()
 		{
 			super();
 		}

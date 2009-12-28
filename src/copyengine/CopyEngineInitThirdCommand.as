@@ -3,9 +3,9 @@ package copyengine
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
 	
-	public class CopyEngineInitComplateCommand extends SimpleCommand
+	public class CopyEngineInitThirdCommand extends SimpleCommand
 	{
-		public function CopyEngineInitComplateCommand()
+		public function CopyEngineInitThirdCommand()
 		{
 			super();
 		}
