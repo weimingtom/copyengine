@@ -6,5 +6,6 @@
 	</loadQueue>
 	<loadFile>
 		<file name="test" path="../res/swf/test.swf" type="swf" weight="500" loadQueue="perLoadQueue" />
+		<file name="test2" path="../res/swf/test.swf" type="swf" weight="500" loadQueue="perLoadQueue" />
 	</loadFile>
 </root>

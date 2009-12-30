@@ -2,7 +2,7 @@ package copyengine.resource
 {
 	import copyengine.debug.DebugLog;
 	import copyengine.utils.Utilities;
-	
+
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -11,25 +11,31 @@ package copyengine.resource
 	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
-	
+
 	import org.puremvc.as3.patterns.proxy.Proxy;
 
 	public class GameResManager extends Proxy
 	{
 		/**
 		 * define the load connect number that resLoadSystem is use.
-		 * as i tested , flash can open 15 connect loader at one time , so use the loader speed to control how many gbps 
+		 * as i tested , flash can open 15 connect loader at one time , so use the loader speed to control how many gbps
 		 * that current system can use.
-		 * 
-		 * LOAD_SPEED_FULL         no limited , use in perloading 
+		 *
+		 * LOAD_SPEED_FULL         no limited , use in perloading
 		 * LOAD_SPEED_HIGHT      use in lazyloader state , will have little rpc call ,most of the time is loading stuff
-		 * LOAD_SPPED_MIDDLE    use in player already login to the scence and no rpc happen 
+		 * LOAD_SPPED_MIDDLE    use in player already login to the scence and no rpc happen
 		 * LOAD_SPPED_LOW         use in rpc happen , system will move the gbps for rpc.
-		 */		
+		 */
 		public static const LOAD_SPEED_FULL : int = int.MAX_VALUE;
 		public static const LOAD_SPEED_HIGHT : int = 10;
 		public static const LOAD_SPPED_MIDDLE : int = 5;
 		public static const LOAD_SPPED_LOW : int = 1;
+
+		/**
+		 * define the loadQueue name in LoadResConfig.xml.
+		 */
+		public static const LOAD_QUEUE_PERLOAD:String = "perLoadQueue";
+		public static const LOAD_QUEUE_BACKGROUNDLOADQUEUE:String = "backGroundLoadQueue";
 
 		private static var _instance : GameResManager;
 
@@ -92,15 +98,15 @@ package copyengine.resource
 				}
 			}
 		}
-		
-		public function set loadSpeed(_val:int):void
+
+		public function set loadSpeed(_val : int) : void
 		{
-			if(currentLoadQueue != null)
+			if (currentLoadQueue != null)
 			{
-				currentLoadQueue.loadSpeed = Utilities.normalizingIntVlaue(_val,LOAD_SPPED_LOW,LOAD_SPEED_FULL);
+				currentLoadQueue.loadSpeed = Utilities.normalizingIntVlaue(_val , LOAD_SPPED_LOW , LOAD_SPEED_FULL);
 			}
 		}
-		
+
 		public function get isInitFinished() : Boolean
 		{
 			return _isInitFinished;
@@ -127,12 +133,12 @@ package copyengine.resource
 			return null;
 		}
 
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
 		//=========================
 		//== Private
 		//=========================
@@ -217,12 +223,24 @@ package copyengine.resource
 		 */
 		public function currentLoadQueueLoadComplate() : void
 		{
-			sendNotification(GameResMessage.LOAD_RESOURCE_QUEUE_LOAD_COMPLATE , currentLoadQueue);
+			sendNotification(GameResMessage.LOAD_RESOURCE_QUEUE_LOAD_COMPLATE , null,currentLoadQueue.queueName);
+			currentLoadQueue = null;
+		}
+
+		/**
+		 *	@private
+		 *
+		 * 	when current loadQueue can't load one file , then send this message to stop engine.
+		 *
+		 */
+		public function currentLoadQueueLoadError(_errorMessage : String) : void
+		{
+			sendNotification(GlobalMessage.ENGINE_UNRECOVER_ERROR , _errorMessage);
 		}
 
 		private function findLoadUnLoadQueueByName(_name : String , _isRemove : Boolean) : LoadResourceQueue
 		{
-			for (var i : int = allUnloadQueueList.length ; i > 0 ; i--)
+			for (var i : int = allUnloadQueueList.length -1 ; i >= 0 ; i--)
 			{
 				if (allUnloadQueueList[i].queueName == _name)
 				{

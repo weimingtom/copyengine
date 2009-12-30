@@ -38,6 +38,8 @@ package
 		{
 			loadScreen = e.target.loader.content as MovieClip;
 			this.addChild(loadScreen);
+			screenLoader.unload();
+			screenLoader = null;
 		}
 		
 		private function loadMainComplate(e:Event):void
