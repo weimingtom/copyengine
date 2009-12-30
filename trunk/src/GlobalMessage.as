@@ -12,7 +12,12 @@ package
 		 * when all the system(rpcSystem , dataSystem etc )is all inited ,then send this .
 		 */		
 		public static const ENGINE_INIT_COMPLATE:String = "Engine_Init_Complate"
-
+		
+		/**
+		 * when some system cause an unRecover error ,then send this message 
+		 */			
+		public static const ENGINE_UNRECOVER_ERROR:String = "Engine_UnRecover_Error";
+		
 		public function GlobalMessage()
 		{
 		}

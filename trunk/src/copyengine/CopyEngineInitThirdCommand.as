@@ -1,19 +1,19 @@
 package copyengine
 {
-	import org.puremvc.as3.interfaces.INotification;
-	import org.puremvc.as3.patterns.command.SimpleCommand;
+	import copyengine.datas.DataInitialCommand;
 	
-	public class CopyEngineInitThirdCommand extends SimpleCommand
+	import org.puremvc.as3.patterns.command.MacroCommand;
+	
+	public class CopyEngineInitThirdCommand extends MacroCommand
 	{
 		public function CopyEngineInitThirdCommand()
 		{
 			super();
 		}
 		
-		override public function execute(notification:INotification) : void
+		override protected function initializeMacroCommand() : void
 		{
-			CopyEngineFacade.instance.initFinished();
-			sendNotification(GlobalMessage.ENGINE_INIT_COMPLATE);
+			addSubCommand( DataInitialCommand);
 		}
 	}
 }

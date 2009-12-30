@@ -1,5 +1,7 @@
 package copyengine.resource
 {
+	import copyengine.debug.DebugLog;
+
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
@@ -17,6 +19,8 @@ package copyengine.resource
 
 		protected var swfLoader : Loader;
 
+		private var reTryTime : int = 3;
+
 		public function SwfResourceFile()
 		{
 			allListener = new Vector.<ILazyLoadContainer>();
@@ -26,10 +30,10 @@ package copyengine.resource
 		{
 			swfLoader = new Loader();
 			swfLoader.load(new URLRequest(_filePath));
-			swfLoader.addEventListener(Event.COMPLETE , onLoaded);
-			swfLoader.addEventListener(ProgressEvent.PROGRESS , onProgress);
-			swfLoader.addEventListener(IOErrorEvent.IO_ERROR , onError);
-			
+			swfLoader.contentLoaderInfo.addEventListener(Event.COMPLETE , onLoaded);
+			swfLoader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS , onProgress);
+			swfLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR , onError);
+
 			super.start();
 		}
 
@@ -37,7 +41,7 @@ package copyengine.resource
 		{
 			releaseLoader();
 			allListener = null;
-			
+
 			super.destory();
 		}
 
@@ -87,8 +91,23 @@ package copyengine.resource
 			var loaderInfo : LoaderInfo = e.currentTarget as LoaderInfo;
 			domain = loaderInfo.applicationDomain;
 			releaseLoader();
-			
+
 			super.onLoaded(e);
+		}
+
+		override protected function onError(e : Event) : void
+		{
+			if (reTryTime > 0)
+			{
+				reTryTime--;
+				DebugLog.instance.log("SwfResourceFile :: start load file  " + fileName + "  " , DebugLog.LOG_TYPE_WARNING);
+				reload();
+			}
+			else
+			{
+				DebugLog.instance.log("SwfResourceFile :: can't load file  " + fileName + "  " , DebugLog.LOG_TYPE_ERROR);
+				super.onError(e);
+			}
 		}
 
 		private function releaseLoader() : void
@@ -98,6 +117,12 @@ package copyengine.resource
 				swfLoader.unload();
 			}
 			swfLoader = null;
+		}
+
+		private function reload() : void
+		{
+			swfLoader.unloadAndStop();
+			start();
 		}
 
 	}
