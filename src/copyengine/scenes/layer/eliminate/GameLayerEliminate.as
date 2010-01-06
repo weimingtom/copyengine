@@ -5,5 +5,9 @@ package copyengine.scenes.layer.eliminate
 		public function GameLayerEliminate()
 		{
 		}
+		
+		
+		
+		
 	}
 }

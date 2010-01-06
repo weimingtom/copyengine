@@ -15,5 +15,6 @@ public interface ILazyLoadContainer
 	function get cacheName () : String;
 	function get targetScaleX () : Number;
 	function get targetScaleY () : Number;
+	function get fileType():int
 }
 }

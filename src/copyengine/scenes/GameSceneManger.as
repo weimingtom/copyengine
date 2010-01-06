@@ -12,7 +12,7 @@ package copyengine.scenes
 
 	public class GameSceneManger extends Mediator
 	{
-		public static const GAMESCENE_TEST:String="GamePerLoader";
+		public static const GAMESCENE_TEST:String="IsoHexScene";
 
 		private static var _instance:GameSceneManger;
 

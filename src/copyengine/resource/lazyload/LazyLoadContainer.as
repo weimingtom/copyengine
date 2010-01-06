@@ -1,7 +1,7 @@
 package copyengine.resource.lazyload
 {
 	import copyengine.utils.Utilities;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -14,13 +14,15 @@ package copyengine.resource.lazyload
 		private var _cacheName : String;
 		private var _targetScaleX : int;
 		private var _targetScaleY : int;
+		private var _fileType:int;
 
-		public function LazyLoadContainer(_symbolName : String , _cacheName : String = "NotCache" , _scaleX : int = 1 , _scaleY : int = 1)
+		public function LazyLoadContainer(_fileType:int , _symbolName : String , _cacheName : String = "NotCache" , _scaleX : int = 1 , _scaleY : int = 1)
 		{
 			super();
 			lazyLoadIcon = new CompiledAssets.LazyLoadIcon();
 			this.addChild(lazyLoadIcon);
 
+			this._fileType = _fileType;
 			this._symbolName = _symbolName;
 			this._cacheName = _cacheName;
 			this._targetScaleX = _targetScaleX;
@@ -53,6 +55,11 @@ package copyengine.resource.lazyload
 		public function get targetScaleY() : Number
 		{
 			return _targetScaleY;
+		}
+
+		public function get fileType() : int
+		{
+			return _fileType;
 		}
 
 		private function onRemoveFromStage(e : Event) : void
