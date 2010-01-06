@@ -1,8 +1,11 @@
 package copyengine.resource
 {
 	import copyengine.debug.DebugLog;
+	import copyengine.resource.file.BasicResourceFile;
+	import copyengine.resource.loadqueue.LoadResourceQueue;
+	import copyengine.resource.state.ResLoadStatePackage;
 	import copyengine.utils.Utilities;
-
+	
 	import flash.display.DisplayObject;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
@@ -11,7 +14,7 @@ package copyengine.resource
 	import flash.net.URLRequest;
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
-
+	
 	import org.puremvc.as3.patterns.proxy.Proxy;
 
 	public class GameResManager extends Proxy

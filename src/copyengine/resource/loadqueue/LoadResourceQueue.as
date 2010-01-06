@@ -1,5 +1,7 @@
-package copyengine.resource
+package copyengine.resource.loadqueue
 {
+	import copyengine.resource.GameResManager;
+	import copyengine.resource.file.BasicResourceFile;
 	
 
 

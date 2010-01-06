@@ -1,7 +1,9 @@
-package copyengine.resource
+package copyengine.resource.file
 {
 	import copyengine.debug.DebugLog;
-
+	import copyengine.resource.lazyload.ILazyLoadContainer;
+	import copyengine.resource.lazyload.LazyLoadContainer;
+	
 	import flash.display.DisplayObject;
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
@@ -45,7 +47,7 @@ package copyengine.resource
 			super.destory();
 		}
 
-		protected function addLazyLoadContainerListener(_listener : ILazyLoadContainer) : void
+		protected function addLazyLoadContainerListener(_listener : copyengine.resource.lazyload.ILazyLoadContainer) : void
 		{
 			allListener.push(_listener);
 		}
