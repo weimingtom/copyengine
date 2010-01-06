@@ -3,6 +3,7 @@ package
 	import copyengine.scenes.IGameScene;
 
 	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	import flash.display.Loader;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -64,6 +65,16 @@ package
 		{
 			this.parent.removeChild(this);
 			trace("GamePerLoader destory");
+		}
+
+		public function get sceneContainer() : DisplayObjectContainer
+		{
+			return this;
+		}
+
+		public function tick() : void
+		{
+			//do nothing
 		}
 
 
