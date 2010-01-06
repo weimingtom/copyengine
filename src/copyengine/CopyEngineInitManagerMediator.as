@@ -40,7 +40,7 @@ package copyengine
 
 					CopyEngineFacade.instance.registerCommand(CopyEngineMessage.COPYENGINE_INIT_FIRST_START , CopyEngineInitFirstCommand);
 					CopyEngineFacade.instance.registerMediator(new CopyEngineInitFirstMediator());
-					sendNotification(CopyEngineMessage.COPYENGINE_INIT_FIRST_START);
+					sendNotification(CopyEngineMessage.COPYENGINE_INIT_FIRST_START,notification.getBody(),notification.getType());
 					CopyEngineFacade.instance.removeCommand(CopyEngineMessage.COPYENGINE_INIT_FIRST_START);
 
 					break;

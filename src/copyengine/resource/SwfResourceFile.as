@@ -72,10 +72,9 @@ package copyengine.resource
 		 */
 		override public function getObject(... arg) : Object
 		{
-
 			if (loadState == LOAD_STATE_LOADED)
 			{
-				return domain.getDefinition(arg[0]);
+				return new (domain.getDefinition(arg[0]));
 			}
 			else
 			{
