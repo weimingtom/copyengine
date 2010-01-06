@@ -1,6 +1,6 @@
 package copyengine.scenes
 {
-	import copyengine.debug.DebugLog;
+	import flash.display.DisplayObjectContainer;
 
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
@@ -15,7 +15,7 @@ package copyengine.scenes
 		override public function execute(notification:INotification) : void
 		{
 			super.execute(notification);
-			DebugLog.instance.log("SceneInitialCommand Call");
+			GameSceneManger.instance.init(notification.getBody() as DisplayObjectContainer);
 		}
 	}
 }

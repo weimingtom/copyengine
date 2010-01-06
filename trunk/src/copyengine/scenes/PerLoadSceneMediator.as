@@ -1,6 +1,6 @@
 package copyengine.scenes
 {
-	import copyengine.debug.DebugLog;
+	import copyengine.utils.Utilities;
 
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
@@ -24,7 +24,8 @@ package copyengine.scenes
 			switch (notification.getName())
 			{
 				case GlobalMessage.ENGINE_INIT_COMPLATE:
-					DebugLog.instance.log("CopyEngine init finished");
+					Utilities.removeTargetFromParent(gamePerLoader);
+					GameSceneManger.instance.changeScene(null);
 					break;
 			}
 		}
