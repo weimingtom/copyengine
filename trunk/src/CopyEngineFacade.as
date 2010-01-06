@@ -1,7 +1,6 @@
 package
 {
 	import copyengine.CopyEngineInitManagerMediator;
-	import copyengine.scenes.PerLoadSceneMediator;
 
 	import org.puremvc.as3.patterns.facade.Facade;
 
@@ -28,7 +27,6 @@ package
 		 */
 		public function startup(_mainFile : CopyEngineAS) : void
 		{
-			this.registerMediator( new PerLoadSceneMediator((_mainFile.gamePerLoad ) ));
 			this.registerMediator( new CopyEngineInitManagerMediator() );
 			sendNotification(GlobalMessage.MAIN_FILE_LOADED , _mainFile);
 		}

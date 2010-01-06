@@ -1,20 +1,19 @@
 package game.scene
 {
 	import copyengine.resource.GameResManager;
+	import copyengine.scenes.GameScene;
 
 	import flash.display.DisplayObject;
-	import flash.display.Sprite;
-	import flash.geom.Matrix;
 	import flash.geom.Point;
 
-	public class IsoHexScene extends Sprite
+	public class IsoHexScene extends GameScene
 	{
 		public function IsoHexScene()
 		{
 			super();
 		}
 
-		public function init() : void
+		override public function initScene() : void
 		{
 			var tile:DisplayObject = GameResManager.instance.getDisplayObject("FloorTile24","IsoHax_asset");
 			for (var line:int = 0 ; line< 10 ; line++)
@@ -30,6 +29,7 @@ package game.scene
 			}
 			//			this.addChild(tile);
 		}
+
 
 		private function slidMap_TilePlotter(_ptMap:Point , tileWidth:int , tileHeight:int) : Point
 		{

@@ -1,7 +1,7 @@
-package copyengine.scenes
+package
 {
-	import copyengine.utils.Utilities;
-
+	import copyengine.scenes.GameSceneManger;
+	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 
@@ -24,8 +24,8 @@ package copyengine.scenes
 			switch (notification.getName())
 			{
 				case GlobalMessage.ENGINE_INIT_COMPLATE:
-					Utilities.removeTargetFromParent(gamePerLoader);
-					GameSceneManger.instance.changeScene(null);
+					GameSceneManger.instance.changeScene(GameSceneManger.GAMESCENE_TEST);
+					CopyEngineFacade.instance.removeMediator(NAME);
 					break;
 			}
 		}
