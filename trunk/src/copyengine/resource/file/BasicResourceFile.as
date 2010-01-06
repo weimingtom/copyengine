@@ -1,12 +1,9 @@
-package copyengine.resource
+package copyengine.resource.file
 {
 	import copyengine.debug.DebugLog;
-
-	import flash.display.Loader;
+	import copyengine.resource.loadqueue.LoadResourceQueue;
+	
 	import flash.events.Event;
-	import flash.events.IOErrorEvent;
-	import flash.events.ProgressEvent;
-	import flash.net.URLRequest;
 
 	public class BasicResourceFile
 	{
@@ -30,7 +27,7 @@ package copyengine.resource
 		{
 		}
 
-		public function init(_name : String , _path : String , _weight : int , _loadQueue : LoadResourceQueue) : void
+		public function init(_name : String , _path : String , _weight : int , _loadQueue : copyengine.resource.loadqueue.LoadResourceQueue) : void
 		{
 			_fileName = _name;
 			_filePath = _path;

@@ -1,4 +1,4 @@
-package copyengine.resource
+package copyengine.resource.file
 {
 
 	/**
