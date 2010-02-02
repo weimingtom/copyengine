@@ -8,9 +8,9 @@ package copyengine.utils
     import flash.geom.Rectangle;
     import flash.net.LocalConnection;
 
-    public class Utilities
+    public class GeneralUtils
     {
-        public function Utilities()
+        public function GeneralUtils()
         {
         }
 

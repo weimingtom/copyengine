@@ -5,8 +5,8 @@ package copyengine.resource
     import copyengine.resource.file.SwfResourceFile;
     import copyengine.resource.loadqueue.LoadResourceQueue;
     import copyengine.resource.state.ResLoadStatePackage;
-    import copyengine.utils.Utilities;
-
+    import copyengine.utils.GeneralUtils;
+    
     import flash.display.Bitmap;
     import flash.display.DisplayObject;
     import flash.events.Event;
@@ -16,7 +16,7 @@ package copyengine.resource
     import flash.net.URLRequest;
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
-
+    
     import org.puremvc.as3.patterns.proxy.Proxy;
 
     public class GameResManager extends Proxy
@@ -108,7 +108,7 @@ package copyengine.resource
         {
             if (currentLoadQueue != null)
             {
-                currentLoadQueue.loadSpeed = Utilities.normalizingVlaue(_val , LOAD_SPPED_LOW , LOAD_SPEED_FULL);
+                currentLoadQueue.loadSpeed = GeneralUtils.normalizingVlaue(_val , LOAD_SPPED_LOW , LOAD_SPEED_FULL);
             }
         }
 
