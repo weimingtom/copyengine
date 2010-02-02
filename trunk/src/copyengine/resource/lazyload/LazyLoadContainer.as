@@ -1,7 +1,7 @@
 package copyengine.resource.lazyload
 {
-	import copyengine.utils.Utilities;
-
+	import copyengine.utils.GeneralUtils;
+	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -33,7 +33,7 @@ package copyengine.resource.lazyload
 
 		public function onLoadComplate(_target : DisplayObject) : void
 		{
-			Utilities.removeTargetFromParent(lazyLoadIcon);
+			GeneralUtils.removeTargetFromParent(lazyLoadIcon);
 			this.addChild(_target);
 		}
 
@@ -66,8 +66,8 @@ package copyengine.resource.lazyload
 		{
 			if (e.target == this)
 			{
-				Utilities.removeTargetFromParent(lazyLoadIcon);
-				Utilities.removeTargetFromParent(this);
+				GeneralUtils.removeTargetFromParent(lazyLoadIcon);
+				GeneralUtils.removeTargetFromParent(this);
 			}
 		}
 
