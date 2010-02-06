@@ -49,6 +49,11 @@ package copyengine.ui.list.cellrender
 		function get container():DisplayObjectContainer;
 		
 		/**
+		 * current cellIndex
+		 */		
+		function get cellIndex():int;
+		
+		/**
 		 * when current cellRender has been out of screen , 
 		 * will call this function to clean some data relate property.
 		 * 
