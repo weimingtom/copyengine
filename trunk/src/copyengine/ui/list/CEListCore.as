@@ -4,6 +4,7 @@ package copyengine.ui.list
     import copyengine.ui.list.cellrender.ICECellRender;
     import copyengine.utils.GeneralUtils;
     
+    import flash.events.MouseEvent;
     import flash.geom.Rectangle;
 
     /**
@@ -19,7 +20,7 @@ package copyengine.ui.list
      * 					3) set displayCount    					(each page display CellRender number)
      * 					4) set cellRender width/height		(the visable cellRender widht/height should all the same)
      * 					5) set contentPadding					(the distance bewteen each cellRender)
-	 * 					6) set cellRenderInstanceClass      (the cellRender class, this clas should implements ICECellRender)
+     * 					6) set cellRenderInstanceClass      (the cellRender class, this clas should implements ICECellRender)
      *
      * @author Tunied
      *
@@ -55,11 +56,11 @@ package copyengine.ui.list
          * define the padded for each cellRender.
          */
         private var contentPadding:Number;
-		
-		/**
-		 * the cellRender class, this clas should implements ICECellRender
-		 */		
-		private var cellRenderInstanceClass:Class;
+
+        /**
+         * the cellRender class, this clas should implements ICECellRender
+         */
+        private var cellRenderInstanceClass:Class;
 
         /**
          * define the max scrollPosition.
@@ -112,7 +113,7 @@ package copyengine.ui.list
             eachCellRenderWidth = _eachCellRenderWidth;
             eachCellRenderHeight = _eachCellRenderHeight;
             contentPadding = _contentPadding;
-			cellRenderInstanceClass = _cellRenderInstanceClass;
+            cellRenderInstanceClass = _cellRenderInstanceClass;
         }
 
         /**
@@ -134,9 +135,10 @@ package copyengine.ui.list
                 cellRender.setData(dataProvider.getDataByIndex(i) );
                 addChild(cellRender.container);
                 visableCellRenderVector.push(cellRender);
+                addCellRenderListener(cellRender);
             }
-			cellRenderInstanceClass = null;
-			
+            cellRenderInstanceClass = null;
+
             setVisibleCellRenderByScrollPosition();
 
             if (layoutDirection == LAYOUT_HORIZONTAL)
@@ -151,10 +153,10 @@ package copyengine.ui.list
 
         override protected function dispose() : void
         {
-            removeListener();
 
             for each (var cellRender : ICECellRender in visableCellRenderVector)
             {
+                removeCellRenderListener(cellRender)
                 GeneralUtils.removeTargetFromParent(cellRender.container);
                 cellRender.dispose();
             }
@@ -164,16 +166,24 @@ package copyengine.ui.list
             visableCellRenderVector = null;
         }
 
-        private function addListener() : void
+        private function addCellRenderListener(_cellRender:ICECellRender) : void
         {
-
+			_cellRender.container.addEventListener(MouseEvent.CLICK,onCellRenderClick,false,0,true);
         }
 
-        private function removeListener() : void
+        private function removeCellRenderListener(_cellRender:ICECellRender) : void
         {
-
+			_cellRender.container.removeEventListener(MouseEvent.CLICK,onCellRenderClick);
         }
-
+		
+		private function onCellRenderClick(e:MouseEvent):void
+		{
+			
+		}
+		
+        //=============
+        //== Scroll Position
+        //=============
         /**
          * scrollPosition is use to determine which item will showing in the screen,
          * and where are the item are showing.
