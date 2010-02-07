@@ -5,6 +5,7 @@ package game.scene
     import copyengine.scenes.GameScene;
     import copyengine.ui.list.CEDataProvider;
     import copyengine.ui.list.CEHorizontalList;
+    import copyengine.ui.list.CEListCore;
     import copyengine.utils.Random;
     
     import flash.display.Sprite;
@@ -14,7 +15,7 @@ package game.scene
 
     public class IsoHexScene extends GameScene
     {
-        private var ceList:CEHorizontalList;
+        private var ceList:CEListCore;
 
         public function IsoHexScene()
         {
@@ -34,7 +35,7 @@ package game.scene
             }
             var dataProvider:CEDataProvider = new CEDataProvider(dataV);
 
-            ceList = new CEHorizontalList(5,TShapeCellRender,CEHorizontalList.LAYOUT_HORIZONTAL,dataProvider,50,50,10);
+            ceList = new CEListCore(5,TShapeCellRender,CEHorizontalList.LAYOUT_HORIZONTAL,dataProvider,50,50,10);
 
             addChild( ceList );
 
