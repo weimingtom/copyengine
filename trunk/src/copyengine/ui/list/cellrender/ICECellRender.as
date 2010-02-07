@@ -52,18 +52,23 @@ package copyengine.ui.list.cellrender
 		 * current cellIndex
 		 */		
 		function get cellIndex():int;
+		function set cellIndex(_value:int):void;
 		
 		/**
 		 * when current cellRender has been out of screen , 
 		 * will call this function to clean some data relate property.
 		 * 
 		 * Warning: when call this function the cellRender will be reuse nexttime , not being destory
+		 * 				   cellRender itself do not need to remove itself form parent, CEList will do this things.
 		 * 
 		 */		
 		function recycle():void;
 		
 		/**
 		 * call this function to destory exist cellRender. it will happen when CEList has been dispose.
+		 * 
+		 * Warning:
+		 * 				cellRender itself do not need to remove itself form parent, CEList will do this things.
 		 */		
 		function dispose():void;
 	}

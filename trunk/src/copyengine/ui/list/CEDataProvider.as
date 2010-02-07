@@ -1,23 +1,23 @@
 package copyengine.ui.list
 {
-    import copyengine.ui.list.cellrender.ICECellRender;
+    
 
     public class CEDataProvider
     {
-        private var dataProvider:Vector.<ICECellRender>;
+        private var dataProvider:Vector.<Object>;
 
-        public function CEDataProvider(_data:Vector.<ICECellRender> = null)
+        public function CEDataProvider(_data:Vector.<Object> = null)
         {
-            dataProvider = new Vector.<ICECellRender>();
+            dataProvider = new Vector.<Object>();
             setData(_data);
         }
 
-        public function setData(_data:Vector.<ICECellRender>) : void
+        public function setData(_data:Vector.<Object>) : void
         {
             dataProvider = _data;
         }
 
-        public function getDataByIndex(_index:int) : ICECellRender
+        public function getDataByIndex(_index:int) :Object
         {
             if (_index < dataProvider.length)
             {
@@ -25,7 +25,16 @@ package copyengine.ui.list
             }
             return null;
         }
-
+		
+		public function dispose():void
+		{
+			dataProvider = null;
+		}
+		
+		public function get totalDataCount():int
+		{
+			return dataProvider.length;
+		}
 
     }
 }
