@@ -1,52 +1,84 @@
 package game.scene
 {
-	import copyengine.resource.GameResManager;
-	import copyengine.scenes.GameScene;
+    import com.greensock.TweenLite;
+    
+    import copyengine.scenes.GameScene;
+    import copyengine.ui.list.CEDataProvider;
+    import copyengine.ui.list.CEHorizontalList;
+    import copyengine.utils.Random;
+    
+    import flash.display.Sprite;
+    import flash.events.MouseEvent;
+    
+    import game.ui.test.list.TShapeCellRender;
 
-	import flash.display.DisplayObject;
-	import flash.geom.Point;
+    public class IsoHexScene extends GameScene
+    {
+        private var ceList:CEHorizontalList;
 
-	public class IsoHexScene extends GameScene
-	{
-		public function IsoHexScene()
-		{
-			super();
-		}
+        public function IsoHexScene()
+        {
+            super();
+        }
 
-		override public function initScene() : void
-		{
-			var tile:DisplayObject = GameResManager.instance.getDisplayObject("FloorTile24","IsoHax_asset");
-			for (var line:int = 0 ; line< 10 ; line++)
-			{
-				for (var row:int = 0 ; row < 10 ; row++)
-				{
-					var currentTile:DisplayObject = GameResManager.instance.getDisplayObject("FloorTile24","IsoHax_asset");
-					var viewPoint:Point = slidMap_TilePlotter(new Point(line,row),tile.width,tile.height);
-					currentTile.x = viewPoint.x;
-					currentTile.y = viewPoint.y;
-					this.addChild(currentTile);
-				}
-			}
-			//			this.addChild(tile);
-		}
+        override public function initScene() : void
+        {
+            //GameResManager.instance.getDisplayObject("FloorTile24","IsoHax_asset");
+
+            var dataV:Vector.<Object> = new Vector.<Object>();
+            for (var i:int = 0 ; i < 30 ; i ++)
+            {
+                var o:Object = new Object();
+                o.index = i;
+                dataV.push(o);
+            }
+            var dataProvider:CEDataProvider = new CEDataProvider(dataV);
+
+            ceList = new CEHorizontalList(5,TShapeCellRender,CEHorizontalList.LAYOUT_HORIZONTAL,dataProvider,50,50,10);
+
+            addChild( ceList );
+
+            ceList.x = 10;
+            ceList.y = this.stage.stageHeight>>1;
 
 
-		private function slidMap_TilePlotter(_ptMap:Point , tileWidth:int , tileHeight:int) : Point
-		{
-			var point:Point = new Point();
-			point.x = _ptMap.x*tileWidth + _ptMap.y*tileWidth/2;
-			point.y = _ptMap.y*tileHeight/2;
-			return point;
-		}
+            var testButton:Sprite = new Sprite();
+            testButton.graphics.beginFill(Random.color());
+            testButton.graphics.drawCircle(0,0,30);
+            testButton.graphics.endFill();
 
-		//		private function slidMap_TilePlotter(_ptMap:Point , tileWidth:int , tileHeight:int) : Point
-		//		{
-		//			var point:Point = new Point();
-		//			var matrixA:Matrix = new Matrix(1,0,0,0,Math.cos(35.364),Math.sin(35.264),0,-Math.sin(35.264),Math.cos(35.264));
-		//			point.x = _ptMap.x*tileWidth + _ptMap.y*tileWidth/2;
-		//			point.y = _ptMap.y*tileHeight/2;
-		//			return point;
-		//		}
+            addChild(testButton);
 
-	}
+            testButton.addEventListener(MouseEvent.CLICK,onButtonPerClick);
+            testButton.x = 80;
+            testButton.y = 50;
+
+            var testButton2:Sprite = new Sprite();
+            testButton2.graphics.beginFill(Random.color());
+            testButton2.graphics.drawCircle(0,0,30);
+            testButton2.graphics.endFill();
+
+            addChild(testButton2);
+
+            testButton2.addEventListener(MouseEvent.CLICK,onButtonNextClick);
+            testButton2.x = 150;
+            testButton2.y = 50;
+
+        }
+
+        private function onButtonPerClick(e:MouseEvent) : void
+        {
+			TweenLite.killTweensOf(ceList,true);
+            TweenLite.to(ceList, 0.3, {scrollPosition : ceList.scrollPosition-60});
+//			ceList.scrollPosition -= 60;
+        }
+
+        private function onButtonNextClick(e:MouseEvent) : void
+        {
+			TweenLite.killTweensOf(ceList,true);
+            TweenLite.to(ceList, 0.3, {scrollPosition : ceList.scrollPosition+60});
+//			ceList.scrollPosition += 60;
+        }
+
+    }
 }
