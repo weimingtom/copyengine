@@ -2,8 +2,9 @@ package copyengine.ui.list
 {
     import copyengine.ui.CESprite;
     import copyengine.ui.list.cellrender.ICECellRender;
+    import copyengine.ui.list.interaction.ICEListInteraction;
     import copyengine.utils.GeneralUtils;
-    
+
     import flash.events.MouseEvent;
     import flash.geom.Rectangle;
 
@@ -31,6 +32,11 @@ package copyengine.ui.list
         public static const LAYOUT_VERTICAL:String = "vertical";
 
         /**
+         *  each page display cellRender number
+         */
+        private var displayCount:int;
+
+        /**
          * should be either horizontal or vertical
          */
         private var layoutDirection:String;
@@ -41,11 +47,6 @@ package copyengine.ui.list
         private var dataProvider:CEDataProvider;
 
         /**
-         *  each page display cellRender number
-         */
-        private var displayCount:int;
-
-        /**
          * each CEList cellRender should have same width and height ,and all equal with
          * eachCellRenderWidth and eachCellRenderHeight property
          */
@@ -53,14 +54,19 @@ package copyengine.ui.list
         private var eachCellRenderHeight:Number;
 
         /**
-         * define the padded for each cellRender.
-         */
-        private var contentPadding:Number;
-
-        /**
          * the cellRender class, this clas should implements ICECellRender
          */
         private var cellRenderInstanceClass:Class;
+
+        /**
+         * listInteraction use to deal will list scrolling animation.
+         */
+        private var listInteraction:ICEListInteraction;
+
+        /**
+         * define the padded for each cellRender.
+         */
+        private var contentPadding:Number;
 
         /**
          * define the max scrollPosition.
@@ -91,6 +97,7 @@ package copyengine.ui.list
          *
          * @param _displayCount							@see displayCount
          * @param _cellRenderInstanceClass		use this class to initialze each visableCellRender(this class should implements ICECellRender)
+         * @param _listInteractionClass				@see listInteractionClass
          * @param _layoutDirection						@see layoutDirection
          * @param _dataProvider							@see dataProvider
          * @param _eachCellRenderWidth			@see eachCellRenderWidth
@@ -100,6 +107,7 @@ package copyengine.ui.list
          */
         public function CEListCore(_displayCount:int ,
                                    _cellRenderInstanceClass:Class,
+                                   _listInteractionClass:Class,
                                    _layoutDirection:String,
                                    _dataProvider:CEDataProvider, 
                                    _eachCellRenderWidth:Number ,
@@ -114,6 +122,9 @@ package copyengine.ui.list
             eachCellRenderHeight = _eachCellRenderHeight;
             contentPadding = _contentPadding;
             cellRenderInstanceClass = _cellRenderInstanceClass;
+
+            listInteraction =  new _listInteractionClass() as ICEListInteraction;
+            listInteraction.target = this;
         }
 
         /**
@@ -149,6 +160,8 @@ package copyengine.ui.list
             {
                 this.scrollRect = new Rectangle(0,0,eachCellRenderWidth,displayCount*(eachCellRenderHeight+contentPadding) - contentPadding);
             }
+
+
         }
 
         override protected function dispose() : void
@@ -168,19 +181,59 @@ package copyengine.ui.list
 
         private function addCellRenderListener(_cellRender:ICECellRender) : void
         {
-			_cellRender.container.addEventListener(MouseEvent.CLICK,onCellRenderClick,false,0,true);
+            _cellRender.container.addEventListener(MouseEvent.CLICK,onCellRenderClick,false,0,true);
         }
 
         private function removeCellRenderListener(_cellRender:ICECellRender) : void
         {
-			_cellRender.container.removeEventListener(MouseEvent.CLICK,onCellRenderClick);
+            _cellRender.container.removeEventListener(MouseEvent.CLICK,onCellRenderClick);
         }
-		
-		private function onCellRenderClick(e:MouseEvent):void
-		{
-			
-		}
-		
+
+        private function onCellRenderClick(e:MouseEvent) : void
+        {
+
+        }
+
+
+        //================
+        //==lnteraction Function
+        //================
+        public function scrollNext() : void
+        {
+            var offset:Number = calculateOffsetOfFirstVisableCellRender();
+            if (offset > 0)
+            {
+                scrollPosition = Math.min(_scrollPosition + cellRenderDistance - offset,maxScrollPosition);
+            }
+            else
+            {
+                scrollPosition = Math.min( _scrollPosition + cellRenderDistance,maxScrollPosition);
+            }
+        }
+
+        public function scrollPrev() : void
+        {
+            var offset:Number = calculateOffsetOfFirstVisableCellRender();
+            if (offset > 0)
+            {
+                scrollPosition = Math.max(0,_scrollPosition - offset);
+            }
+            else
+            {
+                scrollPosition = Math.max(0,_scrollPosition - cellRenderDistance);
+            }
+        }
+
+        private function scrollNextPage() : void
+        {
+            scrollPosition = Math.min(_scrollPosition + cellRenderDistance*displayCount - contentPadding,maxScrollPosition - calculateOffsetOfFirstVisableCellRender());
+        }
+
+        private function scrollPrevPage() : void
+        {
+            scrollPosition = Math.max(0, _scrollPosition - cellRenderDistance*displayCount - contentPadding + calculateOffsetOfFirstVisableCellRender());
+        }
+
         //=============
         //== Scroll Position
         //=============
@@ -208,10 +261,37 @@ package copyengine.ui.list
             }
             else
             {
-                oldScrollPosition = _scrollPosition;
-                _scrollPosition = GeneralUtils.normalizingVlaue(value,0,maxScrollPosition);
-                scrollListPosition();
+                listInteraction.scrollPosition = value;
+                if (hasEventListener(CEListCoreEvent.SCROLL_START))
+                {
+                    var event:CEListCoreEvent = new CEListCoreEvent(CEListCoreEvent.SCROLL_START);
+                    event.maxScrollPosition = maxScrollPosition;
+                    event.expectScrollPositon = value;
+                    event.currentScrollPosition = _scrollPosition;
+                    this.dispatchEvent( event);
+                    event = null;
+                }
             }
+        }
+
+        /**
+         *	@private
+         *
+         *  this function should only call by listInteraction when the scrollPosition change,
+         *  set scrollPosition(value:Number) will ask listInteraction to change the scrollPositon.
+         *  listInteraction will releate to it implement to decide how many pixel it will change each render.
+         *  use an set function because it convenience for tweener to change the property.
+         */
+        public function set reallScrollPosition(value:Number) : void
+        {
+            oldScrollPosition = _scrollPosition;
+            _scrollPosition = GeneralUtils.normalizingVlaue(value,0,maxScrollPosition);
+            scrollListPosition();
+        }
+
+        public function get reallScrollPosition() : Number
+        {
+            return _scrollPosition;
         }
 
         private function scrollListPosition() : void
@@ -307,7 +387,7 @@ package copyengine.ui.list
          */
         private function setVisibleCellRenderByScrollPosition() : void
         {
-            var cellRenderPos:Number = -calculateOffsetOfFirstVisableCellRenderByScrollPosition();
+            var cellRenderPos:Number = -calculateOffsetOfFirstVisableCellRender();
             for (var i:int = 0 ; i<= displayCount ; i++)
             {
                 var cellRender:ICECellRender = visableCellRenderVector[i];
@@ -335,7 +415,14 @@ package copyengine.ui.list
             return Math.floor( _scrollPosition / (getCellRenderBoundSizeByLayout() + contentPadding ) );
         }
 
-        private function calculateOffsetOfFirstVisableCellRenderByScrollPosition() : Number
+        /**
+         *  	               ||00000-00000-00000-00000||-00000   ==> normal
+         * offset -> 000||00-00000-00000-00000-00||000        ==> offset is 000
+         *
+         * offset always >= 0
+         *
+         */
+        private function calculateOffsetOfFirstVisableCellRender() : Number
         {
             return _scrollPosition - Math.floor(_scrollPosition/(getCellRenderBoundSizeByLayout()+contentPadding))*(getCellRenderBoundSizeByLayout()+contentPadding);
         }
@@ -357,7 +444,6 @@ package copyengine.ui.list
                 return eachCellRenderHeight
             }
         }
-
 
     }
 }
