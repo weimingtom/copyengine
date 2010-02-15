@@ -166,7 +166,7 @@ package copyengine.ui.list
 
         override protected function dispose() : void
         {
-
+			listInteraction.dispose();
             for each (var cellRender : ICECellRender in visableCellRenderVector)
             {
                 removeCellRenderListener(cellRender)
