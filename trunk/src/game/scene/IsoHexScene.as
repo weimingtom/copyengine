@@ -1,20 +1,21 @@
 package game.scene
 {
     import com.greensock.TweenLite;
-
+    
     import copyengine.resource.GameResManager;
     import copyengine.scenes.GameScene;
     import copyengine.ui.list.CEDataProvider;
     import copyengine.ui.list.CEListCore;
     import copyengine.ui.list.interaction.CEListTweenInteraction;
+    import copyengine.utils.GlobalTick;
     import copyengine.utils.Random;
-
+    
     import flash.display.MovieClip;
     import flash.display.Sprite;
     import flash.events.MouseEvent;
     import flash.geom.Vector3D;
     import flash.text.TextField;
-
+    
     import game.ui.test.list.TShapeCellRender;
 
     public class IsoHexScene extends GameScene
@@ -32,6 +33,7 @@ package game.scene
         {
             //			initIsoScreen();
             initListUIStuff();
+			GlobalTick.instance;
         }
 
         private function initIsoScreen() : void

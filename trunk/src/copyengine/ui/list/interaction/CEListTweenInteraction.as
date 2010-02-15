@@ -13,6 +13,7 @@ package copyengine.ui.list.interaction
     public class CEListTweenInteraction implements ICEListInteraction
     {
         private static const INVERSE_SPEED:Number = 0.005; // = 1/Speed
+        private static const MAX_SCROLL_TIME:Number = 2; // if  caulate scroll time is bigger than that time ,then use this time for current animation.
 
         /**
          * the target
@@ -55,8 +56,8 @@ package copyengine.ui.list.interaction
 
         private function tweenToExpectScrollPosition() : void
         {
-//            TweenLite.killTweensOf(list,true);
-            TweenLite.to(list, INVERSE_SPEED*Math.abs(expectScrollPosition-prevExpectScrollPosition), {reallScrollPosition : expectScrollPosition});
+            TweenLite.killTweensOf(list,true);
+            TweenLite.to(list, Math.min(MAX_SCROLL_TIME,INVERSE_SPEED*Math.abs(expectScrollPosition-prevExpectScrollPosition)), {reallScrollPosition : expectScrollPosition});
         }
     }
 }
