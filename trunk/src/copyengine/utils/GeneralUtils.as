@@ -42,6 +42,17 @@ package copyengine.utils
             return false;
         }
 
+        public static function swapObjectInArray(_objOneIndex:int , _objTwoIndex:int , _array:Array) : void
+        {
+            if (_objOneIndex < _array.length && _objTwoIndex < _array.length)
+            {
+                var obj:Object = _array[_objOneIndex];
+                _array[_objOneIndex] = _array[_objTwoIndex];
+                _array[_objTwoIndex] = obj;
+                obj = null;
+            }
+        }
+
         public static function isBetweenValue(_number : int , _downLine : int , _upLine : int) : Boolean
         {
             if (_number > _downLine && _number < _upLine)

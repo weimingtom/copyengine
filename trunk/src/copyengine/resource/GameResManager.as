@@ -85,7 +85,7 @@ package copyengine.resource
 
         public function startLoadQueueByName(_name : String) : void
         {
-            var loadQueue : LoadResourceQueue = findLoadUnLoadQueueByName(_name , true);
+            var loadQueue : LoadResourceQueue = findLoadQueueByName(_name);
             if (currentLoadQueue != null)
             {
                 currentLoadQueue.concatLoadQueue(loadQueue);
@@ -117,56 +117,32 @@ package copyengine.resource
             return _isInitFinished;
         }
 
-        public function getXML(_name : String) : XML
-        {
-            return null;
-        }
+		public function getResFileByName(_fileName:String) : BasicResourceFile
+		{
+			return allResFile[_fileName];
+		}
 		
 		/**
-		 *all the display object are suport lazy load. so if the file is not being loading yet,
-		 * then add it to current loadQueue(hight PRI) , and also retun with an fakeLoading UI
-		 *
-		 * @param _symbolName
-		 * @param _fileName
-		 * @return
-		 *
-		 */
-        public function getDisplayObject(_symbolName : String , _fileName : String , _cacheName : String = "NotCache" , _scaleX : int = 1 , _scaleY : int = 1) : DisplayObject
-        {
-            var resFile : BasicResourceFile = allResFile[_fileName];
-            if (resFile != null)
-            {
-                // the file have three loadState(unLoad, loding , loaded) so
-                // current load state is unload then need to add to loadQueue. 
-                if (resFile.loadState == BasicResourceFile.LOAD_STATE_UNLOAD)
-                {
-                    currentLoadQueue.addNewResourceFile(resFile);
-                }
-                return resFile.getObject(SwfResourceFile.FILE_TYPE_SWF,_symbolName , _cacheName , _scaleX , _scaleY) as DisplayObject;
-            }
-            return null;
-        }
-
-        public function getBitMap(_symbolName : String , _fileName : String) : Bitmap
-        {
-            var resFile : BasicResourceFile = allResFile[_fileName];
-            if (resFile != null)
-            {
-                // the file have three loadState(unLoad, loding , loaded) so
-                // current load state is unload then need to add to loadQueue. 
-                if (resFile.loadState == BasicResourceFile.LOAD_STATE_UNLOAD)
-                {
-                    currentLoadQueue.addNewResourceFile(resFile);
-                }
-                return resFile.getObject(SwfResourceFile.FILE_TYPE_BITMAP,_symbolName) as Bitmap;
-            }
-            return null;
-        }
+		 * call this function to add an resFile to currentLoadQueue. 
+		 */		
+		public function loadResFile(_resFile:BasicResourceFile):void
+		{
+			if(currentLoadQueue == null)
+			{
+				currentLoadQueue = findLoadQueueByName(null);
+			}
+            currentLoadQueue.addNewResourceFile(_resFile);
+		}
 
         //=========================
         //== Private
         //=========================
 
+        /**
+         * when load config.bin finished ,when uncompress it and initialize the loadQueue
+         * then send notification to tell other system , the system can start to loadFile now.
+         *
+         */
         private function onConfigLoadComplate(e : Event) : void
         {
             var byteArray : ByteArray = configLoader.data as ByteArray;
@@ -191,6 +167,20 @@ package copyengine.resource
 
         /**
          * use the xml file( LoadResConfig.xml ) to init all loadQueue
+         * the xml file format should like this one:
+         *
+         * <?xml version="1.0" encoding="UTF-8"?>
+         *<root>
+         *  <loadQueue>
+         *	    <queue name="perLoadQueue" priority="1" />
+         *	    <queue name="backGroundLoadQueue" priority="2" />
+         *  </loadQueue>
+         *  <loadFile>
+         *		<file name="test" path="../res/swf/test.swf" type="swf" weight="500" loadQueue="perLoadQueue" />
+         *		<file name="IsoHax_asset" path="../res/swf/IsoHax_asset.swf" type="swf" weight="500" loadQueue="perLoadQueue" />
+         *  </loadFile>
+         *</root>
+         *
          */
         private function initLoadQueue(_config : XML) : void
         {
@@ -230,7 +220,7 @@ package copyengine.resource
         /**
          * @private
          *
-         *	this function only will call by current LoadResourceQueue during the state change (loading percent change etc)
+         *	this function only call by current LoadResourceQueue during the state change (loading percent change etc)
          *
          * @param _newLoadState				current load state , this package is use as the attachment of current notification ,only can get value from it.
          *
@@ -262,21 +252,20 @@ package copyengine.resource
             sendNotification(GlobalMessage.ENGINE_UNRECOVER_ERROR , _errorMessage);
         }
 
-        private function findLoadUnLoadQueueByName(_name : String , _isRemove : Boolean) : LoadResourceQueue
+
+        private function findLoadQueueByName(_name : String) : LoadResourceQueue
         {
             for (var i : int = allUnloadQueueList.length -1 ; i >= 0 ; i--)
             {
                 if (allUnloadQueueList[i].queueName == _name)
                 {
                     var _obj : LoadResourceQueue = allUnloadQueueList[i];
-                    if (_isRemove)
-                    {
-                        allUnloadQueueList.splice(i , 1);
-                    }
+                    allUnloadQueueList.splice(i , 1);
                     return _obj;
                 }
             }
-            return null;
+            // not found,return an empty loadQueue
+            return new LoadResourceQueue();
         }
 
     }

@@ -19,6 +19,7 @@ package copyengine.resource.file
     {
         public static const FILE_TYPE_SWF:int = 0;
         public static const FILE_TYPE_BITMAP:int =1;
+        public static const FILE_TYPE_CLASS:int = 2;
 
 
         protected var domain : ApplicationDomain;
@@ -94,7 +95,11 @@ package copyengine.resource.file
                     var bitmapData:BitmapData = new targetClass(1,1);
                     return new Bitmap(bitmapData);
                 }
-                DebugLog.instance.log("Unknow File Type : " + arg[4] + "   " , DebugLog.LOG_TYPE_ERROR);
+                else if (arg[0] == FILE_TYPE_CLASS && domain.hasDefinition(arg[1]))
+                {
+                    return domain.getDefinition(arg[1]) as Class;
+                }
+                DebugLog.instance.log("Unknow File Type : " + arg[0] + "   " , DebugLog.LOG_TYPE_ERROR);
                 return null;
             }
             else

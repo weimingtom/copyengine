@@ -1,21 +1,22 @@
 package game.scene
 {
     import com.greensock.TweenLite;
-    
-    import copyengine.resource.GameResManager;
+
     import copyengine.scenes.GameScene;
+    import copyengine.ui.button.CEButton;
     import copyengine.ui.list.CEDataProvider;
     import copyengine.ui.list.CEListCore;
     import copyengine.ui.list.interaction.CEListTweenInteraction;
     import copyengine.utils.GlobalTick;
     import copyengine.utils.Random;
-    
+    import copyengine.utils.ResUtlis;
+
     import flash.display.MovieClip;
     import flash.display.Sprite;
     import flash.events.MouseEvent;
     import flash.geom.Vector3D;
     import flash.text.TextField;
-    
+
     import game.ui.test.list.TShapeCellRender;
 
     public class IsoHexScene extends GameScene
@@ -33,7 +34,7 @@ package game.scene
         {
             //			initIsoScreen();
             initListUIStuff();
-			GlobalTick.instance;
+            GlobalTick.instance;
         }
 
         private function initIsoScreen() : void
@@ -45,7 +46,7 @@ package game.scene
                 {
                     var isoPos:Vector3D = new Vector3D(row*40,line*40,0);
                     IsoMath.isoToScreen(isoPos);
-                    var tile:MovieClip = GameResManager.instance.getDisplayObject("FloorTile27","IsoHax_asset") as MovieClip;
+                    var tile:MovieClip = ResUtlis.getMovieClip("FloorTile27","IsoHax_asset");
                     tile.x = isoPos.x;
                     tile.y = isoPos.y;
                     (tile.textMc as TextField).text = "("+row+","+line+")";
@@ -76,11 +77,7 @@ package game.scene
             ceList.y = this.stage.stageHeight>>1;
 
 
-            var testButton:Sprite = new Sprite();
-            testButton.graphics.beginFill(Random.color());
-            testButton.graphics.drawCircle(0,0,30);
-            testButton.graphics.endFill();
-
+            var testButton:Sprite = new CEButton( ResUtlis.getClass("GreenButton","IsoHax_asset"));
             addChild(testButton);
 
             testButton.addEventListener(MouseEvent.CLICK,onButtonPerClick);
