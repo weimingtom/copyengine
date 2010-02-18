@@ -166,7 +166,7 @@ package copyengine.ui.list
 
         override protected function dispose() : void
         {
-			listInteraction.dispose();
+            listInteraction.dispose();
             for each (var cellRender : ICECellRender in visableCellRenderVector)
             {
                 removeCellRenderListener(cellRender)
@@ -262,15 +262,18 @@ package copyengine.ui.list
             else
             {
                 listInteraction.scrollPosition = value;
-                if (hasEventListener(CEListCoreEvent.SCROLL_START))
-                {
-                    var event:CEListCoreEvent = new CEListCoreEvent(CEListCoreEvent.SCROLL_START);
-                    event.maxScrollPosition = maxScrollPosition;
-                    event.expectScrollPositon = value;
-                    event.currentScrollPosition = _scrollPosition;
-                    this.dispatchEvent( event);
-                    event = null;
-                }
+                    // TODO: CEListCore event only dispatch , if this change is cause by user operate,
+                    //            otherwise the event will dispatch by CEList
+                    //
+                    //                if (hasEventListener(CEListCoreEvent.SCROLL_START))
+                    //                {
+                    //                    var event:CEListCoreEvent = new CEListCoreEvent(CEListCoreEvent.SCROLL_START);
+                    //                    event.maxScrollPosition = maxScrollPosition;
+                    //                    event.expectScrollPositon = value;
+                    //                    event.currentScrollPosition = _scrollPosition;
+                    //                    this.dispatchEvent( event);
+                    //                    event = null;
+                    //                }
             }
         }
 

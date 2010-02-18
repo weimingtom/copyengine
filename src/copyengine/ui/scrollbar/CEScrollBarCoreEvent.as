@@ -2,7 +2,7 @@ package copyengine.ui.scrollbar
 {
     import flash.events.Event;
 
-    public class CEScrollBarEvent extends Event
+    public class CEScrollBarCoreEvent extends Event
     {
         /**
          * when scrollBar scrollPosition change by user operate, when dispatch this event.
@@ -15,8 +15,8 @@ package copyengine.ui.scrollbar
         public var delta:Number;
         public var position:Number;
 
-        public function CEScrollBarEvent(_direction:String , _delta:Number , _position:Number ,
-                                         type:String, bubbles:Boolean=false, cancelable:Boolean=false)
+        public function CEScrollBarCoreEvent(_direction:String , _delta:Number , _position:Number ,
+                                             type:String, bubbles:Boolean=false, cancelable:Boolean=false)
         {
             super(type, bubbles, cancelable);
         }
