@@ -2,6 +2,7 @@ package copyengine.ui.scrollbar
 {
     import copyengine.ui.CESprite;
     import copyengine.ui.button.CEButton;
+    import copyengine.utils.GeneralUtils;
 
     import flash.events.MouseEvent;
 
@@ -76,6 +77,11 @@ package copyengine.ui.scrollbar
          */
         private var scrollBarHeight:Number;
         private var scrollBarWidth:Number;
+
+        /**
+         * when user start drag the thumb , the offest between mousePos to top left corner.
+         */
+        private var thumbScrollOffset:Number;
 
 
         public function CEScrollBarCore(_width:Number ,_height:Number , _direction:String = LAYOUT_AUTO)
@@ -157,8 +163,14 @@ package copyengine.ui.scrollbar
          */
         private function updateScrollPosition(_isDispatchEvent:Boolean) : void
         {
+            if (_isDispatchEvent)
+            {
+                this.dispatchEvent(new CEScrollBarCoreEvent(direction,
+                                                            _scrollPosition - oldScrollPosition,
+                                                            _scrollPosition,CEScrollBarCoreEvent.SCROLL));
+            }
+            oldScrollPosition = _scrollPosition;
             updateThumb();
-            //dispathc event();
         }
 
         /**
@@ -172,25 +184,46 @@ package copyengine.ui.scrollbar
         //============
         //== Event Listener
         //============
+
         private function thumbOnMouseDown(e:MouseEvent) : void
         {
+            if (direction == LAYOUT_HORIZONTAL)
+            {
+                thumbScrollOffset = e.localX - thumb.getBounds(thumb).x;
+            }
+            else // layout == LAYOUT_VERTICAL
+            {
+                thumbScrollOffset = e.localY - thumb.getBounds(thumb).y;
+            }
             stage.addEventListener(MouseEvent.MOUSE_UP,thumbOnMouseUp,false,0,true);
             stage.addEventListener(MouseEvent.MOUSE_MOVE,thumbOnMouseMove,false,0,true);
         }
-		
-		private function trackOnMouseDown(e:MouseEvent) : void
-		{
-			
-		}
-		
-		private function thumbOnMouseMove(e:MouseEvent) : void
-		{
-			if (isOutOfRange(e.stageX,e.stageY))
-			{
-				releaseThumb();
-			}
-		}
-		
+
+        private function thumbOnMouseMove(e:MouseEvent) : void
+        {
+            var pos:Number;
+            var posRange:Number;
+            if (direction == LAYOUT_HORIZONTAL)
+            {
+                pos = GeneralUtils.normalizingVlaue(track.mouseX - track.x - thumbScrollOffset,0,track.width);
+                _scrollPosition = pos/track.width * (maxScrollPosition - minScrollPosition) + minScrollPosition;
+
+                posRange = Math.abs(e.stageY - track.y);
+            }
+            else //loyout == LAYOUT_VERTICAL
+            {
+                pos = GeneralUtils.normalizingVlaue(track.mouseY - track.y - thumbScrollOffset , 0 ,track.height);
+                _scrollPosition = pos/track.height * (maxScrollPosition - minScrollPosition) + minScrollPosition;
+
+                posRange = Math.abs(e.stageX - track.x)
+            }
+            updateScrollPosition(true);
+            if (posRange > THUMB_REACT_RANGE)
+            {
+                releaseThumb();
+            }
+        }
+
         private function thumbOnMouseUp(e:MouseEvent) : void
         {
             releaseThumb();
@@ -202,9 +235,28 @@ package copyengine.ui.scrollbar
             stage.removeEventListener(MouseEvent.MOUSE_MOVE,thumbOnMouseMove);
         }
 
-        private function isOutOfRange(_mouseStageX:Number , _mouseStageY:Number) : Boolean
+        private function trackOnMouseDown(e:MouseEvent) : void
         {
-			return false;
+            var mousePosition:Number;
+            if (direction == LAYOUT_HORIZONTAL)
+            {
+                mousePosition = e.localY / track.height * (maxScrollPosition - minScrollPosition) + minScrollPosition;
+            }
+            else //loyout == LAYOUT_VERTICAL
+            {
+                mousePosition = e.localX / track.width * (maxScrollPosition - minScrollPosition) + minScrollPosition;
+            }
+
+            if (_scrollPosition < mousePosition)
+            {
+                _scrollPosition = Math.min(mousePosition,_scrollPosition+pageScrollSize);
+            }
+            else if (_scrollPosition > mousePosition)
+            {
+                _scrollPosition = Math.max(mousePosition,_scrollPosition-pageScrollSize);
+            }
+            _scrollPosition = GeneralUtils.normalizingVlaue(_scrollPosition,minScrollPosition,maxScrollPosition);
+            updateScrollPosition(true);
         }
 
     }
