@@ -1,27 +1,34 @@
 package copyengine.ui.button
 {
+    import com.greensock.TweenLite;
+
     import copyengine.ui.CESprite;
 
     import flash.display.DisplayObject;
     import flash.events.MouseEvent;
 
     /**
-     * CEButton is button component root
-     * it use an movieClip as skin .  the movieClip should only contain one frame as the normal state skin.
-     * other state will use TweenLite to scale. child class can override those function.
+     * CEButton is button component root.
+     * child class will deal with how the button changing it skin(ex:CEButtonFram , CEButtonTween)
+     * other class should only use CEButton , not it child class directly.
+     * ex:
+     * 		var button:CEButton = new CEButtonTween();
      *
      * @author Tunied
      */
     public class CEButton extends CESprite
     {
-        private static const TWEEN_TIME:Number = 1;
+        /**
+         * define how long the tween is.
+         */
+        private static const TWEEN_TIME:Number = 0.2;
 
         /**
          * rolloverScal = normalScale * ROLL_OVER_SCAL_PERCENT;
          * clickScal = normalScale * CLICK_SCAL_PERCENT;
          */
-        private static const ROLL_OVER_SCAL_PERCENT:Number = 1.2;
-        private static const CLICK_SCAL_PERCENT:Number = 0.8;
+        private static const ROLL_OVER_SCAL_PERCENT:Number = 1.1;
+        private static const CLICK_SCAL_PERCENT:Number = 1;
 
         /**
          * if this button need to be cache then use this class as a key to get the bitmap form CacheSystem.
@@ -36,12 +43,6 @@ package copyengine.ui.button
         protected var labelTextKey:String;
 
         /**
-         * is use CacheSystem or not , use cache when will cache currentButton as an bitmap . it maybe become
-         * obscure during sacle
-         */
-        protected var isCache:Boolean;
-
-        /**
          * define is show ToolTips on current button or not.
          */
         protected var isUseToolTips:Boolean;
@@ -52,29 +53,22 @@ package copyengine.ui.button
         private var normalScaleX:Number;
         private var normalScaleY:Number;
 
-        public function CEButton(_buttonSkin:Class , _labelTextKey:String = null ,  _isCache:Boolean = false , _isUseToolTips:Boolean = false)
+        public function CEButton(_buttonSkin:Class , _labelTextKey:String = null , _isUseToolTips:Boolean = false)
         {
             super();
             buttonSkinClass = _buttonSkin;
             labelTextKey = _labelTextKey;
-            isCache = _isCache;
             isUseToolTips = _isUseToolTips;
         }
 
         override protected function initialize() : void
         {
-            if (isCache)
-            {
+            var buttonBg:DisplayObject = new buttonSkinClass() as DisplayObject;
+            addChild(buttonBg);
 
-            }
-            else
-            {
-                var buttonBg:DisplayObject = new buttonSkinClass() as DisplayObject;
-                addChild(buttonBg);
+            normalScaleX = buttonBg.scaleX;
+            normalScaleY = buttonBg.scaleY;
 
-                normalScaleX = buttonBg.scaleX;
-                normalScaleY = buttonBg.scaleY;
-            }
             addListener();
         }
 
@@ -86,14 +80,16 @@ package copyengine.ui.button
 
         private function addListener() : void
         {
-            this.addEventListener(MouseEvent.CLICK,onMouseDown,false,0,true);
+            this.addEventListener(MouseEvent.MOUSE_UP,onMouseUp,false,0,true);
+            this.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown,false,0,true);
             this.addEventListener(MouseEvent.ROLL_OVER,onMouseRollOver,false,0,true);
             this.addEventListener(MouseEvent.ROLL_OUT,onMouseRollOut,false,0,true);
         }
 
         private function removeListener() : void
         {
-            this.removeEventListener(MouseEvent.CLICK,onMouseDown);
+            this.removeEventListener(MouseEvent.MOUSE_UP,onMouseUp);
+            this.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
             this.removeEventListener(MouseEvent.ROLL_OVER,onMouseRollOver);
             this.removeEventListener(MouseEvent.ROLL_OUT,onMouseRollOut);
         }
@@ -108,6 +104,12 @@ package copyengine.ui.button
         {
             TweenLite.killTweensOf(this,true);
             TweenLite.to(this,TWEEN_TIME,{scaleX:normalScaleX  ,scaleY :normalScaleY });
+        }
+
+        protected function onMouseUp(e:MouseEvent) : void
+        {
+            TweenLite.killTweensOf(this,true);
+            TweenLite.to(this,TWEEN_TIME,{scaleX:normalScaleX*ROLL_OVER_SCAL_PERCENT  ,scaleY :normalScaleY*ROLL_OVER_SCAL_PERCENT });
         }
 
         protected function onMouseDown(e:MouseEvent) : void
