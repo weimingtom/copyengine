@@ -1,22 +1,23 @@
 package game.scene
 {
     import com.greensock.TweenLite;
-
+    
     import copyengine.scenes.GameScene;
     import copyengine.ui.button.CEButton;
+    import copyengine.ui.button.CEButtonTween;
     import copyengine.ui.list.CEDataProvider;
     import copyengine.ui.list.CEListCore;
     import copyengine.ui.list.interaction.CEListTweenInteraction;
-    import copyengine.utils.GlobalTick;
+    import copyengine.ui.scrollbar.CEScrollBarCore;
     import copyengine.utils.Random;
     import copyengine.utils.ResUtlis;
-
+    
     import flash.display.MovieClip;
     import flash.display.Sprite;
     import flash.events.MouseEvent;
     import flash.geom.Vector3D;
     import flash.text.TextField;
-
+    
     import game.ui.test.list.TShapeCellRender;
 
     public class IsoHexScene extends GameScene
@@ -34,7 +35,6 @@ package game.scene
         {
             //			initIsoScreen();
             initListUIStuff();
-            GlobalTick.instance;
         }
 
         private function initIsoScreen() : void
@@ -77,7 +77,7 @@ package game.scene
             ceList.y = this.stage.stageHeight>>1;
 
 
-            var testButton:Sprite = new CEButton( ResUtlis.getClass("GreenButton","IsoHax_asset"));
+            var testButton:Sprite = new CEButtonTween( ResUtlis.getSprite("GreenButton","IsoHax_asset"));
             addChild(testButton);
 
             testButton.addEventListener(MouseEvent.CLICK,onButtonPerClick);
@@ -94,6 +94,14 @@ package game.scene
             testButton2.addEventListener(MouseEvent.CLICK,onButtonNextClick);
             testButton2.x = 150;
             testButton2.y = 50;
+
+            var thumb:CEButton = new CEButton(ResUtlis.getSprite("thumb","IsoHax_asset"));
+            var track:CEButton = new CEButton(ResUtlis.getSprite("track","IsoHax_asset"));
+			var scrollBar:CEScrollBarCore = new CEScrollBarCore(thumb,track,10,5,0,300,340,50);
+			addChild(scrollBar);
+			scrollBar.x = 100;
+			scrollBar.y = 100;
+
         }
 
         private function onButtonPerClick(e:MouseEvent) : void

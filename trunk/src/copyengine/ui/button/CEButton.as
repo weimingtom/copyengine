@@ -1,9 +1,7 @@
 package copyengine.ui.button
 {
-    import com.greensock.TweenLite;
-
     import copyengine.ui.CESprite;
-
+    
     import flash.display.DisplayObject;
     import flash.events.MouseEvent;
 
@@ -18,23 +16,10 @@ package copyengine.ui.button
      */
     public class CEButton extends CESprite
     {
-        /**
-         * define how long the tween is.
-         */
-        private static const TWEEN_TIME:Number = 0.2;
-
-        /**
-         * rolloverScal = normalScale * ROLL_OVER_SCAL_PERCENT;
-         * clickScal = normalScale * CLICK_SCAL_PERCENT;
-         */
-        private static const ROLL_OVER_SCAL_PERCENT:Number = 1.1;
-        private static const CLICK_SCAL_PERCENT:Number = 1;
-
-        /**
-         * if this button need to be cache then use this class as a key to get the bitmap form CacheSystem.
-         * else then use it to create the movieClipe
-         */
-        protected var buttonSkinClass:Class;
+		/**
+		 * the background for the button
+		 */
+        protected var buttonBg:DisplayObject;
 
         /**
          * if this button contain an labelField then use this key to initialize the textField .
@@ -47,34 +32,28 @@ package copyengine.ui.button
          */
         protected var isUseToolTips:Boolean;
 
-        /**
-         * button skin maybe scaled  so need an value to remember the button initial value .
-         */
-        private var normalScaleX:Number;
-        private var normalScaleY:Number;
-
-        public function CEButton(_buttonSkin:Class , _labelTextKey:String = null , _isUseToolTips:Boolean = false)
+        public function CEButton(_buttonBg:DisplayObject , _labelTextKey:String = null , _isUseToolTips:Boolean = false)
         {
             super();
-            buttonSkinClass = _buttonSkin;
+            buttonBg = _buttonBg;
             labelTextKey = _labelTextKey;
             isUseToolTips = _isUseToolTips;
+			
+			//need to add buttonSkin when create this button.
+			//ex:
+			//   var button:CEButton = new CEButton();
+			//    button.width = 100; 
+			// in this case can't set width right now , beacuse CEButton have no child , the widht always 0
+			addChild(buttonBg);
         }
 
         override protected function initialize() : void
         {
-            var buttonBg:DisplayObject = new buttonSkinClass() as DisplayObject;
-            addChild(buttonBg);
-
-            normalScaleX = buttonBg.scaleX;
-            normalScaleY = buttonBg.scaleY;
-
             addListener();
         }
 
         override protected function dispose() : void
         {
-            TweenLite.killTweensOf(this);
             removeListener();
         }
 
@@ -96,26 +75,18 @@ package copyengine.ui.button
 
         protected function onMouseRollOver(e:MouseEvent) : void
         {
-            TweenLite.killTweensOf(this,true);
-            TweenLite.to(this,TWEEN_TIME,{scaleX:normalScaleX * ROLL_OVER_SCAL_PERCENT ,scaleY :normalScaleY * ROLL_OVER_SCAL_PERCENT});
         }
 
         protected function onMouseRollOut(e:MouseEvent) : void
         {
-            TweenLite.killTweensOf(this,true);
-            TweenLite.to(this,TWEEN_TIME,{scaleX:normalScaleX  ,scaleY :normalScaleY });
         }
 
         protected function onMouseUp(e:MouseEvent) : void
         {
-            TweenLite.killTweensOf(this,true);
-            TweenLite.to(this,TWEEN_TIME,{scaleX:normalScaleX*ROLL_OVER_SCAL_PERCENT  ,scaleY :normalScaleY*ROLL_OVER_SCAL_PERCENT });
         }
 
         protected function onMouseDown(e:MouseEvent) : void
         {
-            TweenLite.killTweensOf(this,true);
-            TweenLite.to(this,TWEEN_TIME,{scaleX:normalScaleX * CLICK_SCAL_PERCENT ,scaleY :normalScaleY * CLICK_SCAL_PERCENT});
         }
     }
 }

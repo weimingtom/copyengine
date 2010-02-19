@@ -30,8 +30,8 @@
     <sourceAttachmentPath/>
   </compiler>
   <applications>
-    <application path="GamePerLoader.as"/>
     <application path="CopyEngineAS.as"/>
+    <application path="GamePerLoader.as"/>
   </applications>
   <modules/>
   <buildCSSFiles/>

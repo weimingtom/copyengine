@@ -38,15 +38,20 @@ package copyengine.utils
             SPRITE_TICK_HOLDER.addEventListener(Event.ENTER_FRAME,tick);
         }
 
-        public function callLater(_f:Function) : void
+        public function callLaterAfterTickCount(_f:Function , _intervalTick:int = 1 , _repeatTime:int = 0 ,_delayTick:int = 0) : void
         {
-            var tickNode:TickObjectNode = new TickObjectNode(_f);
+            var tickNode:TickObjectNode = new TickObjectNode(_f ,_intervalTick , _repeatTime ,_delayTick);
             addToTickQueue(tickNode);
         }
 
-        public function playMoveClip(_m:MovieClip ,_endCallBackFunction:Function ,  _playTime:int = 1) : void
+        public function callLaterAfterTimerCount(_f:Function , _intervalTime:Number , _repeatTime:int = 0 , _delayTime:int = 0) : void
         {
-            var tickNode:AnimationTickObjectNode = new AnimationTickObjectNode(_m,_endCallBackFunction,_playTime);
+            callLaterAfterTickCount(_f,_intervalTime * CopyEngineAS.getStage().frameRate , _repeatTime ,_delayTime * CopyEngineAS.getStage().frameRate );
+        }
+
+        public function playMoveClip(_m:MovieClip ,_endCallBackFunction:Function ,  _repeatTime:int = 0) : void
+        {
+            var tickNode:AnimationTickObjectNode = new AnimationTickObjectNode(_m,_endCallBackFunction,_repeatTime);
             addToTickQueue(tickNode);
         }
 
@@ -60,6 +65,22 @@ package copyengine.utils
                 if (node.tick())
                 {
                     removeFromTickQueue(node);
+                }
+                node=nextNode;
+            }
+        }
+
+        public function removeTickNodeByFunction(_f:Function) : void
+        {
+            var node:TickObjectNode=firstTickObjectNode;
+            var nextNode:TickObjectNode;
+            while (node != null)
+            {
+                nextNode=node.getNext() as TickObjectNode;
+                if (node.tickFinishedCallBackFunction == _f)
+                {
+                    removeFromTickQueue(node);
+                    break;
                 }
                 node=nextNode;
             }
@@ -92,33 +113,57 @@ import flash.display.MovieClip;
 
 class TickObjectNode extends DoubleLinkNode
 {
-    protected var tickTime:int = 0;
-    protected var tickFinishedCallBackFunction:Function;
+    public var tickFinishedCallBackFunction:Function;
 
-    public function TickObjectNode(_callBackFunction:Function = null , _tickTime:int = 1)
+    protected var intervalTick:int = 0;
+    protected var repeatTime:int = 0;
+
+    private var tickCount:int = 0;
+    private var delayTick:int = 0;
+
+    public function TickObjectNode(_callBackFunction:Function = null , _intervalTick:int = 1 , _repeatTime:int = 0 , _delayTick:int = 0)
     {
         tickFinishedCallBackFunction = _callBackFunction;
-        tickTime = _tickTime;
+        tickCount = intervalTick = _intervalTick;
+        repeatTime = _repeatTime;
+        delayTick = _delayTick;
     }
 
     public function tick() : Boolean
     {
-        if (tickTime > 0)
+        if (delayTick > 0)
+        {
+            --delayTick;
+            return false;
+        }
+        if (intervalTick > 0)
         {
             tickLogic();
-            tickFinishedCallBackFunction.apply();
             return false;
         }
         else
         {
-            destory();
-            return true;
+            if (tickFinishedCallBackFunction != null)
+            {
+                tickFinishedCallBackFunction.apply();
+            }
+            --repeatTime;
+            intervalTick = tickCount;
+            if (repeatTime < 0)
+            {
+                destory();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
     protected function tickLogic() : void
     {
-        tickTime--;
+        --intervalTick;
     }
 
     protected function destory() : void
@@ -131,9 +176,9 @@ final class AnimationTickObjectNode extends TickObjectNode
 {
     private var target:MovieClip;
 
-    public function AnimationTickObjectNode(_target:MovieClip,_callBackFunction:Function = null , _playTime:int = 1)
+    public function AnimationTickObjectNode(_target:MovieClip,_callBackFunction:Function = null ,_repeatTime:int = 1)
     {
-        super(_callBackFunction,_playTime);
+        super(_callBackFunction,_repeatTime);
         target = _target;
     }
 
@@ -146,7 +191,7 @@ final class AnimationTickObjectNode extends TickObjectNode
         else
         {
             target.gotoAndPlay(1);
-            tickTime--;
+            --intervalTick;
         }
     }
 
