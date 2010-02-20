@@ -1,7 +1,7 @@
 package game.scene
 {
     import com.greensock.TweenLite;
-    
+
     import copyengine.scenes.GameScene;
     import copyengine.ui.button.CEButton;
     import copyengine.ui.button.CEButtonTween;
@@ -11,13 +11,13 @@ package game.scene
     import copyengine.ui.scrollbar.CEScrollBarCore;
     import copyengine.utils.Random;
     import copyengine.utils.ResUtlis;
-    
+
     import flash.display.MovieClip;
     import flash.display.Sprite;
     import flash.events.MouseEvent;
     import flash.geom.Vector3D;
     import flash.text.TextField;
-    
+
     import game.ui.test.list.TShapeCellRender;
 
     public class IsoHexScene extends GameScene
@@ -69,8 +69,7 @@ package game.scene
             }
             var dataProvider:CEDataProvider = new CEDataProvider(dataV);
 
-            ceList = new CEListCore(5,TShapeCellRender,CEListTweenInteraction,CEListCore.LAYOUT_HORIZONTAL,dataProvider,50,50,10);
-
+            ceList = new CEListCore(5,CEListCore.LAYOUT_HORIZONTAL,50,50,10);
             addChild( ceList );
 
             ceList.x = 10;
@@ -97,10 +96,14 @@ package game.scene
 
             var thumb:CEButton = new CEButton(ResUtlis.getSprite("thumb","IsoHax_asset"));
             var track:CEButton = new CEButton(ResUtlis.getSprite("track","IsoHax_asset"));
-			var scrollBar:CEScrollBarCore = new CEScrollBarCore(thumb,track,10,5,0,300,340,50);
-			addChild(scrollBar);
-			scrollBar.x = 100;
-			scrollBar.y = 100;
+            var scrollBar:CEScrollBarCore = new CEScrollBarCore(thumb,track,340,50);
+
+            addChild(scrollBar);
+            scrollBar.x = 100;
+            scrollBar.y = 100;
+
+            ceList.initializeCEListCore( dataProvider,TShapeCellRender, new CEListTweenInteraction() );
+            scrollBar.initializeScrollBar(10,5,0,300);
 
         }
 

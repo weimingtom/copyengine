@@ -4,7 +4,7 @@ package copyengine.ui.list
     import copyengine.ui.list.cellrender.ICECellRender;
     import copyengine.ui.list.interaction.ICEListInteraction;
     import copyengine.utils.GeneralUtils;
-
+    
     import flash.events.MouseEvent;
     import flash.geom.Rectangle;
 
@@ -106,10 +106,7 @@ package copyengine.ui.list
          *
          */
         public function CEListCore(_displayCount:int ,
-                                   _cellRenderInstanceClass:Class,
-                                   _listInteractionClass:Class,
                                    _layoutDirection:String,
-                                   _dataProvider:CEDataProvider, 
                                    _eachCellRenderWidth:Number ,
                                    _eachCellRenderHeight:Number ,
                                    _contentPadding:Number)
@@ -117,21 +114,19 @@ package copyengine.ui.list
             super();
             displayCount = _displayCount;
             layoutDirection = _layoutDirection;
-            dataProvider = _dataProvider;
             eachCellRenderWidth = _eachCellRenderWidth;
             eachCellRenderHeight = _eachCellRenderHeight;
             contentPadding = _contentPadding;
-            cellRenderInstanceClass = _cellRenderInstanceClass;
-
-            listInteraction =  new _listInteractionClass() as ICEListInteraction;
-            listInteraction.target = this;
         }
-
-        /**
-         * @param args[0]  	cellRenderInstanceClass
-         */
-        override protected function initialize() : void
+		
+        public function initializeCEListCore(_dataProvider:CEDataProvider ,_cellRenderInstanceClass:Class , _listInteraction:ICEListInteraction) : void
         {
+            dataProvider = _dataProvider;
+			cellRenderInstanceClass = _cellRenderInstanceClass;
+			
+			listInteraction =  _listInteraction;
+			listInteraction.target = this;
+			
             _scrollPosition = 0;
             maxScrollPosition = (dataProvider.totalDataCount - displayCount) * (getCellRenderBoundSizeByLayout() + contentPadding);
 
@@ -160,8 +155,6 @@ package copyengine.ui.list
             {
                 this.scrollRect = new Rectangle(0,0,eachCellRenderWidth,displayCount*(eachCellRenderHeight+contentPadding) - contentPadding);
             }
-
-
         }
 
         override protected function dispose() : void

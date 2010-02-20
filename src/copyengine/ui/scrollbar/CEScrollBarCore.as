@@ -80,18 +80,10 @@ package copyengine.ui.scrollbar
 
 
         public function CEScrollBarCore(_thumb:CEButton , _track:CEButton,
-                                        _lineScrollSize:Number , _pageScrollSize:Number ,
-                                        _minScrollPosition:Number , _maxScrollPosition:Number,
                                         _width:Number ,_height:Number , _direction:String = LAYOUT_AUTO)
         {
             thumb = _thumb;
             track = _track;
-
-            lineScrollSize = _lineScrollSize;
-            pageScrollSize = _pageScrollSize;
-
-            minScrollPosition = _minScrollPosition;
-            maxScrollPosition = _maxScrollPosition;
 
             track.width = _width;
             track.height = _height;
@@ -100,14 +92,21 @@ package copyengine.ui.scrollbar
 
             super();
         }
-
-        override protected function initialize() : void
-        {
-            calculateScrollBarDirection();
-            calculateThumbSize();
-            initializeScrollBarSkin();
-            addListener();
-        }
+		
+		public function initializeScrollBar(  _lineScrollSize:Number , _pageScrollSize:Number ,
+											  _minScrollPosition:Number , _maxScrollPosition:Number):void
+		{
+			lineScrollSize = _lineScrollSize;
+			pageScrollSize = _pageScrollSize;
+			
+			minScrollPosition = _minScrollPosition;
+			maxScrollPosition = _maxScrollPosition;
+			
+			calculateScrollBarDirection();
+			calculateThumbSize();
+			initializeScrollBarSkin();
+			addListener();
+		}
 
         override protected function dispose() : void
         {

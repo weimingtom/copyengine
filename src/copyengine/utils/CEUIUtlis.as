@@ -1,15 +1,18 @@
 package copyengine.utils
 {
-    import flash.display.DisplayObject;
-    import flash.geom.Rectangle;
-
+	import copyengine.ui.CESprite;
 
     public class CEUIUtlis
     {
         public function CEUIUtlis()
         {
         }
-
+		
+		public static function getComponent(_name:String):CESprite
+		{
+			
+		}
+		
 //        /**
 //         *the CESprite Anchor maybe not it top left corner , but some times we need to use
 //         * it topLeftCorner do some math caluate
