@@ -2,10 +2,9 @@ package copyengine.ui.component
 {
     import copyengine.ui.CESprite;
     import copyengine.ui.button.CEButton;
-    import copyengine.ui.scrollbar.CEScrollBar;
-    
-    import flash.events.Event;
-    import copyengine.ui.list.ICEListInteraction;
+    import copyengine.ui.list.CEDataProvider;
+    import copyengine.ui.list.CEListCore;
+    import copyengine.ui.scrollbar.CEScrollBarCore;
 
     /**
      * CEList is an list component, it include
@@ -19,43 +18,65 @@ package copyengine.ui.component
      */
     public class CEList extends CESprite
     {
-        private var listInteraction:ICEListInteraction;
-
-        public function CEList(_displayCount:int , _listInteraction:ICEListInteraction,_layoutDiection:String,
+		/**
+		 * turn to first/last element 
+		 */		
+		private var firstOneBtn:CEButton;
+		private var lastOneBtn:CEButton;
+		
+		/**
+		 * turn to next one/page element 
+		 */		
+		private var nextOneBtn:CEButton;
+		private var nextPageBtn:CEButton;
+		
+		/**
+		 *turn to prev one/page element. 
+		 */		
+		private var prevOneBtn:CEButton;
+		private var prevPageBtn:CEButton;
+		
+		/**
+		 * List 
+		 */		
+		private var ceListCore:CEListCore;
+		
+		/**
+		 * ScrollBar 
+		 */		
+		private var ceScrollBarCore:CEScrollBarCore;
+		
+        public function CEList(_ceListCore:CEListCore , _ceScrollBarCore:CEScrollBarCore,
                                _nextOneBtn:CEButton,_nextPageBtn:CEButton,
                                _prevOneBtn:CEButton , _prevPageBtn:CEButton,
-                               _scrollBar:CEScrollBar)
+							   _firstOneBtn:CEButton , _lastOneBtn:CEButton
+                               )
         {
+			firstOneBtn = _firstOneBtn;
+			lastOneBtn = _lastOneBtn;
+			
+			nextOneBtn = _nextOneBtn;
+			nextPageBtn = _nextPageBtn;
+			
+			prevOneBtn = _prevOneBtn;
+			prevPageBtn = _prevPageBtn;
+			
+			ceScrollBarCore = _ceScrollBarCore;
+			ceListCore = _ceListCore;
+			
             super();
         }
-
-        private function updateComponentState() : void
-        {
-            updateButtonState();
-            updateScrollBarState();
-        }
-
-        private function updateButtonState() : void
-        {
-            if (listInteraction.isInFirstPage())
-            {
-
-            }
-            else if (listInteraction.isInLastPage())
-            {
-
-            }
-        }
 		
-		private function onScrollThumbMove(e:Event):void
+		/**
+		 *can only call once when it initalize (will change later.)
+		 *  
+		 * @param _dataProvider
+		 * 
+		 */		
+		public function setDataProvider(_dataProvider:CEDataProvider):void
 		{
-			listInteraction.scrollPosition = 1;
+			
 		}
-		
-        private function updateScrollBarState() : void
-        {
-			var a:Number = listInteraction.scrollPosition 
-        }
 
     }
 }
