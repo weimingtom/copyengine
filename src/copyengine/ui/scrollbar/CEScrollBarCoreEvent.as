@@ -13,11 +13,14 @@ package copyengine.ui.scrollbar
 
         public var direction:String;
         public var delta:Number;
-        public var position:Number;
+        public var scrollPosition:Number;
 
-        public function CEScrollBarCoreEvent(_direction:String , _delta:Number , _position:Number ,
+        public function CEScrollBarCoreEvent(_direction:String , _delta:Number , _scrollPosition:Number ,
                                              type:String, bubbles:Boolean=false, cancelable:Boolean=false)
         {
+			direction = _direction;
+			delta = _delta;
+			scrollPosition = _scrollPosition;
             super(type, bubbles, cancelable);
         }
     }

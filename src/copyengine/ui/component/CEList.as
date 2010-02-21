@@ -18,6 +18,8 @@ package copyengine.ui.component
 	 * 				2) 1 scrollBar
 	 *
 	 * user can init all or some of the component.
+	 * 
+	 * for now CEList is not provide any events [TBD: maybe change later]
 	 *
 	 * @author Tunied
 	 *
@@ -83,6 +85,13 @@ package copyengine.ui.component
 			GeneralUtils.addTargetToParent(prevPageBtn,this);
 			GeneralUtils.addTargetToParent(ceListCore,this);
 			GeneralUtils.addTargetToParent(ceScrollBarCore,this);
+			
+			addListener();
+		}
+		
+		override protected function dispose() : void
+		{
+			removeListener();
 		}
 		
 		private function addListener():void
@@ -131,32 +140,32 @@ package copyengine.ui.component
 		
 		private function onNextOneBtnClick(e:MouseEvent):void
 		{
-			
+			ceListCore.scrollNext();
 		}
 		
 		private function onNextPageBtnClick(e:MouseEvent):void
 		{
-			
+			ceListCore.scrollNextPage();
 		}
 		
 		private function onPrevOneBtnClick(e:MouseEvent):void
 		{
-			
+			ceListCore.scrollPrev();
 		}
 		
 		private function onPrevPageBtnClick(e:MouseEvent):void
 		{
-			
+			ceListCore.scrollPrevPage();
 		}
 		
 		private function ceListCoreOnScroll(e:CEListCoreEvent):void
 		{
-			
+			ceScrollBarCore.scrollPosition = e.expectScrollPositon;
 		}
 		
 		private function ceScrollBarCoreOnScroll(e:CEScrollBarCoreEvent):void
 		{
-			
+			ceListCore.scrollPosition = e.scrollPosition;
 		}
 		
 	}
