@@ -58,7 +58,9 @@ package copyengine.ui
 		{
 			return getCEListByXml(null);
 		}
-		
+		/**
+		 * 
+		 */		
 		private function getCEListByXml(_xml:XML):CEList
 		{
 			var ceListCore:CEListCore = createCEListCore(5,CEListCore.LAYOUT_HORIZONTAL,50,50,10);
@@ -72,16 +74,16 @@ package copyengine.ui
 			var ceList:CEList = createCEList(ceListCore,scrollBar,nextOneBtn,null,prevOneBtn,null,null,null);
 			
 			ceListCore.x = 0;
-			ceListCore.y = 0;
+			ceListCore.y = 50;
 			
-			prevOneBtn.x = - prevOneBtn.width - 30;
+			prevOneBtn.x = 0;
 			prevOneBtn.y = 0;
 			
-			nextOneBtn.x = ceListCore.width + 50;
+			nextOneBtn.x = prevOneBtn.x + prevOneBtn.width + 10;
 			nextOneBtn.y = 0;
 			
 			scrollBar.x = 0;
-			scrollBar.y = ceListCore.height + 50;
+			scrollBar.y = ceListCore.y + ceListCore.height + 50;
 			
 			return ceList;			
 		}
