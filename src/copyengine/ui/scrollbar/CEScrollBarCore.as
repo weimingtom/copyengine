@@ -340,7 +340,7 @@ package copyengine.ui.scrollbar
 			// until checkIsReleaseTrack function return false, or OnMouseUpFunction call.
 			moveByClickTrack();
             GlobalTick.instance.callLaterAfterTimerCount( moveByClickTrack ,
-                                                          0.1, Math.floor((maxScrollPosition - minScrollPosition)/pageScrollSize),
+                                                          0.2, Math.floor((maxScrollPosition - minScrollPosition)/pageScrollSize),
                                                           0.5);
 			
             stage.addEventListener(MouseEvent.MOUSE_UP,trackOnMouseUp,false,0,true);

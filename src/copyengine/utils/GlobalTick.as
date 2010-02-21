@@ -62,10 +62,22 @@ package copyengine.utils
             while (node != null)
             {
                 nextNode=node.getNext() as TickObjectNode;
-                if (node.tick())
-                {
-                    removeFromTickQueue(node);
-                }
+                if(node.isNeedRemove)
+				{
+					node.destory();
+					removeFromTickQueue(node);				
+				}
+				else
+				{
+					if (node.tick())
+					{
+						if(firstTickObjectNode == null)
+						{
+							trace("WTF!!!!");
+						}
+						removeFromTickQueue(node);
+					}
+				}
                 node=nextNode;
             }
         }
@@ -79,7 +91,7 @@ package copyengine.utils
                 nextNode=node.getNext() as TickObjectNode;
                 if (node.tickFinishedCallBackFunction == _f)
                 {
-                    removeFromTickQueue(node);
+					node.isNeedRemove = true;
                     break;
                 }
                 node=nextNode;
@@ -114,7 +126,9 @@ import flash.display.MovieClip;
 class TickObjectNode extends DoubleLinkNode
 {
     public var tickFinishedCallBackFunction:Function;
-
+	
+	public var isNeedRemove:Boolean = false; // an flage to tell mainTick is this node need to be remove
+	
     protected var intervalTick:int = 0;
     protected var repeatTime:int = 0;
 
@@ -166,7 +180,7 @@ class TickObjectNode extends DoubleLinkNode
         --intervalTick;
     }
 
-    protected function destory() : void
+    public function destory() : void
     {
         tickFinishedCallBackFunction = null;
     }
@@ -195,8 +209,9 @@ final class AnimationTickObjectNode extends TickObjectNode
         }
     }
 
-    override protected function destory() : void
+    override public function destory() : void
     {
+		super.destory();
         copyengine.utils.GeneralUtils.removeTargetFromParent(target);
     }
 }
