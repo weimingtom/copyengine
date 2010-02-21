@@ -186,7 +186,26 @@ package copyengine.ui.list
         {
 
         }
-
+		
+		public function getLineScrollSize():Number
+		{
+			return cellRenderDistance;	
+		}
+		
+		public function getPageScrollSize():Number
+		{
+			return cellRenderDistance * displayCount - contentPadding;
+		}
+		
+		public function getMinScrollValue():Number
+		{
+			return 0;
+		}
+		
+		public function getMaxScrollValue():Number
+		{
+			return maxScrollPosition;
+		}
 
         //================
         //==lnteraction Function
@@ -217,16 +236,16 @@ package copyengine.ui.list
             }
         }
 
-        private function scrollNextPage() : void
+        public function scrollNextPage() : void
         {
             scrollPosition = Math.min(_scrollPosition + cellRenderDistance*displayCount - contentPadding,maxScrollPosition - calculateOffsetOfFirstVisableCellRender());
         }
 
-        private function scrollPrevPage() : void
+        public function scrollPrevPage() : void
         {
             scrollPosition = Math.max(0, _scrollPosition - cellRenderDistance*displayCount - contentPadding + calculateOffsetOfFirstVisableCellRender());
         }
-
+		
         //=============
         //== Scroll Position
         //=============

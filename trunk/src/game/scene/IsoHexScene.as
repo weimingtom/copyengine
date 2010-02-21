@@ -1,23 +1,21 @@
 package game.scene
 {
     import com.greensock.TweenLite;
-
+    
     import copyengine.scenes.GameScene;
-    import copyengine.ui.button.CEButton;
-    import copyengine.ui.button.CEButtonTween;
+    import copyengine.ui.CEComponentFactory;
+    import copyengine.ui.component.CEList;
     import copyengine.ui.list.CEDataProvider;
     import copyengine.ui.list.CEListCore;
     import copyengine.ui.list.interaction.CEListTweenInteraction;
-    import copyengine.ui.scrollbar.CEScrollBarCore;
-    import copyengine.utils.Random;
     import copyengine.utils.ResUtlis;
-
+    
     import flash.display.MovieClip;
     import flash.display.Sprite;
     import flash.events.MouseEvent;
     import flash.geom.Vector3D;
     import flash.text.TextField;
-
+    
     import game.ui.test.list.TShapeCellRender;
 
     public class IsoHexScene extends GameScene
@@ -68,42 +66,48 @@ package game.scene
                 dataV.push(o);
             }
             var dataProvider:CEDataProvider = new CEDataProvider(dataV);
+			
+			var ceList:CEList = CEComponentFactory.instance.testCreateCEList();
+			ceList.initializeCEList(dataProvider,TShapeCellRender,new CEListTweenInteraction() );
+			addChild(ceList);
+			ceList.x = 100;
+			ceList.y = 50;
 
-            ceList = new CEListCore(5,CEListCore.LAYOUT_HORIZONTAL,50,50,10);
-            addChild( ceList );
-
-            ceList.x = 10;
-            ceList.y = this.stage.stageHeight>>1;
-
-
-            var testButton:Sprite = new CEButtonTween( ResUtlis.getSprite("GreenButton","IsoHax_asset"));
-            addChild(testButton);
-
-            testButton.addEventListener(MouseEvent.CLICK,onButtonPerClick);
-            testButton.x = 80;
-            testButton.y = 50;
-
-            var testButton2:Sprite = new Sprite();
-            testButton2.graphics.beginFill(Random.color());
-            testButton2.graphics.drawCircle(0,0,30);
-            testButton2.graphics.endFill();
-
-            addChild(testButton2);
-
-            testButton2.addEventListener(MouseEvent.CLICK,onButtonNextClick);
-            testButton2.x = 150;
-            testButton2.y = 50;
-
-            var thumb:CEButton = new CEButton(ResUtlis.getSprite("thumb","IsoHax_asset"));
-            var track:CEButton = new CEButton(ResUtlis.getSprite("track","IsoHax_asset"));
-            var scrollBar:CEScrollBarCore = new CEScrollBarCore(thumb,track,340,50);
-
-            addChild(scrollBar);
-            scrollBar.x = 100;
-            scrollBar.y = 100;
-
-            ceList.initializeCEListCore( dataProvider,TShapeCellRender, new CEListTweenInteraction() );
-            scrollBar.initializeScrollBar(10,5,0,300);
+//            ceList = new CEListCore(5,CEListCore.LAYOUT_HORIZONTAL,50,50,10);
+//            addChild( ceList );
+//
+//            ceList.x = 10;
+//            ceList.y = this.stage.stageHeight>>1;
+//
+//
+//            var testButton:Sprite = new CEButtonTween( ResUtlis.getSprite("GreenButton","IsoHax_asset"));
+//            addChild(testButton);
+//
+//            testButton.addEventListener(MouseEvent.CLICK,onButtonPerClick);
+//            testButton.x = 80;
+//            testButton.y = 50;
+//
+//            var testButton2:Sprite = new Sprite();
+//            testButton2.graphics.beginFill(Random.color());
+//            testButton2.graphics.drawCircle(0,0,30);
+//            testButton2.graphics.endFill();
+//
+//            addChild(testButton2);
+//
+//            testButton2.addEventListener(MouseEvent.CLICK,onButtonNextClick);
+//            testButton2.x = 150;
+//            testButton2.y = 50;
+//
+//            var thumb:CEButton = new CEButton(ResUtlis.getSprite("thumb","IsoHax_asset"));
+//            var track:CEButton = new CEButton(ResUtlis.getSprite("track","IsoHax_asset"));
+//            var scrollBar:CEScrollBarCore = new CEScrollBarCore(thumb,track,340,50);
+//
+//            addChild(scrollBar);
+//            scrollBar.x = 100;
+//            scrollBar.y = 100;
+//
+//            ceList.initializeCEListCore( dataProvider,TShapeCellRender, new CEListTweenInteraction() );
+//            scrollBar.initializeScrollBar(10,5,0,300);
 
         }
 
