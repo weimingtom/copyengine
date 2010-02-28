@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+<component>
+<layer name = "sky" >
+</layer>
+<layer name = "panel" >
+</layer>
+<layer name = "btn" >
+<element>
+<symbol type = "BtnTween" uniqueName = "okBtn" linkClassName ="GreenBtnTween" posX = "349.35" posY = "62" width = "100" height = "60" rotation = "0" alpha = "1" /></element>
+<element>
+<symbol type = "BtnTween" uniqueName = "" linkClassName ="GreenBtnTween" posX = "249.35" posY = "85" width = "100" height = "60" rotation = "0" alpha = "1" /></element>
+<element>
+<symbol type = "BtnTween" uniqueName = "" linkClassName ="GreenBtnTween" posX = "49.35" posY = "30" width = "100" height = "60" rotation = "0" alpha = "1" /></element>
+<element>
+<symbol type = "BtnTween" uniqueName = "" linkClassName ="GreenBtnTween" posX = "149.35" posY = "62" width = "100" height = "60" rotation = "0" alpha = "1" /></element>
+<element>
+<symbol type = "BtnTween" uniqueName = "" linkClassName ="GreenBtnTween" posX = "448.3" posY = "30" width = "100" height = "60" rotation = "0" alpha = "1" /></element>
+<element>
+<component>
+<layer name = "图层 1" >
+<element>
+<symbol type = "BtnTween" uniqueName = "" linkClassName ="GreenBtnTween" posX = "22.35" posY = "-20" width = "100" height = "60" rotation = "0" alpha = "1" /></element>
+<element>
+<symbol type = "BtnTween" uniqueName = "" linkClassName ="GreenBtnTween" posX = "-18.65" posY = "35" width = "100" height = "60" rotation = "0" alpha = "1" /></element>
+<element>
+<symbol type = "BtnTween" uniqueName = "" linkClassName ="GreenBtnTween" posX = "65.35" posY = "21" width = "100" height = "60" rotation = "0" alpha = "1" /></element>
+<element>
+<symbol type = "BtnTween" uniqueName = "" linkClassName ="GreenBtnTween" posX = "43.35" posY = "64" width = "100" height = "60" rotation = "0" alpha = "1" /></element>
+</layer>
+</component>
+</element>
+</layer>
+<layer name = "bg" >
+</layer>
+</component>
+</root>
