@@ -1,0 +1,12 @@
+<!--手写一些不好配置的信息,用uniqueName和Jsfl生成的node合并在一起-->
+<!-- 手写的Xml可以和Node生成的Xml有某些属性是冲突的,如type, 这种情况下以手写的属性为准-->
+
+<root>
+    <component uniqueName = "xPanelOkBtn" isUseToolTips = "false" type = "ButtonFrame"/>
+</root>
+
+
+<!--JSFL生成的Node-->
+<root>
+    <component uniqueName = "xPanelOkBtn" skinClass = "GreenButton" width = "100" height = "50" rotation = "0" aplha = "1" type = "ButtonTween" labelKey = "COMMON_COMPONENT_OK_BUTTON">
+</root>
