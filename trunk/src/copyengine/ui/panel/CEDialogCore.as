@@ -4,6 +4,15 @@ package copyengine.ui.panel
 	
 	public class CEDialogCore extends CESprite
 	{
+		public static const STATE_SHOW:int = 0;
+		public static const STATE_HIDE:int = 1;
+		
+		
+		/**
+		 * record current dialog state call by CEDialogManger;
+		 */		
+		protected var dialogState:int;
+		
 		public function CEDialogCore()
 		{
 			super();
@@ -15,6 +24,7 @@ package copyengine.ui.panel
 		final public function showDialog():void
 		{
 			doShowDialog();
+			dialogState = STATE_SHOW;
 		}
 		
 		/**
@@ -23,6 +33,12 @@ package copyengine.ui.panel
 		final public function hideDialog():void
 		{
 			doHideDialog();
+			dialogState = STATE_HIDE;
+		}
+		
+		final public function getDialogState():int
+		{
+			return dialogState;
 		}
 		
 		/**
@@ -47,10 +63,18 @@ package copyengine.ui.panel
 			
 		}
 		
+		override protected function initialize() : void
+		{
+			dialogState = STATE_SHOW;
+		}
 		
 		/**
 		 * override this function if childClsss need to some things
-		 * when current dialog is be show 
+		 * when current dialog is been show.
+		 * 
+		 * WARNING:: when first time create the dialog will not call this function .
+		 * 					  this function only call when current Dialog has been hide and showAgain
+		 * 					  on the screen.
 		 */		
 		protected function doShowDialog(): void
 		{
@@ -58,7 +82,7 @@ package copyengine.ui.panel
 		
 		/**
 		 * override this function if childClsss need to some things
-		 * when current dialog is be hide 
+		 * when current dialog is been hide 
 		 */		
 		protected function doHideDialog(): void
 		{

@@ -1,9 +1,9 @@
 package copyengine.ui.panel
 {
 	import com.greensock.TweenLite;
-
+	
 	import copyengine.utils.GeneralUtils;
-
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 
@@ -33,10 +33,10 @@ package copyengine.ui.panel
 		private var dialogContainer:DisplayObjectContainer;
 
 		/**
-		 * hold all CEDialog that already been require but not show on the screen.
-		 */
-		private var allUnshowRequiredCEDialogs:Vector.<CEDialogCore>;
-
+		 * all CEDialog list 
+		 */		
+		private var allCEDialogList:Vector.<CEDialogCore>;
+		
 		public function CEDialogManger()
 		{
 		}
@@ -50,20 +50,52 @@ package copyengine.ui.panel
 			_dialogParentContainer.addChild(dialogContainer);
 		}
 
-
-		public function requireCEDialog(_CEDialogCoreClass:Class , _vars:Object = null , _addMask:Boolean = true) : CEDialogCore
+		/**
+		 * popUp an CEDialog on screen. this class will do
+		 * 
+		 * 1` create an CEDialog
+		 * 2` set CEDialog vars
+		 * 3` add the CEDialog to the dialogLayer
+		 *  
+		 * @param _CEDialogCoreClass	
+		 * @param _vars										
+		 * @param _addMask
+		 * @return 
+		 * 
+		 */		
+		public function requireCEDialogByClass(_CEDialogCoreClass:Class , _vars:Object = null , _addMask:Boolean = true) : CEDialogCore
 		{
-
+			var dialog:CEDialogCore = new _CEDialogCoreClass () as CEDialogCore;
+			dialog.setData(_vars);
+			if(_addMask)
+			{
+				//TODO add Mask.
+			}
+			dialogContainer.addChild( dialog );
 		}
 
 		public function hideCEDialogByTags(_tagAttruibute:uint) : void
 		{
-
+			for each(var ceDialog:CEDialogCore in allCEDialogList)
+			{
+				if(ceDialog.getDialogState() == CEDialogCore.STATE_SHOW &&
+					ceDialog.getTags() == _tagAttruibute)
+				{
+					ceDialog.hideDialog();
+				}
+			}
 		}
 
 		public function showCEDialogByTags(_tagAttribute:uint) : void
 		{
-
+			for each(var ceDialog:CEDialogCore in allCEDialogList)
+			{
+				if(ceDialog.getDialogState() == CEDialogCore.STATE_HIDE &&
+					ceDialog.getTags() == _tagAttruibute)
+				{
+					ceDialog.showDialog();
+				}
+			}
 		}
 
 		public function closeCEDialog(_dialog:CEDialogCore) : void
