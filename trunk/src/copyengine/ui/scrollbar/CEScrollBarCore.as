@@ -3,7 +3,7 @@ package copyengine.ui.scrollbar
     import copyengine.ui.CESprite;
     import copyengine.ui.button.CEButton;
     import copyengine.utils.GeneralUtils;
-    import copyengine.utils.GlobalTick;
+    import copyengine.utils.tick.GlobalTick;
 
     import flash.events.MouseEvent;
 

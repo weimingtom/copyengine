@@ -3,6 +3,7 @@ package copyengine.utils
 
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.external.ExternalInterface;
 	import flash.geom.Rectangle;
@@ -52,6 +53,10 @@ package copyengine.utils
 
 		public static function removeTargetFromParent(_target : DisplayObjectContainer) : void
 		{
+			if(_target is MovieClip)
+			{
+				(_target as MovieClip).stop();
+			}
 			if (_target != null && _target.parent != null)
 			{
 				_target.parent.removeChild(_target);

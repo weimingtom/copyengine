@@ -1,15 +1,9 @@
 package copyengine.ui.panel
 {
-	import com.greensock.TweenLite;
-	
 	import copyengine.utils.GeneralUtils;
-	
-	import flash.display.DisplayObjectContainer;
-	import flash.display.Sprite;
 
 	/**
 	 * CEDialogManger is use to manger all CEDialog show/hide function.
-	 * and it contain an queue , to control the CEDialog show sequence.
 	 *
 	 * @author Tunied
 	 *
@@ -28,26 +22,13 @@ package copyengine.ui.panel
 		}
 
 		/**
-		 * all CEDialog will show in this layer.
-		 */
-		private var dialogContainer:DisplayObjectContainer;
-
-		/**
 		 * all CEDialog list 
 		 */		
 		private var allCEDialogList:Vector.<CEDialogCore>;
 		
 		public function CEDialogManger()
 		{
-		}
-
-		public function initializeCEDialogManger(_dialogParentContainer:DisplayObjectContainer)
-		{
-			if (dialogContainer == null)
-			{
-				dialogContainer = new Sprite();
-			}
-			_dialogParentContainer.addChild(dialogContainer);
+			allCEDialogList = new Vector.<CEDialogCore>();
 		}
 
 		/**
@@ -63,17 +44,60 @@ package copyengine.ui.panel
 		 * @return 
 		 * 
 		 */		
-		public function requireCEDialogByClass(_CEDialogCoreClass:Class , _vars:Object = null , _addMask:Boolean = true) : CEDialogCore
+		public function requireCEDialogByClass(_CEDialogCoreClass:Class , _vars:Object = null ,_isCenterPop:Boolean = true) : CEDialogCore
 		{
 			var dialog:CEDialogCore = new _CEDialogCoreClass () as CEDialogCore;
 			dialog.setData(_vars);
-			if(_addMask)
+			
+			// should change the pos before add the dialog. so that can get the right pos in dialog initialze function
+			if(_isCenterPop)
 			{
-				//TODO add Mask.
+				dialog.x = GeneralConfig.CEDIALOG_SCREEN_WIDTH >>1;
+				dialog.y = GeneralConfig.CEDIALOG_SCREEN_HEIGHT >>1;
 			}
-			dialogContainer.addChild( dialog );
+			CopyEngineAS.gameDialogLayer.addChild(dialog);
+			allCEDialogList.push(dialog);
+			
+			return dialog;
 		}
 
+		public function closeCEDialog(_dialog:CEDialogCore) : void
+		{
+			for(var i:int = 0 ; i < allCEDialogList.length ; i++)
+			{
+				if(_dialog == allCEDialogList[i])
+				{
+					allCEDialogList.splice(i,1);
+					_dialog.closeDialog();
+				}
+			}
+		}
+
+		public function disposeCEDialog(_dialog:CEDialogCore) : void
+		{
+			//Remove the dialog directly without any animation
+			for(var i:int = 0 ; i < allCEDialogList.length ; i++)
+			{
+				if(_dialog == allCEDialogList[i])
+				{
+					allCEDialogList.splice(i,1);
+					GeneralUtils.removeTargetFromParent(_dialog);
+				}
+			}
+		}
+
+		public function disposeAllCEDialog() : void
+		{
+			for each(var dialog:CEDialogCore in allCEDialogList)
+			{
+				GeneralUtils.removeTargetFromParent(dialog);
+			}
+			allCEDialogList = new Vector.<CEDialogCore>();
+		}
+
+		//===========================
+		//== Advanced function will suport later
+		//===========================
 		public function hideCEDialogByTags(_tagAttruibute:uint) : void
 		{
 			for each(var ceDialog:CEDialogCore in allCEDialogList)
@@ -85,35 +109,18 @@ package copyengine.ui.panel
 				}
 			}
 		}
-
+		
 		public function showCEDialogByTags(_tagAttribute:uint) : void
 		{
 			for each(var ceDialog:CEDialogCore in allCEDialogList)
 			{
 				if(ceDialog.getDialogState() == CEDialogCore.STATE_HIDE &&
-					ceDialog.getTags() == _tagAttruibute)
+					ceDialog.getTags() == _tagAttribute)
 				{
 					ceDialog.showDialog();
 				}
 			}
 		}
-
-		public function closeCEDialog(_dialog:CEDialogCore) : void
-		{
-			TweenLite.to(_dialog, 1, {onComplete:disposeCEDialog , onCompleteParams:[_dialog]}); //TBD
-		}
-
-		public function disposeCEDialog(_dialog:CEDialogCore) : void
-		{
-			GeneralUtils.removeTargetFromParent(_dialog);
-		}
-
-
-		public function disposeAllCEDialog() : void
-		{
-
-		}
-
 
 
 	}
