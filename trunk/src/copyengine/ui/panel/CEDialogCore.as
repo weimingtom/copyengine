@@ -20,10 +20,11 @@ package copyengine.ui.panel
 			super();
 		}
 		
-		override protected function initialize() : void
+		final public function openDialog():void
 		{
 			dialogState = STATE_SHOW;
-			GlobalTick.instance.playTweenEffect(this,ResUtlis.getMovieClip("CEDialogShowAnimation","IsoHax_asset"));
+			doShowDialog();
+			//			GlobalTick.instance.playTweenEffect(this,ResUtlis.getMovieClip("CEDialogShowAnimation","IsoHax_asset"));
 		}
 		
 		/**
@@ -98,6 +99,15 @@ package copyengine.ui.panel
 		
 		/**
 		 * override this function if childClsss need to some things
+		 * when current dialog is been open (first time show on the screen) 
+		 */		
+		protected function doOpenDialog():void
+		{
+			
+		}
+		
+		/**
+		 * override this function if childClsss need to some things
 		 * when current dialog is been close.
 		 * 
 		 * WARNING::
@@ -112,7 +122,6 @@ package copyengine.ui.panel
 			//TODO PlayAnimation
 //			TweenLite.to(_dialog, 1, {onComplete:disposeCEDialog , onCompleteParams:[_dialog]}); //TBD
 		}
-
 		
 	}
 }

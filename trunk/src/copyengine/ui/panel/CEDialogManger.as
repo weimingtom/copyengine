@@ -57,6 +57,7 @@ package copyengine.ui.panel
 			}
 			CopyEngineAS.gameDialogLayer.addChild(dialog);
 			allCEDialogList.push(dialog);
+			dialog.openDialog();
 			
 			return dialog;
 		}
