@@ -1,8 +1,8 @@
 package copyengine.ui
 {
 	import copyengine.ui.button.CEButton;
-	import copyengine.ui.button.CEButtonFrame;
-	import copyengine.ui.button.CEButtonTween;
+	import copyengine.ui.button.interaction.CEButtonFrameInteraction;
+	import copyengine.ui.button.interaction.CEButtonTweenInteraction;
 	import copyengine.ui.component.CEList;
 	import copyengine.ui.list.CEListCore;
 	import copyengine.ui.scrollbar.CEScrollBarCore;
@@ -102,9 +102,9 @@ package copyengine.ui
 			switch (_type)
 			{
 				case CEBUTTON_TYPE_TWEEN:
-					return new CEButtonTween(_buttonBg,_labelTextKey,_isUseToolTips);
+					return new CEButton(_buttonBg,new CEButtonTweenInteraction() ,_labelTextKey,_isUseToolTips);
 				case CEBUTTON_TYPE_FRAME:
-					return new CEButtonFrame(_buttonBg,_labelTextKey,_isUseToolTips);
+					return new CEButton(_buttonBg, new CEButtonFrameInteraction() ,_labelTextKey,_isUseToolTips);
 			}
 			return null;
 		}

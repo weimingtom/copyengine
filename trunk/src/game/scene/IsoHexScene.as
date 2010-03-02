@@ -5,6 +5,7 @@ package game.scene
 	import copyengine.scenes.GameScene;
 	import copyengine.ui.CEComponentFactory;
 	import copyengine.ui.button.CEButton;
+	import copyengine.ui.button.interaction.CEButtonFrameInteraction;
 	import copyengine.ui.component.CEList;
 	import copyengine.ui.list.CEDataProvider;
 	import copyengine.ui.list.CEListCore;
@@ -84,6 +85,13 @@ package game.scene
 			var btn1:CEButton = CEComponentFactory.instance.createCEButton(CEComponentFactory.CEBUTTON_TYPE_TWEEN,ResUtlis.getSprite("GreenButton","IsoHax_asset"),null,false);
 			btn1.addEventListener(MouseEvent.CLICK,onBtnClick);
 			addChild(btn1);
+			btn1.x = 100;
+			btn1.y = 30;
+			
+			var btFrame:CEButton = new CEButton(ResUtlis.getSprite("FrameGreenButton","IsoHax_asset"),new CEButtonFrameInteraction() );
+			addChild(btFrame);
+			btFrame.x = 50;
+			btFrame.y = 50;
 		}
 		
 		private function onBtnClick(e:MouseEvent):void

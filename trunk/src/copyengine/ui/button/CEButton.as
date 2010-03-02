@@ -1,6 +1,7 @@
 package copyengine.ui.button
 {
     import copyengine.ui.CESprite;
+    import copyengine.ui.button.interaction.ICEButtonInteraction;
     
     import flash.display.DisplayObject;
     import flash.events.MouseEvent;
@@ -31,14 +32,20 @@ package copyengine.ui.button
          * define is show ToolTips on current button or not.
          */
         protected var isUseToolTips:Boolean;
-
-        public function CEButton(_buttonBg:DisplayObject , _labelTextKey:String = null , _isUseToolTips:Boolean = false)
+		
+		protected var interaction:ICEButtonInteraction;
+		
+        public function CEButton(_buttonBg:DisplayObject ,_interaction:ICEButtonInteraction = null , _labelTextKey:String = null , _isUseToolTips:Boolean = false)
         {
             super();
             buttonBg = _buttonBg;
             labelTextKey = _labelTextKey;
             isUseToolTips = _isUseToolTips;
-			
+			interaction = _interaction;
+			if(interaction != null)
+			{
+				interaction.setTarget( buttonBg );
+			}
 			//need to add buttonSkin when create this button.
 			//ex:
 			//   var button:CEButton = new CEButton();
@@ -54,7 +61,10 @@ package copyengine.ui.button
 
         override protected function dispose() : void
         {
+			interaction.dispose();
             removeListener();
+			interaction = null;
+			buttonBg = null;
         }
 
         private function addListener() : void
@@ -75,18 +85,35 @@ package copyengine.ui.button
 
         protected function onMouseRollOver(e:MouseEvent) : void
         {
+			if(interaction != null)
+			{
+				interaction.onMouseRollOver(e);
+			}
         }
 
         protected function onMouseRollOut(e:MouseEvent) : void
         {
+			if(interaction != null)
+			{
+				interaction.onMouseRollOut(e);
+			}
         }
 
         protected function onMouseUp(e:MouseEvent) : void
         {
+			if(interaction != null)
+			{
+				interaction.onMouseUp(e);
+			}
         }
 
         protected function onMouseDown(e:MouseEvent) : void
         {
+			if(interaction != null)
+			{
+				interaction.onMouseDown(e);
+			}
         }
+		
     }
 }
