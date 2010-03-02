@@ -86,6 +86,10 @@ function readCompoent(element)
 
 function readButton(element)
 {
+    var component = readCompoent(element);
+    if()
+    {
+    }
 }
 
 function readTextField

@@ -1,6 +1,8 @@
 package copyengine.ui.panel
 {
 	import copyengine.ui.CESprite;
+	import copyengine.utils.tick.GlobalTick;
+	import copyengine.utils.ResUtlis;
 	
 	public class CEDialogCore extends CESprite
 	{
@@ -16,6 +18,12 @@ package copyengine.ui.panel
 		public function CEDialogCore()
 		{
 			super();
+		}
+		
+		override protected function initialize() : void
+		{
+			dialogState = STATE_SHOW;
+			GlobalTick.instance.playTweenEffect(this,ResUtlis.getMovieClip("CEDialogShowAnimation","IsoHax_asset"));
 		}
 		
 		/**
@@ -34,6 +42,11 @@ package copyengine.ui.panel
 		{
 			doHideDialog();
 			dialogState = STATE_HIDE;
+		}
+		
+		final public function closeDialog():void
+		{
+			doCloseDialog();
 		}
 		
 		final public function getDialogState():int
@@ -60,12 +73,7 @@ package copyengine.ui.panel
 		 */		
 		public function getTags():uint
 		{
-			
-		}
-		
-		override protected function initialize() : void
-		{
-			dialogState = STATE_SHOW;
+			return 0;
 		}
 		
 		/**
@@ -86,6 +94,23 @@ package copyengine.ui.panel
 		 */		
 		protected function doHideDialog(): void
 		{
+		}
+		
+		/**
+		 * override this function if childClsss need to some things
+		 * when current dialog is been close.
+		 * 
+		 * WARNING::
+		 * 
+		 * in this function should not do this cleanUp things.
+		 * that things should do in disposeFunction();
+		 * when this function is been call means this dialog is going to be close;
+		 *  
+		 */		
+		protected function doCloseDialog():void
+		{
+			//TODO PlayAnimation
+//			TweenLite.to(_dialog, 1, {onComplete:disposeCEDialog , onCompleteParams:[_dialog]}); //TBD
 		}
 
 		

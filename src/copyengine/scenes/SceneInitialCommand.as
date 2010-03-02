@@ -18,7 +18,7 @@ package copyengine.scenes
 			
 			CopyEngineFacade.instance.registerMediator( new PerLoadSceneMediator((copyEngine.gamePerLoad ) ));
 			
-			GameSceneManger.instance.init(copyEngine,copyEngine.gamePerLoad);
+			GameSceneManger.instance.init(CopyEngineAS.screenLayer,copyEngine.gamePerLoad);
 		}
 	}
 }

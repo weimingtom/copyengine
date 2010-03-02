@@ -1,15 +1,25 @@
-package copyengine.utils
+package copyengine.utils.tick
 {
+    import copyengine.utils.GeneralUtils;
+    import copyengine.utils.tick.node.AnimationTickObjectNode;
+    import copyengine.utils.tick.node.TickObjectNode;
+    import copyengine.utils.tick.node.TweenEffectTickObjectNode;
+    
+    import flash.display.DisplayObject;
     import flash.display.MovieClip;
     import flash.display.Sprite;
     import flash.events.Event;
 
     /**
      * GlobalTick is convenient utils class, it's usually use in this condition
+	 * 
      * 1) have an effect MovieClip , we only want it paly certain time . and then remove form it parent.
+	 * 
      * 2) hava an class need to update it property , but that property maybe will be changed in the same tick.
      *     so in case to optimize performance , that property need to change in next frame.
      *
+	 * 3) need to play an effect in dialog show hide
+	 * 
      * @author Tunied
      *
      */
@@ -31,29 +41,52 @@ package copyengine.utils
             return _instance;
         }
 
-        private var firstTickObjectNode:TickObjectNode;
+        private var firstTickObjectNode:TickObjectNode; 			//double linked list , hold the like head
 
         public function GlobalTick()
         {
             SPRITE_TICK_HOLDER.addEventListener(Event.ENTER_FRAME,tick);
         }
 
+		/**
+		 *after intervalTick , then will call the function back. use in case 2 (See GlobalTick)
+		 */		
         public function callLaterAfterTickCount(_f:Function , _intervalTick:int = 1 , _repeatTime:int = 0 ,_delayTick:int = 0) : void
         {
             var tickNode:TickObjectNode = new TickObjectNode(_f ,_intervalTick , _repeatTime ,_delayTick);
             addToTickQueue(tickNode);
         }
-
+		
+		/**
+		 * use the tick time to simulation timer ( use in scrollBar thumb move.)
+		 */		
         public function callLaterAfterTimerCount(_f:Function , _intervalTime:Number , _repeatTime:int = 0 , _delayTime:int = 0) : void
         {
             callLaterAfterTickCount(_f,_intervalTime * CopyEngineAS.getStage().frameRate , _repeatTime ,_delayTime * CopyEngineAS.getStage().frameRate );
         }
-
+		
+		/**
+		 * play an MoveClip assign time count. use in case 1 (See GlobalTick)
+		 */		
         public function playMoveClip(_m:MovieClip ,_endCallBackFunction:Function ,  _repeatTime:int = 0) : void
         {
             var tickNode:AnimationTickObjectNode = new AnimationTickObjectNode(_m,_endCallBackFunction,_repeatTime);
             addToTickQueue(tickNode);
         }
+		
+		/**
+		 * some time use Tween is very difficulty to make some complex animation , in that case we can use MovieClip inside
+		 * we play the tweenMC , and each tick copy the propery of tweenMc to targetMC(x,y,sacle,alpha,rotation).
+		 * so to make an animation just make such MovieClipe
+		 * 
+		 * WARNINIG:: the tweenMC must contain an child name "mc".
+		 * 
+		 */		
+		public function playTweenEffect(_target:DisplayObject , _tweenMC:MovieClip , _endCallBackFunction:Function = null , _repeatTime:int = 0):void
+		{
+			var tickNode:TweenEffectTickObjectNode = new TweenEffectTickObjectNode(_target,_tweenMC,_endCallBackFunction,_repeatTime);
+			addToTickQueue(tickNode);
+		}
 
         private function tick(e:Event) : void
         {
@@ -71,10 +104,6 @@ package copyengine.utils
 				{
 					if (node.tick())
 					{
-						if(firstTickObjectNode == null)
-						{
-							trace("WTF!!!!");
-						}
 						removeFromTickQueue(node);
 					}
 				}
@@ -119,99 +148,3 @@ package copyengine.utils
     }
 }
 
-import copyengine.datastructure.DoubleLinkNode;
-
-import flash.display.MovieClip;
-
-class TickObjectNode extends DoubleLinkNode
-{
-    public var tickFinishedCallBackFunction:Function;
-	
-	public var isNeedRemove:Boolean = false; // an flage to tell mainTick is this node need to be remove
-	
-    protected var intervalTick:int = 0;
-    protected var repeatTime:int = 0;
-
-    private var tickCount:int = 0;
-    private var delayTick:int = 0;
-
-    public function TickObjectNode(_callBackFunction:Function = null , _intervalTick:int = 1 , _repeatTime:int = 0 , _delayTick:int = 0)
-    {
-        tickFinishedCallBackFunction = _callBackFunction;
-        tickCount = intervalTick = _intervalTick;
-        repeatTime = _repeatTime;
-        delayTick = _delayTick;
-    }
-
-    public function tick() : Boolean
-    {
-        if (delayTick > 0)
-        {
-            --delayTick;
-            return false;
-        }
-        if (intervalTick > 0)
-        {
-            tickLogic();
-            return false;
-        }
-        else
-        {
-            if (tickFinishedCallBackFunction != null)
-            {
-                tickFinishedCallBackFunction.apply();
-            }
-            --repeatTime;
-            intervalTick = tickCount;
-            if (repeatTime < 0)
-            {
-                destory();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-    }
-
-    protected function tickLogic() : void
-    {
-        --intervalTick;
-    }
-
-    public function destory() : void
-    {
-        tickFinishedCallBackFunction = null;
-    }
-}
-
-final class AnimationTickObjectNode extends TickObjectNode
-{
-    private var target:MovieClip;
-
-    public function AnimationTickObjectNode(_target:MovieClip,_callBackFunction:Function = null ,_repeatTime:int = 1)
-    {
-        super(_callBackFunction,_repeatTime);
-        target = _target;
-    }
-
-    override protected function tickLogic() : void
-    {
-        if (target.currentFrame < target.totalFrames)
-        {
-            target.gotoAndPlay(target.currentFrame+1);
-        }
-        else
-        {
-            target.gotoAndPlay(1);
-            --intervalTick;
-        }
-    }
-
-    override public function destory() : void
-    {
-		super.destory();
-        copyengine.utils.GeneralUtils.removeTargetFromParent(target);
-    }
-}
