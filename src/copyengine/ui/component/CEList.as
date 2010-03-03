@@ -5,7 +5,7 @@ package copyengine.ui.component
 	import copyengine.ui.list.CEDataProvider;
 	import copyengine.ui.list.CEListCore;
 	import copyengine.ui.list.CEListCoreEvent;
-	import copyengine.ui.list.interaction.ICEListInteraction;
+	import copyengine.ui.list.animation.ICEListAnimation;
 	import copyengine.ui.scrollbar.CEScrollBarCore;
 	import copyengine.ui.scrollbar.CEScrollBarCoreEvent;
 	import copyengine.utils.GeneralUtils;
@@ -119,7 +119,7 @@ package copyengine.ui.component
 			GeneralUtils.removeTargetEventListener(ceScrollBarCore,CEScrollBarCoreEvent.SCROLL,ceScrollBarCoreOnScroll);
 		}
 		
-		public function initializeCEList(_dataProvider:CEDataProvider , _cellRenderInstanceClass:Class,_listInteraction:ICEListInteraction) : void
+		public function initializeCEList(_dataProvider:CEDataProvider , _cellRenderInstanceClass:Class,_listInteraction:ICEListAnimation) : void
 		{
 			ceListCore.initializeCEListCore(_dataProvider,_cellRenderInstanceClass,_listInteraction);
 			ceScrollBarCore.initializeScrollBar(ceListCore.getLineScrollSize(),ceListCore.getPageScrollSize(),ceListCore.getMinScrollValue(),ceListCore.getMaxScrollValue());

@@ -1,9 +1,9 @@
-package copyengine.ui.button.interaction
+package copyengine.ui.button.animation
 {
 	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
 
-	public interface ICEButtonInteraction
+	public interface ICEButtonAnimation
 	{
 		function setTarget(_target:DisplayObject):void;
 		function dispose():void;

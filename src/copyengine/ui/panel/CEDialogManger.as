@@ -38,10 +38,11 @@ package copyengine.ui.panel
 		 * 2` set CEDialog vars
 		 * 3` add the CEDialog to the dialogLayer
 		 *  
-		 * @param _CEDialogCoreClass	
-		 * @param _vars										
-		 * @param _addMask
-		 * @return 
+		 * @param _CEDialogCoreClass					// the dialog class 
+		 * @param _vars										// use in dialog.setData(_vars) it will pass the vars as an object to the dialog
+		 * @param _isCenterPop							// define is current dialog will center pop or not
+		 * @param _isModalDialog						// modal dialog means if current dialog not close can't respond any other UI interaction
+		 * @param _isSingleton							// define is only can pop up only one dialog of current type.
 		 * 
 		 */		
 		public function requireCEDialogByClass(_CEDialogCoreClass:Class , _vars:Object = null ,_isCenterPop:Boolean = true) : CEDialogCore

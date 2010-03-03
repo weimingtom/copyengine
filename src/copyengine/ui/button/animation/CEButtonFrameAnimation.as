@@ -1,18 +1,18 @@
-package copyengine.ui.button.interaction
+package copyengine.ui.button.animation
 {
     import flash.display.DisplayObject;
     import flash.display.MovieClip;
     import flash.events.MouseEvent;
 
-    public class CEButtonFrameInteraction implements ICEButtonInteraction
+    public class CEButtonFrameAnimation implements ICEButtonAnimation
     {
         protected static const FRAME_ON:String = "on";
         protected static const FRAME_DOWN:String = "down";
         protected static const FRAME_OVER:String = "over";
 
-        private var target:MovieClip;
+        protected var target:MovieClip;
 
-        public function CEButtonFrameInteraction()
+        public function CEButtonFrameAnimation()
         {
         }
 
@@ -48,7 +48,7 @@ package copyengine.ui.button.interaction
             changeToFrame(FRAME_ON);
         }
 
-        private function changeToFrame(_frameLable:String) : void
+        protected final function changeToFrame(_frameLable:String) : void
         {
             target.gotoAndStop(_frameLable); // even target can't contain such frame it also not throw error.
 																// it only will stop in first frame.

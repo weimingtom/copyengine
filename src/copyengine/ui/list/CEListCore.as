@@ -1,10 +1,10 @@
 package copyengine.ui.list
 {
 	import copyengine.ui.CESprite;
+	import copyengine.ui.list.animation.ICEListAnimation;
 	import copyengine.ui.list.cellrender.ICECellRender;
-	import copyengine.ui.list.interaction.ICEListInteraction;
 	import copyengine.utils.GeneralUtils;
-
+	
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 
@@ -61,7 +61,7 @@ package copyengine.ui.list
 		/**
 		 * listInteraction use to deal will list scrolling animation.
 		 */
-		private var listInteraction:ICEListInteraction;
+		private var listInteraction:ICEListAnimation;
 
 		/**
 		 * define the padded for each cellRender.
@@ -119,7 +119,7 @@ package copyengine.ui.list
 			contentPadding = _contentPadding;
 		}
 
-		public function initializeCEListCore(_dataProvider:CEDataProvider ,_cellRenderInstanceClass:Class , _listInteraction:ICEListInteraction) : void
+		public function initializeCEListCore(_dataProvider:CEDataProvider ,_cellRenderInstanceClass:Class , _listInteraction:ICEListAnimation) : void
 		{
 			dataProvider = _dataProvider;
 			cellRenderInstanceClass = _cellRenderInstanceClass;

@@ -1,7 +1,7 @@
 package copyengine.ui.button
 {
     import copyengine.ui.CESprite;
-    import copyengine.ui.button.interaction.ICEButtonInteraction;
+    import copyengine.ui.button.animation.ICEButtonAnimation;
     
     import flash.display.DisplayObject;
     import flash.events.MouseEvent;
@@ -33,9 +33,9 @@ package copyengine.ui.button
          */
         protected var isUseToolTips:Boolean;
 		
-		protected var interaction:ICEButtonInteraction;
+		protected var interaction:ICEButtonAnimation;
 		
-        public function CEButton(_buttonBg:DisplayObject ,_interaction:ICEButtonInteraction = null , _labelTextKey:String = null , _isUseToolTips:Boolean = false)
+        public function CEButton(_buttonBg:DisplayObject ,_interaction:ICEButtonAnimation = null , _labelTextKey:String = null , _isUseToolTips:Boolean = false)
         {
             super();
             buttonBg = _buttonBg;

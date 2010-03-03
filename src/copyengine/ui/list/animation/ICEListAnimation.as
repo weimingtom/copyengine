@@ -1,4 +1,4 @@
-package copyengine.ui.list.interaction
+package copyengine.ui.list.animation
 {
 	
 
@@ -11,7 +11,7 @@ package copyengine.ui.list.interaction
 	 * @author Tunied
 	 * 
 	 */	
-	public interface ICEListInteraction
+	public interface ICEListAnimation
 	{
 		function set target(_val:Object):void;
 		
