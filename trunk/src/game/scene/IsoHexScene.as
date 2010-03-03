@@ -1,119 +1,126 @@
 package game.scene
 {
-	import com.greensock.TweenLite;
-	
-	import copyengine.scenes.GameScene;
-	import copyengine.ui.CEComponentFactory;
-	import copyengine.ui.button.CEButton;
-	import copyengine.ui.button.interaction.CEButtonFrameInteraction;
-	import copyengine.ui.component.CEList;
-	import copyengine.ui.list.CEDataProvider;
-	import copyengine.ui.list.CEListCore;
-	import copyengine.ui.list.interaction.CEListTweenInteraction;
-	import copyengine.ui.panel.CEDialogManger;
-	import copyengine.utils.ResUtlis;
-	
-	import flash.display.MovieClip;
-	import flash.display.Sprite;
-	import flash.events.MouseEvent;
-	import flash.geom.Vector3D;
-	import flash.text.TextField;
-	
-	import game.ui.test.dialog.TestDialog;
-	import game.ui.test.list.TShapeCellRender;
+    import com.greensock.TweenLite;
 
-	public class IsoHexScene extends GameScene
-	{
-		private var ceList:CEListCore;
+    import copyengine.scenes.GameScene;
+    import copyengine.ui.CEComponentFactory;
+    import copyengine.ui.button.CEButton;
+    import copyengine.ui.button.CESelectableButton;
+    import copyengine.ui.button.animation.CEButtonFrameAnimation;
+    import copyengine.ui.button.animation.CESelectedButtonFramAnimation;
+    import copyengine.ui.component.CEList;
+    import copyengine.ui.list.CEDataProvider;
+    import copyengine.ui.list.CEListCore;
+    import copyengine.ui.list.animation.CEListTweenAnimation;
+    import copyengine.ui.panel.CEDialogManger;
+    import copyengine.utils.ResUtlis;
 
-		public function IsoHexScene()
-		{
-			super();
-		}
+    import flash.display.MovieClip;
+    import flash.display.Sprite;
+    import flash.events.MouseEvent;
+    import flash.geom.Vector3D;
+    import flash.text.TextField;
 
-		private var tween:TweenLite;
+    import game.ui.test.dialog.TestDialog;
+    import game.ui.test.list.TShapeCellRender;
 
-		override public function initScene() : void
-		{
-			//			initIsoScreen();
-			//            initListUIStuff();
-			initDialogStuf();
-		}
+    public class IsoHexScene extends GameScene
+    {
+        private var ceList:CEListCore;
 
-		private function initIsoScreen() : void
-		{
-			var tileContianer:Sprite = new Sprite();
-			for (var row:int = 0 ; row < 5 ; row++)
-			{
-				for (var line:int = 0 ; line < 5 ; line++)
-				{
-					var isoPos:Vector3D = new Vector3D(row*40,line*40,0);
-					IsoMath.isoToScreen(isoPos);
-					var tile:MovieClip = ResUtlis.getMovieClip("FloorTile27","IsoHax_asset");
-					tile.x = isoPos.x;
-					tile.y = isoPos.y;
-					(tile.textMc as TextField).text = "("+row+","+line+")";
-					tileContianer.addChild(tile);
-				}
-			}
-			addChild(tileContianer);
-			tileContianer.x = 100;
-			tileContianer.y = 200;
-		}
+        public function IsoHexScene()
+        {
+            super();
+        }
 
-		private function initListUIStuff() : void
-		{
-			var dataV:Vector.<Object> = new Vector.<Object>();
-			for (var i:int = 0 ; i < 30 ; i ++)
-			{
-				var o:Object = new Object();
-				o.index = i;
-				dataV.push(o);
-			}
-			var dataProvider:CEDataProvider = new CEDataProvider(dataV);
+        private var tween:TweenLite;
 
-			var ceList:CEList = CEComponentFactory.instance.testCreateCEList();
-			ceList.initializeCEList(dataProvider,TShapeCellRender,new CEListTweenInteraction() );
-			addChild(ceList);
-			ceList.x = 100;
-			ceList.y = 50;
+        override public function initScene() : void
+        {
+            //			initIsoScreen();
+            //            initListUIStuff();
+            initDialogStuf();
+        }
 
-		}
+        private function initIsoScreen() : void
+        {
+            var tileContianer:Sprite = new Sprite();
+            for (var row:int = 0 ; row < 5 ; row++)
+            {
+                for (var line:int = 0 ; line < 5 ; line++)
+                {
+                    var isoPos:Vector3D = new Vector3D(row*40,line*40,0);
+                    IsoMath.isoToScreen(isoPos);
+                    var tile:MovieClip = ResUtlis.getMovieClip("FloorTile27","IsoHax_asset");
+                    tile.x = isoPos.x;
+                    tile.y = isoPos.y;
+                    (tile.textMc as TextField).text = "("+row+","+line+")";
+                    tileContianer.addChild(tile);
+                }
+            }
+            addChild(tileContianer);
+            tileContianer.x = 100;
+            tileContianer.y = 200;
+        }
 
-		private function initDialogStuf() : void
-		{
-			var btn1:CEButton = CEComponentFactory.instance.createCEButton(CEComponentFactory.CEBUTTON_TYPE_TWEEN,ResUtlis.getSprite("GreenButton","IsoHax_asset"),null,false);
-			btn1.addEventListener(MouseEvent.CLICK,onBtnClick);
-			addChild(btn1);
-			btn1.x = 100;
-			btn1.y = 30;
-			
-			var btFrame:CEButton = new CEButton(ResUtlis.getSprite("FrameGreenButton","IsoHax_asset"),new CEButtonFrameInteraction() );
-			addChild(btFrame);
-			btFrame.x = 50;
-			btFrame.y = 50;
-		}
-		
-		private function onBtnClick(e:MouseEvent):void
-		{
-			CEDialogManger.instance.requireCEDialogByClass( TestDialog ,{value1:"Test"} );
-		}
-		
-		private function onButtonPerClick(e:MouseEvent) : void
-		{
-			ceList.scrollPrev();
-			//            TweenLite.killTweensOf(ceList,true);
-			//            TweenLite.to(ceList, 0.3, {scrollPosition : ceList.scrollPosition-60});
-			//			ceList.scrollPosition -= 60;
-		}
+        private function initListUIStuff() : void
+        {
+            var dataV:Vector.<Object> = new Vector.<Object>();
+            for (var i:int = 0 ; i < 30 ; i ++)
+            {
+                var o:Object = new Object();
+                o.index = i;
+                dataV.push(o);
+            }
+            var dataProvider:CEDataProvider = new CEDataProvider(dataV);
 
-		private function onButtonNextClick(e:MouseEvent) : void
-		{
-			ceList.scrollNext();
-			//            TweenLite.killTweensOf(ceList,true);
-			//            TweenLite.to(ceList, 0.3, {scrollPosition : ceList.scrollPosition+60});
-			//			ceList.scrollPosition += 60;
-		}
+            var ceList:CEList = CEComponentFactory.instance.testCreateCEList();
+            ceList.initializeCEList(dataProvider,TShapeCellRender,new CEListTweenAnimation() );
+            addChild(ceList);
+            ceList.x = 100;
+            ceList.y = 50;
 
-	}
+        }
+
+        private function initDialogStuf() : void
+        {
+            var btn1:CEButton = CEComponentFactory.instance.createCEButton(CEComponentFactory.CEBUTTON_TYPE_TWEEN,ResUtlis.getSprite("GreenButton","IsoHax_asset"),null,false);
+            btn1.addEventListener(MouseEvent.CLICK,onBtnClick);
+            addChild(btn1);
+            btn1.x = 100;
+            btn1.y = 30;
+
+            var btFrame:CEButton = new CEButton(ResUtlis.getSprite("FrameGreenButton","IsoHax_asset"),new CEButtonFrameAnimation() );
+            addChild(btFrame);
+            btFrame.x = 50;
+            btFrame.y = 50;
+
+            var btSeletable:CESelectableButton = new CESelectableButton(ResUtlis.getSprite("FrameSelectableGreenButton","IsoHax_asset"),new CESelectedButtonFramAnimation);
+            addChild(btSeletable);
+            btSeletable.x = 200;
+            btSeletable.y = 50;
+        }
+
+        private function onBtnClick(e:MouseEvent) : void
+        {
+            CEDialogManger.instance.requireCEDialogByClass( TestDialog ,{value1:"Test"} );
+        }
+
+        private function onButtonPerClick(e:MouseEvent) : void
+        {
+            ceList.scrollPrev();
+            //            TweenLite.killTweensOf(ceList,true);
+            //            TweenLite.to(ceList, 0.3, {scrollPosition : ceList.scrollPosition-60});
+            //			ceList.scrollPosition -= 60;
+        }
+
+        private function onButtonNextClick(e:MouseEvent) : void
+        {
+            ceList.scrollNext();
+            //            TweenLite.killTweensOf(ceList,true);
+            //            TweenLite.to(ceList, 0.3, {scrollPosition : ceList.scrollPosition+60});
+            //			ceList.scrollPosition += 60;
+        }
+
+    }
 }

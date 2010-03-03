@@ -1,11 +1,11 @@
-package copyengine.ui.button.interaction
+package copyengine.ui.button.animation
 {
 	import com.greensock.TweenLite;
 	
 	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
 	
-	public class CEButtonTweenInteraction implements ICEButtonInteraction
+	public class CEButtonTweenAnimation implements ICEButtonAnimation
 	{
 		/**
 		 * define how long the tween is.
@@ -27,7 +27,7 @@ package copyengine.ui.button.interaction
 		
 		private var target:DisplayObject;
 		
-		public function CEButtonTweenInteraction()
+		public function CEButtonTweenAnimation()
 		{
 		}
 		

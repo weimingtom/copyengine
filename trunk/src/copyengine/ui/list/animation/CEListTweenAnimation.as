@@ -1,7 +1,7 @@
-package copyengine.ui.list.interaction
+package copyengine.ui.list.animation
 {
     import com.greensock.TweenLite;
-
+    
     import copyengine.ui.list.CEListCore;
 
     /**
@@ -10,7 +10,7 @@ package copyengine.ui.list.interaction
      * @author Tunied
      *
      */
-    public class CEListTweenInteraction implements ICEListInteraction
+    public class CEListTweenAnimation implements ICEListAnimation
     {
         private static const INVERSE_SPEED:Number = 0.005; // = 1/Speed
         private static const MAX_SCROLL_TIME:Number = 2; // if  caulate scroll time is bigger than that time ,then use this time for current animation.
@@ -32,7 +32,7 @@ package copyengine.ui.list.interaction
          */
         private var prevExpectScrollPosition:Number;
 
-        public function CEListTweenInteraction()
+        public function CEListTweenAnimation()
         {
         }
 
