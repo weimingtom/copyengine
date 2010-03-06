@@ -11,7 +11,10 @@ package copyengine.utils.tick.node
 		
 		private var tweenTargetOriginalPosX:Number;
 		private var tweenTargetOriginalPosY:Number;
-
+		
+		private var tweenTargetOriginalMouseEnable:Boolean;
+		private var tweenTargetOriginalMouseChildren:Boolean;
+		
 		public function TweenEffectTickObjectNode(_target:DisplayObject , _tweenMC:MovieClip , _endCallBackFunction:Function , _repeatTime:int)
 		{
 			super(_tweenMC,_endCallBackFunction,_repeatTime);
@@ -23,6 +26,15 @@ package copyengine.utils.tick.node
 			parent.addChild(tweenMC);
 			tweenMC.x = tweenTargetOriginalPosX = tweenTarget.x;
 			tweenMC.y = tweenTargetOriginalPosY = tweenTarget.y;
+			
+			if(tweenTarget is DisplayObjectContainer)
+			{
+				var container:DisplayObjectContainer = tweenTarget as DisplayObjectContainer;
+				tweenTargetOriginalMouseEnable = container.mouseEnabled;
+				tweenTargetOriginalMouseChildren = container.mouseChildren;
+				container.mouseEnabled = container.mouseChildren = false;
+				container = null;
+			}
 		}
 		
 		override protected function tickLogic() : void
@@ -36,6 +48,13 @@ package copyengine.utils.tick.node
 		
 		override public function destory() : void
 		{
+			if(tweenTarget is DisplayObjectContainer)
+			{
+				var container:DisplayObjectContainer = tweenTarget as DisplayObjectContainer;
+				container.mouseEnabled = tweenTargetOriginalMouseEnable;
+				container.mouseChildren = tweenTargetOriginalMouseChildren;
+				container = null;
+			}
 			super.destory();
 		}
 		

@@ -1,7 +1,7 @@
 package game.scene
 {
     import com.greensock.TweenLite;
-
+    
     import copyengine.scenes.GameScene;
     import copyengine.ui.CEComponentFactory;
     import copyengine.ui.button.CEButton;
@@ -9,18 +9,19 @@ package game.scene
     import copyengine.ui.button.animation.CEButtonFrameAnimation;
     import copyengine.ui.button.animation.CESelectedButtonFramAnimation;
     import copyengine.ui.component.CEList;
+    import copyengine.ui.dialog.CEDialogManger;
+    import copyengine.ui.dialog.animation.MovieClipTweenDialogAnimation;
     import copyengine.ui.list.CEDataProvider;
     import copyengine.ui.list.CEListCore;
     import copyengine.ui.list.animation.CEListTweenAnimation;
-    import copyengine.ui.panel.CEDialogManger;
     import copyengine.utils.ResUtlis;
-
+    
     import flash.display.MovieClip;
     import flash.display.Sprite;
     import flash.events.MouseEvent;
     import flash.geom.Vector3D;
     import flash.text.TextField;
-
+    
     import game.ui.test.dialog.TestDialog;
     import game.ui.test.list.TShapeCellRender;
 
@@ -103,7 +104,7 @@ package game.scene
 
         private function onBtnClick(e:MouseEvent) : void
         {
-            CEDialogManger.instance.requireCEDialogByClass( TestDialog ,{value1:"Test"} );
+            CEDialogManger.instance.addPopUp( TestDialog ,{value1:"Test"},MovieClipTweenDialogAnimation,true,false,false,false);
         }
 
         private function onButtonPerClick(e:MouseEvent) : void

@@ -1,7 +1,5 @@
 package
 {
-    import copyengine.ui.panel.CEDialogLayer;
-    
     import flash.display.DisplayObjectContainer;
     import flash.display.Sprite;
     import flash.display.Stage;
@@ -54,7 +52,7 @@ package
 			screenLayer = new Sprite();
 			addChild(screenLayer);
 			
-			gameDialogLayer = new CEDialogLayer();
+			gameDialogLayer = new Sprite();
 			addChild( gameDialogLayer);
 			
             _instance = this;

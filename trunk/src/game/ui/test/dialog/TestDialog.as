@@ -1,7 +1,6 @@
 package game.ui.test.dialog
 {
-	import copyengine.ui.panel.CEDialogCore;
-	import copyengine.ui.panel.CEDialogManger;
+	import copyengine.ui.dialog.CEDialogCore;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.Random;
 	
@@ -16,9 +15,9 @@ package game.ui.test.dialog
 		}
 
 		private var value1:String
-
 		private var bg:Sprite
-
+		
+		// set data at setData function
 		override public function setData(vars:Object) : void
 		{
 			if (vars.hasOwnProperty("value1"))
@@ -30,7 +29,8 @@ package game.ui.test.dialog
 				value1 = "Null";
 			}
 		}
-
+		
+		// drwa the surface at initialize function
 		override protected function initialize() : void
 		{
 			trace(value1);
@@ -44,21 +44,18 @@ package game.ui.test.dialog
 			
 			super.initialize();
 		}
-
+		
+		// clean up at dispose function
 		override protected function dispose() : void
 		{
 			trace("destory");
 			GeneralUtils.removeTargetFromParent(bg);
 		}
 		
-		override protected function doCloseDialog() : void
-		{
-			GeneralUtils.removeTargetFromParent(this);
-		}
-		
+		// call closeDialog() to close current dialog
 		private function close(e:MouseEvent) : void
 		{
-			CEDialogManger.instance.closeCEDialog(this);
+			closeDialog()
 		}
 		
 	}
