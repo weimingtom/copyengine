@@ -1,10 +1,11 @@
-package copyengine
+package copyengine.initialize.step
 {
 	import copyengine.resource.GameResMessage;
 	import copyengine.rpc.GameRpcMessage;
 
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
+	import copyengine.CopyEngineMessage;
 
 	public class CopyEngineInitFirstMediator extends Mediator
 	{

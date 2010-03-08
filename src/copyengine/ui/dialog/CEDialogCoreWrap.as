@@ -5,6 +5,7 @@ package copyengine.ui.dialog
     import flash.display.DisplayObject;
     import flash.display.Sprite;
     import flash.utils.getTimer;
+    
 
     /**
      *This clase Warp each CEDialogCore class , and contain some propery for current dialog
@@ -21,25 +22,25 @@ package copyengine.ui.dialog
         public var ceDialogClass:Class;
         public var ceDialog:CEDialogCore;
         public var vars:Object;
-		public var animationClass:Class
-		
-		private var uniqueID:int;
-		
+        public var animationClass:Class
+
+        private var uniqueID:int;
+
         public function CEDialogCoreWrap()
         {
-			uniqueID = getTimer();
+            uniqueID = getTimer();
         }
 
         public function createCEDialog() : DisplayObject
         {
             ceDialog = new ceDialogClass() as CEDialogCore;
+            if (animationClass != null)
+            {
+                ceDialog.setAnimation( new animationClass() );
+            }
             ceDialog.setData(vars);
-			if(animationClass != null)
-			{
-				ceDialog.setAnimation( new animationClass () );
-			}
-			animationClass = null;
-			vars = null;
+            animationClass = null;
+            vars = null;
             // should change the pos before add the dialog. 
             //so that can get the right pos xy in dialog initialze function
             if (isCenterPop)
@@ -47,7 +48,6 @@ package copyengine.ui.dialog
                 ceDialog.x = GeneralConfig.CEDIALOG_SCREEN_WIDTH >>1;
                 ceDialog.y = GeneralConfig.CEDIALOG_SCREEN_HEIGHT >>1;
             }
-
             if (isModalDialog)
             {
                 var modalLayer:Sprite = new Sprite();
@@ -63,29 +63,29 @@ package copyengine.ui.dialog
                 return ceDialog;
             }
         }
-		
-		public function disposeDialog():void
-		{
-			if(isModalDialog)
-			{
-				GeneralUtils.removeTargetFromParent(ceDialog.parent);
-			}
-			ceDialog.disposeDialog();
-			
-			ceDialogClass = null;
-			ceDialog = null;
-		}
-		
-		
-		public function getCEDialog():CEDialogCore
-		{
-			return ceDialog;
-		}
-		
-		public function getUniqueID():int
-		{
-			return uniqueID;
-		}
-		
+
+        public function disposeDialog() : void
+        {
+            if (isModalDialog)
+            {
+                GeneralUtils.removeTargetFromParent(ceDialog.parent);
+            }
+            ceDialog.disposeDialog();
+
+            ceDialogClass = null;
+            ceDialog = null;
+        }
+
+
+        public function getCEDialog() : CEDialogCore
+        {
+            return ceDialog;
+        }
+
+        public function getUniqueID() : int
+        {
+            return uniqueID;
+        }
+
     }
 }

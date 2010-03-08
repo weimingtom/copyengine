@@ -19,12 +19,12 @@ package copyengine.ui.dialog.animation
 		
 		public function openDialog(_callBackFunction:Function):void
 		{
-			GlobalTick.instance.playTweenEffect(ceDialog,ResUtlis.getMovieClip("CEDialogShowAnimation","IsoHax_asset"),_callBackFunction);
+			GlobalTick.instance.playTweenEffect(ceDialog,ResUtlis.getMovieClip("CZ_CEDialogShowAnimation","IsoHax_asset"),_callBackFunction);
 		}
 		
 		public function closeDialog(_callBackFunction:Function):void
 		{
-			_callBackFunction();
+			GlobalTick.instance.playTweenEffect(ceDialog,ResUtlis.getMovieClip("CZ_CEDialogCloseAnimation","IsoHax_asset"),_callBackFunction);
 		}
 		
 		public function dispose():void

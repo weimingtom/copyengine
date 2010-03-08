@@ -2,6 +2,8 @@ package
 {
 	import copyengine.scenes.GameSceneManger;
 	
+	import game.GlobalMessage;
+	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 

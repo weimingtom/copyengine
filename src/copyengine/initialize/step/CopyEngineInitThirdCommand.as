@@ -1,4 +1,4 @@
-package copyengine
+package copyengine.initialize.step
 {
 	import copyengine.datas.DataInitialCommand;
 	
