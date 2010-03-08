@@ -14,7 +14,7 @@ package
 	 * GamePerLoader is special gameScene.
 	 * this class have two function .
 	 * 1) this is the portal for the all game load , it's response for load the main game swf file
-	 * 2) the is also an gameScene , when the main system is start , it will mangered by GameScene Manger
+	 * 2) the is also an gameScene , when the main system is start , it will mangered by GameScene Manger as normal GameScene
 	 */
 	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="27")]
 	public class GamePerLoader extends Sprite implements IGameScene
@@ -23,7 +23,10 @@ package
 		private var mainLoader:Loader;
 
 		private var loadScreen:MovieClip; // loading Screen UI animation.
-
+		
+		//=================
+		//== Load MainGameJob
+		//==================
 		public function GamePerLoader()
 		{
 			screenLoader = new Loader();
@@ -35,10 +38,6 @@ package
 			mainLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadMainComplate);
 
 			super();
-		}
-
-		public function destory() : void
-		{
 		}
 
 		private function loadComplate(e:Event) : void
@@ -55,7 +54,11 @@ package
 			main["gamePerLoad"] = this;
 			stage.addChild(main as DisplayObject);
 		}
-
+		
+		
+		//============
+		//== GameScene Job
+		//============
 		public function initScene() : void
 		{
 			//nothing need to do here

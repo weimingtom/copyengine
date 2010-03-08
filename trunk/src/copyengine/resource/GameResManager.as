@@ -2,13 +2,10 @@ package copyengine.resource
 {
     import copyengine.debug.DebugLog;
     import copyengine.resource.file.BasicResourceFile;
-    import copyengine.resource.file.SwfResourceFile;
     import copyengine.resource.loadqueue.LoadResourceQueue;
     import copyengine.resource.state.ResLoadStatePackage;
     import copyengine.utils.GeneralUtils;
     
-    import flash.display.Bitmap;
-    import flash.display.DisplayObject;
     import flash.events.Event;
     import flash.events.IOErrorEvent;
     import flash.net.URLLoader;
@@ -16,6 +13,8 @@ package copyengine.resource
     import flash.net.URLRequest;
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
+    
+    import game.GlobalMessage;
     
     import org.puremvc.as3.patterns.proxy.Proxy;
 

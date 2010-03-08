@@ -1,4 +1,4 @@
-package copyengine
+package copyengine.initialize.step
 {
 	import copyengine.resource.ResourceInitalCommand;
 	import copyengine.rpc.GameRpcInitalCommand;

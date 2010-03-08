@@ -18,15 +18,18 @@ package copyengine.ui.dialog
 
         protected var animation:IDialogAnimation;
 
-        public function CEDialogCore(_animation:IDialogAnimation = null)
+        public function CEDialogCore()
         {
             super(false); // dialog will remove manually , incase dialog parent change during animation.
         }
 		
-		public function setAnimation(_animation:IDialogAnimation):void
+		final public function setAnimation(_animation:IDialogAnimation):void
 		{
-			animation = _animation;
-			animation.setTarget(this);
+			if(_animation != null)
+			{
+				animation = _animation;
+				animation.setTarget(this);
+			}
 		}
 		
         final public function closeDialog() : void

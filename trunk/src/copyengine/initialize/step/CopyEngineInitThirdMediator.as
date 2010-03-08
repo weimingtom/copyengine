@@ -1,9 +1,10 @@
-package copyengine
+package copyengine.initialize.step
 {
 	import copyengine.datas.GameDataMessage;
 
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
+	import copyengine.CopyEngineMessage;
 
 	public class CopyEngineInitThirdMediator extends Mediator
 	{

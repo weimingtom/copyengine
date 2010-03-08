@@ -1,10 +1,27 @@
-package copyengine
+package copyengine.initialize
 {
+	import copyengine.CopyEngineMessage;
 	import copyengine.debug.DebugLog;
-
+	import copyengine.initialize.step.CopyEngineInitFirstCommand;
+	import copyengine.initialize.step.CopyEngineInitFirstMediator;
+	import copyengine.initialize.step.CopyEngineInitSecondCommand;
+	import copyengine.initialize.step.CopyEngineInitSecondMediator;
+	import copyengine.initialize.step.CopyEngineInitThirdCommand;
+	import copyengine.initialize.step.CopyEngineInitThirdMediator;
+	
+	import game.GlobalMessage;
+	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 
+	/**
+	 * CopyEngineInitManagerMediator is entrance of all CopyEngine System.
+	 * this package class main job is initialze CopyEngine in orders.
+	 * 
+	 * this class is mediator dispatcher, it's job is listen each step message , and add/remove each step mediator.
+	 * not do any logic part init things. that things do in each step init Mediator/Command .
+	 *
+	 */
 	public class CopyEngineInitManagerMediator extends Mediator
 	{
 		public static const NAME : String = "CopyEngineInitManagerMediator";
@@ -24,14 +41,6 @@ package copyengine
 				];
 		}
 
-		/**
-		 * CopyEngineInitManagerMediator is mediator dispatcher , because CopyEngine muse init in orders.
-		 * so this class job is listen each step message , and add/remove each step mediator.
-		 *
-		 * the class job is arrange each init Mediator(keep those in order) not to do any logic part init things.
-		 * that things do in each step init Mediator/Command .
-		 *
-		 */
 		override public function handleNotification(notification : INotification) : void
 		{
 			switch (notification.getName())
@@ -83,7 +92,6 @@ package copyengine
 			sendNotification(GlobalMessage.ENGINE_INIT_COMPLATE);
 			DebugLog.instance.log("CopyEngine init Complate");
 		}
-
 
 	}
 }

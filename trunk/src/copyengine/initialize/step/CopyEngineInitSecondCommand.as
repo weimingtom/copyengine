@@ -1,4 +1,4 @@
-package copyengine
+package copyengine.initialize.step
 {
 	import copyengine.resource.GameResManager;
 	import copyengine.resource.ResourcePerLoadCommand;

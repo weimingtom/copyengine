@@ -1,6 +1,5 @@
-package
+package 
 {
-
 	public class CompiledAssets
 	{
 		[Embed(source="../resSource/compiled/CompiledAssets.swf" , symbol="LazyLoadIcon")]

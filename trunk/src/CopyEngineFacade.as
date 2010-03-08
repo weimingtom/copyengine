@@ -1,7 +1,10 @@
 package
 {
-	import copyengine.CopyEngineInitManagerMediator;
 
+	import copyengine.initialize.CopyEngineInitManagerMediator;
+	
+	import game.GlobalMessage;
+	
 	import org.puremvc.as3.patterns.facade.Facade;
 
 	public class CopyEngineFacade extends Facade
@@ -24,6 +27,8 @@ package
 
 		/**
 		 * when download the main.swf file ,then call this function to start copyEngine system.
+		 * 
+		 * see more detail	in CopyEngineInitManagerMediator.
 		 */
 		public function startup(_mainFile : CopyEngineAS) : void
 		{
