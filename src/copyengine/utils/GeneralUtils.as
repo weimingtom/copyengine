@@ -148,10 +148,20 @@ package copyengine.utils
         {
             if (_dContianer != null)
             {
+                if (_dContianer is MovieClip)
+                {
+                    (_dContianer as MovieClip).stop();
+                }
                 while (_dContianer.numChildren > 0)
                 {
-                    _dContianer.removeChildAt(0);
+                    var child:DisplayObject = _dContianer.removeChildAt(0);
+                    if (child is MovieClip)
+                    {
+                        (child as MovieClip).stop();
+                    }
+                    child = null;
                 }
+                _dContianer = null;
             }
         }
 

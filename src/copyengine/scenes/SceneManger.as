@@ -19,7 +19,7 @@ package copyengine.scenes
             {
                 _instance = new SceneManger();
             }
-            return instance;
+            return _instance;
         }
 
         /**
@@ -43,7 +43,7 @@ package copyengine.scenes
          */
         private var isChangingScreen:Boolean = false;
 
-        public function SceneManger(_sceneFactory:ISceneFactory)
+        public function SceneManger()
         {
         }
 
@@ -58,14 +58,14 @@ package copyengine.scenes
             sceneFactory = _sceneFactory;
         }
 
-		/**
-		 *start change current screen to next screen
-		 * 
-		 * WARNINIG:: is the change progress start then can't be stop.
-		 *  
-		 * @param _sceneName        will use this as an key and get the screen from sceneFactory
-		 * 
-		 */		
+        /**
+         *start change current screen to next screen
+         *
+         * WARNINIG:: is the change progress start then can't be stop.
+         *
+         * @param _sceneName        will use this as an key and get the screen from sceneFactory
+         *
+         */
         public function changeScene(_sceneName:String) : void
         {
             if (isChangingScreen)
@@ -80,12 +80,12 @@ package copyengine.scenes
                 GlobalTick.instance.callLaterAfterTickCount(doChangeScene);
             }
         }
-		
-		/**
-		 * @private
-		 *  
-		 *  in change screen progress , when next screen perload complate then call this functon
-		 */
+
+        /**
+         * @private
+         *
+         *  in change screen progress , when next screen perload complate then call this functon
+         */
         public function scenePerloadComplate() : void
         {
             CopyEngineAS.screenLayer.addChild(nextScene.container);
@@ -104,38 +104,38 @@ package copyengine.scenes
             }
         }
 
-		/**
-		 * @private
-		 * 
-		 * in change screen progress when current screen clean complate then call this function. 
-		 * 
-		 */		
+        /**
+         * @private
+         *
+         * in change screen progress when current screen clean complate then call this function.
+         *
+         */
         public function sceneCleanComplate() : void
         {
-            CopyEngineAS.screenLayer.removeChild(currentScene);
+            CopyEngineAS.screenLayer.removeChild(currentScene.container);
             currentScene.removeFromStage();
             nextScene.perSceneCleanComplate();
             currentScene = nextScene;
             nextScene = null;
             isChangingScreen = false
         }
-		
-		/**
-		 * when call changeScene() , it will not start change screen immediately. 
-		 * it will wait to next tick then start to change the screen. 
-		 * doing this is to avoid some bugs.
-		 * 
-		 * ex:
-		 * 
-		 * var mc:MovieClip = new MovieClip();
-		 * SceneManger.changeScreen(nextScreen);
-		 * mc.gotoAndPlay(5);
-		 * 
-		 * if we change the screen immediately , ScreeeManger will call current dispose();
-		 * and then go to next line call mc.gotoAndPlay(5) . if we set mc = null in dispose() function.
-		 * then we will get an error when call mc.gotoAndPlay(5);
-		 * 
-		 */		
+
+        /**
+         * when call changeScene() , it will not start change screen immediately.
+         * it will wait to next tick then start to change the screen.
+         * doing this is to avoid some bugs.
+         *
+         * ex:
+         *
+         * var mc:MovieClip = new MovieClip();
+         * SceneManger.changeScreen(nextScreen);
+         * mc.gotoAndPlay(5);
+         *
+         * if we change the screen immediately , ScreeeManger will call current dispose();
+         * and then go to next line call mc.gotoAndPlay(5) . if we set mc = null in dispose() function.
+         * then we will get an error when call mc.gotoAndPlay(5);
+         *
+         */
         private function doChangeScene() : void
         {
             if (currentScene != null)
