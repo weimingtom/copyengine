@@ -1,5 +1,7 @@
 package
 {
+    import copyengine.utils.GeneralUtils;
+
     import flash.display.DisplayObjectContainer;
     import flash.display.Sprite;
     import flash.display.Stage;
@@ -11,52 +13,64 @@ package
 
         private static var _instance:CopyEngineAS;
 
-		/**
-		 * Some of Class may need stage to addSomeListener or get some property
-		 * but those class are not in stage ,so . it's an convenient way to get the stage.
-		 */
+        /**
+         * Some of Class may need stage to addSomeListener or get some property
+         * but those class are not in stage ,so . it's an convenient way to get the stage.
+         */
         public static function getStage() : Stage
         {
             return _instance.stage;
         }
-		
-		public static function get gameDialogLayer():DisplayObjectContainer
-		{
-			return _instance.gameDialogLayer;
-		}
-		
-		public static function get screenLayer():DisplayObjectContainer
-		{
-			return _instance.screenLayer;
-		}
-		
-		
-		//================
-		//== Engine
-		//================
-		public var gamePerLoad:GamePerLoader;
-		
-		/**
-		 *  layer structure
-		 */		
-		private var gameDialogLayer:DisplayObjectContainer;
-		private var screenLayer:DisplayObjectContainer;
-		
+
+        public static function get gameDialogLayer() : DisplayObjectContainer
+        {
+            return _instance.gameDialogLayer;
+        }
+
+        public static function get screenLayer() : DisplayObjectContainer
+        {
+            return _instance.screenLayer;
+        }
+
+        public static function get gamePerLoader() : DisplayObjectContainer
+        {
+            return _instance.gamePerLoader;
+        }
+
+        public static function cleanGamePerLoader() : void
+        {
+            GeneralUtils.removeTargetFromParent(_instance.gamePerLoader);
+			_instance.gamePerLoader["loadSceeenSSSS"] = null;
+            GeneralUtils.clearChild(_instance.gamePerLoader);
+            _instance.gamePerLoader = null;
+        }
+
+        //================
+        //== Engine
+        //================
+        public var gamePerLoader:DisplayObjectContainer;
+
+        /**
+         *  layer structure
+         */
+        private var gameDialogLayer:DisplayObjectContainer;
+        private var screenLayer:DisplayObjectContainer;
+
         public function CopyEngineAS()
         {
             this.addEventListener(Event.ADDED_TO_STAGE , onAddToStage);
         }
-		
+
         private function onAddToStage(e:Event) : void
         {
-			screenLayer = new Sprite();
-			addChild(screenLayer);
-			
-			gameDialogLayer = new Sprite();
-			addChild( gameDialogLayer);
-			
+            screenLayer = new Sprite();
+            addChild(screenLayer);
+
+            gameDialogLayer = new Sprite();
+            addChild( gameDialogLayer);
+
             _instance = this;
-			
+
             this.removeEventListener(Event.ADDED_TO_STAGE , onAddToStage);
             CopyEngineFacade.instance.startup(this);
         }

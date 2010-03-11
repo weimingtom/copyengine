@@ -45,7 +45,7 @@ package copyengine.utils.tick
 
         public function GlobalTick()
         {
-            SPRITE_TICK_HOLDER.addEventListener(Event.ENTER_FRAME,tick);
+            SPRITE_TICK_HOLDER.addEventListener(Event.ENTER_FRAME,tick,false,0,true);
         }
 
 		/**

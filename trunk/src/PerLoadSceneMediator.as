@@ -1,41 +1,38 @@
 package
 {
-	import copyengine.scenes.GameSceneManger;
-	
-	import game.GlobalMessage;
-	
-	import org.puremvc.as3.interfaces.INotification;
-	import org.puremvc.as3.patterns.mediator.Mediator;
+    import copyengine.scenes.SceneFactory;
+    import copyengine.scenes.SceneManger;
 
-	public class PerLoadSceneMediator extends Mediator
-	{
-		public static const NAME : String = "PerLoadSceneMediator";
+    import game.GlobalMessage;
 
-		public function PerLoadSceneMediator(viewComponent : GamePerLoader)
-		{
-			super(NAME , viewComponent);
-		}
+    import org.puremvc.as3.interfaces.INotification;
+    import org.puremvc.as3.patterns.mediator.Mediator;
 
-		override public function listNotificationInterests() : Array
-		{
-			return [GlobalMessage.ENGINE_INIT_COMPLATE];
-		}
+    public class PerLoadSceneMediator extends Mediator
+    {
+        public static const NAME : String = "PerLoadSceneMediator";
 
-		override public function handleNotification(notification : INotification) : void
-		{
-			switch (notification.getName())
-			{
-				case GlobalMessage.ENGINE_INIT_COMPLATE:
-					GameSceneManger.instance.changeScene(GameSceneManger.GAMESCENE_TEST);
-					CopyEngineFacade.instance.removeMediator(NAME);
-					break;
-			}
-		}
+        public function PerLoadSceneMediator()
+        {
+            super(NAME);
+        }
 
-		protected function get gamePerLoader() : GamePerLoader
-		{
-			return viewComponent as GamePerLoader;
-		}
+        override public function listNotificationInterests() : Array
+        {
+            return [
+                GlobalMessage.ENGINE_INIT_COMPLATE
+                ];
+        }
 
-	}
+        override public function handleNotification(notification : INotification) : void
+        {
+            switch (notification.getName())
+            {
+                case GlobalMessage.ENGINE_INIT_COMPLATE:
+                    SceneManger.instance.changeScene(SceneFactory.SCENE_CEUICOMPONENT_TEST_SCENE);
+                    break;
+            }
+        }
+		
+    }
 }
