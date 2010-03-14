@@ -39,9 +39,9 @@ package copyengine.resource.file
         {
             swfLoader = new Loader();
             swfLoader.load(new URLRequest(_filePath));
-            swfLoader.contentLoaderInfo.addEventListener(Event.COMPLETE , onLoaded);
-            swfLoader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS , onProgress);
-            swfLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR , onError);
+            swfLoader.contentLoaderInfo.addEventListener(Event.COMPLETE , onLoaded,false,0,true);
+            swfLoader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS , onProgress,false,0,true);
+            swfLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR , onError,false,0,true);
 
             super.start();
         }
@@ -139,7 +139,7 @@ package copyengine.resource.file
         {
             if (swfLoader != null)
             {
-                swfLoader.unload();
+                swfLoader.unloadAndStop();
             }
             swfLoader = null;
         }

@@ -7,6 +7,7 @@ package copyengine.scenes
     {
 		public static const SCENE_PERLOADER:String = "SceneFactory_Scenen_PerLoader";
 		public static const SCENE_CEUICOMPONENT_TEST_SCENE:String = "SceneFactory_Scenen_CEUICompoent_Test_Scene";
+		public static const SCENE_EMPTY:String = "SceneFactory_Empty";
 		
         public function SceneFactory()
         {
@@ -21,6 +22,9 @@ package copyengine.scenes
 					break;
 				case SCENE_CEUICOMPONENT_TEST_SCENE:
 					return new CEUICompoentTestScene();
+					break;
+				case SCENE_EMPTY:
+					return new SceneBasic();
 					break;
             }
 			return null;

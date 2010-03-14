@@ -77,7 +77,11 @@ package copyengine.scenes
             {
                 isChangingScreen = true
                 nextScene = sceneFactory.createScene(_sceneName);
-                GlobalTick.instance.callLaterAfterTickCount(doChangeScene);
+				if (currentScene != null)
+				{
+					currentScene.startLoadNextScene();
+				}
+				nextScene.startPerloadScene();
             }
         }
 
@@ -118,31 +122,6 @@ package copyengine.scenes
             currentScene = nextScene;
             nextScene = null;
             isChangingScreen = false
-        }
-
-        /**
-         * when call changeScene() , it will not start change screen immediately.
-         * it will wait to next tick then start to change the screen.
-         * doing this is to avoid some bugs.
-         *
-         * ex:
-         *
-         * var mc:MovieClip = new MovieClip();
-         * SceneManger.changeScreen(nextScreen);
-         * mc.gotoAndPlay(5);
-         *
-         * if we change the screen immediately , ScreeeManger will call current dispose();
-         * and then go to next line call mc.gotoAndPlay(5) . if we set mc = null in dispose() function.
-         * then we will get an error when call mc.gotoAndPlay(5);
-         *
-         */
-        private function doChangeScene() : void
-        {
-            if (currentScene != null)
-            {
-                currentScene.startLoadNextScene();
-            }
-            nextScene.startPerloadScene();
         }
 
     }
