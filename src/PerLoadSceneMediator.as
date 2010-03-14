@@ -29,7 +29,7 @@ package
             switch (notification.getName())
             {
                 case GlobalMessage.ENGINE_INIT_COMPLATE:
-                    SceneManger.instance.changeScene(SceneFactory.SCENE_CEUICOMPONENT_TEST_SCENE);
+                    SceneManger.instance.changeScene(SceneFactory.SCENE_EMPTY);
                     break;
             }
         }
