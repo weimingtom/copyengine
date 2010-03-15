@@ -34,7 +34,7 @@ package game.scene
         private function setUIComponent() : void
         {
             var btn1:CEButton = CEComponentFactory.instance.createCEButton(CEComponentFactory.CEBUTTON_TYPE_TWEEN,ResUtlis.getSprite("GreenButton","IsoHax_asset"),null,false);
-            btn1.addEventListener(MouseEvent.CLICK,onBtnClick);
+            btn1.addEventListener(MouseEvent.CLICK,onBtnClick,false,0,true);
             container.addChild(btn1);
             btn1.x = 100;
             btn1.y = 30;

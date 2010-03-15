@@ -1,10 +1,9 @@
 package
 {
-	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	import flash.display.Loader;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
-	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
@@ -16,14 +15,14 @@ package
 	 * 2) the is also an gameScene , when the main system is start , it will mangered by GameScene Manger as normal GameScene
 	 */
 	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="27")]
-	public class GamePerLoader extends Sprite
+	public class GamePerLoader extends Sprite implements IPerLoader
 	{
+		private var main:IMain;
+
 		private var screenLoader:Loader
 		private var mainLoader:Loader;
 
-		public var loadSceeenSSSS:MovieClip; // loading Screen UI animation.
-
-		private var resDomain:ApplicationDomain;
+		private var loadingAnimation:MovieClip; // loading Screen UI animation.
 
 		//=================
 		//== Load MainGameJob
@@ -41,13 +40,28 @@ package
 			super();
 		}
 
+		public function destory() : void
+		{
+//			loadingAnimation.parent.removeChild(loadingAnimation);
+			this.parent.removeChild(this);
+
+			loadingAnimation = null;
+			main = null;
+			screenLoader = null;
+			mainLoader = null;
+		}
+
+		public function get container() : DisplayObjectContainer
+		{
+			return this;
+		}
+
 		private function loadComplate(e:Event) : void
 		{
-			resDomain = e.currentTarget.applicationDomain;
-
+			var resDomain:ApplicationDomain = e.currentTarget.applicationDomain;
 			var resClass:Class = resDomain.getDefinition("EmptyLoader") as Class;
-			loadSceeenSSSS = new  resClass() as MovieClip;
-			this.addChild(loadSceeenSSSS);
+			loadingAnimation = new  resClass() as MovieClip;
+			this.addChild(loadingAnimation);
 
 			screenLoader.contentLoaderInfo.removeEventListener(Event.COMPLETE,loadComplate);
 			screenLoader.unloadAndStop();
@@ -59,19 +73,12 @@ package
 
 		private function loadMainComplate(e:Event) : void
 		{
-			var main:Object = e.target.loader.content;
-			var mainStage:Stage = this.stage;
-
-			main["gamePerLoader"] = this;
-			stage.removeChild(this);
-			mainStage.addChild(main as DisplayObject);
+			main = e.target.loader.content as IMain;
+			main.initialize(this,this.stage);
 
 			mainLoader.contentLoaderInfo.removeEventListener(Event.COMPLETE,loadMainComplate);
 			mainLoader.unload();
 			mainLoader = null;
-//			
-			main = null;
-			mainStage = null;
 		}
 
 	}

@@ -105,6 +105,7 @@ package copyengine.scenes
                 currentScene.perSceneCleanComplate();
                 nextScene = null;
                 isChangingScreen = false;
+				
             }
         }
 
