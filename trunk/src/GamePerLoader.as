@@ -42,7 +42,7 @@ package
 
 		public function destory() : void
 		{
-//			loadingAnimation.parent.removeChild(loadingAnimation);
+			loadingAnimation.parent.removeChild(loadingAnimation);
 			this.parent.removeChild(this);
 
 			loadingAnimation = null;

@@ -1,11 +1,12 @@
 package copyengine.initialize.step
 {
+	import copyengine.CopyEngineMessage;
 	import copyengine.resource.GameResMessage;
 	import copyengine.rpc.GameRpcMessage;
+	import copyengine.scenes.SceneMessage;
 
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
-	import copyengine.CopyEngineMessage;
 
 	public class CopyEngineInitFirstMediator extends Mediator
 	{
@@ -13,6 +14,7 @@ package copyengine.initialize.step
 
 		private var isGameResInitFinished:Boolean = false;
 		private var isGameRpcInitFinished:Boolean = false;
+		private var isGameSceneInitFinished:Boolean = false;
 
 		public function CopyEngineInitFirstMediator(mediatorName:String=null, viewComponent:Object=null)
 		{
@@ -24,6 +26,7 @@ package copyengine.initialize.step
 			return [
 				GameResMessage.GAME_RES_MANAGER_INIT_COMPLATE,
 				GameRpcMessage.GAME_RPC_MANAGER_INIT_COMPLATE,
+				SceneMessage.CHANGE_SCENE_COMPLATE,
 				];
 		}
 
@@ -41,13 +44,18 @@ package copyengine.initialize.step
 					isGameResInitFinished = true;
 
 					break;
+				case SceneMessage.CHANGE_SCENE_COMPLATE:
+
+					isGameSceneInitFinished = true;
+
+					break;
 			}
 			checkIsFinished();
 		}
 
 		private function checkIsFinished() : void
 		{
-			if (isGameResInitFinished && isGameRpcInitFinished)
+			if (isGameResInitFinished && isGameRpcInitFinished && isGameSceneInitFinished)
 			{
 				onFinished();
 			}
