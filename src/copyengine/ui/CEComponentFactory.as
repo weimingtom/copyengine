@@ -1,13 +1,17 @@
 package copyengine.ui
 {
 	import copyengine.ui.button.CEButton;
+	import copyengine.ui.button.CESelectableButton;
 	import copyengine.ui.button.animation.CEButtonFrameAnimation;
 	import copyengine.ui.button.animation.CEButtonTweenAnimation;
+	import copyengine.ui.button.animation.CESelectedButtonFramAnimation;
 	import copyengine.ui.component.CEList;
 	import copyengine.ui.list.CEListCore;
 	import copyengine.ui.scrollbar.CEScrollBarCore;
+	import copyengine.ui.tabbar.CETabBar;
+	import copyengine.ui.tabbar.animation.ICETabBarAnimation;
 	import copyengine.utils.ResUtlis;
-	
+
 	import flash.display.DisplayObject;
 
 	/**
@@ -46,54 +50,67 @@ package copyengine.ui
 		{
 
 		}
+
 		//===================
 		//== Automate create function
 		//           get the component config info form xml file
 		//===================
-		
+
 		/**
-		 * use in developing phase   
-		 */		
-		public function testCreateCEList():CEList
-		{
-			return getCEListByXml(null);
-		}
-		/**
-		 * 
-		 */		
-		private function getCEListByXml(_xml:XML):CEList
+		 *
+		 */
+		private function getCEListByXml(_xml:XML) : CEList
 		{
 			var ceListCore:CEListCore = createCEListCore(5,CEListCore.LAYOUT_HORIZONTAL,50,50,10);
 			var prevOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getSprite("GreenButton","IsoHax_asset"),null,false);
 			var nextOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getSprite("GreenButton","IsoHax_asset"),null,false);
-			
+
 			var thumb:CEButton = createCEButton(CEBUTTON_TYPE_FRAME,ResUtlis.getSprite("thumb","IsoHax_asset"),null,false);
 			var track:CEButton = createCEButton(CEBUTTON_TYPE_FRAME,ResUtlis.getSprite("track","IsoHax_asset"),null,false);
 			var scrollBar:CEScrollBarCore = createScrollBarCore(thumb,track,340,50,CEScrollBarCore.LAYOUT_AUTO);
-			
+
 			var ceList:CEList = createCEList(ceListCore,scrollBar,nextOneBtn,null,prevOneBtn,null,null,null);
-			
+
 			ceListCore.x = 0;
 			ceListCore.y = 50;
-			
+
 			prevOneBtn.x = 0;
 			prevOneBtn.y = 0;
-			
+
 			nextOneBtn.x = prevOneBtn.x + prevOneBtn.width + 10;
 			nextOneBtn.y = 0;
-			
+
 			scrollBar.x = 0;
 			scrollBar.y = ceListCore.y + ceListCore.height + 50;
-			
-			return ceList;			
+
+			return ceList;
 		}
-		
-		
+
+		private function getTabBarByXml(_xml:XML) : CETabBar
+		{
+			var subBtns:Vector.<CESelectableButton> = new Vector.<CESelectableButton>();
+
+			var posX:Number = 0;
+			for (var i:int = 0 ; i < 5 ; i++)
+			{
+				var btn:CESelectableButton = new CESelectableButton(
+					ResUtlis.getSprite("FrameSelectableGreenButton","IsoHax_asset"),new CESelectedButtonFramAnimation,
+					false,null,false,true,"Btn" + i);
+				btn.x = posX;
+				posX += 80;
+
+				subBtns.push(btn);
+			}
+
+			return createCETabBar(subBtns,null);
+		}
+
+
 		//===================
 		//== Manual Create Function
 		//          normally call by automate create function
 		//===================
-		
+
 		/**
 		 * CEButton
 		 */
@@ -113,9 +130,9 @@ package copyengine.ui
 		 * CEList
 		 */
 		public function createCEList(_ceListCore:CEListCore , _ceScrollBarCore:CEScrollBarCore,
-									 _nextOneBtn:CEButton,_nextPageBtn:CEButton,
-									 _prevOneBtn:CEButton , _prevPageBtn:CEButton,
-									 _firstOneBtn:CEButton , _lastOneBtn:CEButton) : CEList
+			_nextOneBtn:CEButton,_nextPageBtn:CEButton,
+			_prevOneBtn:CEButton , _prevPageBtn:CEButton,
+			_firstOneBtn:CEButton , _lastOneBtn:CEButton) : CEList
 		{
 			return new CEList(_ceListCore,_ceScrollBarCore,_nextOneBtn,_nextPageBtn,_prevOneBtn,_prevPageBtn,_firstOneBtn,_lastOneBtn);
 		}
@@ -124,7 +141,7 @@ package copyengine.ui
 		 * ScrollBarCore
 		 */
 		public function createScrollBarCore(_thumb:CEButton , _track:CEButton , 
-											_width:Number ,_height:Number , _direction:String) : CEScrollBarCore
+			_width:Number ,_height:Number , _direction:String) : CEScrollBarCore
 		{
 			return new CEScrollBarCore(_thumb,_track,_width,_height,_direction);
 		}
@@ -133,10 +150,29 @@ package copyengine.ui
 		 * CEListCore
 		 */
 		public function createCEListCore(_displayCount:int , _layoutDirection:String, 
-										 _eachCellRenderWidth:Number ,_eachCellRenderHeight:Number ,
-										 _contentPadding:Number) :CEListCore
+			_eachCellRenderWidth:Number ,_eachCellRenderHeight:Number ,
+			_contentPadding:Number) : CEListCore
 		{
 			return new CEListCore(_displayCount,_layoutDirection,_eachCellRenderWidth,_eachCellRenderHeight,_contentPadding);
+		}
+
+		public function createCETabBar(_subBtnsVector:Vector.<CESelectableButton>,_animation:ICETabBarAnimation) : CETabBar
+		{
+			return new CETabBar(_subBtnsVector,_animation);
+		}
+
+		//====================
+		//== DeBug Function
+		//					Use in Developing
+		//=====================
+		public function testCreateCEList() : CEList
+		{
+			return getCEListByXml(null);
+		}
+
+		public function testCreateCETabBar() : CETabBar
+		{
+			return getTabBarByXml(null);
 		}
 
 

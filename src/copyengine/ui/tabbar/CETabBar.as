@@ -5,7 +5,7 @@ package copyengine.ui.tabbar
 	import copyengine.ui.tabbar.animation.ICETabBarAnimation;
 	import copyengine.utils.GeneralUtils;
 
-	import flash.utils.Dictionary;
+	import flash.events.MouseEvent;
 
 	public class CETabBar extends CESprite
 	{
@@ -13,11 +13,11 @@ package copyengine.ui.tabbar
 		private var animation:ICETabBarAnimation;
 
 		/**
-		 * contain all the subBtns all in current TabBar
+		 * contain all the subBtns
 		 */
-		private var subBtnsMap:Dictionary;
+		private var subBtnsVector:Vector.<CESelectableButton>
 
-		public function CETabBar(_animation:ICETabBarAnimation = null ,
+		public function CETabBar(_subBtnsVector:Vector.<CESelectableButton>,_animation:ICETabBarAnimation = null ,
 			_isAutoInitialzeAndRemove:Boolean=true)
 		{
 			super(_isAutoInitialzeAndRemove);
@@ -27,18 +27,20 @@ package copyengine.ui.tabbar
 			{
 				animation.setTarget(this);
 			}
-
-			subBtnsMap = new Dictionary(true);
+			subBtnsVector = _subBtnsVector
 		}
 
-		public function addSubBtn(_btn:CESelectableButton , _uniqueName:String) : void
-		{
-			subBtnsMap[_uniqueName] = _btn;
-		}
-
+		/**
+		 * initialze subBtns , if there no animation then when user click the subBtn then will auto selected that btn
+		 */
 		override protected function initialize() : void
 		{
-
+			for each (var btn : CESelectableButton in subBtnsVector)
+			{
+				GeneralUtils.addTargetToParent(btn,this);
+				btn.clickToSelect = false;
+				GeneralUtils.addTargetEventListener(btn,MouseEvent.CLICK,onClickSubBtn);
+			}
 		}
 
 		override protected function dispose() : void
@@ -47,13 +49,44 @@ package copyengine.ui.tabbar
 			{
 				animation.dispose();
 			}
-
-			for each (var uniqueName : String in subBtnsMap)
+			while (subBtnsVector.length > 0)
 			{
-				GeneralUtils.removeTargetFromParent( subBtnsMap[uniqueName] );
-				delete subBtnsMap[uniqueName];
+				var btn : CESelectableButton = subBtnsVector.pop();
+				GeneralUtils.removeTargetEventListener(btn,MouseEvent.CLICK,onClickSubBtn);
+				GeneralUtils.removeTargetFromParent(btn);
 			}
-			subBtnsMap = null;
+			subBtnsVector = null;
+		}
+
+		private function onClickSubBtn(e:MouseEvent) : void
+		{
+			var target:CESelectableButton = e.currentTarget as CESelectableButton;
+			for each (var btn : CESelectableButton in subBtnsVector)
+			{
+				if (btn == target)
+				{
+					btn.selected = true;
+				}
+				else
+				{
+					btn.selected = false;
+				}
+			}
+			if (animation != null)
+			{
+				animation.changeSelected(uniqueName);
+			}
+			dispatchTabBarEvent(CETabBarEvent.CHANGE_SELECTED,target.uniqueName);
+		}
+
+		private function dispatchTabBarEvent(_eventType:String , _uniqueName:String) : void
+		{
+			if (hasEventListener(_eventType))
+			{
+				var event:CETabBarEvent = new CETabBarEvent(_eventType);
+				event.selectedBtnUniqueName = _uniqueName;
+				this.dispatchEvent(event);
+			}
 		}
 
 
