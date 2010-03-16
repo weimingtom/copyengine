@@ -5,6 +5,7 @@ package copyengine.ui.tabbar.animation
 	public interface ICETabBarAnimation
 	{
 		function setTarget(_val:CETabBar);
-		function set
+		function changeSelected(_selectedUniqueName:String):void;
+		function dispose():void;
 	}
 }
