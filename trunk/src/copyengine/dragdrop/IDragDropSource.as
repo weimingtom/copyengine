@@ -9,6 +9,7 @@ package copyengine.dragdrop
 		function onUnAccepted(_target:IDragDropTarget):void;
 		function onDragDropEnd();
 		
-		function getRealObject():Object;
+		function bindEntity(entity:Object , _x: Number, _y: Number): void;
+		function getEntity():Object;
 	}
 }
