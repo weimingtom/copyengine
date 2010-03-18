@@ -13,32 +13,33 @@ package copyengine.dragdrop.impl
 	public class CEDragDropMangerCore implements IDragDropManger
 	{
 
-		private var layer:DisplayObjectContainer;
-		private var engine:IDragDropEngine;
-		private var dragDropTargetList:Vector.<IDragDropTarget>;
+		protected var layer:DisplayObjectContainer;
+		protected var engine:IDragDropEngine;
+		protected var dragDropTargetList:Vector.<IDragDropTarget>;
 
 		public function CEDragDropMangerCore()
 		{
 		}
 
-		public function initialize(_layer:DisplayObjectContainer, _engine:IDragDropEngine) : void
+		final public function initialize(_layer:DisplayObjectContainer, _engine:IDragDropEngine) : void
 		{
 			layer = _layer;
 			engine = _engine;
 			dragDropTargetList = new Vector.<IDragDropTarget>();
-			addListener();
 		}
 
-		public function startDragDrop(_source:IDragDropSource , _x:Number , _y:Number) : void
+		final public function startDragDrop(_source:IDragDropSource , _x:Number , _y:Number) : void
 		{
+			addListener();
+			doStartDragDrop(_source,_x,_y);
 		}
 
-		public function addDragDropTarget(_target:IDragDropTarget) : void
+		final public function addDragDropTarget(_target:IDragDropTarget) : void
 		{
 			dragDropTargetList.push(_target);
 		}
 
-		public function removeDragDropTarget(_targetName:String) : void
+		final public function removeDragDropTarget(_targetName:String) : void
 		{
 			for (var i:int = 0 ; i < dragDropTargetList.length ; i++)
 			{
@@ -49,8 +50,8 @@ package copyengine.dragdrop.impl
 				}
 			}
 		}
-		
-		public function terminateDragDrop() : void
+
+		final public function terminateDragDrop() : void
 		{
 			removeListener();
 			dragDropTargetList = null;
@@ -59,8 +60,15 @@ package copyengine.dragdrop.impl
 		//==============
 		//== Protected
 		//==============
+		protected function doStartDragDrop(_source:IDragDropSource , _x:Number , _y:Number) : void
+		{
+			engine.startDragDrop(_source,_x,_y,dragDropTargetList,this);
+		}
+
 		protected function onMouseMove(e:Event) : void
 		{
+			var mouseEvent:MouseEvent = e as MouseEvent;
+			engine.move(mouseEvent.stageX,mouseEvent.stageY);
 		}
 
 		protected function onMouseClick(e:Event) : void
