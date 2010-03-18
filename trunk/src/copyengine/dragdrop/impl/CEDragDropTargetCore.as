@@ -66,11 +66,11 @@ package copyengine.dragdrop.impl
 			return null;
 		}
 
-		public function onDragDropEnd()
+		public function onDragDropEnd():void
 		{
 		}
 
-		public function onDragDropTerminate()
+		public function onDragDropTerminate():void
 		{
 		}
 

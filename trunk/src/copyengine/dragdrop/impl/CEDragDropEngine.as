@@ -111,7 +111,7 @@ package copyengine.dragdrop.impl
 		//===============
 		protected function findTargetAtPoint(_x:Number , _y:Number) : IDragDropTarget
 		{
-
+			return null;
 		}
 
 		protected function doTerminateDragDrop() : void

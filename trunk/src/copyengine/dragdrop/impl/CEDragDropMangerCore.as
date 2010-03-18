@@ -5,8 +5,7 @@ package copyengine.dragdrop.impl
 	import copyengine.dragdrop.IDragDropSource;
 	import copyengine.dragdrop.IDragDropTarget;
 	import copyengine.utils.GeneralUtils;
-
-	import flash.display.DisplayObject;
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
@@ -17,7 +16,7 @@ package copyengine.dragdrop.impl
 		protected var engine:IDragDropEngine;
 		protected var dragDropTargetList:Vector.<IDragDropTarget>;
 
-		protected var dragdropSourceIcon:DisplayObject
+		protected var dragdropSourceIcon:DisplayObjectContainer
 
 		public function CEDragDropMangerCore()
 		{
