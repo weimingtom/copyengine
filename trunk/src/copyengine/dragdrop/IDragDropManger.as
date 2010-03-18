@@ -18,8 +18,10 @@ package copyengine.dragdrop
 		 * @param _layer 			DragDropManger will stop any other inputDevice event ,
 		 * 									so need to set system in an independent layer ,
 		 * 									and this layer should higer than other IDragDropTarget layer.
+		 * 
+		 * @param _engine		
 		 */
-		function initialize(_layer:DisplayObjectContainer) : void;
+		function initialize(_layer:DisplayObjectContainer , _engine:IDragDropEngine) : void;
 
 		/**
 		 * start the dragdrop system .
@@ -27,15 +29,16 @@ package copyengine.dragdrop
 		 * but not mean it will strat the reall dragdrop system immediately.
 		 *
 		 * @param _source		the source that need to be drag and drop
-		 *
+		 * @param _x				
+		 * @param _y			
 		 */
-		function startDragDrop(_source:IDragDropSource) : void;
+		function startDragDrop(_source:IDragDropSource , _x:Number , _y:Number) : void;
 
 		/**
 		 *add or remove the DragDropTarget that interest current source.
 		 */
 		function addDragDropTarget(_target:IDragDropTarget) : void;
-		function removeDragDropTarget(_target:IDragDropTarget) : void;
+		function removeDragDropTarget(_targetName:String) : void;
 
 
 	}

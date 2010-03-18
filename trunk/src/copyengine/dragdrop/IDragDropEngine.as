@@ -27,7 +27,7 @@ package copyengine.dragdrop
 		 * @param _manger		   hold an reference of current dragDropManger
 		 */
 		function startDragDrop(_source:IDragDropSource ,_x:Number , _y:Number , 
-			_targets:Vector.<IDragDropTarget> ,_manger:IDragDropManger) : void;
+							   _targets:Vector.<IDragDropTarget> ,_manger:IDragDropManger) : void;
 
 		/**
 		 * move dropSource
@@ -42,12 +42,39 @@ package copyengine.dragdrop
 		 * drop target at current position
 		 */
 		function dropTarget(_x:Number , _y:Number) : void;
-		
+
+		/**
+		 * @private
+		 * call by dragdrop target , when target confirm has been droped , normally this will call immediately
+		 * but in some special condition , it will call later(ex: need to popup an panel to ask user , is confirm or not).
+		 */
+		function confirmSourceDrop(_isAccepted:Boolean) : void;
+
 		/**
 		 * call by IDragDropManger when dragDrop finished, can not call directly.
-		 * 
-		 */		
+		 */
 		function endDragDrop() : void;
+
+		/**
+		 * call by dragdropManger/dragDropSource/dragDropTarget  to terminate the dragdrop system.
+		 * it will not terminate immediately , it will terminate in next tick ,
+		 * so that this function can avoide invocation stack error
+		 * (
+		 *   call lineA
+		 *         -->terminateDragDrop();
+		 *   call lineB
+		 *
+		 *  lineB maybe need to operate some property but already dispose by terminateDragDrop() function.
+		 * )
+		 */
+		function terminateDragDrop() : void
+
+		/**
+		 * call by dragdropSource/dragdropTarget , add or remove an temporary receiver.
+		 * @see more on IDragDropReceiver.
+		 */
+		function addDragDropReceiver(_receiver:IDragDropReceiver) : void;
+		function removeDragDropReceiver(_receiverName:String) : void;
 
 	}
 }
