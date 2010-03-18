@@ -6,16 +6,18 @@ package copyengine.dragdrop.impl
 	import copyengine.dragdrop.IDragDropTarget;
 	import copyengine.utils.GeneralUtils;
 
+	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 
 	public class CEDragDropMangerCore implements IDragDropManger
 	{
-
 		protected var layer:DisplayObjectContainer;
 		protected var engine:IDragDropEngine;
 		protected var dragDropTargetList:Vector.<IDragDropTarget>;
+
+		protected var dragdropSourceIcon:DisplayObject
 
 		public function CEDragDropMangerCore()
 		{
@@ -31,6 +33,13 @@ package copyengine.dragdrop.impl
 		final public function startDragDrop(_source:IDragDropSource , _x:Number , _y:Number) : void
 		{
 			addListener();
+
+			//manger only put this icon on stage ,not respond for it move.
+			dragdropSourceIcon = _source.createDragIcon();
+			if (dragdropSourceIcon != null)
+			{
+				layer.addChild(dragdropSourceIcon);
+			}
 			doStartDragDrop(_source,_x,_y);
 		}
 
@@ -54,6 +63,7 @@ package copyengine.dragdrop.impl
 		final public function terminateDragDrop() : void
 		{
 			removeListener();
+			GeneralUtils.removeTargetFromParent(dragdropSourceIcon);
 			dragDropTargetList = null;
 		}
 

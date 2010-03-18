@@ -21,7 +21,7 @@ package copyengine.dragdrop
 		 * bind an entity to current dragDropObject .
 		 * dragdropOjbect only warp the entity , in dragdrop system , on the dragdropObject can respond input device event, other's can't.
 		 */		
-		function bindEntity(entity:Object , _x: Number, _y: Number): void;
+		function bindEntity(_entity:Object , _x: Number, _y: Number): void;
 		
 		/**
 		 *  get the really entity object
