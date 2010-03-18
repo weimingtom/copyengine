@@ -4,6 +4,24 @@ package copyengine.dragdrop
 
 	public interface IDragDropSource extends IDragDropObject
 	{
+		
+		/**
+		 * each dragTarget need to hold an engine reference , when engine call onSourceDrop(),
+		 * it can call engine.confirmSourceDrop(boolean) back.
+		 */
+		function set engine(_engine:IDragDropEngine) : void;
+		
+		/**
+		 * call when the dragdrop system begin.
+		 */
+		function onDragDropBegin(_x:Number , _y:Number) : void;
+		
+		/**
+		 * this dragIcon will display in dragMangerLayer, and remove automatic when dragDrop system terminate.
+		 * this function only call once when the the dragdrop begin(it will call before onDragDropBegin funtion.)
+		 */
+		function createDragIcon() : DisplayObject;
+		
 		/**
 		 * call when enter an dragdrop target like mouseRollOver
 		 */
@@ -18,18 +36,6 @@ package copyengine.dragdrop
 		 * call when source move , if source not move in dropTraget ,then the _target property is null
 		 */
 		function onMove(_target:IDragDropTarget , _x:Number , _y:Number) : void;
-
-		/**
-		 * call when the dragdrop system begin.
-		 */
-		function onDragDropBegin(_x:Number , _y:Number) : void;
-
-		/**
-		 * this dragIcon will display in dragMangerLayer, and remove automatic when dragDrop system terminate.
-		 */
-		function createDragIcon() : DisplayObject;
-		
-		function getAttruiute
 
 		/**
 		 * it will call in DragEngine.dropTarget() function .

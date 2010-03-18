@@ -9,7 +9,6 @@ package copyengine.dragdrop.impl
 
 	public class CEDragDropEngine implements IDragDropEngine
 	{
-
 		private var manger:IDragDropManger
 
 		private var currentSource:IDragDropSource;
@@ -27,6 +26,17 @@ package copyengine.dragdrop.impl
 			currentSource = _source;
 			dragDropTargetList = _targets
 			manger = _manger;
+
+			//dragDropTarget initialize
+			for (var i:int = 0 ; i < dragDropTargetList.length ; i++)
+			{
+				dragDropTargetList[i].engine = this;
+			}
+
+			//dragdropSource initialize
+			currentSource.engine = this;
+			currentSource.onDragDropBegin(_x,_y);
+
 			move(_x,_y);
 		}
 
@@ -104,7 +114,7 @@ package copyengine.dragdrop.impl
 
 		}
 
-		protected function doTerminateDragDrop():void
+		protected function doTerminateDragDrop() : void
 		{
 			currentSource.onDragDropTerminate();
 			if (currentTarget != null)
