@@ -10,12 +10,12 @@ package copyengine.dragdrop
 		/**
 		 * call when current dragdrop end.
 		 */		
-		function onDragDropEnd();
+		function onDragDropEnd():void;
 		
 		/**
 		 * call when dragdrop system terminate
 		 */		
-		function onDragDropTerminate();
+		function onDragDropTerminate():void;
 		
 		/**
 		 * bind an entity to current dragDropObject .

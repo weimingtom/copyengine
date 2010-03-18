@@ -1,6 +1,6 @@
 package copyengine.dragdrop
 {
-	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 
 	public interface IDragDropSource extends IDragDropObject
 	{
@@ -20,7 +20,7 @@ package copyengine.dragdrop
 		 * this dragIcon will display in dragMangerLayer, and remove automatic when dragDrop system terminate.
 		 * this function only call once when the the dragdrop begin(it will call before onDragDropBegin funtion.)
 		 */
-		function createDragIcon() : DisplayObject;
+		function createDragIcon() :DisplayObjectContainer;
 		
 		/**
 		 * call when enter an dragdrop target like mouseRollOver

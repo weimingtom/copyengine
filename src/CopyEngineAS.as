@@ -30,6 +30,11 @@ package
 			return _instance.screenLayer;
 		}
 
+		public static function get dragdropLayer() : DisplayObjectContainer
+		{
+			return _instance.dragdropLayer;
+		}
+
 		public static function get perLoaderContainer() : DisplayObjectContainer
 		{
 			return _instance.gamePerLoader.container;
@@ -50,6 +55,7 @@ package
 		 *  layer structure
 		 */
 		private var gameDialogLayer:DisplayObjectContainer;
+		private var dragdropLayer:DisplayObjectContainer;
 		private var screenLayer:DisplayObjectContainer;
 
 		public function CopyEngineAS()
@@ -69,6 +75,9 @@ package
 
 			screenLayer = new Sprite();
 			addChild(screenLayer);
+
+			dragdropLayer = new Sprite();
+			addChild(dragdropLayer);
 
 			gameDialogLayer = new Sprite();
 			addChild( gameDialogLayer);
