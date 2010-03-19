@@ -48,7 +48,17 @@ package copyengine.dragdrop
 		/**
 		 * call by dragDropTarget when this source has been accepted/unaccepted (drop successed).
 		 */
-		function onDropConfim(_target:IDragDropTarget , _isAccepted:Boolean) : void
+		function onDropConfim(_target:IDragDropTarget , _isAccepted:Boolean) : void;
+		
+		/**
+		 * call when release the source in no target
+		 */		
+		function onDragDropCancel():void;	
+			
+		/**
+		 * call when current dragdrop end.
+		 */		
+		function onDragDropEnd():void;
 
 	}
 }

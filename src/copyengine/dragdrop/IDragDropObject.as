@@ -8,11 +8,6 @@ package copyengine.dragdrop
 		function get uniqueName():String;
 		
 		/**
-		 * call when current dragdrop end.
-		 */		
-		function onDragDropEnd():void;
-		
-		/**
 		 * call when dragdrop system terminate
 		 */		
 		function onDragDropTerminate():void;

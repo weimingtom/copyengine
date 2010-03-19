@@ -7,9 +7,9 @@ package copyengine.dragdrop.impl
 	import copyengine.dragdrop.IDragDropTarget;
 	import copyengine.utils.tick.GlobalTick;
 
-	public class CEDragDropEngine implements IDragDropEngine
+	final public class CEDragDropEngine implements IDragDropEngine
 	{
-		private var manger:IDragDropManger
+		private var dragDropManger:IDragDropManger
 
 		private var currentSource:IDragDropSource;
 		private var currentTarget:IDragDropTarget;
@@ -21,11 +21,27 @@ package copyengine.dragdrop.impl
 		{
 		}
 
-		public function startDragDrop(_source:IDragDropSource, _x:Number, _y:Number, _targets:Vector.<IDragDropTarget>, _manger:IDragDropManger) : void
+		public function set manger(_manger:IDragDropManger) : void
+		{
+			dragDropManger = _manger;
+		}
+
+		public function setDragDropTargets(_targets:Vector.<IDragDropTarget>) : void
+		{
+			if (dragDropTargetList != null)
+			{
+				while (dragDropTargetList.length > 0)
+				{
+					dragDropTargetList[0].onDragDropTerminate();
+				}
+			}
+			dragDropTargetList = _targets;
+		}
+
+
+		public function startDragDrop(_source:IDragDropSource , _x:Number, _y:Number) : void
 		{
 			currentSource = _source;
-			dragDropTargetList = _targets
-			manger = _manger;
 
 			//dragDropTarget initialize
 			for (var i:int = 0 ; i < dragDropTargetList.length ; i++)
@@ -76,6 +92,10 @@ package copyengine.dragdrop.impl
 			{
 				currentTarget.onSourceDrop(currentSource,_x,_y);
 			}
+			else
+			{
+				currentSource.onDragDropCancel();
+			}
 		}
 
 		public function confirmSourceDrop(_isAccepted:Boolean) : void
@@ -86,16 +106,32 @@ package copyengine.dragdrop.impl
 
 		public function endDragDrop() : void
 		{
-			currentSource.onDragDropEnd();
-			if (currentTarget != null)
-			{
-				currentTarget.onDragDropEnd();
-			}
+			GlobalTick.instance.callLaterAfterTickCount(doEndDragDrop);
 		}
 
 		public function terminateDragDrop() : void
 		{
-			GlobalTick.instance.callLaterAfterTickCount(doTerminateDragDrop);
+			currentSource.onDragDropTerminate();
+
+			while (dragDropTargetList.length > 0)
+			{
+				dragDropTargetList.pop().onDragDropTerminate();
+			}
+
+			// dragDropReceiverList can be null 
+			// beacuse it will  add/remove dynamic
+			if (dragDropReceiverList != null)
+			{
+				while (dragDropReceiverList.length > 0)
+				{
+					dragDropReceiverList.pop().onDragDropTerminate();
+				}
+			}
+
+			currentTarget = null;
+			currentSource = null;
+			dragDropTargetList = null;
+			dragDropReceiverList = null;
 		}
 
 		public function addDragDropReceiver(_receiver:IDragDropReceiver) : void
@@ -107,22 +143,32 @@ package copyengine.dragdrop.impl
 		}
 
 		//===============
-		//= protected function
+		//= praivate function
 		//===============
 		protected function findTargetAtPoint(_x:Number , _y:Number) : IDragDropTarget
 		{
 			return null;
 		}
 
-		protected function doTerminateDragDrop() : void
+		private function doEndDragDrop() : void
 		{
-			currentSource.onDragDropTerminate();
-			if (currentTarget != null)
-			{
-				currentTarget.onDragDropTerminate();
-			}
-		}
+			currentSource.onDragDropEnd();
 
+			for (var i:int = 0 ; i < dragDropTargetList.length ; i++)
+			{
+				dragDropTargetList[i].onDragDropEnd();
+			}
+			// dragDropReceiverList can be null 
+			// beacuse it will  add/remove dynamic
+			if (dragDropReceiverList != null)
+			{
+				while (dragDropReceiverList.length > 0)
+				{
+					dragDropReceiverList.pop().onDragDropTerminate();
+				}
+			}
+			dragDropManger.endDragDrop();
+		}
 
 	}
 }
