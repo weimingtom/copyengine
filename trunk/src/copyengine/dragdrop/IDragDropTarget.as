@@ -30,5 +30,10 @@ package copyengine.dragdrop
 		 * when it decided , then call  engine.confirmSourceDrop(boolean) back.
 		 */
 		function onSourceDrop(_source:IDragDropSource , _x:Number , _y:Number) : void;
+		
+		/**
+		 * call when current dragdrop end.
+		 */		
+		function onDragDropEnd():void;
 	}
 }

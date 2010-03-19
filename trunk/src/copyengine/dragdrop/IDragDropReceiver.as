@@ -7,7 +7,9 @@ package copyengine.dragdrop
 	 *  but some displayObject maybe need reveice event during dragdrop.
 	 *  so use this interface warp the displayObject ,send the event to it.
 	 *  but this target can not do anything to influence drag flow.
-	 *
+	 *	
+	 *  WARNING::
+	 * 
 	 * @author Tunied
 	 *
 	 */

@@ -14,20 +14,28 @@ package copyengine.dragdrop
 	 */
 	public interface IDragDropEngine
 	{
-
+		/**
+		 *  hold an reference of current dragDropManger
+		 * 
+		 * should call before startDragDrop;
+		 */		
+		function set manger(_manger:IDragDropManger):void;
+		
+		/**
+		 *set dragdrop targets for the current source . should call befor startDragDrop() functon .
+		 * otherwise will use per dragdropTarget inside.
+		 */		
+		function setDragDropTargets(_targets:Vector.<IDragDropTarget>):void;
+		
 		/**
 		 * Start drag-drop
 		 * will call by IDragDropManger , before that , it need to create an dropSource
-		 * and also initialize all dropTarget that interested current dropSource.
 		 *
 		 * @param _source          current target
 		 * @param _x				   define where the drag begine (global point)
 		 * @param _y				   define where the drag begine (global point)
-		 * @param _targets         all dropTargets(dropSource only can drop into dropTarge)
-		 * @param _manger		   hold an reference of current dragDropManger
 		 */
-		function startDragDrop(_source:IDragDropSource ,_x:Number , _y:Number , 
-							   _targets:Vector.<IDragDropTarget> ,_manger:IDragDropManger) : void;
+		function startDragDrop(_source:IDragDropSource , _x:Number , _y:Number) : void;
 
 		/**
 		 * move dropSource
@@ -51,12 +59,13 @@ package copyengine.dragdrop
 		function confirmSourceDrop(_isAccepted:Boolean) : void;
 
 		/**
-		 * call by IDragDropManger when dragDrop finished, can not call directly.
+		 * call by IDragDropSource/IDragDropTarget when dragDrop finished
+		 * it will not end DragDrop immediately , it will finished in next tick ,like terminateDragDrop();
 		 */
 		function endDragDrop() : void;
 
 		/**
-		 * call by dragdropManger/dragDropSource/dragDropTarget  to terminate the dragdrop system.
+		 * call by dragDropSource/dragDropTarget  to terminate the dragdrop system.
 		 * it will not terminate immediately , it will terminate in next tick ,
 		 * so that this function can avoide invocation stack error
 		 * (

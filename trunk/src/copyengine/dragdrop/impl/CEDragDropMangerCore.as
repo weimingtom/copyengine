@@ -5,8 +5,11 @@ package copyengine.dragdrop.impl
 	import copyengine.dragdrop.IDragDropSource;
 	import copyengine.dragdrop.IDragDropTarget;
 	import copyengine.utils.GeneralUtils;
+	import copyengine.utils.Random;
 	
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Graphics;
+	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 
@@ -14,7 +17,6 @@ package copyengine.dragdrop.impl
 	{
 		protected var layer:DisplayObjectContainer;
 		protected var engine:IDragDropEngine;
-		protected var dragDropTargetList:Vector.<IDragDropTarget>;
 
 		protected var dragdropSourceIcon:DisplayObjectContainer
 
@@ -25,53 +27,64 @@ package copyengine.dragdrop.impl
 		final public function initialize(_layer:DisplayObjectContainer, _engine:IDragDropEngine) : void
 		{
 			layer = _layer;
+			layer.mouseChildren = false; // layer child can not respond mouse event
+			
 			engine = _engine;
-			dragDropTargetList = new Vector.<IDragDropTarget>();
+			engine.manger = this;
+			
+			var g:Graphics = (layer as Sprite).graphics;
+			g.beginFill(0,0);
+			g.drawRect(0,0,layer.stage.stageWidth, layer.stage.stageHeight);
+			g.endFill();
+
+			layer.visible = false;
 		}
 
-		final public function startDragDrop(_source:IDragDropSource , _x:Number , _y:Number) : void
+		final public function startDragDrop(_source:IDragDropSource,_x:Number , _y:Number) : void
 		{
+			layer.visible = true;
+
 			addListener();
 
 			//manger only put this icon on stage ,not respond for it move.
 			dragdropSourceIcon = _source.createDragIcon();
 			if (dragdropSourceIcon != null)
 			{
+				dragdropSourceIcon.mouseEnabled = false;
+				dragdropSourceIcon.mouseChildren = false;
+				
 				layer.addChild(dragdropSourceIcon);
 			}
 			doStartDragDrop(_source,_x,_y);
 		}
-
-		final public function addDragDropTarget(_target:IDragDropTarget) : void
+		
+		final public function endDragDrop() : void
 		{
-			dragDropTargetList.push(_target);
-		}
-
-		final public function removeDragDropTarget(_targetName:String) : void
-		{
-			for (var i:int = 0 ; i < dragDropTargetList.length ; i++)
-			{
-				if (_targetName == dragDropTargetList[i].uniqueName)
-				{
-					dragDropTargetList.splice(i,1);
-					return;
-				}
-			}
+			layer.visible = false;
+			removeListener();
+			GeneralUtils.removeTargetFromParent(dragdropSourceIcon);
 		}
 
 		final public function terminateDragDrop() : void
 		{
-			removeListener();
-			GeneralUtils.removeTargetFromParent(dragdropSourceIcon);
-			dragDropTargetList = null;
+			(layer as Sprite).graphics.clear();
+			engine.terminateDragDrop();
+			engine = null;
+			layer = null;
+			dragdropSourceIcon = null;
 		}
-
+		
+		final public function setDragDropTargets(_targetList:Vector.<IDragDropTarget>) : void
+		{
+			engine.setDragDropTargets(_targetList);
+		}
+		
 		//==============
 		//== Protected
 		//==============
-		protected function doStartDragDrop(_source:IDragDropSource , _x:Number , _y:Number) : void
+		protected function doStartDragDrop(_source:IDragDropSource ,_x:Number , _y:Number) : void
 		{
-			engine.startDragDrop(_source,_x,_y,dragDropTargetList,this);
+			engine.startDragDrop(_source,_x,_y);
 		}
 
 		protected function onMouseMove(e:Event) : void

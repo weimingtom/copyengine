@@ -89,8 +89,15 @@ package copyengine.dragdrop.impl
 		{
 		}
 
+		public function onDragDropCancel():void
+		{
+			dragDropEngine.endDragDrop();
+		}
+		
 		public function onDragDropTerminate():void
 		{
+			dragDropIconContainer = null;
+			dragDropEngine = null;
 		}
 
 		//===============
