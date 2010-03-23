@@ -50,9 +50,6 @@ package copyengine.dragdrop.impl
 			dragdropSourceIcon = _source.createDragIcon();
 			if (dragdropSourceIcon != null)
 			{
-				dragdropSourceIcon.mouseEnabled = false;
-				dragdropSourceIcon.mouseChildren = false;
-				
 				layer.addChild(dragdropSourceIcon);
 			}
 			doStartDragDrop(_source,_x,_y);
