@@ -29,7 +29,7 @@ package
 			switch (notification.getName())
 			{
 				case GlobalMessage.ENGINE_INIT_COMPLATE:
-					SceneManger.instance.changeScene(SceneFactory.SCENE_DRAGDROP);
+					SceneManger.instance.changeScene(SceneFactory.FIRST_INITIALIZE_SCENE);
 					break;
 			}
 		}
