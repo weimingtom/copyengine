@@ -7,6 +7,7 @@ package game.scene
 	import copyengine.utils.Random;
 	import copyengine.utils.ResUtlis;
 	
+	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
@@ -45,11 +46,12 @@ package game.scene
 		{
 			initIsoScreen();
 			initViewPort();
+			initObject();
 			
 			viewPort.x = 0;
-			viewPort.y = 0;
-			tileContainer.x = 0;
-			tileContainer.y = -60;
+			viewPort.y = 60;
+//			tileContainer.x = 0;
+//			tileContainer.y = -60;
 			
 			container.stage.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown,false,0,true);
 		}
@@ -83,7 +85,7 @@ package game.scene
 		{
 			viewPort = new Sprite();
 			viewPort.graphics.beginFill(Random.color() , 0.5);
-			viewPort.graphics.drawRect(0,0,50,50);
+			viewPort.graphics.drawRect(0,0,100,100);
 			viewPort.graphics.endFill();
 
 			mainContainer.addChild(viewPort);
@@ -97,23 +99,29 @@ package game.scene
 			constPdc =  MAP_HEIGHT - viewPort.height - viewPort.width*0.5; //const = mapHeight - viewHeight -1/2viewWidth
 			constPbc = MAP_HEIGHT - viewPort.height;//const =  mapHeight - viewHeight;
 		}
-
+		
+		private function initObject():void
+		{
+			var box:Sprite = ResUtlis.getSprite("IsoBox","IsoHax_asset");
+			addChildToIso(box,2,1,0);
+		}
+		
 
 		private function onKeyDown(e:KeyboardEvent) : void
 		{
 			switch (e.keyCode)
 			{
 				case KeyCode.UP:
-					moveUp(tileContainer.x , tileContainer.y - MOVE_SPEED );
+					moveUp(viewPort.x , viewPort.y - MOVE_SPEED );
 					break;
 				case KeyCode.DOWN:
-					moveDown(tileContainer.x , tileContainer.y + MOVE_SPEED );
+					moveDown(viewPort.x , viewPort.y + MOVE_SPEED );
 					break;
 				case KeyCode.LEFT:
-					moveLeft(tileContainer.x - MOVE_SPEED , tileContainer.y);
+					moveLeft(viewPort.x - MOVE_SPEED , viewPort.y);
 					break;
 				case KeyCode.RIGHT:
-					moveRight(tileContainer.x + MOVE_SPEED , tileContainer.y);
+					moveRight(viewPort.x + MOVE_SPEED , viewPort.y);
 					break;
 			}
 		}
@@ -227,10 +235,10 @@ package game.scene
 
 		private function doMove(_x:Number , _y:Number):void
 		{
-			tileContainer.x = _x;
-			tileContainer.y = _y;
-//			viewPort.x = _x;
-//			viewPort.y = _y;
+//			tileContainer.x = _x;
+//			tileContainer.y = _y;
+			viewPort.x = _x;
+			viewPort.y = _y;
 		}
 		
 		private function isCanMoveTo(_x:Number , _y:Number ) : Boolean
@@ -257,6 +265,16 @@ package game.scene
 
 			return vap.x * vbp.y - vap.y * vbp.x;
 		}
-
+		
+		
+		private function addChildToIso(_target:DisplayObject , _x:int , _y:int , _z:int):void
+		{
+			var isoPos:Vector3D = new Vector3D(_x*40,_y*40,_z);
+			IsoMath.isoToScreen(isoPos);
+			tileContainer.addChild(_target);
+			_target.x = isoPos.x;
+			_target.y = isoPos.y;
+		}
+		
 	}
 }
