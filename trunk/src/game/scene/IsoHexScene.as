@@ -19,18 +19,23 @@ package game.scene
 		private static const MOVE_SPEED:int = 5;
 		private static const MAP_HEIGHT:int = 200;
 		private static const MAP_WIDTH:int = 400;
-		
+
 		private var tileContainer:Sprite;
+		private var mainContainer:Sprite;
 		private var viewPort:Sprite;
-		
+
 		private var viewPortScrollWidth:int;
 		private var viewPortScrollHeight:int;
-		
+
 		private var pa:Point;
 		private var pb:Point;
 		private var pc:Point;
 		private var pd:Point;
-		
+
+		private var constPad:Number; //y = 1/2x + 1/2viewWidth    		||		const = 1/2viewWidth 
+		private var constPdc:Number; //y =  -1/2x  + mapHeight - viewHeight -1/2viewWidth 	||		const = mapHeight - viewHeight -1/2viewWidth
+		private var constPbc:Number; //y = 1/2x + mapHeight - viewHeight			|| 		const =  mapHeight - viewHeight;
+
 		public function IsoHexScene()
 		{
 			super();
@@ -40,12 +45,15 @@ package game.scene
 		{
 			initIsoScreen();
 			initViewPort();
-			moveViewPortTo(0,60);
+			
+			viewPort.x = 0;
+			viewPort.y = 60
 			container.stage.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown,false,0,true);
 		}
 
 		private function initIsoScreen() : void
 		{
+			mainContainer = new Sprite();
 			tileContainer = new Sprite();
 			for (var row:int = 0 ; row < 5 ; row++)
 			{
@@ -61,10 +69,11 @@ package game.scene
 					tileContainer.addChild(tile);
 				}
 			}
-			container.addChild(tileContainer);
-			tileContainer.x = 200;
-			tileContainer.y = 200;
-			trace(tileContainer.width + "," + tileContainer.height);
+			container.addChild(mainContainer);
+			mainContainer.addChild(tileContainer);
+			mainContainer.x = 200;
+			mainContainer.y = 200;
+
 		}
 
 		private function initViewPort() : void
@@ -74,150 +83,153 @@ package game.scene
 			viewPort.graphics.drawRect(0,0,50,50);
 			viewPort.graphics.endFill();
 
-			tileContainer.addChild(viewPort);
-			
+			mainContainer.addChild(viewPort);
+
 			pa = new Point(-viewPort.width*0.5,viewPort.width*0.25);
 			pb = new Point(viewPort.height - MAP_HEIGHT,(MAP_HEIGHT - viewPort.height)*0.5);
 			pc = new Point(-viewPort.width*0.5 ,MAP_HEIGHT - viewPort.width*0.25 - viewPort.height);
 			pd = new Point(MAP_HEIGHT - viewPort.width - viewPort.height ,(MAP_HEIGHT - viewPort.height)*0.5);
-			
+
+			constPad = viewPort.width>>1;
+			constPdc =  MAP_HEIGHT - viewPort.height - viewPort.width*0.5; //const = mapHeight - viewHeight -1/2viewWidth
+			constPbc = MAP_HEIGHT - viewPort.height;//const =  mapHeight - viewHeight;
 		}
+
 
 		private function onKeyDown(e:KeyboardEvent) : void
 		{
 			switch (e.keyCode)
 			{
 				case KeyCode.UP:
-					moveViewPortTo(viewPort.x , viewPort.y - 1 );
-					//					moveUp();
+					moveUp(viewPort.x , viewPort.y - MOVE_SPEED );
 					break;
 				case KeyCode.DOWN:
-					moveViewPortTo(viewPort.x , viewPort.y + 1 );
+					moveDown(viewPort.x , viewPort.y + MOVE_SPEED );
 					break;
 				case KeyCode.LEFT:
-					moveLeft(viewPort.x - 1 , viewPort.y);
+					moveLeft(viewPort.x - MOVE_SPEED , viewPort.y);
 					break;
 				case KeyCode.RIGHT:
-					moveViewPortTo(viewPort.x + 1 , viewPort.y);
+					moveRight(viewPort.x + MOVE_SPEED , viewPort.y);
 					break;
 			}
 		}
 
-		private function moveUp() : void
+		private function moveUp(_x:Number , _y:Number) : void
 		{
-			if (isCanMoveTo(viewPort.x , viewPort.y - MOVE_SPEED))
+			_x = GeneralUtils.normalizingVlaue(_x,pb.x,pd.x);
+			_y = GeneralUtils.normalizingVlaue(_y,pa.y,pc.y);
+			if (isCanMoveTo(_x,_y))
 			{
-				if (isCanMoveTo(viewPort.x +viewPort.width , viewPort.y - MOVE_SPEED ))
-				{
-					doMove(viewPort.x , viewPort.y - MOVE_SPEED);
-				}
-				else
-				{
-					if (viewPort.y - MOVE_SPEED < viewPort.width * 0.25)
-					{
-						doMove(-0.5*viewPort.width , viewPort.width * 0.25);
-					}
-					else
-					{
-						doMove((viewPort.y - MOVE_SPEED)*2 - viewPort.width ,viewPort.y - MOVE_SPEED);
-					}
-				}
+				doMove( _x, _y );
 			}
 			else
 			{
-				if (isCanMoveTo(viewPort.x +viewPort.width , viewPort.y - MOVE_SPEED ))
+				if (_x == pa.x)
 				{
-					doMove(-(viewPort.y - MOVE_SPEED)*2,viewPort.y - MOVE_SPEED);
+					return;
+				}
+				else if (_x < pa.x)
+				{
+					//y = -1/2x
+					doMove( -2*_y, _y );
+				}
+				else
+				{
+					//y = 1/2x + constPbc;
+					doMove((_y - constPad) * 2, _y );
 				}
 			}
 		}
 
-		private function moveDown() : void
+		private function moveDown(_x:Number , _y:Number) : void
 		{
+			_x = GeneralUtils.normalizingVlaue(_x,pb.x,pd.x);
+			_y = GeneralUtils.normalizingVlaue(_y,pa.y,pc.y);
+			if (isCanMoveTo(_x,_y))
+			{
+				doMove( _x, _y );
+			}
+			else
+			{
+				if (_x == pc.x)
+				{
+					return;
+				}
+				else if (_x < pc.x)
+				{
+					//y = 1/2x + constPbc
+					doMove( (_y - constPbc) * 2, _y );
+				}
+				else
+				{
+					//y =  -1/2x  + constPdc
+					doMove(  -(_y - constPdc) * 2, _y );
+				}
+			}
 		}
 
 		private function moveLeft(_x:Number , _y:Number) : void
 		{
-			GeneralUtils.normalizingVlaue(_x,pb.x,pd.x);
-			GeneralUtils.normalizingVlaue(_y,pa.y,pc.y);
-			if(isCanMoveTo(_x,_y))
+			_x = GeneralUtils.normalizingVlaue(_x,pb.x,pd.x);
+			_y = GeneralUtils.normalizingVlaue(_y,pa.y,pc.y);
+			if (isCanMoveTo(_x,_y))
 			{
-				viewPort.x = _x;
-				viewPort.y = _y;
+				doMove( _x, _y );
 			}
 			else
 			{
-				if(_y == pb.y)
+				if (_y == pb.y)
 				{
 					return;
 				}
-				else if(_y < pb.y)
+				else if (_y < pb.y)
 				{
-					viewPort.x = _x;
-					viewPort.y = -0.5*_x;
+					doMove( _x, -0.5*_x );
 				}
 				else
 				{
-					viewPort.x = _x;
-					viewPort.y = -0.5*_x + (pb.y +0.5*_x)*2;
+					// y = 1/2x + mapHeight - viewHeight
+					doMove( _x, 0.5*_x + constPbc );
 				}
 			}
 		}
 
-		private function moveRight() : void
+		private function moveRight(_x:Number , _y:Number) : void
 		{
-
-		}
-
-
-		private function moveViewPortTo(_x:Number , _y:Number) : void
-		{
-			GeneralUtils.normalizingVlaue(_x,pb.x,pd.x);
-			GeneralUtils.normalizingVlaue(_y,pa.y,pc.y);
+			_x = GeneralUtils.normalizingVlaue(_x,pb.x,pd.x);
+			_y = GeneralUtils.normalizingVlaue(_y,pa.y,pc.y);
 			if (isCanMoveTo(_x,_y))
 			{
-				viewPort.x = _x;
-				viewPort.y = _y;
+				doMove( _x, _y );
 			}
 			else
 			{
-				if(_x <= (pd.x - pb.x)*0.5 )
+				if (_y == pd.y)
 				{
-					if( _y <= (pc.y - pa.y)*0.5)
-					{
-						if(_x < viewPort.x)
-						{
-							viewPort.x = _x;
-							viewPort.y = -_x*0.5;
-						}
-						else
-						{
-							viewPort.x = -_y*2;
-							viewPort.y = _y;
-						}
-					}
-					else
-					{
-						
-					}
+					return;
+				}
+				else if (_y < pb.y)
+				{
+					//y = 1/2x + constPad 
+					doMove( _x,0.5*_x + constPad);
+				}
+				else
+				{
+					//y =  -1/2x  + constPdc
+					doMove( _x,-0.5*_x + constPdc);
 				}
 			}
+		}
 
-		}
-		
-		private function tryToMove(_x:Number , _y:Number):void
+		private function doMove(_x:Number , _y:Number):void
 		{
-//			GeneralUtils.normalizingVlaue(_x,-viewPortScrollWidth>>1 , viewPortScrollWidth>>1);
-//			GeneralUtils.normalizingVlaue(_y,);
-			
-		}
-		
-		private function doMove(_x:Number , _y:Number) : void
-		{
+//			tileContainer.x = _x;
+//			tileContainer.y = _y;
 			viewPort.x = _x;
 			viewPort.y = _y;
 		}
-
+		
 		private function isCanMoveTo(_x:Number , _y:Number ) : Boolean
 		{
 			var jp:Point = new Point(_x,_y);
