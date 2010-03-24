@@ -47,7 +47,10 @@ package game.scene
 			initViewPort();
 			
 			viewPort.x = 0;
-			viewPort.y = 60
+			viewPort.y = 0;
+			tileContainer.x = 0;
+			tileContainer.y = -60;
+			
 			container.stage.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown,false,0,true);
 		}
 
@@ -101,16 +104,16 @@ package game.scene
 			switch (e.keyCode)
 			{
 				case KeyCode.UP:
-					moveUp(viewPort.x , viewPort.y - MOVE_SPEED );
+					moveUp(tileContainer.x , tileContainer.y - MOVE_SPEED );
 					break;
 				case KeyCode.DOWN:
-					moveDown(viewPort.x , viewPort.y + MOVE_SPEED );
+					moveDown(tileContainer.x , tileContainer.y + MOVE_SPEED );
 					break;
 				case KeyCode.LEFT:
-					moveLeft(viewPort.x - MOVE_SPEED , viewPort.y);
+					moveLeft(tileContainer.x - MOVE_SPEED , tileContainer.y);
 					break;
 				case KeyCode.RIGHT:
-					moveRight(viewPort.x + MOVE_SPEED , viewPort.y);
+					moveRight(tileContainer.x + MOVE_SPEED , tileContainer.y);
 					break;
 			}
 		}
@@ -224,10 +227,10 @@ package game.scene
 
 		private function doMove(_x:Number , _y:Number):void
 		{
-//			tileContainer.x = _x;
-//			tileContainer.y = _y;
-			viewPort.x = _x;
-			viewPort.y = _y;
+			tileContainer.x = _x;
+			tileContainer.y = _y;
+//			viewPort.x = _x;
+//			viewPort.y = _y;
 		}
 		
 		private function isCanMoveTo(_x:Number , _y:Number ) : Boolean
