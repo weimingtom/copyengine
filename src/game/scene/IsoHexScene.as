@@ -1,6 +1,8 @@
 package game.scene
 {
 
+	import com.greensock.plugins.ScalePlugin;
+	
 	import copyengine.scenes.SceneBasic;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.KeyCode;
@@ -9,6 +11,7 @@ package game.scene
 	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
@@ -17,6 +20,22 @@ package game.scene
 
 	public class IsoHexScene extends SceneBasic
 	{
+		/**
+		 * the tile width in iso world.
+		 * 		in iso world the tile should be an square, and rotate/scale to 2D world space.
+		 * 		in 2D world space the widht/height = 80/40
+		 */
+		private static const ISO_TILE_WIDTH:int = 40;
+		private static const SCREEN_TILE_WIDTH:int = 80;
+		private static const SCREEN_TILE_HEIGHT:int = 40;
+
+		private static const ROW_NUMBER:int =5;
+		private static const COL_NUMBER:int = 5;
+
+		private static const VIEW_PORT_WIDTH:int = 50;
+		private static const VIEW_PORT_HEIGHT:int = 50;
+
+
 		private static const MOVE_SPEED:int = 5;
 		private static const MAP_HEIGHT:int = 200;
 		private static const MAP_WIDTH:int = 400;
@@ -24,6 +43,7 @@ package game.scene
 		private var tileContainer:Sprite;
 		private var mainContainer:Sprite;
 		private var viewPort:Sprite;
+		private var simulateViewPortContainer:Sprite;
 
 		private var viewPortScrollWidth:int;
 		private var viewPortScrollHeight:int;
@@ -37,6 +57,8 @@ package game.scene
 		private var constPdc:Number; //y =  -1/2x  + mapHeight - viewHeight -1/2viewWidth 	||		const = mapHeight - viewHeight -1/2viewWidth
 		private var constPbc:Number; //y = 1/2x + mapHeight - viewHeight			|| 		const =  mapHeight - viewHeight;
 
+		private var tileArray:Array;
+
 		public function IsoHexScene()
 		{
 			super();
@@ -44,48 +66,66 @@ package game.scene
 
 		override protected function initialize() : void
 		{
+			initIsoHexScreen();
 			initIsoScreen();
-			initViewPort();
+			initIsoViewPort(); // the viewport use in the iso map
 			initObject();
-			
+			initSimulateViewPort(); // simulate the real viewport
+
+
 			viewPort.x = 0;
 			viewPort.y = 60;
-//			tileContainer.x = 0;
-//			tileContainer.y = -60;
-			
+			//			tileContainer.x = 0;
+			//			tileContainer.y = -60;
+
 			container.stage.addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown,false,0,true);
+		}
+
+		private function initIsoHexScreen() : void
+		{
+			var shape:Shape = new Shape();
+			shape.graphics.beginFill(Random.color() , 0.3 );
+			shape.graphics.drawRect(0,0,container.stage.stageWidth,container.stage.stageHeight);
+			shape.graphics.endFill();
+			container.addChild(shape);
 		}
 
 		private function initIsoScreen() : void
 		{
+			tileArray = [];
 			mainContainer = new Sprite();
 			tileContainer = new Sprite();
-			for (var row:int = 0 ; row < 5 ; row++)
+			for (var row:int = 0 ; row < ROW_NUMBER ; row++) //x
 			{
-				for (var line:int = 0 ; line < 5 ; line++)
+				tileArray[row] = [];
+				for (var col:int = 0 ; col < COL_NUMBER ; col++) //y
 				{
-					var isoPos:Vector3D = new Vector3D(row*40,line*40,0);
+					var isoPos:Vector3D = new Vector3D(row*ISO_TILE_WIDTH,col*ISO_TILE_WIDTH,0);
 					IsoMath.isoToScreen(isoPos);
 					var tile:MovieClip = ResUtlis.getMovieClip("FloorTile27","IsoHax_asset");
 					tile.x = isoPos.x;
 					tile.y = isoPos.y;
 					(tile.textMc as TextField).mouseEnabled =false;
-					(tile.textMc as TextField).text = "("+row+","+line+")";
+					(tile.textMc as TextField).text = "("+row+","+col+")";
 					tileContainer.addChild(tile);
+
+					tileArray[row][col] = tile; //tileArray[x][y]
 				}
 			}
 			container.addChild(mainContainer);
 			mainContainer.addChild(tileContainer);
-			mainContainer.x = 200;
-			mainContainer.y = 200;
+			mainContainer.x = mainContainer.width>>1;
+			mainContainer.y = 0;
 
+			trace(mainContainer.width);
+			trace(mainContainer.height);
 		}
 
-		private function initViewPort() : void
+		private function initIsoViewPort() : void
 		{
 			viewPort = new Sprite();
 			viewPort.graphics.beginFill(Random.color() , 0.5);
-			viewPort.graphics.drawRect(0,0,100,100);
+			viewPort.graphics.drawRect(0,0,VIEW_PORT_WIDTH,VIEW_PORT_HEIGHT);
 			viewPort.graphics.endFill();
 
 			mainContainer.addChild(viewPort);
@@ -97,15 +137,27 @@ package game.scene
 
 			constPad = viewPort.width>>1;
 			constPdc =  MAP_HEIGHT - viewPort.height - viewPort.width*0.5; //const = mapHeight - viewHeight -1/2viewWidth
-			constPbc = MAP_HEIGHT - viewPort.height;//const =  mapHeight - viewHeight;
+			constPbc = MAP_HEIGHT - viewPort.height; //const =  mapHeight - viewHeight;
 		}
-		
-		private function initObject():void
+
+		private function initObject() : void
 		{
 			var box:Sprite = ResUtlis.getSprite("IsoBox","IsoHax_asset");
 			addChildToIso(box,2,1,0);
 		}
-		
+
+		private function initSimulateViewPort() : void
+		{
+			simulateViewPortContainer = new Sprite();
+			simulateViewPortContainer.graphics.beginFill(Random.color());
+			simulateViewPortContainer.graphics.drawRect(0,0,VIEW_PORT_WIDTH,VIEW_PORT_HEIGHT)
+			simulateViewPortContainer.graphics.endFill();
+			container.addChild(simulateViewPortContainer);
+
+			simulateViewPortContainer.x = mainContainer.width>>1;
+			simulateViewPortContainer.y = mainContainer.height + 30;
+		}
+
 
 		private function onKeyDown(e:KeyboardEvent) : void
 		{
@@ -233,14 +285,41 @@ package game.scene
 			}
 		}
 
-		private function doMove(_x:Number , _y:Number):void
+		private function doMove(_x:Number , _y:Number) : void
 		{
-//			tileContainer.x = _x;
-//			tileContainer.y = _y;
+			//			tileContainer.x = _x;
+			//			tileContainer.y = _y;
 			viewPort.x = _x;
 			viewPort.y = _y;
+			caulateSimulateViewPort();
 		}
 		
+		private function caulateSimulateViewPort():void
+		{
+			var viewPortLeftTopPoint:Point = new Point(viewPort.x , viewPort.y);
+			var rectangleIndexPoint:Point = new Point();
+			
+			if(viewPort.x < 0)
+			{
+				viewPortLeftTopPoint.x += SCREEN_TILE_WIDTH>>1;
+				rectangleIndexPoint.x = int(viewPortLeftTopPoint.x/SCREEN_TILE_WIDTH)-1;
+			}
+			else
+			{
+				viewPortLeftTopPoint.x -= SCREEN_TILE_WIDTH>>1;
+				rectangleIndexPoint.x = 1 + int(viewPortLeftTopPoint.x/SCREEN_TILE_WIDTH);
+			}
+			trace(rectangleIndexPoint.x);
+			
+//			var isoVectorPoint:Vector3D = new Vector3D(viewPort.x,viewPort.y,0);
+//			var tileIndexPoint:Point = new Point();
+//			IsoMath.screenToIso(isoVectorPoint);
+//			tileIndexPoint.x = int( isoVectorPoint.x / ISO_TILE_WIDTH );
+//			tileIndexPoint.y = int( isoVectorPoint.y / ISO_TILE_WIDTH );
+//			trace("TileIndexPoint x = " + tileIndexPoint.x + "  y = " + tileIndexPoint.y );
+		}
+		
+
 		private function isCanMoveTo(_x:Number , _y:Number ) : Boolean
 		{
 			var jp:Point = new Point(_x,_y);
@@ -265,9 +344,9 @@ package game.scene
 
 			return vap.x * vbp.y - vap.y * vbp.x;
 		}
-		
-		
-		private function addChildToIso(_target:DisplayObject , _x:int , _y:int , _z:int):void
+
+
+		private function addChildToIso(_target:DisplayObject , _x:int , _y:int , _z:int) : void
 		{
 			var isoPos:Vector3D = new Vector3D(_x*40,_y*40,_z);
 			IsoMath.isoToScreen(isoPos);
@@ -275,6 +354,6 @@ package game.scene
 			_target.x = isoPos.x;
 			_target.y = isoPos.y;
 		}
-		
+
 	}
 }
