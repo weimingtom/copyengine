@@ -43,7 +43,13 @@ package game.scene
 		private var tileContainer:Sprite;
 		private var mainContainer:Sprite;
 		private var viewPort:Sprite;
+		
 		private var simulateViewPortContainer:Sprite;
+		
+		private var simulateViewPortTopTile:MovieClip;
+		private var simulateViewPortLeftTile:MovieClip;
+		private var simulateViewPortButtomTile:MovieClip;
+		private var simulateViewPortRightTile:MovieClip;
 
 		private var viewPortScrollWidth:int;
 		private var viewPortScrollHeight:int;
@@ -144,18 +150,30 @@ package game.scene
 		{
 			var box:Sprite = ResUtlis.getSprite("IsoBox","IsoHax_asset");
 			addChildToIso(box,2,1,0);
+			
+			simulateViewPortTopTile = ResUtlis.getMovieClip("FloorTile27","IsoHax_asset");
+			simulateViewPortButtomTile = ResUtlis.getMovieClip("FloorTile27","IsoHax_asset");
+			simulateViewPortLeftTile = ResUtlis.getMovieClip("FloorTile27","IsoHax_asset");
+			simulateViewPortRightTile = ResUtlis.getMovieClip("FloorTile27","IsoHax_asset");
 		}
 
 		private function initSimulateViewPort() : void
 		{
 			simulateViewPortContainer = new Sprite();
-			simulateViewPortContainer.graphics.beginFill(Random.color());
-			simulateViewPortContainer.graphics.drawRect(0,0,VIEW_PORT_WIDTH,VIEW_PORT_HEIGHT)
-			simulateViewPortContainer.graphics.endFill();
-			container.addChild(simulateViewPortContainer);
+			
+			var simulateViewPort:Sprite = new Sprite();
+			container.addChild(simulateViewPort);
+			
+			var viewPortShape:Shape = new Shape();
+			viewPortShape.graphics.beginFill(Random.color());
+			viewPortShape.graphics.drawRect(0,0,VIEW_PORT_WIDTH,VIEW_PORT_HEIGHT)
+			viewPortShape.graphics.endFill();
 
-			simulateViewPortContainer.x = mainContainer.width>>1;
-			simulateViewPortContainer.y = mainContainer.height + 30;
+			simulateViewPort.addChild(simulateViewPortContainer);
+			simulateViewPort.addChild(viewPortShape);
+			
+			simulateViewPort.x = mainContainer.width>>1;
+			simulateViewPort.y = mainContainer.height + 30;
 		}
 
 
@@ -302,13 +320,59 @@ package game.scene
 			//move the coordinate system left HALF_SCREEN_TILE_WIDTH , so that it's (0,0) point of the rectangle
 			//and then divide SCREEN_TILE_WIDTH to see, which rectangle is current point state.
 			rectangleIndexPoint.x = Math.floor((viewPortLeftTopPoint.x + HALF_SCREEN_TILE_WIDTH)/ SCREEN_TILE_WIDTH);
-			trace("ViewPortLeftTopPoint at rectangle coordinate x :" + rectangleIndexPoint.x);
+			rectangleIndexPoint.y = Math.floor((viewPortLeftTopPoint.y + HALF_SCREEN_TILE_HEIGHT)/SCREEN_TILE_HEIGHT);
+//			trace("ViewPortLeftTopPoint at rectangle coordinate x :" + rectangleIndexPoint.x  + " y : " + rectangleIndexPoint.y);
+			var row:int = -1+rectangleIndexPoint.x+rectangleIndexPoint.y;
+			var col:int = -1-rectangleIndexPoint.x + rectangleIndexPoint.y;
 			
-			var isoVectorPoint:Vector3D = new Vector3D(viewPort.x,viewPort.y,0);
-			IsoMath.screenToIso(isoVectorPoint);
-			tileIndexPoint.x = int( isoVectorPoint.x / ISO_TILE_WIDTH );
-			tileIndexPoint.y = int( isoVectorPoint.y / ISO_TILE_WIDTH );
-			trace("ViewPortLeftTopPoint at Iso coordinate TileIndexPoint x = " + tileIndexPoint.x + "  y = " + tileIndexPoint.y );
+			if(row > 0 && col >0)
+			{
+				var xOffest:Number = (viewPortLeftTopPoint.x + HALF_SCREEN_TILE_WIDTH)%SCREEN_TILE_WIDTH;
+				var yOffest:Number = (viewPortLeftTopPoint.y + HALF_SCREEN_TILE_HEIGHT)%SCREEN_TILE_HEIGHT;
+				
+				(simulateViewPortTopTile.textMc as TextField).text = "("+row+","+col+")";
+				simulateViewPortContainer.addChild(simulateViewPortTopTile);
+				simulateViewPortTopTile.x = HALF_SCREEN_TILE_WIDTH;
+				simulateViewPortTopTile.y = -HALF_SCREEN_TILE_HEIGHT;
+				
+				(simulateViewPortLeftTile.textMc as TextField).text = "("+row+","+(col+1)+")";
+				simulateViewPortContainer.addChild(simulateViewPortLeftTile);
+				simulateViewPortLeftTile.x = 0;
+				simulateViewPortLeftTile.y = 0;
+				
+				(simulateViewPortRightTile.textMc as TextField).text = "("+(row+1)+","+col+")";
+				simulateViewPortContainer.addChild(simulateViewPortRightTile);
+				simulateViewPortRightTile.x = SCREEN_TILE_WIDTH;
+				simulateViewPortRightTile.y = 0;
+				
+				(simulateViewPortButtomTile.textMc as TextField).text = "("+(row+1)+","+(col+1)+")";
+				simulateViewPortContainer.addChild(simulateViewPortButtomTile);
+				simulateViewPortButtomTile.x = HALF_SCREEN_TILE_WIDTH;
+				simulateViewPortButtomTile.y = HALF_SCREEN_TILE_HEIGHT;
+				
+				simulateViewPortTopTile.x -= xOffest;
+				simulateViewPortTopTile.y -= yOffest; 
+				simulateViewPortLeftTile.x -= xOffest;
+				simulateViewPortLeftTile.y -= yOffest;
+				simulateViewPortRightTile.x -=xOffest;
+				simulateViewPortRightTile.y -= yOffest;
+				simulateViewPortButtomTile.x -= xOffest;
+				simulateViewPortButtomTile.y -=yOffest;
+				
+			}
+			
+//			trace("Row :" + row + "  Col :" + col );
+//			
+//			var rectangleTopTile:MovieClip = tileArray[-1+rectangleIndexPoint.x+rectangleIndexPoint.y][-1-rectangleIndexPoint.x + rectangleIndexPoint.y];
+//			trace((rectangleTopTile.textMc as TextField).text );
+			
+			
+			
+//			var isoVectorPoint:Vector3D = new Vector3D(viewPort.x,viewPort.y,0);
+//			IsoMath.screenToIso(isoVectorPoint);
+//			tileIndexPoint.x = int( isoVectorPoint.x / ISO_TILE_WIDTH );
+//			tileIndexPoint.y = int( isoVectorPoint.y / ISO_TILE_WIDTH );
+//			trace("ViewPortLeftTopPoint at Iso coordinate TileIndexPoint x = " + tileIndexPoint.x + "  y = " + tileIndexPoint.y );
 		}
 		
 
