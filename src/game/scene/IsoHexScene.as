@@ -1,8 +1,6 @@
 package game.scene
 {
 
-	import com.greensock.plugins.ScalePlugin;
-	
 	import copyengine.scenes.SceneBasic;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.KeyCode;
@@ -28,17 +26,19 @@ package game.scene
 		private static const ISO_TILE_WIDTH:int = 40;
 		private static const SCREEN_TILE_WIDTH:int = 80;
 		private static const SCREEN_TILE_HEIGHT:int = 40;
+		private static const HALF_SCREEN_TILE_HEIGHT:int = SCREEN_TILE_HEIGHT>>1;
+		private static const HALF_SCREEN_TILE_WIDTH:int = SCREEN_TILE_WIDTH>>1;
 
-		private static const ROW_NUMBER:int =5;
-		private static const COL_NUMBER:int = 5;
+		private static const ROW_NUMBER:int =7;
+		private static const COL_NUMBER:int = 7;
 
 		private static const VIEW_PORT_WIDTH:int = 50;
 		private static const VIEW_PORT_HEIGHT:int = 50;
 
 
 		private static const MOVE_SPEED:int = 5;
-		private static const MAP_HEIGHT:int = 200;
-		private static const MAP_WIDTH:int = 400;
+		private static const MAP_HEIGHT:int = 280;
+		private static const MAP_WIDTH:int = 560;
 
 		private var tileContainer:Sprite;
 		private var mainContainer:Sprite;
@@ -298,25 +298,17 @@ package game.scene
 		{
 			var viewPortLeftTopPoint:Point = new Point(viewPort.x , viewPort.y);
 			var rectangleIndexPoint:Point = new Point();
+			var tileIndexPoint:Point = new Point();
+			//move the coordinate system left HALF_SCREEN_TILE_WIDTH , so that it's (0,0) point of the rectangle
+			//and then divide SCREEN_TILE_WIDTH to see, which rectangle is current point state.
+			rectangleIndexPoint.x = Math.floor((viewPortLeftTopPoint.x + HALF_SCREEN_TILE_WIDTH)/ SCREEN_TILE_WIDTH);
+			trace("ViewPortLeftTopPoint at rectangle coordinate x :" + rectangleIndexPoint.x);
 			
-			if(viewPort.x < 0)
-			{
-				viewPortLeftTopPoint.x += SCREEN_TILE_WIDTH>>1;
-				rectangleIndexPoint.x = int(viewPortLeftTopPoint.x/SCREEN_TILE_WIDTH)-1;
-			}
-			else
-			{
-				viewPortLeftTopPoint.x -= SCREEN_TILE_WIDTH>>1;
-				rectangleIndexPoint.x = 1 + int(viewPortLeftTopPoint.x/SCREEN_TILE_WIDTH);
-			}
-			trace(rectangleIndexPoint.x);
-			
-//			var isoVectorPoint:Vector3D = new Vector3D(viewPort.x,viewPort.y,0);
-//			var tileIndexPoint:Point = new Point();
-//			IsoMath.screenToIso(isoVectorPoint);
-//			tileIndexPoint.x = int( isoVectorPoint.x / ISO_TILE_WIDTH );
-//			tileIndexPoint.y = int( isoVectorPoint.y / ISO_TILE_WIDTH );
-//			trace("TileIndexPoint x = " + tileIndexPoint.x + "  y = " + tileIndexPoint.y );
+			var isoVectorPoint:Vector3D = new Vector3D(viewPort.x,viewPort.y,0);
+			IsoMath.screenToIso(isoVectorPoint);
+			tileIndexPoint.x = int( isoVectorPoint.x / ISO_TILE_WIDTH );
+			tileIndexPoint.y = int( isoVectorPoint.y / ISO_TILE_WIDTH );
+			trace("ViewPortLeftTopPoint at Iso coordinate TileIndexPoint x = " + tileIndexPoint.x + "  y = " + tileIndexPoint.y );
 		}
 		
 
