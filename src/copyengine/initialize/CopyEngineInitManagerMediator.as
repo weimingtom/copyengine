@@ -1,13 +1,13 @@
 package copyengine.initialize
 {
 	import copyengine.CopyEngineMessage;
-	import copyengine.debug.DebugLog;
 	import copyengine.initialize.step.CopyEngineInitFirstCommand;
 	import copyengine.initialize.step.CopyEngineInitFirstMediator;
 	import copyengine.initialize.step.CopyEngineInitSecondCommand;
 	import copyengine.initialize.step.CopyEngineInitSecondMediator;
 	import copyengine.initialize.step.CopyEngineInitThirdCommand;
 	import copyengine.initialize.step.CopyEngineInitThirdMediator;
+	import copyengine.utils.debug.DebugLog;
 	
 	import game.GlobalMessage;
 	

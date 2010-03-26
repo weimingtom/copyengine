@@ -1,6 +1,6 @@
 package copyengine.scenes
 {
-	import copyengine.debug.DebugLog;
+	import copyengine.utils.debug.DebugLog;
 	import copyengine.utils.tick.GlobalTick;
 
 	/**
