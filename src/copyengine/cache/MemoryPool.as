@@ -164,6 +164,9 @@ public class MemoryPool
 		}
 		else
 		{
+			// the Matrix is (scaleX,0,0,scaleY,-bounds.x,-bounds.y)
+			// in case the dispalyObject anchor point not at left-top , so first need to move the target a little bit then draw the target
+			// it also explain what next need to set the x,y back to bimMap beacsue need to remember where the point is.
 			_bitmapData = new BitmapData(Math.ceil(bounds.width * _scaleX) ,Math.ceil(bounds.height * _scaleY) ,true , 0x00000000);
 			_bitmapData.draw(_m,new Matrix(_scaleX,0,0,_scaleY,-Math.floor(bounds.x * _scaleX),-Math.floor(bounds.y * _scaleY)));
 		}
