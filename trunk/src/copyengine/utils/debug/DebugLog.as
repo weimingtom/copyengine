@@ -1,4 +1,4 @@
-package copyengine.debug
+package copyengine.utils.debug
 {
 import flash.utils.getTimer;
 

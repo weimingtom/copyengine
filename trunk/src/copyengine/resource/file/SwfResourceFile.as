@@ -1,9 +1,9 @@
 package copyengine.resource.file
 {
-    import copyengine.debug.DebugLog;
     import copyengine.resource.lazyload.ILazyLoadContainer;
     import copyengine.resource.lazyload.LazyLoadContainer;
-
+    import copyengine.utils.debug.DebugLog;
+    
     import flash.display.Bitmap;
     import flash.display.BitmapData;
     import flash.display.DisplayObject;

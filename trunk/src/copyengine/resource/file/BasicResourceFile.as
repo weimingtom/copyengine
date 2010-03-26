@@ -1,8 +1,8 @@
 package copyengine.resource.file
 {
-    import copyengine.debug.DebugLog;
     import copyengine.resource.loadqueue.LoadResourceQueue;
-
+    import copyengine.utils.debug.DebugLog;
+    
     import flash.events.Event;
 
     public class BasicResourceFile

@@ -1,10 +1,10 @@
 package copyengine.resource
 {
-    import copyengine.debug.DebugLog;
     import copyengine.resource.file.BasicResourceFile;
     import copyengine.resource.loadqueue.LoadResourceQueue;
     import copyengine.resource.state.ResLoadStatePackage;
     import copyengine.utils.GeneralUtils;
+    import copyengine.utils.debug.DebugLog;
     
     import flash.events.Event;
     import flash.events.IOErrorEvent;
