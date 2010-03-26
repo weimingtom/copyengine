@@ -13,6 +13,7 @@ package game.scene
 	import flash.display.Sprite;
 	import flash.events.KeyboardEvent;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 	import flash.geom.Vector3D;
 	import flash.text.TextField;
 
@@ -165,7 +166,7 @@ package game.scene
 			container.addChild(simulateViewPort);
 			
 			var viewPortShape:Shape = new Shape();
-			viewPortShape.graphics.beginFill(Random.color());
+			viewPortShape.graphics.beginFill(Random.color(),0.3);
 			viewPortShape.graphics.drawRect(0,0,VIEW_PORT_WIDTH,VIEW_PORT_HEIGHT)
 			viewPortShape.graphics.endFill();
 
@@ -174,6 +175,8 @@ package game.scene
 			
 			simulateViewPort.x = mainContainer.width>>1;
 			simulateViewPort.y = mainContainer.height + 30;
+			
+			simulateViewPort.scrollRect = new Rectangle(0,0,viewPortShape.width,viewPortShape.height);
 		}
 
 
@@ -324,10 +327,13 @@ package game.scene
 //			trace("ViewPortLeftTopPoint at rectangle coordinate x :" + rectangleIndexPoint.x  + " y : " + rectangleIndexPoint.y);
 			var row:int = -1+rectangleIndexPoint.x+rectangleIndexPoint.y;
 			var col:int = -1-rectangleIndexPoint.x + rectangleIndexPoint.y;
-			
 			if(row > 0 && col >0)
 			{
 				var xOffest:Number = (viewPortLeftTopPoint.x + HALF_SCREEN_TILE_WIDTH)%SCREEN_TILE_WIDTH;
+				if(xOffest < 0)
+				{
+					xOffest = SCREEN_TILE_WIDTH + xOffest;
+				}
 				var yOffest:Number = (viewPortLeftTopPoint.y + HALF_SCREEN_TILE_HEIGHT)%SCREEN_TILE_HEIGHT;
 				
 				(simulateViewPortTopTile.textMc as TextField).text = "("+row+","+col+")";
@@ -350,14 +356,17 @@ package game.scene
 				simulateViewPortButtomTile.x = HALF_SCREEN_TILE_WIDTH;
 				simulateViewPortButtomTile.y = HALF_SCREEN_TILE_HEIGHT;
 				
-				simulateViewPortTopTile.x -= xOffest;
-				simulateViewPortTopTile.y -= yOffest; 
-				simulateViewPortLeftTile.x -= xOffest;
-				simulateViewPortLeftTile.y -= yOffest;
-				simulateViewPortRightTile.x -=xOffest;
-				simulateViewPortRightTile.y -= yOffest;
-				simulateViewPortButtomTile.x -= xOffest;
-				simulateViewPortButtomTile.y -=yOffest;
+				simulateViewPortContainer.x = -xOffest;
+				simulateViewPortContainer.y = -yOffest;
+				
+//				simulateViewPortTopTile.x -= xOffest;
+//				simulateViewPortTopTile.y -= yOffest; 
+//				simulateViewPortButtomTile.x -= xOffest;
+//				simulateViewPortButtomTile.y -=yOffest;
+//				simulateViewPortLeftTile.x -= xOffest;
+//				simulateViewPortLeftTile.y -= yOffest;
+//				simulateViewPortRightTile.x -=xOffest;
+//				simulateViewPortRightTile.y -= yOffest;
 				
 			}
 			
