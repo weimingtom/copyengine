@@ -176,7 +176,7 @@ package game.scene
 			simulateViewPort.x = mainContainer.width>>1;
 			simulateViewPort.y = mainContainer.height + 30;
 			
-			simulateViewPort.scrollRect = new Rectangle(0,0,viewPortShape.width,viewPortShape.height);
+//			simulateViewPort.scrollRect = new Rectangle(0,0,viewPortShape.width,viewPortShape.height);
 		}
 
 
