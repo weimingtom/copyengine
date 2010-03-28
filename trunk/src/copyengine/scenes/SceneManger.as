@@ -1,7 +1,10 @@
 package copyengine.scenes
 {
+	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.debug.DebugLog;
 	import copyengine.utils.tick.GlobalTick;
+	
+	import flash.events.Event;
 
 	/**
 	 * SceneManger is use to management each scene.(scene is like AS's stage.).
@@ -75,6 +78,7 @@ package copyengine.scenes
 			}
 			else
 			{
+				stopTickScene();
 				isChangingScreen = true
 				nextScene = sceneFactory.createScene(_sceneName);
 				GlobalTick.instance.callLaterAfterTickCount(doChangeScene);
@@ -118,6 +122,7 @@ package copyengine.scenes
 		{
 			currentScene = nextScene;
 			currentScene.perSceneCleanComplate();
+			startTickScene();
 			nextScene = null;
 			isChangingScreen = false;
 			CopyEngineFacade.instance.sendNotification(SceneMessage.CHANGE_SCENE_COMPLATE);
@@ -147,6 +152,28 @@ package copyengine.scenes
 			}
 			nextScene.startPerloadScene();
 		}
-
+		
+		//=============
+		//== TODO:: mange Tick stuff form only one sprite, not sperate them all
+		//==============
+		
+		private function startTickScene():void
+		{
+			GeneralUtils.addTargetEventListener(currentScene.container,Event.ENTER_FRAME,onTick);
+		}
+		
+		private function stopTickScene():void
+		{
+			if(currentScene != null)
+			{
+				GeneralUtils.removeTargetEventListener(currentScene.container,Event.ENTER_FRAME,onTick);
+			}
+		}
+		
+		private function onTick(e:Event):void
+		{
+			currentScene.tick();
+		}
+		
 	}
 }

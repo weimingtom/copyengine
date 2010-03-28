@@ -3,12 +3,13 @@ package copyengine.scenes
 	import game.scene.CEDragDropScreen;
 	import game.scene.CEUICompoentTestScene;
 	import game.scene.IsoHexScene;
+	import game.scene.IsoSceneTest;
 	import game.scene.PerLoaderScene;
 	import game.scene.TestCacheScene;
 
 	public class SceneFactory implements ISceneFactory
 	{
-		public static const FIRST_INITIALIZE_SCENE:String = SCENE_TEST_CACHE_SCENE;
+		public static const FIRST_INITIALIZE_SCENE:String = SCENE_ISOSCENE_TEST;
 		
 		public static const SCENE_PERLOADER:String = "SceneFactory_Scenen_PerLoader";
 		public static const SCENE_CEUICOMPONENT_TEST_SCENE:String = "SceneFactory_Scenen_CEUICompoent_Test_Scene";
@@ -16,6 +17,7 @@ package copyengine.scenes
 		public static const SCENE_EMPTY:String = "SceneFactory_Empty";
 		public static const SCENE_ISOHEX:String = "SceneFactory_IsoHex";
 		public static const SCENE_TEST_CACHE_SCENE:String = "SceneFactory_TestCacheScene"
+		public static const SCENE_ISOSCENE_TEST:String = "SceneFactory_IsoSceneTest";
 		
 		
 		public function SceneFactory()
@@ -43,6 +45,9 @@ package copyengine.scenes
 					break;
 				case SCENE_TEST_CACHE_SCENE:
 					return new TestCacheScene();
+					break;
+				case SCENE_ISOSCENE_TEST:
+					return new IsoSceneTest();
 					break;
 			}
 			return null;

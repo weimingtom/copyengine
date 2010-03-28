@@ -1,16 +1,17 @@
 package copyengine.scenes.isometric.viewport
 {
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Graphics;
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
 
 	public final class CEIsoViewPort implements IIsoViewPort
 	{
-		private const moveSpeed:int;
-		private const viewPortWidth:int;
-		private const viewPortHeight:int;
-		private const screenWidth:int;
-		private const screenHeight:int;
+		private var moveSpeed:int;
+		private var viewPortWidth:int;
+		private var viewPortHeight:int;
+		private var screenWidth:int;
+		private var screenHeight:int;
 
 		private var viewportContainer:DisplayObjectContainer;
 
@@ -30,14 +31,16 @@ package copyengine.scenes.isometric.viewport
 			_screenWidth:int , _screenHeight:int) : void
 		{
 			moveSpeed = _moveSpeed;
-			viewPortWidth = _screenWidth;
-			viewPortHeight = _screenHeight;
+			viewPortWidth = _viewPortWidth;
+			viewPortHeight = _viewPortHeight;
 			screenWidth = screenWidth;
 			screenHeight = screenHeight;
 
 			viewportContainer = new Sprite();
-			viewportContainer.width = viewPortWidth;
-			viewportContainer.height = viewPortHeight;
+			var g:Graphics = (viewportContainer as Sprite).graphics;
+			g.beginFill(0,0);
+			g.drawRect(0,0,viewPortWidth,viewPortHeight);
+			g.endFill();
 			// no need to set viewport scrollRect ? [TBD]
 			//			viewportContainer.scrollRect = new Rectangle(0,0,viewPortWidth,viewPortHeight);
 
@@ -110,6 +113,8 @@ package copyengine.scenes.isometric.viewport
 
 		public function moveLeft() : void
 		{
+			perViewPortX = viewPortX;
+			viewPortX -= moveSpeed;
 			isViewPortMoved = true;
 		}
 
