@@ -1,7 +1,8 @@
 package copyengine.scenes.isometric
 {
 	import copyengine.scenes.SceneManger;
-
+	import copyengine.utils.tick.GlobalTick;
+	
 	import org.puremvc.as3.patterns.mediator.Mediator;
 
 	/**
@@ -39,7 +40,8 @@ package copyengine.scenes.isometric
 		 */
 		protected final function finishedScenePerLoad() : void
 		{
-			SceneManger.instance.scenePerloadComplate();
+			var f:Function = SceneManger.instance.scenePerloadComplate;
+			GlobalTick.instance.callLaterAfterTickCount(f,1);
 		}
 
 		protected final function get isoScene() : IsoSceneBasic
