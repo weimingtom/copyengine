@@ -14,6 +14,6 @@ package copyengine.scenes.isometric.viewport
 		 * 		MoveToUpdate means during per tick to current tick viewport has been moved.
 		 */		
 		function NoMoveUpdate(_viewPortX:int , _viewPortY:int):void;
-		function MoveToUpdate(_viewPortX:int ,_viewPortY:int , _perViewPortX:int , _perViewPortY:int):void
+		function MoveToUpdate(_viewPortX:int ,_viewPortY:int , _preViewPortX:int , _preViewPortY:int):void
 	}
 }

@@ -156,7 +156,6 @@ package copyengine.scenes
 		//=============
 		//== TODO:: mange Tick stuff form only one sprite, not sperate them all
 		//==============
-		
 		private function startTickScene():void
 		{
 			GeneralUtils.addTargetEventListener(currentScene.container,Event.ENTER_FRAME,onTick);

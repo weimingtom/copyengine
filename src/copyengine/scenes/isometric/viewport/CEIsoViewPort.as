@@ -3,23 +3,61 @@ package copyengine.scenes.isometric.viewport
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Graphics;
 	import flash.display.Sprite;
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 
 	public final class CEIsoViewPort implements IIsoViewPort
-	{
+	{	
+		/**
+		 * each time move pixel 
+		 */		
 		private var moveSpeed:int;
+		
+		/**
+		 * viewPort width and height 
+		 */		
 		private var viewPortWidth:int;
 		private var viewPortHeight:int;
+		
+		/**
+		 * the widht and height in projection coordinate system  
+		 */		
 		private var screenWidth:int;
 		private var screenHeight:int;
-
+		
+		/**
+		 * in projection coordinate system , the screen map is an diamond
+		 * those four point is diamond four vertex point.
+		 */		
+		private var screenTopPointX:int;
+		private var screenTopPointY:int;
+		
+		private var screenLeftPointX:int;
+		private var screenLeftPointY:int;
+		
+		private var screenButtomPointX:int;
+		private var screenButtomPointY:int;
+		
+		private var screenRightPointX:int;
+		private var screenRightPointY:int;
+		
+		/**
+		 * 
+		 */		
+		private var constPad:Number; //y = 1/2x + 1/2viewWidth    		||		const = 1/2viewWidth 
+		private var constPdc:Number; //y =  -1/2x  + mapHeight - viewHeight -1/2viewWidth 	||		const = mapHeight - viewHeight -1/2viewWidth
+		private var constPbc:Number; //y = 1/2x + mapHeight - viewHeight			|| 		const =  mapHeight - viewHeight;
+		
 		private var viewportContainer:DisplayObjectContainer;
-
 		private var allViewPortListener:Vector.<IViewPortListener>
-
+		
+		
+		/**
+		 * user to recored viewPort top-left current and previous point coordinate.
+		 */		
 		private var isViewPortMoved:Boolean = false;
-		private var perViewPortX:int = 0;
-		private var perViewPortY:int = 0;
+		private var preViewPortX:int = 0;
+		private var preViewPortY:int = 0;
 		private var viewPortX:int = 0;
 		private var viewPortY:int = 0;
 
@@ -74,7 +112,7 @@ package copyengine.scenes.isometric.viewport
 			{
 				if (isViewPortMoved)
 				{
-					listener.MoveToUpdate(viewPortX,viewPortY,perViewPortX,perViewPortY);
+					listener.MoveToUpdate(viewPortX,viewPortY,preViewPortX,preViewPortY);
 				}
 				else
 				{
@@ -113,7 +151,7 @@ package copyengine.scenes.isometric.viewport
 
 		public function moveLeft() : void
 		{
-			perViewPortX = viewPortX;
+			preViewPortX = viewPortX;
 			viewPortX -= moveSpeed;
 			isViewPortMoved = true;
 		}
