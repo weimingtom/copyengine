@@ -1,6 +1,8 @@
 package copyengine.scenes.isometric
 {
 	import copyengine.scenes.isometric.viewport.IViewPortListener;
+	
+	import flash.display.DisplayObjectContainer;
 
 	/**
 	 *  IsoObjectManger use to 
@@ -22,6 +24,28 @@ package copyengine.scenes.isometric
 		{
 			
 		}
+		
+		public function addIsoObject(_obj:IIsoObject):void
+		{
+			
+		}
+		
+		public function removeIsoObject(_obj:IIsoObject):void
+		{
+			
+		}
+		
+		
+		public function dispose():void
+		{
+			
+		}
+		
+		public function get container():DisplayObjectContainer
+		{
+			
+		}
+		
 		
 	}
 }

@@ -28,6 +28,11 @@ package copyengine.scenes.isometric
 			
 		}
 		
+		public function dispose():void
+		{
+			
+		}
+		
 		public function get container():DisplayObjectContainer
 		{
 			return null;
