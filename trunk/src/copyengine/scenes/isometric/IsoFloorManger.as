@@ -55,10 +55,10 @@ package copyengine.scenes.isometric
 
 		}
 
-		public function MoveToUpdate(_viewPortX:int ,_viewPortY:int , _perViewPortX:int , _perViewPortY:int) : void
+		public function MoveToUpdate(_viewPortX:int ,_viewPortY:int , _preViewPortX:int , _preViewPortY:int) : void
 		{
-			testSprite.x += _viewPortX - _perViewPortX;
-			testSprite.y += _viewPortY - _perViewPortY;
+			testSprite.x += _viewPortX - _preViewPortX;
+			testSprite.y += _viewPortY - _preViewPortY;
 		}
 
 	}
