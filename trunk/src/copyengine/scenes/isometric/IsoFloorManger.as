@@ -36,7 +36,7 @@ package copyengine.scenes.isometric
 			testSprite = new Sprite();
 			floorMangerContainer.addChild(testSprite);
 			testSprite.graphics.beginFill(Random.color());
-			testSprite.graphics.drawRect(0,0,400,400);
+			testSprite.graphics.drawRect(0,0,600,600);
 			testSprite.graphics.endFill();
 		}
 
