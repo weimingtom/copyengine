@@ -14,5 +14,6 @@ package copyengine.scenes.isometric.viewport
 		function initialize(_viewPort:IIsoViewPort):void;
 		function get container():DisplayObjectContainer;
 		function dispose():void;
+		function tick():void;
 	}
 }
