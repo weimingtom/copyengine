@@ -68,10 +68,10 @@ package copyengine.scenes.isometric.viewport
 		 * user to recored viewPort top-left current and previous point coordinate.
 		 */
 		private var isViewPortMoved:Boolean = false;
-		private var preViewPortX:int = 300;
-		private var preViewPortY:int = 300;
-		private var viewPortX:int = 300;
-		private var viewPortY:int = 300;
+		private var preViewPortX:int = -320;
+		private var preViewPortY:int = 260;
+		private var viewPortX:int = -320;
+		private var viewPortY:int = 260;
 		
 		/**
 		 * use in judgePointSide function 
@@ -92,8 +92,8 @@ package copyengine.scenes.isometric.viewport
 			moveSpeed = _moveSpeed;
 			viewPortWidth = _viewPortWidth;
 			viewPortHeight = _viewPortHeight;
-			screenWidth = screenWidth;
-			screenHeight = screenHeight;
+			screenWidth = _screenWidth;
+			screenHeight = _screenHeight;
 			
 			moveTopPointX = -(viewPortWidth>>1);
 			moveTopPointY = viewPortWidth>>2;
@@ -189,12 +189,12 @@ package copyengine.scenes.isometric.viewport
 				else if (viewPortX < moveTopPointX)
 				{
 					//y = -1/2x
-					viewPortX = -(viewPortX<<1);
+					viewPortX = -(viewPortY<<1);
 				}
 				else
 				{
 					//y = 1/2x + constPad;
-					viewPortX = (viewPortY - constPda)>>1;
+					viewPortX = (viewPortY - constPda)<<1;
 				}
 			}
 		}
@@ -212,12 +212,12 @@ package copyengine.scenes.isometric.viewport
 				else if (viewPortX < moveButtomPointX)
 				{
 					//y = 1/2x + constPbc
-					viewPortX = (viewPortX - constPbc)>>1;
+					viewPortX = (viewPortY - constPbc)<<1;
 				}
 				else
 				{
 					//y =  -1/2x  + constPcd
-					viewPortX = -((viewPortY - constPcd)>>1);
+					viewPortX = -((viewPortY - constPcd)<<1);
 				}
 			}
 		}
