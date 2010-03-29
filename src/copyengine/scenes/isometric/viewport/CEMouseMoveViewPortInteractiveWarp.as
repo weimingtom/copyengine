@@ -1,7 +1,6 @@
 package copyengine.scenes.isometric.viewport
 {
 	import copyengine.utils.GeneralUtils;
-	import copyengine.utils.Random;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Graphics;
@@ -12,6 +11,20 @@ package copyengine.scenes.isometric.viewport
 	public class CEMouseMoveViewPortInteractiveWarp implements IViewPortInteractiveWarp
 	{
 		private static const RESPOND_AREA:int = 30; // Pixel
+
+		private static const MOVE_DIR_HOLD:int = 0; // not move
+		private static const MOVE_DIR_UP:int = 1;
+		private static const MOVE_DIR_DOWND:int = 2;
+		private static const MOVE_DIR_LEFT:int = 3;
+		private static const MOVE_DIR_RIGHT:int =4;
+
+		/**
+		 * use in tick function , to decide how the viewport will move
+		 */
+		private var moveDirection:int = 0;
+		
+		private var viewPortWidth:int;
+		private var viewPortHeight:int;
 		
 		protected var warpContainer:DisplayObjectContainer;
 		protected var viewPort:IIsoViewPort;
@@ -23,7 +36,9 @@ package copyengine.scenes.isometric.viewport
 		public final function initialize(_viewPort:IIsoViewPort) : void
 		{
 			viewPort = _viewPort;
-
+			viewPortWidth = viewPort.getViewPortWidth();
+			viewPortHeight = viewPort.getViewPortHeight();
+			
 			warpContainer = new Sprite();
 			var g:Graphics = (warpContainer as Sprite).graphics;
 			g.beginFill(0,0);
@@ -58,7 +73,6 @@ package copyengine.scenes.isometric.viewport
 			GeneralUtils.removeTargetEventListener(warpContainer,MouseEvent.ROLL_OVER , onMouseRollOver);
 			GeneralUtils.removeTargetEventListener(warpContainer,MouseEvent.ROLL_OUT,onMouseRollOut);
 			GeneralUtils.removeTargetEventListener(warpContainer,MouseEvent.MOUSE_MOVE,onMouseMove);
-			GeneralUtils.removeTargetEventListener(warpContainer,Event.ENTER_FRAME,onTick);
 		}
 
 		private function onMouseRollOver(e:MouseEvent) : void
@@ -67,27 +81,57 @@ package copyengine.scenes.isometric.viewport
 
 		private function onMouseRollOut(e:MouseEvent) : void
 		{
-			GeneralUtils.removeTargetEventListener(warpContainer,Event.ENTER_FRAME,onTick);
 		}
 
 		private function onMouseMove(e:MouseEvent) : void
 		{
-			//TEMP Test Use
-			if(e.localX < RESPOND_AREA)
+			var mouseX:Number = e.localX;
+			var mouseY:Number = e.localY;
+			
+			moveDirection = MOVE_DIR_HOLD;
+			
+			if(mouseY < RESPOND_AREA)
 			{
-				GeneralUtils.addTargetEventListener(warpContainer,Event.ENTER_FRAME,onTick);
+				moveDirection = MOVE_DIR_UP;
+			}
+			else if(mouseY > viewPortHeight - RESPOND_AREA)
+			{
+				moveDirection = MOVE_DIR_DOWND;
 			}
 			else
 			{
-				GeneralUtils.removeTargetEventListener(warpContainer,Event.ENTER_FRAME,onTick);
+				if(mouseX < RESPOND_AREA)
+				{
+					moveDirection = MOVE_DIR_LEFT;
+				}
+				else if(mouseX > viewPortWidth  - RESPOND_AREA)
+				{
+					moveDirection = MOVE_DIR_RIGHT;
+				}
 			}
 		}
 
-		private function onTick(e:Event) : void
+		public final function tick() : void
 		{
-			viewPort.moveLeft();
+			switch (moveDirection)
+			{
+				case MOVE_DIR_HOLD:
+					break;
+				case MOVE_DIR_UP:
+					viewPort.moveUp();
+					break;
+				case MOVE_DIR_LEFT:
+					viewPort.moveLeft();
+					break;
+				case MOVE_DIR_DOWND:
+					viewPort.moveDown();
+					break;
+				case MOVE_DIR_RIGHT:
+					viewPort.moveRight();
+					break;
+			}
 		}
-		
+
 		//===================
 		//=== Overable Function
 		//===================
@@ -114,6 +158,6 @@ package copyengine.scenes.isometric.viewport
 		protected function doTick(e:Event) : void
 		{
 		}
-		
+
 	}
 }

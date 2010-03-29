@@ -1,79 +1,116 @@
 package copyengine.scenes.isometric.viewport
 {
+	import copyengine.utils.GeneralUtils;
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Graphics;
 	import flash.display.Sprite;
-	import flash.geom.Point;
-	import flash.geom.Rectangle;
+	
+	import flashx.textLayout.elements.Configuration;
 
 	public final class CEIsoViewPort implements IIsoViewPort
-	{	
+	{
 		/**
-		 * each time move pixel 
-		 */		
+		 * each time move pixel
+		 */
 		private var moveSpeed:int;
-		
+
 		/**
-		 * viewPort width and height 
-		 */		
+		 * viewPort width and height
+		 */
 		private var viewPortWidth:int;
 		private var viewPortHeight:int;
-		
+
 		/**
-		 * the widht and height in projection coordinate system  
-		 */		
+		 * the widht and height in projection coordinate system
+		 */
 		private var screenWidth:int;
 		private var screenHeight:int;
-		
+
 		/**
-		 * in projection coordinate system , the screen map is an diamond
-		 * those four point is diamond four vertex point.
-		 */		
-		private var screenTopPointX:int;
-		private var screenTopPointY:int;
-		
-		private var screenLeftPointX:int;
-		private var screenLeftPointY:int;
-		
-		private var screenButtomPointX:int;
-		private var screenButtomPointY:int;
-		
-		private var screenRightPointX:int;
-		private var screenRightPointY:int;
-		
-		/**
-		 * 
-		 */		
-		private var constPad:Number; //y = 1/2x + 1/2viewWidth    		||		const = 1/2viewWidth 
-		private var constPdc:Number; //y =  -1/2x  + mapHeight - viewHeight -1/2viewWidth 	||		const = mapHeight - viewHeight -1/2viewWidth
-		private var constPbc:Number; //y = 1/2x + mapHeight - viewHeight			|| 		const =  mapHeight - viewHeight;
-		
+		 * view port left-top point only can move in an diamond(small than screen diamond)
+		 * the four point in counter-clockwise order is pa(moveTopPoint) , pb(moveLeftPoint) , pc(moveButtomPoint) ,pd(moveRightPoint)
+		 *
+		 * the four sides line-equation is
+		 * Pab			y = -1/2x;
+		 * Pbc			y = 1/2x + screenHeight - viewPortHeight;
+		 * Pcd			y = -1/2x + screenHeight - viewPortHeight - 1/2 viewPortWidth
+		 * Pad			y = 1/2x + 1/2viewPortWidth
+		 *
+		 * so the four const should be
+		 *
+		 * constPab			0
+		 * constPbc			screenHeight - viewPortHeight
+		 * constPcd			screenHeight - viewPortHeight - 1/2 viewPortWidth
+		 * constPda			1/2viewPortWidth
+		 *
+		 */
+		private var moveTopPointX:int;
+		private var moveTopPointY:int;
+
+		private var moveLeftPointX:int;
+		private var moveLeftPointY:int;
+
+		private var moveButtomPointX:int;
+		private var moveButtomPointY:int;
+
+		private var moveRightPointX:int;
+		private var moveRightPointY:int;
+
+		private var constPbc:int;
+		private var constPcd:int;
+		private var constPda:int;
+
 		private var viewportContainer:DisplayObjectContainer;
 		private var allViewPortListener:Vector.<IViewPortListener>
-		
-		
+
 		/**
 		 * user to recored viewPort top-left current and previous point coordinate.
-		 */		
+		 */
 		private var isViewPortMoved:Boolean = false;
-		private var preViewPortX:int = 0;
-		private var preViewPortY:int = 0;
-		private var viewPortX:int = 0;
-		private var viewPortY:int = 0;
-
+		private var preViewPortX:int = 300;
+		private var preViewPortY:int = 300;
+		private var viewPortX:int = 300;
+		private var viewPortY:int = 300;
+		
+		/**
+		 * use in judgePointSide function 
+		 */		
+		private var vectorAPointX:int;
+		private var vectorAPointY:int;
+		
+		private var vectorBPointX:int;
+		private var vecrorBPointY:int;
+		
 		public function CEIsoViewPort()
 		{
 		}
 
 		public function initializeIsoViewPort(_moveSpeed:int, _viewPortWidth:int, _viewPortHeight:int,
-			_screenWidth:int , _screenHeight:int) : void
+											  _screenWidth:int , _screenHeight:int) : void
 		{
 			moveSpeed = _moveSpeed;
 			viewPortWidth = _viewPortWidth;
 			viewPortHeight = _viewPortHeight;
 			screenWidth = screenWidth;
 			screenHeight = screenHeight;
-
+			
+			moveTopPointX = -(viewPortWidth>>1);
+			moveTopPointY = viewPortWidth>>2;
+			
+			moveLeftPointX = viewPortHeight - screenHeight;
+			moveLeftPointY = (screenHeight - viewPortHeight)>>1;
+			
+			moveButtomPointX = -(viewPortWidth>>1);
+			moveButtomPointY = screenHeight - (viewPortWidth>>2) - viewPortHeight;
+			
+			moveRightPointX = screenHeight - viewPortWidth - viewPortHeight;
+			moveRightPointY = (screenHeight - viewPortHeight)>>1;
+			
+			constPbc = screenHeight - viewPortHeight;
+			constPcd = screenHeight - viewPortHeight - (viewPortWidth>>1);
+			constPda = viewPortWidth>>1;
+			
 			viewportContainer = new Sprite();
 			var g:Graphics = (viewportContainer as Sprite).graphics;
 			g.beginFill(0,0);
@@ -141,24 +178,133 @@ package copyengine.scenes.isometric.viewport
 
 		public function moveUp() : void
 		{
-			isViewPortMoved = true;
+			recordMove();
+			viewPortY = GeneralUtils.normalizingVlaue(viewPortY - moveSpeed,moveTopPointY,moveButtomPointY);
+			if (!isCanMoveTo(viewPortX,viewPortY))
+			{
+				if (viewPortX == moveTopPointX)
+				{
+					return;
+				}
+				else if (viewPortX < moveTopPointX)
+				{
+					//y = -1/2x
+					viewPortX = -(viewPortX<<1);
+				}
+				else
+				{
+					//y = 1/2x + constPad;
+					viewPortX = (viewPortY - constPda)>>1;
+				}
+			}
 		}
 
 		public function moveDown() : void
 		{
-			isViewPortMoved = true;
+			recordMove();
+			viewPortY = GeneralUtils.normalizingVlaue(viewPortY + moveSpeed,moveTopPointY,moveButtomPointY);
+			if (!isCanMoveTo(viewPortX,viewPortY))
+			{
+				if (viewPortX == moveButtomPointX)
+				{
+					return;
+				}
+				else if (viewPortX < moveButtomPointX)
+				{
+					//y = 1/2x + constPbc
+					viewPortX = (viewPortX - constPbc)>>1;
+				}
+				else
+				{
+					//y =  -1/2x  + constPcd
+					viewPortX = -((viewPortY - constPcd)>>1);
+				}
+			}
 		}
 
 		public function moveLeft() : void
 		{
-			preViewPortX = viewPortX;
-			viewPortX -= moveSpeed;
-			isViewPortMoved = true;
+			recordMove();
+			viewPortX = GeneralUtils.normalizingVlaue(viewPortX - moveSpeed,moveLeftPointX,moveRightPointX);
+			if (!isCanMoveTo(viewPortX,viewPortY))
+			{
+				if (viewPortY == moveLeftPointY)
+				{
+					return;
+				}
+				else if (viewPortY < moveLeftPointY)
+				{
+					viewPortY = -(viewPortX>>1);
+				}
+				else
+				{
+					// y = 1/2x + constPbc
+					viewPortY = (viewPortX>>1) + constPbc;
+				}
+			}
 		}
 
 		public function moveRight() : void
 		{
+			recordMove();
+			viewPortX = GeneralUtils.normalizingVlaue(viewPortX + moveSpeed,moveLeftPointX,moveRightPointX);
+			if (!isCanMoveTo(viewPortX,viewPortY))
+			{
+				if (viewPortY == moveRightPointY)
+				{
+					return;
+				}
+				else if (viewPortY < moveRightPointY)
+				{
+					//y = 1/2x + constPda
+					viewPortY = (viewPortX>>1) + constPda;
+				}
+				else
+				{
+					//y =  -1/2x  + constPcd
+					viewPortY = -(viewPortX>>1) + constPcd;
+				}
+			}
+		}
+		
+		private function recordMove():void
+		{
+			preViewPortX = viewPortX;
+			preViewPortY = viewPortY;
 			isViewPortMoved = true;
 		}
+		
+		/**
+		 *detect is can move viewport to current position
+		 */
+		private function isCanMoveTo(_x:Number , _y:Number ) : Boolean
+		{
+			// jp,pb,pa
+			//jp,pc,pb
+			///jp,pd,pc
+			//jp,pa,pd
+			return judgePointSide(_x,_y,moveLeftPointX,moveLeftPointY,moveTopPointX,moveTopPointY) > 0 &&
+				judgePointSide(_x,_y ,moveButtomPointX,moveButtomPointY,moveLeftPointX,moveLeftPointY) > 0 &&
+				judgePointSide(_x,_y,moveRightPointX,moveRightPointY,moveButtomPointX,moveButtomPointY) > 0 &&
+				judgePointSide(_x,_y,moveTopPointX,moveTopPointY,moveRightPointX,moveRightPointY) > 0
+		}
+		
+		/**
+		 * use vector cross multiplication to judge the giveing point is in which side of the line
+		 * lineAPoint , lineBPoint is the two point in the line
+		 */		
+		private function judgePointSide(_judgePointX:int , _judgePointY:int,
+			_lineAPointX:int , _lineAPointY:int , _lineBPointX:int , _lineBPointY:int):int
+		{
+			vectorAPointX = _lineAPointX - _judgePointX;
+			vectorAPointY = _lineAPointY - _judgePointY;
+			
+			vectorBPointX = _lineBPointX - _judgePointX;
+			vecrorBPointY = _lineBPointY - _judgePointY;
+			
+			return vectorAPointX * vecrorBPointY - vectorAPointY * vectorBPointX;
+		}
+
+
 	}
 }

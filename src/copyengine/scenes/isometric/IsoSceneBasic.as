@@ -201,7 +201,9 @@ package copyengine.scenes.isometric
 		
 		override final public function tick() : void
 		{
-			// first need call AI.updateDisplay() to move the actor position then update the viewport
+			viewportInteractiveWarp.tick();
+			//WARNINIG::
+			//				viewport.updateListener() need to call at the end , beacuse  it will releate to screen display update
 			viewport.updateListener();
 		}
 
