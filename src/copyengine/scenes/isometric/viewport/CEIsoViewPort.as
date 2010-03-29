@@ -189,11 +189,13 @@ package copyengine.scenes.isometric.viewport
 				else if (viewPortX < moveTopPointX)
 				{
 					//y = -1/2x
+					//x = -y * 2
 					viewPortX = -(viewPortY<<1);
 				}
 				else
 				{
 					//y = 1/2x + constPad;
+					//x = (y - constPad) * 2
 					viewPortX = (viewPortY - constPda)<<1;
 				}
 			}
@@ -212,11 +214,13 @@ package copyengine.scenes.isometric.viewport
 				else if (viewPortX < moveButtomPointX)
 				{
 					//y = 1/2x + constPbc
+					//x = (y-constPbc) *2
 					viewPortX = (viewPortY - constPbc)<<1;
 				}
 				else
 				{
 					//y =  -1/2x  + constPcd
+					//x = -(y - constPcd)*2
 					viewPortX = -((viewPortY - constPcd)<<1);
 				}
 			}
