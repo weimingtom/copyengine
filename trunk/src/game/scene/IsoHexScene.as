@@ -325,8 +325,11 @@ package game.scene
 			rectangleIndexPoint.x = Math.floor((viewPortLeftTopPoint.x + HALF_SCREEN_TILE_WIDTH)/ SCREEN_TILE_WIDTH);
 			rectangleIndexPoint.y = Math.floor((viewPortLeftTopPoint.y + HALF_SCREEN_TILE_HEIGHT)/SCREEN_TILE_HEIGHT);
 //			trace("ViewPortLeftTopPoint at rectangle coordinate x :" + rectangleIndexPoint.x  + " y : " + rectangleIndexPoint.y);
+			
 			var row:int = -1+rectangleIndexPoint.x+rectangleIndexPoint.y;
 			var col:int = -1-rectangleIndexPoint.x + rectangleIndexPoint.y;
+			
+			
 			if(row > 0 && col >0)
 			{
 				var xOffest:Number = (viewPortLeftTopPoint.x + HALF_SCREEN_TILE_WIDTH)%SCREEN_TILE_WIDTH;
