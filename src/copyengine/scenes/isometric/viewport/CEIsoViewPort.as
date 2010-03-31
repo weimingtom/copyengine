@@ -149,11 +149,11 @@ package copyengine.scenes.isometric.viewport
 			{
 				if (isViewPortMoved)
 				{
-					listener.MoveToUpdate(viewPortX,viewPortY,preViewPortX,preViewPortY);
+					listener.moveToUpdate(viewPortX,viewPortY,preViewPortX,preViewPortY);
 				}
 				else
 				{
-					listener.NoMoveUpdate(viewPortX,viewPortY);
+					listener.noMoveUpdate(viewPortX,viewPortY);
 				}
 			}
 			isViewPortMoved = false;
