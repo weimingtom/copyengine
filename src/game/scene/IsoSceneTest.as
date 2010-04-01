@@ -33,7 +33,7 @@ package game.scene
 		override protected function createViewPort():IIsoViewPort
 		{
 			var viewPort:CEIsoViewPort = new CEIsoViewPort();
-			viewPort.initializeIsoViewPort(5,640,480,3000,3000);
+			viewPort.initializeIsoViewPort(10,640,480,3000,3000);
 			return viewPort;
 		}
 		
