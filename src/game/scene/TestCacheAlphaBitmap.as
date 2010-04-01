@@ -151,17 +151,17 @@ package game.scene
 			//				cacheTileBitmapDataGreen,
 			//				new Point(0,pa.y),true
 			//			);
-			drawRectToBitMap(cacheTile.bitmapData,new Point(),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
-			drawRectToBitMap(cacheTile.bitmapData,new Point(80,0),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
-			drawRectToBitMap(cacheTile.bitmapData,new Point(160,0),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
-			drawRectToBitMap(cacheTile.bitmapData,new Point(240,0),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
-			
-			drawRectToBitMap(cacheTile.bitmapData,new Point(0,40),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
-			drawRectToBitMap(cacheTile.bitmapData,new Point(80,40),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
-			drawRectToBitMap(cacheTile.bitmapData,new Point(160,40),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
-			drawRectToBitMap(cacheTile.bitmapData,new Point(240,40),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
-			
-			
+			drawRectToBitMap(cacheTile.bitmapData,new Point(0,0),new Point(0,10),new Point(80,10),new Point(0,40),new Point(80,40));
+			//			drawRectToBitMap(cacheTile.bitmapData,new Point(80,0),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
+			//			drawRectToBitMap(cacheTile.bitmapData,new Point(160,0),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
+			//			drawRectToBitMap(cacheTile.bitmapData,new Point(240,0),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
+
+			//			drawRectToBitMap(cacheTile.bitmapData,new Point(0,30),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
+			//			drawRectToBitMap(cacheTile.bitmapData,new Point(80,30),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
+			//			drawRectToBitMap(cacheTile.bitmapData,new Point(160,30),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
+			//			drawRectToBitMap(cacheTile.bitmapData,new Point(240,30),new Point(0,0),new Point(80,0),new Point(0,40),new Point(80,40));
+
+
 		}
 
 		private function cacheToBitmapData(_m:MovieClip) : BitmapData
@@ -174,38 +174,76 @@ package game.scene
 
 		private function drawRectToBitMap(bitmapdata:BitmapData , startPoint:Point , pa:Point , pb:Point , pc:Point , pd:Point) : void
 		{
-
+			var upTileHeight:int = Math.max(0,HALF_TILE_HEIGHT - pa.y);
+			
+			
 			//drawUp
-			bitmapdata.copyPixels(cacheTileBitmapDataRed,
-								  new Rectangle(pa.x,0,pb.x-pa.x,TILE_HEIGHT),
-								  new Point(0 + startPoint.x , -HALF_TILE_HEIGHT-pa.y + startPoint.y),
-								  cacheTileBitmapDataRed,
-								  new Point(pa.x ,0),true
-								  );
-
-			//drawLeft
-			bitmapdata.copyPixels(cacheTileBitmapDataGreen,
-								  new Rectangle(0,pa.y,TILE_WIDTH,pc.y-pa.y),
-								  new Point(-HALF_TILE_WIDTH - pa.x + startPoint.x ,0 + startPoint.y),
-								  cacheTileBitmapDataGreen,
-								  new Point(0, pa.y),true
-								  );
-
+			//			bitmapdata.copyPixels(cacheTileBitmapDataRed,
+			//								  new Rectangle(pa.x,0,pb.x-pa.x,TILE_HEIGHT),
+			//								  new Point(0 + startPoint.x , -HALF_TILE_HEIGHT-pa.y + startPoint.y),
+			//								  cacheTileBitmapDataRed,
+			//								  new Point(pa.x ,0),true
+			//								  );
+			
+			if(upTileHeight > 0)
+			{
+				bitmapdata.copyPixels(cacheTileBitmapDataRed,
+					new Rectangle(pa.x,HALF_TILE_HEIGHT + pa.y ,pb.x-pa.x,upTileHeight),
+					new Point(0 + startPoint.x , 0 + startPoint.y),
+					cacheTileBitmapDataRed,
+					new Point(pa.x ,HALF_TILE_HEIGHT + pa.y),true
+					);
+			}
+			
 			//drawDown
+			//			bitmapdata.copyPixels( cacheTileBitmapDataRed,
+			//								   new Rectangle(pa.x,0,pb.x - pa.x,TILE_HEIGHT),
+			//								   new Point(0 + startPoint.x ,HALF_TILE_HEIGHT - pa.y + startPoint.y),
+			//								   cacheTileBitmapDataRed,
+			//								   new Point(pa.x,0),true
+			//								   );
+			
 			bitmapdata.copyPixels( cacheTileBitmapDataRed,
-								   new Rectangle(pa.x,0,pb.x - pa.x,TILE_HEIGHT),
-								   new Point(0 + startPoint.x ,HALF_TILE_HEIGHT - pa.y + startPoint.y),
-								   cacheTileBitmapDataRed,
-								   new Point(pa.x,0),true
-								   );
+				new Rectangle(pa.x,0,pb.x - pa.x,pc.y - pa.y -upTileHeight),
+				new Point(0 + startPoint.x , upTileHeight + startPoint.y),
+				cacheTileBitmapDataRed,
+				new Point(pa.x,0),true
+			);
+			
+			//drawLeft
+			//			bitmapdata.copyPixels(cacheTileBitmapDataGreen,
+			//								  new Rectangle(0,pa.y,TILE_WIDTH,pc.y-pa.y),
+			//								  new Point(-HALF_TILE_WIDTH - pa.x + startPoint.x ,0 + startPoint.y),
+			//								  cacheTileBitmapDataGreen,
+			//								  new Point(0, pa.y),true
+			//								  );
+			var leftTileWidth:int = Math.max(0,HALF_TILE_WIDTH - pa.x);
+			
+			if(leftTileWidth > 0)
+			{
+				//drawLeft
+				bitmapdata.copyPixels(cacheTileBitmapDataGreen,
+					new Rectangle(HALF_TILE_WIDTH + pa.x,pa.y,leftTileWidth,pc.y-pa.y),
+					new Point(0 + startPoint.x ,0 + startPoint.y),
+					cacheTileBitmapDataGreen,
+					new Point(HALF_TILE_WIDTH + pa.x,pa.y),true
+				);
+			}
 
 			//drawRight
+			//			bitmapdata.copyPixels( cacheTileBitmapDataGreen,
+			//								   new Rectangle(0,pa.y,TILE_WIDTH,pc.y-pa.y),
+			//								   new Point(HALF_TILE_WIDTH - pa.x+startPoint.x ,0 + startPoint.y),
+			//								   cacheTileBitmapDataGreen,
+			//								   new Point(0, pa.y),true
+			//								   );
+
 			bitmapdata.copyPixels( cacheTileBitmapDataGreen,
-								   new Rectangle(0,pa.y,TILE_WIDTH,pc.y-pa.y),
-								   new Point(HALF_TILE_WIDTH - pa.x+startPoint.x ,0 + startPoint.y),
-								   cacheTileBitmapDataGreen,
-								   new Point(0, pa.y),true
-								   );
+				new Rectangle(0,pa.y,pb.x - pa.x - leftTileWidth , pc.y-pa.y),
+				new Point(HALF_TILE_WIDTH - pa.x+startPoint.x ,0 + startPoint.y),
+				cacheTileBitmapDataGreen,
+				new Point(0, pa.y),true
+				);
 
 		}
 
