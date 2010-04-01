@@ -5,6 +5,8 @@ package copyengine.scenes
 	import copyengine.utils.tick.GlobalTick;
 	
 	import flash.events.Event;
+	import flash.net.getClassByAlias;
+	import flash.utils.getTimer;
 
 	/**
 	 * SceneManger is use to management each scene.(scene is like AS's stage.).
@@ -172,7 +174,13 @@ package copyengine.scenes
 		private function onTick(e:Event):void
 		{
 			currentScene.tick();
+			trace(getTimer() - timer);
+			timer = getTimer();
 		}
+		
+		private var timer:int;
+		
+		
 		
 	}
 }

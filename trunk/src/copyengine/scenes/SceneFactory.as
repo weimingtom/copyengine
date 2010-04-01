@@ -10,7 +10,7 @@ package copyengine.scenes
 
 	public class SceneFactory implements ISceneFactory
 	{
-		public static const FIRST_INITIALIZE_SCENE:String = SCENE_TEST_CACHE_ALPHA_BITMAP;
+		public static const FIRST_INITIALIZE_SCENE:String = SCENE_ISOSCENE_TEST;
 		
 		public static const SCENE_PERLOADER:String = "SceneFactory_Scenen_PerLoader";
 		public static const SCENE_CEUICOMPONENT_TEST_SCENE:String = "SceneFactory_Scenen_CEUICompoent_Test_Scene";
