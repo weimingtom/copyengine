@@ -7,6 +7,8 @@ package copyengine.scenes
 	import flash.events.Event;
 	import flash.net.getClassByAlias;
 	import flash.utils.getTimer;
+	
+	import org.osmf.net.dynamicstreaming.INetStreamMetrics;
 
 	/**
 	 * SceneManger is use to management each scene.(scene is like AS's stage.).
@@ -174,8 +176,12 @@ package copyengine.scenes
 		private function onTick(e:Event):void
 		{
 			currentScene.tick();
+//			trace(getTimer() - time);
+//			time = getTimer();
 		}
 		
+		private var quarterTime:int
+		private var time:int;
 		
 	}
 }
