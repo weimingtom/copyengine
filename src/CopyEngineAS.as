@@ -5,7 +5,7 @@ package
 	import flash.display.Stage;
 	import flash.events.Event;
 
-	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="27")]
+	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="100")]
 	public class CopyEngineAS extends Sprite implements IMain
 	{
 

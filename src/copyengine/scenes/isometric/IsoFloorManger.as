@@ -29,8 +29,8 @@ package copyengine.scenes.isometric
 	 */
 	public final class IsoFloorManger implements IViewPortListener
 	{
-		private static const ROW_NUMBER:int =30;
-		private static const COL_NUMBER:int = 30;
+		private static const ROW_NUMBER:int =120;
+		private static const COL_NUMBER:int = 120;
 
 		/**
 		 * the tile width in iso world.
