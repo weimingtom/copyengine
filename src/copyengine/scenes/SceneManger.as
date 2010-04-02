@@ -174,18 +174,7 @@ package copyengine.scenes
 		private function onTick(e:Event):void
 		{
 			currentScene.tick();
-			
-			quaterTime = getTimer() - timer;
-			//fpc lower than 24
-			if( quaterTime > 41)
-			{
-				DebugLog.instance.log("FPS Lower than 24 ---->" + 1000/quaterTime);
-			}
-			timer = getTimer();
 		}
-		
-		private var timer:int;
-		private var quaterTime:int
 		
 		
 	}
