@@ -14,7 +14,7 @@ package
 	 * 1) this is the portal for the all game load , it's response for load the main game swf file
 	 * 2) the is also an gameScene , when the main system is start , it will mangered by GameScene Manger as normal GameScene
 	 */
-	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="27")]
+	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="100")]
 	public class GamePerLoader extends Sprite implements IPerLoader
 	{
 		private var main:IMain;
