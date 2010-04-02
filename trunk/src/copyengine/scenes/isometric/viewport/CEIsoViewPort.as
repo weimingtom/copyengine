@@ -5,6 +5,7 @@ package copyengine.scenes.isometric.viewport
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Graphics;
 	import flash.display.Sprite;
+	import flash.geom.Rectangle;
 	
 	import flashx.textLayout.elements.Configuration;
 
@@ -68,10 +69,10 @@ package copyengine.scenes.isometric.viewport
 		 * user to recored viewPort top-left current and previous point coordinate.
 		 */
 		private var isViewPortMoved:Boolean = false;
-		private var preViewPortX:int = -320;
-		private var preViewPortY:int = 260;
-		private var viewPortX:int = -320;
-		private var viewPortY:int = 260;
+		private var preViewPortX:int = GeneralConfig.VIEWPORT_STAR_X;
+		private var preViewPortY:int = GeneralConfig.VIEWPORT_STAR_Y;
+		private var viewPortX:int = preViewPortX;
+		private var viewPortY:int = preViewPortY;
 		
 		/**
 		 * use in judgePointSide function 
@@ -117,7 +118,7 @@ package copyengine.scenes.isometric.viewport
 			g.drawRect(0,0,viewPortWidth,viewPortHeight);
 			g.endFill();
 			// no need to set viewport scrollRect ? [TBD]
-			//			viewportContainer.scrollRect = new Rectangle(0,0,viewPortWidth,viewPortHeight);
+			viewportContainer.scrollRect = new Rectangle(0,0,viewPortWidth,viewPortHeight);
 
 			allViewPortListener = new Vector.<IViewPortListener>();
 		}

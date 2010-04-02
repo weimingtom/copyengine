@@ -1,11 +1,13 @@
 package
 {
+	import com.flashdynamix.utils.SWFProfiler;
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
 
-	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="100")]
+	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="1000")]
 	public class CopyEngineAS extends Sprite implements IMain
 	{
 
@@ -81,7 +83,9 @@ package
 
 			gameDialogLayer = new Sprite();
 			addChild( gameDialogLayer);
-
+			
+			SWFProfiler.init(stage,this);
+			
 			_instance = this;
 			CopyEngineFacade.instance.startup(this);
 		}
