@@ -64,6 +64,8 @@ package copyengine.scenes.isometric
 		private var viewportBitmap:Bitmap;
 		private var viewportRenderBitmapData:BitmapData;
 		private var viewportPerRenderBitmapData:BitmapData;
+		
+		private var viewportCacheMc:BitmapData;
 
 		private var viewportX:int;
 		private var viewportY:int;
@@ -84,41 +86,44 @@ package copyengine.scenes.isometric
 			var tileResRed:MovieClip = ResUtlis.getMovieClip("Tile_Red",ResUtlis.FILE_ISOHAX);
 			var tileResGreen:MovieClip = ResUtlis.getMovieClip("Tile_Green",ResUtlis.FILE_ISOHAX);
 
+			var viewPortMc:Sprite = ResUtlis.getSprite("CacheAssert_ViewPort",ResUtlis.FILE_ISOHAX);
+			viewportCacheMc = cacheToBitmapData(viewPortMc);
+			
 			cacheTileBitmapDataRed = cacheToBitmapData(tileResRed);
 			cacheTileBitmapDataGreen  = cacheToBitmapData(tileResGreen);
 
 			CopyEngineAS.getStage().addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
 
-			//			testSprite = new Sprite();
-			//			tileInfoArray = [];
-			//			for (var row:int = 0 ; row < GeneralConfig.TILE_ROW_NUMBER ; row++) //x
-			//			{
-			//				tileInfoArray[row] = [];
-			//				for (var col:int = 0 ; col < GeneralConfig.TILE_COL_NUMBER ; col++) //y
-			//				{
-			//					var isoPos:Vector3D = new Vector3D(row*GeneralConfig.ISO_TILE_WIDTH,col*GeneralConfig.ISO_TILE_WIDTH,0);
-			//					IsoMath.isoToScreen(isoPos);
-			//					var tile:Bitmap
-			//					if(Random.range(0,10)>5)
-			//					{
-			//						tile = new Bitmap(cacheTileBitmapDataRed);
-			//					}
-			//					else
-			//					{
-			//						tile = new Bitmap(cacheTileBitmapDataGreen);
-			//					}
-			//					tile.x = isoPos.x - GeneralConfig.HALF_SCREEN_TILE_WIDTH;
-			//					tile.y = isoPos.y - GeneralConfig.HALF_SCREEN_TILE_HEIGHT;
-			//					testSprite.addChild(tile);
-			//					tileInfoArray[row][col] = tile; //tileArray[x][y]
-			//				}
-			//			}
-			//			var tileMapData:BitmapData = cacheToBitmapData(testSprite);
-			//			var tileMap:Bitmap = new Bitmap(tileMapData);
-			//			floor = new Sprite();
-			//			floor.addChild(tileMap);
-			//			tileMap.x -= tileMap.width>>1;
-			//			floorMangerContainer.addChild(floor);
+//						testSprite = new Sprite();
+//						tileInfoArray = [];
+//						for (var row:int = 0 ; row < GeneralConfig.TILE_ROW_NUMBER ; row++) //x
+//						{
+//							tileInfoArray[row] = [];
+//							for (var col:int = 0 ; col < GeneralConfig.TILE_COL_NUMBER ; col++) //y
+//							{
+//								var isoPos:Vector3D = new Vector3D(row*GeneralConfig.ISO_TILE_WIDTH,col*GeneralConfig.ISO_TILE_WIDTH,0);
+//								IsoMath.isoToScreen(isoPos);
+//								var tile:Bitmap
+//								if(Random.range(0,10)>5)
+//								{
+//									tile = new Bitmap(cacheTileBitmapDataRed);
+//								}
+//								else
+//								{
+//									tile = new Bitmap(cacheTileBitmapDataGreen);
+//								}
+//								tile.x = isoPos.x - GeneralConfig.HALF_SCREEN_TILE_WIDTH;
+//								tile.y = isoPos.y - GeneralConfig.HALF_SCREEN_TILE_HEIGHT;
+//								testSprite.addChild(tile);
+//								tileInfoArray[row][col] = tile; //tileArray[x][y]
+//							}
+//						}
+//						var tileMapData:BitmapData = cacheToBitmapData(testSprite);
+//						var tileMap:Bitmap = new Bitmap(tileMapData);
+//						floor = new Sprite();
+//						floor.addChild(tileMap);
+//						tileMap.x -= tileMap.width>>1;
+//						floorMangerContainer.addChild(floor);
 
 			viewportRenderBitmapData = new BitmapData(viewPortWidth,viewPortHeight,false);
 			viewportPerRenderBitmapData = new BitmapData(viewPortWidth,viewPortHeight,false);
@@ -154,8 +159,8 @@ package copyengine.scenes.isometric
 
 		public function moveToUpdate(_viewPortX:int ,_viewPortY:int , _preViewPortX:int , _preViewPortY:int) : void
 		{
-			//			floor.x = -_viewPortX;
-			//			floor.y = -_viewPortY;
+//						floor.x = -_viewPortX;
+//						floor.y = -_viewPortY;
 			//			trace("x :" + _viewPortX + " y :" + _viewPortY);
 		}
 
@@ -173,10 +178,13 @@ package copyengine.scenes.isometric
 			var rectangleIndexPoint:Point = new Point();
 			rectangleIndexPoint.x = Math.floor((startPoint.x + GeneralConfig.HALF_SCREEN_TILE_WIDTH)/ GeneralConfig.SCREEN_TILE_WIDTH);
 			rectangleIndexPoint.y = Math.floor((startPoint.y + GeneralConfig.HALF_SCREEN_TILE_HEIGHT)/GeneralConfig.SCREEN_TILE_HEIGHT);
-
-			var row:int = -1+rectangleIndexPoint.x+rectangleIndexPoint.y;
-			var col:int = -1-rectangleIndexPoint.x + rectangleIndexPoint.y;
-
+			
+			//当矩形一直往下走的时候,矩形最上面Tile的 row 和col都会增大
+			var row:int = -1+rectangleIndexPoint.x+rectangleIndexPoint.y; //矩形最上面Tile的横TIle数
+			var col:int = -1-rectangleIndexPoint.x + rectangleIndexPoint.y;//矩形最上面Tile的纵Tile数
+			
+			var startRow:int = row;
+			
 			var pa:Point = new Point();
 			var pb:Point = new Point();
 			var pc:Point = new Point();
@@ -199,8 +207,14 @@ package copyengine.scenes.isometric
 					{
 						pa.x = GeneralConfig.SCREEN_TILE_WIDTH + pa.x;
 					}
-					pa.y = (cursorPoint.y + GeneralConfig.HALF_SCREEN_TILE_HEIGHT)%GeneralConfig.SCREEN_TILE_HEIGHT; //y坐标一直在正坐标系 不会存在整个问题
-
+					pa.y = (cursorPoint.y + GeneralConfig.HALF_SCREEN_TILE_HEIGHT)%GeneralConfig.SCREEN_TILE_HEIGHT; 
+					//如果能保证y值一定0 则可以不做这个判断。但是如果y有小于0的情况。也就是移动方式不是限制在Tile内部移动
+					//可以任意方向做拽移动 会拖拽到为负数的TIle上 这时候就要反过来去取值
+					if(pa.y < 0)
+					{
+						pa.y = GeneralConfig.SCREEN_TILE_HEIGHT + pa.y;
+					}
+					
 					pb.x = Math.min(GeneralConfig.SCREEN_TILE_WIDTH, pa.x + leftWidth); //wrong
 					pb.y = pa.y;
 
@@ -212,10 +226,12 @@ package copyengine.scenes.isometric
 					pd.y = pc.y;
 
 					drawRectToBitMap(renderBitmapData,drawPoint,pa,pb,pc,pd);
-
+					trace("Row :" + row + " Col :" + col);
+					
 					drawPoint.x += pb.x -  pa.x;
 					cursorPoint.x +=pb.x - pa.x;
 					leftWidth -= pb.x - pa.x;
+					row++;
 				}
 
 				//chang to next line
@@ -225,6 +241,8 @@ package copyengine.scenes.isometric
 				cursorPoint.x = startPoint.x;
 				cursorPoint.y += pd.y - pb.y;
 				leftHeight -= pd.y -pb.y;
+				row = startRow;
+				col++;
 			}
 
 		}
@@ -345,7 +363,7 @@ package copyengine.scenes.isometric
 		private function cacheToBitmapData(_m:DisplayObjectContainer) : BitmapData
 		{
 			var bound:Rectangle = _m.getRect(_m);
-			var cacheBitmapDataSource:BitmapData = new BitmapData(bound.width,bound.height,true,0);
+			var cacheBitmapDataSource:BitmapData = new BitmapData(bound.width,bound.height,true,0xFFFFFF);
 			cacheBitmapDataSource.draw(_m,new Matrix(1,0,0,1,-bound.x ,-bound.y));
 			return cacheBitmapDataSource;
 		}
@@ -444,8 +462,8 @@ package copyengine.scenes.isometric
 
 		private function onKeyDown(e:KeyboardEvent) : void
 		{
-			var offsetX:int = 3;
-			var offsetY:int = 3;
+			var offsetX:int = 10;
+			var offsetY:int = 10;
 			if (e.keyCode == Keyboard.RIGHT)
 			{
 				//向右移
@@ -472,6 +490,7 @@ package copyengine.scenes.isometric
 			if(e.keyCode == Keyboard.UP)
 			{
 				//向上移
+				
 				viewportRenderBitmapData.copyPixels(viewportRenderBitmapData,
 					new Rectangle(0,0,viewPortWidth,viewPortHeight - offsetY),
 					new Point(0,offsetY));
@@ -483,15 +502,17 @@ package copyengine.scenes.isometric
 			}
 			if(e.keyCode == Keyboard.DOWN)
 			{
+				var tempBitmapData:BitmapData = new BitmapData(viewPortWidth,viewPortHeight);
+				tempBitmapData.copyPixels(viewportRenderBitmapData,new Rectangle(0,offsetY,viewPortWidth,viewPortHeight-offsetY), new Point(0,0));
 				//向下移
-				viewportRenderBitmapData.copyPixels(viewportRenderBitmapData,
-					new Rectangle(0,offsetY,viewPortWidth,viewPortHeight - offsetY),
-					new Point(0,0));
+				viewportRenderBitmapData.copyPixels(tempBitmapData,
+					new Rectangle(0,0,viewPortWidth,viewPortHeight-offsetY), new Point(0,0));
+				
+				tempBitmapData.dispose();
 //				
-//				viewportRenderBitmapData.fillRect(new Rectangle(0,viewPortHeight - offsetY,viewPortWidth,offsetY),0xffffff); //画之前要先清空底下的画布
-//				
-//				drawFloor(new Point(viewportX,viewportY - offsetY) ,new Point(0,0) , viewportRenderBitmapData , viewPortWidth , offsetY );
-				viewportY -= offsetY;
+				viewportRenderBitmapData.fillRect(new Rectangle(0,viewPortHeight - offsetY,viewPortWidth,offsetY),0xffffff); //画之前要先清空底下的画布
+				drawFloor(new Point(viewportX,viewportY + viewPortHeight) ,new Point(0,viewPortHeight - offsetY) , viewportRenderBitmapData , viewPortWidth , offsetY );
+				viewportY += offsetY;
 			}
 		}
 
