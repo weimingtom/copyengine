@@ -1,6 +1,7 @@
 package copyengine.scenes.isometric
 {
 	import copyengine.scenes.SceneBasic;
+	import copyengine.scenes.isometric.unuse.BackUp_IsoFloorManger;
 	import copyengine.scenes.isometric.viewport.IIsoViewPort;
 	import copyengine.scenes.isometric.viewport.IViewPortInteractiveWarp;
 
@@ -112,7 +113,7 @@ package copyengine.scenes.isometric
 			//WARNINIG::
 			//		need to keep the viewportInteractiveWarp is the top layer of viewport
 			viewport.container.addChild(viewportInteractiveWarp.container);
-			viewport.viewPortStart( -100,300);
+			viewport.viewPortStart( GeneralConfig.VIEWPORT_STAR_X,GeneralConfig.VIEWPORT_STAR_Y);
 		}
 
 		override final protected function dispose() : void

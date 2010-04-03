@@ -3,6 +3,7 @@
  */
 package copyengine.scenes.isometric.unuse
 {
+	import copyengine.scenes.isometric.IsoFloor;
 	import copyengine.scenes.isometric.viewport.IViewPortListener;
 	import copyengine.utils.Random;
 	import copyengine.utils.ResUtlis;
@@ -33,7 +34,7 @@ package copyengine.scenes.isometric.unuse
 	 * @author Tunied
 	 *
 	 */
-	public final class B_IsoFloorManger implements IViewPortListener
+	public final class BackUp_IsoFloorManger implements IViewPortListener
 	{
 		//		private static const ROW_NUMBER:int =120;
 		//		private static const COL_NUMBER:int = 120;
@@ -75,16 +76,14 @@ package copyengine.scenes.isometric.unuse
 		
 		private var floor:Sprite;
 		
-		public function IsoFloorManger()
+		public function BackUp_IsoFloorManger()
 		{
 		}
 		
-		public function initialize(_isoFloor:IsoFloor , _viewPortWidth:int , _viewPortHeight:int) : void
+		public function initialize(_isoFloor:IsoFloor) : void
 		{
 			floorMangerContainer = new Sprite();
 			
-			viewPortWidth = _viewPortWidth;
-			viewPortHeight = _viewPortHeight;
 			
 			var tileResRed:MovieClip = ResUtlis.getMovieClip("Tile_Red",ResUtlis.FILE_ISOHAX);
 			var tileResGreen:MovieClip = ResUtlis.getMovieClip("Tile_Green",ResUtlis.FILE_ISOHAX);
@@ -96,51 +95,51 @@ package copyengine.scenes.isometric.unuse
 			cacheTileBitmapDataGreen  = cacheToBitmapData(tileResGreen);
 			
 			CopyEngineAS.getStage().addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
+
+			testSprite = new Sprite();
+			tileInfoArray = [];
+			for (var row:int = 0 ; row < GeneralConfig.TILE_ROW_NUMBER ; row++) //x
+			{
+				tileInfoArray[row] = [];
+				for (var col:int = 0 ; col < GeneralConfig.TILE_COL_NUMBER ; col++) //y
+				{
+					var isoPos:Vector3D = new Vector3D(row*GeneralConfig.ISO_TILE_WIDTH,col*GeneralConfig.ISO_TILE_WIDTH,0);
+					IsoMath.isoToScreen(isoPos);
+					var tile:Bitmap
+					if (Random.range(0,10)>5)
+					{
+						tile = new Bitmap(cacheTileBitmapDataRed);
+					}
+					else
+					{
+						tile = new Bitmap(cacheTileBitmapDataGreen);
+					}
+					tile.x = isoPos.x - GeneralConfig.HALF_SCREEN_TILE_WIDTH;
+					tile.y = isoPos.y - GeneralConfig.HALF_SCREEN_TILE_HEIGHT;
+					testSprite.addChild(tile);
+					tileInfoArray[row][col] = tile; //tileArray[x][y]
+				}
+			}
+			var tileMapData:BitmapData = cacheToBitmapData(testSprite);
+			var tileMap:Bitmap = new Bitmap(tileMapData);
+			floor = new Sprite();
+			floor.addChild(tileMap);
+			tileMap.x -= tileMap.width>>1;
+			floorMangerContainer.addChild(floor);
 			
-			//						testSprite = new Sprite();
-			//						tileInfoArray = [];
-			//						for (var row:int = 0 ; row < GeneralConfig.TILE_ROW_NUMBER ; row++) //x
-			//						{
-			//							tileInfoArray[row] = [];
-			//							for (var col:int = 0 ; col < GeneralConfig.TILE_COL_NUMBER ; col++) //y
-			//							{
-			//								var isoPos:Vector3D = new Vector3D(row*GeneralConfig.ISO_TILE_WIDTH,col*GeneralConfig.ISO_TILE_WIDTH,0);
-			//								IsoMath.isoToScreen(isoPos);
-			//								var tile:Bitmap
-			//								if(Random.range(0,10)>5)
-			//								{
-			//									tile = new Bitmap(cacheTileBitmapDataRed);
-			//								}
-			//								else
-			//								{
-			//									tile = new Bitmap(cacheTileBitmapDataGreen);
-			//								}
-			//								tile.x = isoPos.x - GeneralConfig.HALF_SCREEN_TILE_WIDTH;
-			//								tile.y = isoPos.y - GeneralConfig.HALF_SCREEN_TILE_HEIGHT;
-			//								testSprite.addChild(tile);
-			//								tileInfoArray[row][col] = tile; //tileArray[x][y]
-			//							}
-			//						}
-			//						var tileMapData:BitmapData = cacheToBitmapData(testSprite);
-			//						var tileMap:Bitmap = new Bitmap(tileMapData);
-			//						floor = new Sprite();
-			//						floor.addChild(tileMap);
-			//						tileMap.x -= tileMap.width>>1;
-			//						floorMangerContainer.addChild(floor);
-			
-			viewportRenderBitmapData = new BitmapData(viewPortWidth,viewPortHeight,false);
-			viewportPerRenderBitmapData = new BitmapData(viewPortWidth,viewPortHeight,false);
-			viewportBitmap = new Bitmap(viewportRenderBitmapData);
-			
-			floorMangerContainer.addChild(viewportBitmap);
-			viewportRenderBitmapData.fillRect(viewportRenderBitmapData.rect,0xffffff);
-			drawFloor(new Point(-100,400) ,
-				new Point() ,
-				viewportRenderBitmapData ,
-				viewPortWidth ,viewPortHeight);
-			
-			viewportX = -100;
-			viewportY = 400;
+//			viewportRenderBitmapData = new BitmapData(viewPortWidth,viewPortHeight,false);
+//			viewportPerRenderBitmapData = new BitmapData(viewPortWidth,viewPortHeight,false);
+//			viewportBitmap = new Bitmap(viewportRenderBitmapData);
+//			
+//			floorMangerContainer.addChild(viewportBitmap);
+//			viewportRenderBitmapData.fillRect(viewportRenderBitmapData.rect,0xffffff);
+//			drawFloor(new Point(-100,400) ,
+//				new Point() ,
+//				viewportRenderBitmapData ,
+//				viewPortWidth ,viewPortHeight);
+//			
+//			viewportX = -100;
+//			viewportY = 400;
 			
 		}
 		
@@ -153,18 +152,25 @@ package copyengine.scenes.isometric.unuse
 			return floorMangerContainer;
 		}
 		
-		public function noMoveUpdate(_viewPortX:int , _viewPortY:int) : void
+		public function viewPortNoMoveUpdate(_viewPortX:int , _viewPortY:int) : void
 		{
 			//			floor.x--;
 			//			floor.y--;
 			//			viewportBitmap.bitmapData.fillRect(viewportBitmap.bitmapData.rect,0);
 		}
 		
-		public function moveToUpdate(_viewPortX:int ,_viewPortY:int , _preViewPortX:int , _preViewPortY:int) : void
+		public function viewPortMoveToUpdate(_viewPortX:int ,_viewPortY:int , _preViewPortX:int , _preViewPortY:int) : void
 		{
-			//						floor.x = -_viewPortX;
-			//						floor.y = -_viewPortY;
-			//			trace("x :" + _viewPortX + " y :" + _viewPortY);
+			floor.x = -_viewPortX;
+			floor.y = -_viewPortY;
+			trace("x :" + _viewPortX + " y :" + _viewPortY);
+		}
+		
+		public function viewPortInitialzeComplate(_viewPortX:int , _viewPortY:int):void
+		{
+			floor.x = -_viewPortX;
+			floor.y = -_viewPortY;
+			trace("x :" + _viewPortX + " y :" + _viewPortY);
 		}
 		
 		/**

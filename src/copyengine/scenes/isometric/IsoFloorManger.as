@@ -82,7 +82,7 @@ package copyengine.scenes.isometric
 			}
 			else if(offsetY < 0)
 			{
-				viewPortMoveLeft(offsetY,_preViewPortX,_preViewPortY);
+				viewPortMoveUp(offsetY,_preViewPortX,_preViewPortY);
 			}
 		}
 
@@ -146,6 +146,7 @@ package copyengine.scenes.isometric
 		 */		
 		private var viewPortMoveUpTempBitmapData:BitmapData;
 		
+		
 		private function viewPortMoveRight(_offset:int , _perViewPortX:int , _perViewPortY:int):void
 		{
 			//Copy the old part
@@ -170,7 +171,7 @@ package copyengine.scenes.isometric
 			viewPortDrawArearLeftTopPoint.y = _perViewPortY;
 			
 			viewPortBitmapLeftTopPoint.x = ISO::VW - _offset;
-			viewPortDrawArearLeftTopPoint.y = 0;
+			viewPortBitmapLeftTopPoint.y = 0;
 			drawAreaToBitmap(viewPortRenderBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
 		}
 		
@@ -199,9 +200,10 @@ package copyengine.scenes.isometric
 			viewPortDrawArearLeftTopPoint.y = _perViewPortY;
 			
 			viewPortBitmapLeftTopPoint.x = 0;
-			viewPortDrawArearLeftTopPoint.y = 0;
-			drawAreaToBitmap(viewPortRenderBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
+			viewPortBitmapLeftTopPoint.y = 0;
+//			drawAreaToBitmap(viewPortRenderBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
 		}
+		
 		
 		private function viewPortMoveDown(_offset:int , _perViewPortX:int , _perViewPortY:int):void
 		{
@@ -228,7 +230,7 @@ package copyengine.scenes.isometric
 			viewPortDrawArearLeftTopPoint.y = _perViewPortY - _offset;
 			
 			viewPortBitmapLeftTopPoint.x = 0;
-			viewPortDrawArearLeftTopPoint.y = 0;
+			viewPortBitmapLeftTopPoint.y = 0;
 			drawAreaToBitmap(viewPortRenderBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
 		}
 		/**
@@ -267,7 +269,7 @@ package copyengine.scenes.isometric
 			viewPortDrawArearLeftTopPoint.y = _perViewPortY + ISO::VH;
 			
 			viewPortBitmapLeftTopPoint.x = 0;
-			viewPortDrawArearLeftTopPoint.y = ISO::VH - _offset;
+			viewPortBitmapLeftTopPoint.y = ISO::VH - _offset;
 			drawAreaToBitmap(viewPortRenderBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
 			
 		}
@@ -337,16 +339,15 @@ package copyengine.scenes.isometric
 			//Down-Right-Tile(m+1,n);
 			//so , want move (-1,-1) Right 3      (-1 + 3 , -1 - 3) move Down 2   (-1 + 2, -1 + 2)
 			//3 is rectangleIndexPoint.x , 2 is rectangleIndexPoint.y;
-//			var startTileRow:int = -1+rectangleIndexPoint.x+rectangleIndexPoint.y;
-//			var startTileCol:int = -1-rectangleIndexPoint.x + rectangleIndexPoint.y;
+			var startTileCol:int = -1+rectangleIndexPoint.x+rectangleIndexPoint.y;
+			var startTileRow:int = -1-rectangleIndexPoint.x + rectangleIndexPoint.y;
 			
-			var startTileRow:int =0;
-			var startTileCol:int = 4;
 			var currentTileRow:int = startTileRow;
 			var currentTileCol:int = startTileCol;
 
 			var leftWidth:int = _drawWidth;
 			var leftHeight:int = _drawHeight;
+			
 
 			cursorArearLeftTopPoint.x = _arearLeftTopPoint.x;
 			cursorArearLeftTopPoint.y = _arearLeftTopPoint.y;
@@ -362,18 +363,10 @@ package copyengine.scenes.isometric
 					//so in that case need to use rectangleWidht + offset beacuse the coordinates in the small ideal rectangle
 					//is form left-top to right-buttom. but projection coordinate is form top-middle.
 					pa.x =(cursorArearLeftTopPoint.x + ISO::HSTW)%ISO::STW;
-					if(pa.x < 0 )
-					{
-						pa.x = ISO::STW + pa.x;
-					}
-//					pa.x = pa.x >= 0 ? pa.x : ISO::STW + pa.x;
+					pa.x = pa.x < 0 ? ISO::STW + pa.x : pa.x;
 
 					pa.y = (cursorArearLeftTopPoint.y + ISO::HSTH)%ISO::STH;
-					if(pa.y < 0)
-					{
-						pa.y = ISO::STH + pa.y;
-					}
-//					pa.y = pa.y >= 0 ? pa.y : ISO::STH + pa.y;
+					pa.y = pa.y < 0 ? ISO::STH + pa.y : pa.y
 
 					//	pb.x = Math.min(ISO::STW, pa.x + leftWidth);
 					pb.x = pa.x + leftWidth;
@@ -386,7 +379,7 @@ package copyengine.scenes.isometric
 					pc.x = pa.x;
 					
 					//draw current bitmapData to target
-					drawRectToBitmap(_targetBitmapData,cursorBitmapLeftTopPoint,currentTileRow,currentTileCol,pa,pb,pc);
+					drawRectToBitmap(_targetBitmapData,cursorBitmapLeftTopPoint,currentTileCol,currentTileRow,pa,pb,pc);
 					
 					var drawWidht:int = pb.x -  pa.x;
 					cursorBitmapLeftTopPoint.x += drawWidht;
@@ -394,8 +387,8 @@ package copyengine.scenes.isometric
 					leftWidth -= drawWidht;
 					
 					//Right-Tile(m+1,n-1)
-					currentTileRow++;
-					currentTileCol--;
+					currentTileCol++;
+					currentTileRow--;
 				}
 				//finish one line, change to next line
 				var drawHeight:int = pc.y - pa.y;
@@ -410,8 +403,10 @@ package copyengine.scenes.isometric
 				leftHeight -= drawHeight;
 				
 				//Down-Tile(m+1,n+1)
-				currentTileRow = startTileRow+1;
-				currentTileCol++;
+				startTileCol++;
+				startTileRow++;
+				currentTileCol = startTileCol;
+				currentTileRow = startTileRow;
 			}
 		}
 
@@ -451,7 +446,7 @@ package copyengine.scenes.isometric
 		 *
 		 */
 		private function drawRectToBitmap(_targetBitmapdata:BitmapData , _startPoint:Point ,
-										  _topTileRow:int , _topTileCol:int,
+										  _topTileCol:int , _topTileRow:int ,
 			_pa:Point , _pb:Point , _pc:Point) : void
 		{
 			//caluate current rect area

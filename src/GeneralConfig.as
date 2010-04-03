@@ -27,8 +27,8 @@ package
 		public static const FLOOR_WIDHT:int = TILE_ROW_NUMBER * SCREEN_TILE_WIDTH;
 		public static const FLOOR_HEIGHT:int = TILE_COL_NUMBER * SCREEN_TILE_HEIGHT;
 		
-		public static const VIEWPORT_STAR_X:int = -490;
-		public static const VIEWPORT_STAR_Y:int = 385;
+		public static const VIEWPORT_STAR_X:int = -320;
+		public static const VIEWPORT_STAR_Y:int = 160;
 		
 		
 		

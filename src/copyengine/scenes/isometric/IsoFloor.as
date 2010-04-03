@@ -61,12 +61,11 @@ package copyengine.scenes.isometric
 		 */
 		public function getTileBitmapData(_col:int , _row:int) : BitmapData
 		{
-			trace("_col : " + _col + "_row" + _row);
 			if(_col < 0 || _row < 0)
 			{
 				return green;
 			}
-			switch (isoTileArray[_row][_col].floorSkinId)
+			switch (isoTileArray[_col][_row].floorSkinId)
 			{
 				case 1:
 					return red;
