@@ -143,18 +143,26 @@ package copyengine.scenes.isometric.viewport
 			//will clean child outside
 			viewportContainer = null;
 		}
-
+		
+		public function viewPortStart(_viewPortX:int , _viewPortY:int):void
+		{
+			for each (var listener : IViewPortListener in allViewPortListener)
+			{
+					listener.viewPortInitialzeComplate(_viewPortX,_viewPortY);
+			}
+		}
+		
 		public function updateListener() : void
 		{
 			for each (var listener : IViewPortListener in allViewPortListener)
 			{
 				if (isViewPortMoved)
 				{
-					listener.moveToUpdate(viewPortX,viewPortY,preViewPortX,preViewPortY);
+					listener.viewPortMoveToUpdate(viewPortX,viewPortY,preViewPortX,preViewPortY);
 				}
 				else
 				{
-					listener.noMoveUpdate(viewPortX,viewPortY);
+					listener.viewPortNoMoveUpdate(viewPortX,viewPortY);
 				}
 			}
 			isViewPortMoved = false;

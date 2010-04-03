@@ -1,5 +1,6 @@
 package game.scene
 {
+	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.scenes.isometric.IIsoObject;
 	import copyengine.scenes.isometric.IsoFloor;
 	import copyengine.scenes.isometric.IsoSceneBasic;
@@ -16,14 +17,21 @@ package game.scene
 		
 		override protected function initializeIsoScreenData():void
 		{
-			var floor:IsoFloor = new IsoFloor();
-			var fv:Vector.<IsoFloor> = new Vector.<IsoFloor>();
-			fv.push(floor);
-			
 			var isoObjects:Vector.<IIsoObject> = new Vector.<IIsoObject>();
-			
-			isoScene.setIsoFloorList(fv);
 			isoScene.setIsoObjectList(isoObjects);
+			
+			var floor:IsoFloor = new IsoFloor();
+			var tileArray:Array = [];
+			for (var row:int = 0 ; row <ISO::TN ; row ++)
+			{
+				tileArray[row] = [];
+				for (var col:int = 0 ; col < ISO::TN ; col ++)
+				{
+					tileArray[row][col] = new IsoTileVo();
+				}
+			}
+			floor.initialize(tileArray);
+			isoScene.setIsoFloor(floor);
 			
 			finishedScenePerLoad();
 		}

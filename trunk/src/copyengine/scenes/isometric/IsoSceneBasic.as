@@ -25,11 +25,11 @@ package copyengine.scenes.isometric
 		 * @see more detail in IIsoViewPort
 		 */
 		protected var viewport:IIsoViewPort;
-		
+
 		/**
 		 * proxy all interactive to the viewport.
 		 * @see more derail in initailze() function.
-		 */		
+		 */
 		protected var viewportInteractiveWarp:IViewPortInteractiveWarp;
 
 		/**
@@ -43,16 +43,16 @@ package copyengine.scenes.isometric
 		protected var isoObjectManger:IsoObjectManger;
 
 		/**
-		 * each level floor data(it contian each level data ,not each tile data)
+		 * the isoTileVo warp data.
 		 * @see more detail in IsoFloor;
 		 */
-		protected var isoFloorList:Vector.<IsoFloor>;
+		protected var isoFloor:IsoFloor
 
 		/**
-		 * mange isoFloor , the number should equal with isoFloorList.length
-		 * (include isoFloor frustum culling logic)
+		 * mange isoFloor(include isoFloor frustum culling logic)
+		 * @see more detail in IsoFloorManger
 		 */
-		protected var isoFloorMangerList:Vector.<IsoFloorManger>;
+		protected var isoFloorManger:IsoFloorManger
 
 
 		public function IsoSceneBasic()
@@ -79,7 +79,7 @@ package copyengine.scenes.isometric
 			//			all view port container except IViewPortInteractive.container will not listne for any mouseEvent
 			//			it means  can't dispatch or listener event  in viewport , all user mouse operate will proxy by IViewPortInteractive.
 			//			in case to improve performance.
-			
+
 			//initialze viewport
 			//view port will add to the buttom layer of current scene.
 			//if child class need to add some other layer(ex. UILayer), need to override doInitailze function
@@ -87,59 +87,53 @@ package copyengine.scenes.isometric
 			//the top layer of viewport is viewportInteractiveWarp , and it will not pass event down to other layer.
 			viewport = createViewPort();
 			container.addChild(viewport.container);
-			
-			//initialze each level floor(add to viewport by z order.)
-			isoFloorMangerList = new Vector.<IsoFloorManger>();
-			for (var i:int = 0 ; i < isoFloorList.length ; i++)
-			{
-				var manger:IsoFloorManger = new IsoFloorManger();
-				manger.initialize(isoFloorList[i],viewport.getViewPortWidth(),viewport.getViewPortHeight());
-				viewport.addListener(manger);
-				isoFloorMangerList.push(manger);
-				manger.container.mouseChildren = manger.container.mouseEnabled = false;
-				viewport.container.addChild(manger.container);
-			}
-			
+
+			//initialze floor
+			isoFloorManger = new IsoFloorManger();
+			isoFloorManger.initialize(isoFloor);
+			viewport.addListener(isoFloorManger);
+			isoFloorManger.container.mouseChildren = isoFloorManger.container.mouseEnabled = false;
+			viewport.container.addChild(isoFloorManger.container);
+
 			//initialze isoObject , add to viewport.
 			//all isoObject should be heighter than floorlevel, no matrter the floor z value.
 			isoObjectManger = new IsoObjectManger();
 			isoObjectManger.initialize(isoObjectList,viewport.getViewPortWidth(),viewport.getViewPortHeight());
+			viewport.addListener(isoObjectManger);
 			isoObjectManger.container.mouseChildren = isoObjectManger.container.mouseEnabled = false;
 			viewport.container.addChild(isoObjectManger.container);
-			
+
 			//initializeViewPortInteractive
 			viewportInteractiveWarp = createViewPortInteractive();
 			viewportInteractiveWarp.initialize(viewport);
-			
+
 			doInitialize();
-			
+
 			//WARNINIG::
 			//		need to keep the viewportInteractiveWarp is the top layer of viewport
 			viewport.container.addChild(viewportInteractiveWarp.container);
+			viewport.viewPortStart( -100,300);
 		}
 
 		override final protected function dispose() : void
 		{
 			doDispose();
-			
-			while(isoFloorMangerList.length > 0)
-			{
-				var isoFloorManger:IsoFloorManger = isoFloorMangerList.pop();
-				viewport.container.removeChild(isoFloorManger.container);
-				isoFloorManger.dispose();
-			}
-			
+
+			viewport.container.removeChild(isoFloorManger.container);
+			isoFloorManger.dispose();
+
 			viewport.container.removeChild(isoObjectManger.container);
 			isoObjectManger.dispose();
-			
+
 			viewport.container.removeChild(viewportInteractiveWarp.container);
 			viewportInteractiveWarp.dispose();
-			
+
 			container.removeChild(viewport.container);
 			viewport.dispose();
-			
+
 			CopyEngineFacade.instance.removeMediator(getMediatorName() );
-			isoFloorMangerList = null;
+			isoFloor = null;
+			isoFloorManger = null;
 			isoObjectManger = null;
 			viewportInteractiveWarp = null;
 			viewport = null;
@@ -163,42 +157,42 @@ package copyengine.scenes.isometric
 			throw("Child Class need to override this function");
 		}
 
-		protected function createViewPort():IIsoViewPort
+		protected function createViewPort() : IIsoViewPort
 		{
 			throw("Child Class need to override this function");
 		}
-		
+
 		/**
 		 *	create viewPortInteractive instance.
 		 * before this function call , the createViewPort() function already been called.
 		 * so can access viewPort property directly
-		 * 
-		 */		
-		protected function createViewPortInteractive():IViewPortInteractiveWarp
+		 *
+		 */
+		protected function createViewPortInteractive() : IViewPortInteractiveWarp
 		{
 			throw("Child Class need to override this function");
 		}
-		
+
 		/**
 		 * if child class need to initailze some data during initialize function (ex. add extra level on viewport)
 		 * should override this function.
-		 */		
-		protected function doInitialize():void
+		 */
+		protected function doInitialize() : void
 		{
 		}
-		
+
 		/**
 		 * if child class need to dispose some data during dispose function
 		 * should override this function
 		 * WARNINIG::
 		 * 		those proptectry create by IsoSceneBasic already dispose by that class ,
 		 * 		child class no need to concerned those property.
-		 */		
-		protected function doDispose():void
+		 */
+		protected function doDispose() : void
 		{
-			
+
 		}
-		
+
 		override final public function tick() : void
 		{
 			viewportInteractiveWarp.tick();
@@ -215,9 +209,9 @@ package copyengine.scenes.isometric
 			isoObjectList = _list;
 		}
 
-		public final function setIsoFloorList(_list:Vector.<IsoFloor>) : void
+		public final function setIsoFloor(_floor:IsoFloor) : void
 		{
-			isoFloorList = _list;
+			isoFloor = _floor;
 		}
 
 	}
