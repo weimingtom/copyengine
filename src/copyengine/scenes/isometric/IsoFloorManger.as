@@ -24,7 +24,7 @@ package copyengine.scenes.isometric
 	 * 		1` control the floor move with viewport
 	 * 		2` do the frustum culling logic.
 	 *
-	 * WARNINIG:: is one tile have two level (z=1 , z=2), the isoObject only can add to z=2 tile
+	 * WARNINIG:: if one tile have two level (z=1 , z=2), the isoObject only can add to z=2 tile
 	 * 					  can't add to z =1 tile
 	 *
 	 * @author Tunied
@@ -32,113 +32,27 @@ package copyengine.scenes.isometric
 	 */
 	public final class IsoFloorManger implements IViewPortListener
 	{
-		//		private static const ROW_NUMBER:int =120;
-		//		private static const COL_NUMBER:int = 120;
-
-		/**
-		 * the tile width in iso world.
-		 * 		in iso world the tile should be an square, and rotate/scale to 2D world space.
-		 * 		in 2D world space the widht/height = 80/40
-		 */
-		//		private static const ISO_TILE_WIDTH:int = 40;
-		//		private static const SCREEN_TILE_WIDTH:int = 80;
-		//		private static const SCREEN_TILE_HEIGHT:int = 40;
-		//		private static const HALF_SCREEN_TILE_HEIGHT:int = SCREEN_TILE_HEIGHT>>1;
-		//		private static const HALF_SCREEN_TILE_WIDTH:int = SCREEN_TILE_WIDTH>>1;
-
+		private var isoFloorContainer:DisplayObjectContainer;
 
 		private var isoFloor:IsoFloor;
-
-		private var floorMangerContainer:DisplayObjectContainer
-
-		private var testSprite:Sprite; //Test User will delete
-
-		private var tileInfoArray:Array
-
-		private var viewPortWidth:int;
-		private var viewPortHeight:int;
-
-		private var cacheTileBitmapDataRed:BitmapData;
-		private var cacheTileBitmapDataGreen:BitmapData;
-
-		private var viewportBitmap:Bitmap;
-		private var viewportRenderBitmapData:BitmapData;
-		private var viewportPerRenderBitmapData:BitmapData;
 		
-		private var viewportCacheMc:BitmapData;
-
-		private var viewportX:int;
-		private var viewportY:int;
-
-		private var floor:Sprite;
+		private var viewPortRender:Bitmap;
+		private var viewPortRenderBitmapData:BitmapData
 
 		public function IsoFloorManger()
 		{
 		}
 
-		public function initialize(_isoFloor:IsoFloor , _viewPortWidth:int , _viewPortHeight:int) : void
+
+		public function initialize(_isoFloor:IsoFloor) : void
 		{
-			floorMangerContainer = new Sprite();
-
-			viewPortWidth = _viewPortWidth;
-			viewPortHeight = _viewPortHeight;
-
-			var tileResRed:MovieClip = ResUtlis.getMovieClip("Tile_Red",ResUtlis.FILE_ISOHAX);
-			var tileResGreen:MovieClip = ResUtlis.getMovieClip("Tile_Green",ResUtlis.FILE_ISOHAX);
-
-			var viewPortMc:Sprite = ResUtlis.getSprite("CacheAssert_ViewPort",ResUtlis.FILE_ISOHAX);
-			viewportCacheMc = cacheToBitmapData(viewPortMc);
+			isoFloor = _isoFloor;
+			isoFloorContainer = new Sprite();
+			viewPortRenderBitmapData = new BitmapData(ISO::VW,ISO::VH);
+			viewPortRender = new Bitmap(viewPortRenderBitmapData);
+			isoFloorContainer.addChild(viewPortRender);
 			
-			cacheTileBitmapDataRed = cacheToBitmapData(tileResRed);
-			cacheTileBitmapDataGreen  = cacheToBitmapData(tileResGreen);
-
-			CopyEngineAS.getStage().addEventListener(KeyboardEvent.KEY_DOWN,onKeyDown);
-
-//						testSprite = new Sprite();
-//						tileInfoArray = [];
-//						for (var row:int = 0 ; row < GeneralConfig.TILE_ROW_NUMBER ; row++) //x
-//						{
-//							tileInfoArray[row] = [];
-//							for (var col:int = 0 ; col < GeneralConfig.TILE_COL_NUMBER ; col++) //y
-//							{
-//								var isoPos:Vector3D = new Vector3D(row*GeneralConfig.ISO_TILE_WIDTH,col*GeneralConfig.ISO_TILE_WIDTH,0);
-//								IsoMath.isoToScreen(isoPos);
-//								var tile:Bitmap
-//								if(Random.range(0,10)>5)
-//								{
-//									tile = new Bitmap(cacheTileBitmapDataRed);
-//								}
-//								else
-//								{
-//									tile = new Bitmap(cacheTileBitmapDataGreen);
-//								}
-//								tile.x = isoPos.x - GeneralConfig.HALF_SCREEN_TILE_WIDTH;
-//								tile.y = isoPos.y - GeneralConfig.HALF_SCREEN_TILE_HEIGHT;
-//								testSprite.addChild(tile);
-//								tileInfoArray[row][col] = tile; //tileArray[x][y]
-//							}
-//						}
-//						var tileMapData:BitmapData = cacheToBitmapData(testSprite);
-//						var tileMap:Bitmap = new Bitmap(tileMapData);
-//						floor = new Sprite();
-//						floor.addChild(tileMap);
-//						tileMap.x -= tileMap.width>>1;
-//						floorMangerContainer.addChild(floor);
-
-			viewportRenderBitmapData = new BitmapData(viewPortWidth,viewPortHeight,false);
-			viewportPerRenderBitmapData = new BitmapData(viewPortWidth,viewPortHeight,false);
-			viewportBitmap = new Bitmap(viewportRenderBitmapData);
-
-			floorMangerContainer.addChild(viewportBitmap);
-			viewportRenderBitmapData.fillRect(viewportRenderBitmapData.rect,0xffffff);
-			drawFloor(new Point(-100,400) ,
-				new Point() ,
-				viewportRenderBitmapData ,
-				viewPortWidth ,viewPortHeight);
-
-			viewportX = -100;
-			viewportY = 400;
-
+			initialzeTempValue();
 		}
 
 		public function dispose() : void
@@ -147,375 +61,492 @@ package copyengine.scenes.isometric
 
 		public function get container() : DisplayObjectContainer
 		{
-			return floorMangerContainer;
+			return isoFloorContainer;
 		}
 
-		public function noMoveUpdate(_viewPortX:int , _viewPortY:int) : void
+		public function viewPortMoveToUpdate(_viewPortX:int ,_viewPortY:int , _preViewPortX:int , _preViewPortY:int) : void
 		{
-			//			floor.x--;
-			//			floor.y--;
-			//			viewportBitmap.bitmapData.fillRect(viewportBitmap.bitmapData.rect,0);
+			var offsetX:int = _viewPortX - _preViewPortX;
+			var offsetY:int = _viewPortY - _preViewPortY;
+			if(offsetX > 0)
+			{
+				viewPortMoveRight(offsetX,_preViewPortX,_preViewPortY);
+			}
+			else if(offsetX < 0)
+			{
+				viewPortMoveLeft(-offsetX,_preViewPortX,_preViewPortY);
+			}
+			if(offsetY > 0)
+			{
+				viewPortMoveDown(offsetY,_preViewPortX,_preViewPortY);
+			}
+			else if(offsetY < 0)
+			{
+				viewPortMoveLeft(offsetY,_preViewPortX,_preViewPortY);
+			}
 		}
 
-		public function moveToUpdate(_viewPortX:int ,_viewPortY:int , _preViewPortX:int , _preViewPortY:int) : void
+		public function viewPortInitialzeComplate(_viewPortX:int , _viewPortY:int) : void
 		{
-//						floor.x = -_viewPortX;
-//						floor.y = -_viewPortY;
-			//			trace("x :" + _viewPortX + " y :" + _viewPortY);
+			drawAreaToBitmap(viewPortRenderBitmapData,ISO::VW,ISO::VH,new Point(_viewPortX,_viewPortY),new Point());
+		}
+
+		public function viewPortNoMoveUpdate(_viewPortX:int , _viewPortY:int) : void
+		{
+			// is the viewPort not move, no need to update IsoFloorLayer.
 		}
 
 		/**
-		 *
-		 * @param startPoint			viewPort上视口的位置
-		 * @param drawPoint			画在Bitmmap上的位置
-		 * @param drawWidth			画的宽度
-		 * @param drawHeight			画的高度
-		 * @param renderBitmapData		需要画的BitmapData
-		 *
+		 * temp value should be new in the function during each time call.
+		 * in case to resue those value , then create it in class ,as private value.
+		 * so that can reUse those value.
 		 */
-		private function drawFloor(startPoint:Point , drawPoint:Point , renderBitmapData:BitmapData , drawWidth:int , drawHeight:int) : void
+		private function initialzeTempValue() : void
 		{
-			var rectangleIndexPoint:Point = new Point();
-			rectangleIndexPoint.x = Math.floor((startPoint.x + GeneralConfig.HALF_SCREEN_TILE_WIDTH)/ GeneralConfig.SCREEN_TILE_WIDTH);
-			rectangleIndexPoint.y = Math.floor((startPoint.y + GeneralConfig.HALF_SCREEN_TILE_HEIGHT)/GeneralConfig.SCREEN_TILE_HEIGHT);
+			drawRectangle = new Rectangle();
+			copyPoint = new Point();
+			alphaPoint = new Point();
+			rectangleIndexPoint = new Point();
+			pa = new Point();
+			pb = new Point();
+			pc = new Point();
+			cursorArearLeftTopPoint = new Point();
+			cursorBitmapLeftTopPoint = new Point();
+			viewPortMoveRectangle = new Rectangle();
+			viewPortMovePoint = new Point();
+			viewPortDrawArearLeftTopPoint = new Point();
+			viewPortBitmapLeftTopPoint = new Point();
 			
-			//当矩形一直往下走的时候,矩形最上面Tile的 row 和col都会增大
-			var row:int = -1+rectangleIndexPoint.x+rectangleIndexPoint.y; //矩形最上面Tile的横TIle数
-			var col:int = -1-rectangleIndexPoint.x + rectangleIndexPoint.y;//矩形最上面Tile的纵Tile数
+			viewPortMoveUpTempBitmapData = new BitmapData(ISO::VW,ISO::VH);
+		}
+		
+		/**
+		 * use in viewPort move function(up,left,right,down)
+		 */		
+		private var viewPortMoveRectangle:Rectangle;
+		
+		/**
+		 * use in viewPort move function(up,left,right,down)
+		 */		
+		private var viewPortMovePoint:Point;
+		
+		/**
+		 * use in viewPort move function(up,left,right,down). to decide the new draw part left-top point.
+		 */		
+		private var viewPortDrawArearLeftTopPoint:Point;
+		
+		/**
+		 * use in viewPort move function(up,left,right,down) to decide the left-top point that draw to the target bimmapdata.
+		 */		
+		private var viewPortBitmapLeftTopPoint:Point;
+		
+		/**
+		 * only use in viewProt move up 
+		 * @see more in  viewPortMoveUp();
+		 */		
+		private var viewPortMoveUpTempBitmapData:BitmapData;
+		
+		private function viewPortMoveRight(_offset:int , _perViewPortX:int , _perViewPortY:int):void
+		{
+			//Copy the old part
+			viewPortMoveRectangle.x = _offset;
+			viewPortMoveRectangle.y = 0;
+			viewPortMoveRectangle.width = ISO::VW - _offset;
+			viewPortMoveRectangle.height = ISO::VH;
 			
-			var startRow:int = row;
+			viewPortMovePoint.x = viewPortMovePoint.y = 0;
 			
-			var pa:Point = new Point();
-			var pb:Point = new Point();
-			var pc:Point = new Point();
-			var pd:Point = new Point();
+			viewPortRenderBitmapData.copyPixels(viewPortRenderBitmapData,viewPortMoveRectangle,viewPortMovePoint);
+			
+			//clean the new part data
+			viewPortMoveRectangle.x = ISO::VW - _offset;
+			viewPortMoveRectangle.y = 0;
+			viewPortMoveRectangle.width = _offset;
+			viewPortMoveRectangle.height = ISO::VH;
+			viewPortRenderBitmapData.fillRect(viewPortMoveRectangle,0xffffff);
+			
+			//draw new part
+			viewPortDrawArearLeftTopPoint.x  = _perViewPortX + ISO::VW;
+			viewPortDrawArearLeftTopPoint.y = _perViewPortY;
+			
+			viewPortBitmapLeftTopPoint.x = ISO::VW - _offset;
+			viewPortDrawArearLeftTopPoint.y = 0;
+			drawAreaToBitmap(viewPortRenderBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
+		}
+		
+		private function viewPortMoveLeft(_offset:int , _perViewPortX:int , _perViewPortY:int):void
+		{
+			//Copy the old part
+			viewPortMoveRectangle.x = 0;
+			viewPortMoveRectangle.y = 0;
+			viewPortMoveRectangle.width = ISO::VW - _offset;
+			viewPortMoveRectangle.height = ISO::VH;
+			
+			viewPortMovePoint.x = _offset;
+			viewPortMovePoint.y = 0;
+			
+			viewPortRenderBitmapData.copyPixels(viewPortRenderBitmapData,viewPortMoveRectangle,viewPortMovePoint);
+			
+			//clean the new part data
+			viewPortMoveRectangle.x =0;
+			viewPortMoveRectangle.y = 0;
+			viewPortMoveRectangle.width = _offset;
+			viewPortMoveRectangle.height = ISO::VH;
+			viewPortRenderBitmapData.fillRect(viewPortMoveRectangle,0xffffff); 
+			
+			//draw new part
+			viewPortDrawArearLeftTopPoint.x  = _perViewPortX - _offset;
+			viewPortDrawArearLeftTopPoint.y = _perViewPortY;
+			
+			viewPortBitmapLeftTopPoint.x = 0;
+			viewPortDrawArearLeftTopPoint.y = 0;
+			drawAreaToBitmap(viewPortRenderBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
+		}
+		
+		private function viewPortMoveDown(_offset:int , _perViewPortX:int , _perViewPortY:int):void
+		{
+			//Copy the old part
+			viewPortMoveRectangle.x = 0;
+			viewPortMoveRectangle.y = 0;
+			viewPortMoveRectangle.width = ISO::VW;
+			viewPortMoveRectangle.height = ISO::VH - _offset;
+			
+			viewPortMovePoint.x = 0;
+			viewPortMovePoint.y = _offset;
+			
+			viewPortRenderBitmapData.copyPixels(viewPortRenderBitmapData,viewPortMoveRectangle,viewPortMovePoint);
+			
+			//clean the new part data
+			viewPortMoveRectangle.x =0;
+			viewPortMoveRectangle.y = 0;
+			viewPortMoveRectangle.width = ISO::VW;
+			viewPortMoveRectangle.height = _offset;
+			viewPortRenderBitmapData.fillRect(viewPortMoveRectangle,0xffffff); 
+			
+			//draw new part
+			viewPortDrawArearLeftTopPoint.x  = _perViewPortX;
+			viewPortDrawArearLeftTopPoint.y = _perViewPortY - _offset;
+			
+			viewPortBitmapLeftTopPoint.x = 0;
+			viewPortDrawArearLeftTopPoint.y = 0;
+			drawAreaToBitmap(viewPortRenderBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
+		}
+		/**
+		 * moveUp viewport is different form others
+		 * @see more detail in http://forums.adobe.com/thread/609687?tstart=0
+		 */		
+		private function viewPortMoveUp(_offset:int , _perViewPortX:int , _perViewPortY:int):void
+		{
+			viewPortMoveUpTempBitmapData.fillRect(viewPortMoveUpTempBitmapData.rect,0xffffff);
+			
+			viewPortMoveRectangle.x = 0;
+			viewPortMoveRectangle.y = _offset;
+			viewPortMoveRectangle.width = ISO::VW;
+			viewPortMoveRectangle.height = ISO::VH - _offset;
+			
+			viewPortMovePoint.x = 0;
+			viewPortMovePoint.y = 0;
+			
+			//need to copy twice
+			viewPortMoveUpTempBitmapData.copyPixels(viewPortRenderBitmapData,viewPortMoveRectangle,viewPortMovePoint);
+			viewPortMoveRectangle.x = 0;
+			viewPortMoveRectangle.y = 0;
+			viewPortMoveRectangle.width = ISO::VW;
+			viewPortMoveRectangle.height = ISO::VH - _offset;
+			viewPortRenderBitmapData.copyPixels(viewPortMoveUpTempBitmapData,viewPortMoveRectangle,viewPortMovePoint);
+			
+			//clean the new part data
+			viewPortMoveRectangle.x =0;
+			viewPortMoveRectangle.y = ISO::VH - _offset;
+			viewPortMoveRectangle.width = ISO::VW;
+			viewPortMoveRectangle.height = _offset;
+			viewPortRenderBitmapData.fillRect(viewPortMoveRectangle,0xffffff); 
+			
+			//draw new part
+			viewPortDrawArearLeftTopPoint.x  = _perViewPortX;
+			viewPortDrawArearLeftTopPoint.y = _perViewPortY + ISO::VH;
+			
+			viewPortBitmapLeftTopPoint.x = 0;
+			viewPortDrawArearLeftTopPoint.y = ISO::VH - _offset;
+			drawAreaToBitmap(viewPortRenderBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
+			
+		}
+		
+		
+		/**
+		 * use in drawAreaToBitmap function. to caulate which
+		 */
+		private var rectangleIndexPoint:Point;
 
-			var leftWidth:int = drawWidth; //剩余需要draw的宽度
-			var leftHeight:int = drawHeight; //剩余需要draw的高度
+		/**
+		 *use in drawAreaToBitmap function. to warp the draw bound.
+		 */
+		private var pa:Point;
+		private var pb:Point;
+		private var pc:Point;
 
-			var startDrawPoint:Point = new Point(drawPoint.x , drawPoint.y);
+		/**
+		 * use in drawAreaToBitmap while loop function
+		 * to point out each Arear Rectangle(ideal rectangle coordinates) left-top point .
+		 */
+		private var cursorArearLeftTopPoint:Point;
 
-			var cursorPoint:Point = new Point(startPoint.x,startPoint.y); //游标位置
-			//			renderBitmapData.fillRect(new Rectangle(drawPoint.x,drawPoint.y,drawWidth,drawHeight),0xFFFFFF);
+		/**
+		 *use in drawAreaToBitmap while loop function
+		 *to point out each bitmap rectangle will draw to the  targetBitmapData position.
+		 */
+		private var cursorBitmapLeftTopPoint:Point;
+
+		/**
+		 * draw an rectangle of the projection coordinate to the bitmapData
+		 * this function will separate the big rectangle to each small rectangle
+		 * and call drawRectToBitmap function to really draw the rectangle to the target.
+		 * 
+		 * @param _targetBitmapData				target bitmapData
+		 * @param _drawWidth							the rectangle shoul be rectangle(_arearLeftTopPoint.x , _arearLeftTopPoint.y ,_drawWidth , _drawHeight)
+		 * @param _drawHeight
+		 * @param _arearLeftTopPoint
+		 * @param _bitmapLeftTopPoint			the top-left point of the bitmapData. the function will draw the rectangle to that position
+		 * 
+		 */		
+		private function drawAreaToBitmap(_targetBitmapData:BitmapData , _drawWidth:int , _drawHeight:int ,
+			_arearLeftTopPoint:Point , _bitmapLeftTopPoint:Point) : void
+		{
+			// cualute the areaLeftTopPoint is in which  ideal rectangle.
+			// to do that , first need to move the projection coordinates left half screen tile width and up half screen tile height
+			// so that projection coordinate origin point will match rectangle coordinate origin point
+			//(if move the coordinate left , it's the same as move the point right)
+			// so in projection coordinates, the x = _arearLeftTopPoint.x in ||projection'|| coordinates the x = _arearLeftTopPoint.x + ISO::HSTW;
+			// beacuse that coordinates is match with rectangle coordinate 
+			//so use that value to divide ScreenTileWidth(rectangle width) or ScreenTileHeight(rectangle height) will get the index
+			rectangleIndexPoint.x = Math.floor((_arearLeftTopPoint.x + ISO::HSTW)/ ISO::STW);
+			rectangleIndexPoint.y = Math.floor((_arearLeftTopPoint.y + ISO::HSTH)/ ISO::STH);
+
+			//projection coordinates with rectangle coordinate exist such relationship
+			//Rc(rectangle coordinate) x = 0 , y =0 . in that rectangle the Pc(projection coordinate) tile row = -1 col =-1
+			//so if the Rc x = 3 y = 2 , means move the Pc tile(-1,-1) Right 3 tile and Down 2 tile.
+			//in Pc tile so exist one relarionship
+			//Tile(row = m , col = n)
+			//Up-Tile(m-1,n-1);
+			//Down-Tile(m+1,n+1)
+			//Left-Tile(m-1,n+1)
+			//Right-Tile(m+1,n-1)
+			//Up-Left-Tile(m-1,n)
+			//Up-Right-Tile(m,n-1)
+			//Down-Left-Tile(m,n+1);
+			//Down-Right-Tile(m+1,n);
+			//so , want move (-1,-1) Right 3      (-1 + 3 , -1 - 3) move Down 2   (-1 + 2, -1 + 2)
+			//3 is rectangleIndexPoint.x , 2 is rectangleIndexPoint.y;
+//			var startTileRow:int = -1+rectangleIndexPoint.x+rectangleIndexPoint.y;
+//			var startTileCol:int = -1-rectangleIndexPoint.x + rectangleIndexPoint.y;
+			
+			var startTileRow:int =0;
+			var startTileCol:int = 4;
+			var currentTileRow:int = startTileRow;
+			var currentTileCol:int = startTileCol;
+
+			var leftWidth:int = _drawWidth;
+			var leftHeight:int = _drawHeight;
+
+			cursorArearLeftTopPoint.x = _arearLeftTopPoint.x;
+			cursorArearLeftTopPoint.y = _arearLeftTopPoint.y;
+
+			cursorBitmapLeftTopPoint.x = _bitmapLeftTopPoint.x;
+			cursorBitmapLeftTopPoint.y = _bitmapLeftTopPoint.y;
+
 			while (leftHeight> 0)
 			{
 				while (leftWidth > 0)
 				{
-					//draw the first rectangle 
-					pa.x =(cursorPoint.x + GeneralConfig.HALF_SCREEN_TILE_WIDTH)%GeneralConfig.SCREEN_TILE_WIDTH;
-					if (pa.x < 0) //在坐标系的左边,得到的值要用整个TileWidth减一下
+					//caulate the offsetX in the rectangle. if the offset < 0 means the point is at left of the coordinates.
+					//so in that case need to use rectangleWidht + offset beacuse the coordinates in the small ideal rectangle
+					//is form left-top to right-buttom. but projection coordinate is form top-middle.
+					pa.x =(cursorArearLeftTopPoint.x + ISO::HSTW)%ISO::STW;
+					if(pa.x < 0 )
 					{
-						pa.x = GeneralConfig.SCREEN_TILE_WIDTH + pa.x;
+						pa.x = ISO::STW + pa.x;
 					}
-					pa.y = (cursorPoint.y + GeneralConfig.HALF_SCREEN_TILE_HEIGHT)%GeneralConfig.SCREEN_TILE_HEIGHT; 
-					//如果能保证y值一定0 则可以不做这个判断。但是如果y有小于0的情况。也就是移动方式不是限制在Tile内部移动
-					//可以任意方向做拽移动 会拖拽到为负数的TIle上 这时候就要反过来去取值
+//					pa.x = pa.x >= 0 ? pa.x : ISO::STW + pa.x;
+
+					pa.y = (cursorArearLeftTopPoint.y + ISO::HSTH)%ISO::STH;
 					if(pa.y < 0)
 					{
-						pa.y = GeneralConfig.SCREEN_TILE_HEIGHT + pa.y;
+						pa.y = ISO::STH + pa.y;
 					}
-					
-					pb.x = Math.min(GeneralConfig.SCREEN_TILE_WIDTH, pa.x + leftWidth); //wrong
+//					pa.y = pa.y >= 0 ? pa.y : ISO::STH + pa.y;
+
+					//	pb.x = Math.min(ISO::STW, pa.x + leftWidth);
+					pb.x = pa.x + leftWidth;
+					pb.x = pb.x < ISO::STW ? pb.x : ISO::STW;
 					pb.y = pa.y;
 
+					//pc.y = Math.min(GeneralConfig.SCREEN_TILE_HEIGHT , pa.y + leftHeight );
+					pc.y = pa.y + leftHeight;
+					pc.y = pc.y < ISO::STH ? pc.y : ISO::STH;
 					pc.x = pa.x;
-					pc.y = Math.min(GeneralConfig.SCREEN_TILE_HEIGHT , pa.y + leftHeight );
-
-
-					pd.x = pb.x;
-					pd.y = pc.y;
-
-					drawRectToBitMap(renderBitmapData,drawPoint,pa,pb,pc,pd);
-					trace("Row :" + row + " Col :" + col);
 					
-					drawPoint.x += pb.x -  pa.x;
-					cursorPoint.x +=pb.x - pa.x;
-					leftWidth -= pb.x - pa.x;
-					row++;
+					//draw current bitmapData to target
+					drawRectToBitmap(_targetBitmapData,cursorBitmapLeftTopPoint,currentTileRow,currentTileCol,pa,pb,pc);
+					
+					var drawWidht:int = pb.x -  pa.x;
+					cursorBitmapLeftTopPoint.x += drawWidht;
+					cursorArearLeftTopPoint.x +=drawWidht;
+					leftWidth -= drawWidht;
+					
+					//Right-Tile(m+1,n-1)
+					currentTileRow++;
+					currentTileCol--;
 				}
-
-				//chang to next line
-				leftWidth = drawWidth;
-				drawPoint.x = startDrawPoint.x;
-				drawPoint.y += pd.y - pb.y;
-				cursorPoint.x = startPoint.x;
-				cursorPoint.y += pd.y - pb.y;
-				leftHeight -= pd.y -pb.y;
-				row = startRow;
-				col++;
+				//finish one line, change to next line
+				var drawHeight:int = pc.y - pa.y;
+				leftWidth = _drawWidth;
+				
+				cursorArearLeftTopPoint.x = _arearLeftTopPoint.x;
+				cursorBitmapLeftTopPoint.x = _bitmapLeftTopPoint.x;
+				
+				cursorArearLeftTopPoint.y += drawHeight;
+				cursorBitmapLeftTopPoint.y += drawHeight;
+				
+				leftHeight -= drawHeight;
+				
+				//Down-Tile(m+1,n+1)
+				currentTileRow = startTileRow+1;
+				currentTileCol++;
 			}
-
 		}
 
-		//		private function drawFloor(_viewPortX:int , _viewPortY:int) : void
-		//		{
-		//			var rectangleIndexPoint:Point = new Point();
-		//			rectangleIndexPoint.x = Math.floor((_viewPortX + GeneralConfig.HALF_SCREEN_TILE_WIDTH)/ GeneralConfig.SCREEN_TILE_WIDTH);
-		//			rectangleIndexPoint.y = Math.floor((_viewPortY + GeneralConfig.HALF_SCREEN_TILE_HEIGHT)/GeneralConfig.SCREEN_TILE_HEIGHT);
-		//
-		//			var row:int = -1+rectangleIndexPoint.x+rectangleIndexPoint.y;
-		//			var col:int = -1-rectangleIndexPoint.x + rectangleIndexPoint.y;
-		//
-		//
-		//			var pa:Point = new Point();
-		//			var pb:Point = new Point();
-		//			var pc:Point = new Point();
-		//			var pd:Point = new Point();
-		//
-		////			var leftWidth:int = viewPortWidth;
-		////			var leftHeight:int = viewPortHeight;
-		//			
-		//			var drawWidth:int = viewPortWidth;
-		//			var drawHeight:int = viewPortHeight;
-		//			
-		//			var leftWidth:int = drawWidth; //剩余需要draw的宽度
-		//			var leftHeight:int = drawHeight;//剩余需要draw的高度
-		//
-		//			//			pa.x = (_viewPortX + HALF_SCREEN_TILE_WIDTH)%SCREEN_TILE_WIDTH;
-		//			//			pa.y = (_viewPortY + HALF_SCREEN_TILE_HEIGHT)%SCREEN_TILE_HEIGHT;
-		//			//			
-		//			//			pb.x = Math.min(SCREEN_TILE_WIDTH - pa.x , leftWidth);
-		//			//			pb.y = pa.y;
-		//			//			
-		//			//			pc.x = pa.x;
-		//			//			pc.y = Math.min(SCREEN_TILE_HEIGHT - pa.y,leftHeight);
-		//			//			
-		//			//			pd.x = pb.x;
-		//			//			pd.y = pc.y;
-		//
-		//			var cursorPoint:Point = new Point(_viewPortX,_viewPortY);//游标位置
-		//			var drawPoint:Point = new Point(0,0);	//画的位置
-		//			while (leftHeight> 0)
-		//			{
-		//				while(leftWidth > 0)
-		//				{
-		//					//draw the first rectangle 
-		//					pa.x =(cursorPoint.x + GeneralConfig.HALF_SCREEN_TILE_WIDTH)%GeneralConfig.SCREEN_TILE_WIDTH;
-		//					if (pa.x < 0) //在坐标系的左边,得到的值要用整个TileWidth减一下
-		//					{
-		//						pa.x = GeneralConfig.SCREEN_TILE_WIDTH + pa.x;
-		//					}
-		//					pa.y = (cursorPoint.y + GeneralConfig.HALF_SCREEN_TILE_HEIGHT)%GeneralConfig.SCREEN_TILE_HEIGHT; //y坐标一直在正坐标系 不会存在整个问题
-		//					
-		//					pb.x = Math.min(GeneralConfig.SCREEN_TILE_WIDTH, leftWidth); //wrong
-		//					pb.y = pa.y;
-		//					
-		//					pc.x = pa.x;
-		//					pc.y = Math.min(GeneralConfig.SCREEN_TILE_HEIGHT , leftHeight );
-		//					
-		//					
-		//					pd.x = pb.x;
-		//					pd.y = pc.y;
-		//					
-		//					drawRectToBitMap(viewportBitmap.bitmapData,drawPoint,pa,pb,pc,pd);
-		//					
-		//					drawPoint.x += pb.x -  pa.x;
-		//					cursorPoint.x +=pb.x - pa.x;
-		//					leftWidth -= pb.x - pa.x;
-		//				}
-		//
-		////				//draw other
-		////				var count:int = Math.floor( leftWidth /GeneralConfig.SCREEN_TILE_WIDTH );
-		////				for (var i:int = 0 ; i < count ; i++)
-		////				{
-		////					pa.x = 0;
-		////
-		////					pb.x = GeneralConfig.SCREEN_TILE_WIDTH;
-		////
-		////					pc.x = pa.x;
-		////					pc.y = GeneralConfig.SCREEN_TILE_HEIGHT;
-		////
-		////					pd.x = pb.x;
-		////					pd.y = pc.y;
-		////
-		////					drawRectToBitMap(viewportBitmap.bitmapData,drawPoint,pa,pb,pc,pd);
-		////
-		////					drawPoint.x += pb.x -  pa.x;
-		////					cursorPoint.x +=pb.x - pa.x;
-		////					leftWidth -= pb.x - pa.x;
-		////				}
-		////				
-		////				//draw the end
-		////				pa.x = 0;
-		////
-		////				pb.x = leftWidth;
-		////
-		////				pc.x = pa.x;
-		////				pc.y = Math.min(GeneralConfig.SCREEN_TILE_HEIGHT , leftHeight );
-		////
-		////				pd.x = pb.x;
-		////				pd.y = pc.y;
-		////
-		////				drawRectToBitMap(viewportBitmap.bitmapData,drawPoint,pa,pb,pc,pd);
-		//
-		//				//chang to next line
-		//				leftWidth = drawWidth;
-		//				drawPoint.x = 0;
-		//				drawPoint.y += pd.y - pb.y;
-		//				cursorPoint.x = _viewPortX;
-		//				cursorPoint.y += pd.y - pb.y;
-		//				leftHeight -= pd.y -pb.y;
-		//			}
-		//
-		//		}
 
 
-		private function cacheToBitmapData(_m:DisplayObjectContainer) : BitmapData
+		/**
+		 * use in  drawRectToBitMap for past to _targetBitmapdata.copyPixels function.
+		 * it is the area that will draw form tileBitmapData to targetBitmapdata.
+		 * WARNING::
+		 * 		the drawRectangle is tileBitmapData coordinates.
+		 */
+		private var drawRectangle:Rectangle;
+
+		/**
+		 * use in  drawRectToBitMap to define copy to tileBitmapData to which point of targetBitmapdata
+		 */
+		private var copyPoint:Point;
+
+		/**
+		 * use in  drawRectToBitMap . the four tile need to use alpha chanel , other wise the second tile will override first tile.
+		 */
+		private var alphaPoint:Point;
+
+		/**
+		 * use copyPixel to draw an rect to the targetBitmapData
+		 *
+		 * @param _targetBitmapdata			target bitmapData , should be the viewPortRenderBitmapData
+		 *
+		 * @param _startPoint						define the copyTo positon (in target bitmapData coordinates)
+		 *
+		 * @param _topTileCol						define the topTile Col/Row id in the ideal rectangle.
+		 * @param _topTileRow					(ideal rectangle is each block in rectangle coordinates)
+		 *
+		 * @param _pa									_pa,_pb,_pc,_pd(not use) , the four point wrap an rectangle
+		 * @param _pb									and the rectangle <= ideal rectangle
+		 * @param _pc
+		 *
+		 */
+		private function drawRectToBitmap(_targetBitmapdata:BitmapData , _startPoint:Point ,
+										  _topTileRow:int , _topTileCol:int,
+			_pa:Point , _pb:Point , _pc:Point) : void
 		{
-			var bound:Rectangle = _m.getRect(_m);
-			var cacheBitmapDataSource:BitmapData = new BitmapData(bound.width,bound.height,true,0xFFFFFF);
-			cacheBitmapDataSource.draw(_m,new Matrix(1,0,0,1,-bound.x ,-bound.y));
-			return cacheBitmapDataSource;
-		}
+			//caluate current rect area
+			var rectangleWidth:int = _pb.x - _pa.x;
+			var rectangleHeight:int = _pc.y - _pa.y;
+			
 
-		private var drawRectangle:Rectangle = new Rectangle();
-		private var copyPoint:Point = new Point();
-		private var alphaPoint:Point = new Point();
+			//refrence use in each part draw function.
+			var tileBitmapData:BitmapData;
 
-		private function drawRectToBitMap(bitmapdata:BitmapData , startPoint:Point , pa:Point , pb:Point , pc:Point , pd:Point) : void
-		{
-			var rectangleWidth:int = pb.x - pa.x;
-			var rectangleHeight:int = pc.y - pa.y;
-			var upTileHeight:int = 0; // decide how with will upTileUse ,if pa.y < HALF_TILE_HEIGHT this number will not be 0
-			//up
-			if (pa.y < GeneralConfig.HALF_SCREEN_TILE_HEIGHT)
+			//===up
+			// decide how mush will upTile Use ,if pa.y < HALF_TILE_HEIGHT this number will not be 0
+			var upTileHeight:int = 0;
+			if (_pa.y < ISO::HSTH)
 			{
-				//				upTileHeight = Math.min(HALF_TILE_HEIGHT - pa.y , pc.y);
-				upTileHeight = GeneralConfig.HALF_SCREEN_TILE_HEIGHT - pa.y < pc.y ? GeneralConfig.HALF_SCREEN_TILE_HEIGHT - pa.y : pc.y;
+				//upTileHeight = Math.min(HALF_TILE_HEIGHT - pa.y , pc.y);
+				//if pc.y is lower than ISO::HSTH(Half_Screen_Tile_Height) then can't draw the drawRectangle form
+				//pa.y to pc.y  else then draw the drawRectangle form pa.y to ISO::HSTH.
+				//the drawRectangle is in tileBitmapData coordinates.
+				upTileHeight = ISO::HSTH - _pa.y < _pc.y ? ISO::HSTH - _pa.y : _pc.y;
 
-				drawRectangle.x = pa.x;
-				drawRectangle.y = GeneralConfig.HALF_SCREEN_TILE_HEIGHT + pa.y;
+				drawRectangle.x = _pa.x;
+				drawRectangle.y = ISO::HSTH + _pa.y;
 				drawRectangle.width = rectangleWidth;
 				drawRectangle.height = upTileHeight;
 
-				copyPoint.x = startPoint.x;
-				copyPoint.y = startPoint.y;
+				copyPoint.x = _startPoint.x;
+				copyPoint.y = _startPoint.y;
 
 				alphaPoint.x = drawRectangle.x;
 				alphaPoint.y = drawRectangle.y;
 
-				bitmapdata.copyPixels(cacheTileBitmapDataRed,drawRectangle,copyPoint,cacheTileBitmapDataRed,alphaPoint,true);
+				tileBitmapData = isoFloor.getTileBitmapData(_topTileCol,_topTileRow);
+				_targetBitmapdata.copyPixels(tileBitmapData,drawRectangle,copyPoint,tileBitmapData,alphaPoint,true);
 			}
 
 			//down
-			if (pc.y > GeneralConfig.HALF_SCREEN_TILE_HEIGHT)
+			if (_pc.y > ISO::HSTH)
 			{
-				drawRectangle.x = pa.x;
-				drawRectangle.y = pa.y + upTileHeight - GeneralConfig.HALF_SCREEN_TILE_HEIGHT;
+				drawRectangle.x = _pa.x;
+				drawRectangle.y = _pa.y + upTileHeight - ISO::HSTH;
 				drawRectangle.width = rectangleWidth;
 				drawRectangle.height = rectangleHeight - upTileHeight;
 
-				copyPoint.x = startPoint.x;
-				copyPoint.y = upTileHeight + startPoint.y;
+				copyPoint.x = _startPoint.x;
+				copyPoint.y = upTileHeight + _startPoint.y;
 
 				alphaPoint.x = drawRectangle.x;
 				alphaPoint.y = drawRectangle.y;
 
-				bitmapdata.copyPixels(cacheTileBitmapDataRed,drawRectangle,copyPoint,cacheTileBitmapDataRed,alphaPoint,true);
-
+				tileBitmapData = isoFloor.getTileBitmapData(_topTileCol+1,_topTileRow+1);
+				_targetBitmapdata.copyPixels(tileBitmapData,drawRectangle,copyPoint,tileBitmapData,alphaPoint,true);
 			}
 
 			//drawLeft
 			var leftTileWidth:int = 0;
-			if (pa.x < GeneralConfig.HALF_SCREEN_TILE_WIDTH)
+			if (_pa.x < ISO::HSTW)
 			{
-				//				leftTileWidth = Math.min(HALF_TILE_WIDTH - pa.x , pb.x - pa.x );
-				leftTileWidth = GeneralConfig.HALF_SCREEN_TILE_WIDTH - pa.x < pb.x - pa.x ? GeneralConfig.HALF_SCREEN_TILE_WIDTH - pa.x : pb.x - pa.x;
+				//				leftTileWidth = ISO::HSTW - _pa.x < _pb.x - _pa.x ? ISO::HSTW - _pa.x : _pb.x - _pa.x;
+				leftTileWidth = ISO::HSTW - _pa.x;
+				leftTileWidth = leftTileWidth < rectangleWidth ? leftTileWidth : rectangleWidth;
 
-				drawRectangle.x = GeneralConfig.HALF_SCREEN_TILE_WIDTH + pa.x;
-				drawRectangle.y = pa.y;
+				drawRectangle.x = ISO::HSTW + _pa.x;
+				drawRectangle.y = _pa.y;
 				drawRectangle.width = leftTileWidth;
 				drawRectangle.height = rectangleHeight;
 
-				copyPoint.x = startPoint.x;
-				copyPoint.y = startPoint.y;
+				copyPoint.x = _startPoint.x;
+				copyPoint.y = _startPoint.y;
 
 				alphaPoint.x = drawRectangle.x;
 				alphaPoint.y = drawRectangle.y;
 
-				bitmapdata.copyPixels(cacheTileBitmapDataGreen,drawRectangle,copyPoint,cacheTileBitmapDataGreen,alphaPoint,true);
+				tileBitmapData = isoFloor.getTileBitmapData(_topTileCol,_topTileRow+1);
+				_targetBitmapdata.copyPixels(tileBitmapData,drawRectangle,copyPoint,tileBitmapData,alphaPoint,true);
 			}
 
 			//drawRight
-			if (pb.x > GeneralConfig.HALF_SCREEN_TILE_WIDTH)
+			if (_pb.x > ISO::HSTW)
 			{
-				drawRectangle.x = pa.x + leftTileWidth - GeneralConfig.HALF_SCREEN_TILE_WIDTH;
-				drawRectangle.y = pa.y;
+				drawRectangle.x = _pa.x + leftTileWidth - ISO::HSTW;
+				drawRectangle.y = _pa.y;
 				drawRectangle.width = rectangleWidth - leftTileWidth;
 				drawRectangle.height = rectangleHeight;
 
-				copyPoint.x = leftTileWidth+startPoint.x;
-				copyPoint.y = startPoint.y;
+				copyPoint.x = leftTileWidth+_startPoint.x;
+				copyPoint.y = _startPoint.y;
 
 				alphaPoint.x = drawRectangle.x;
 				alphaPoint.y = drawRectangle.y;
 
-				bitmapdata.copyPixels(cacheTileBitmapDataGreen,drawRectangle,copyPoint,cacheTileBitmapDataGreen,alphaPoint,true);
+				tileBitmapData = isoFloor.getTileBitmapData(_topTileCol+1,_topTileRow);
+				_targetBitmapdata.copyPixels(tileBitmapData,drawRectangle,copyPoint,tileBitmapData,alphaPoint,true);
 			}
 		}
-
-
-		private function cleanScreen() : void
-		{
-			viewportPerRenderBitmapData.fillRect(viewportPerRenderBitmapData.rect,0xffffff);
-		}
-
-		private function onKeyDown(e:KeyboardEvent) : void
-		{
-			var offsetX:int = 10;
-			var offsetY:int = 10;
-			if (e.keyCode == Keyboard.RIGHT)
-			{
-				//向右移
-				viewportRenderBitmapData.copyPixels(viewportRenderBitmapData,
-					new Rectangle(offsetX,0,viewPortWidth-offsetX,viewPortHeight),
-					new Point(0,0));
-				viewportRenderBitmapData.fillRect(new Rectangle(viewPortWidth - offsetX,0,offsetX,viewPortHeight),0xffffff); //画之前要先清空底下的画布
-
-				drawFloor(new Point(viewportX + viewPortWidth,viewportY) ,new Point(viewPortWidth-offsetX,0) , viewportRenderBitmapData , offsetX , viewPortHeight );
-				viewportX += offsetX;
-			}
-			if(e.keyCode == Keyboard.LEFT)
-			{
-				//向左移
-				viewportRenderBitmapData.copyPixels(viewportRenderBitmapData,
-					new Rectangle(0,0,viewPortWidth-offsetX,viewPortHeight),
-					new Point(offsetX,0));
-				
-				viewportRenderBitmapData.fillRect(new Rectangle(0,0,offsetX,viewPortHeight),0xffffff); //画之前要先清空底下的画布
-				
-				drawFloor(new Point(viewportX - offsetX,viewportY) ,new Point(0,0) , viewportRenderBitmapData , offsetX , viewPortHeight );
-				viewportX -= offsetX;
-			}
-			if(e.keyCode == Keyboard.UP)
-			{
-				//向上移
-				
-				viewportRenderBitmapData.copyPixels(viewportRenderBitmapData,
-					new Rectangle(0,0,viewPortWidth,viewPortHeight - offsetY),
-					new Point(0,offsetY));
-				
-				viewportRenderBitmapData.fillRect(new Rectangle(0,0,viewPortWidth,offsetY),0xffffff); //画之前要先清空底下的画布
-				
-				drawFloor(new Point(viewportX,viewportY - offsetY) ,new Point(0,0) , viewportRenderBitmapData , viewPortWidth , offsetY );
-				viewportY -= offsetY;
-			}
-			if(e.keyCode == Keyboard.DOWN)
-			{
-				var tempBitmapData:BitmapData = new BitmapData(viewPortWidth,viewPortHeight);
-				tempBitmapData.copyPixels(viewportRenderBitmapData,new Rectangle(0,offsetY,viewPortWidth,viewPortHeight-offsetY), new Point(0,0));
-				//向下移
-				viewportRenderBitmapData.copyPixels(tempBitmapData,
-					new Rectangle(0,0,viewPortWidth,viewPortHeight-offsetY), new Point(0,0));
-				
-				tempBitmapData.dispose();
-//				
-				viewportRenderBitmapData.fillRect(new Rectangle(0,viewPortHeight - offsetY,viewPortWidth,offsetY),0xffffff); //画之前要先清空底下的画布
-				drawFloor(new Point(viewportX,viewportY + viewPortHeight) ,new Point(0,viewPortHeight - offsetY) , viewportRenderBitmapData , viewPortWidth , offsetY );
-				viewportY += offsetY;
-			}
-		}
-
 
 	}
 }

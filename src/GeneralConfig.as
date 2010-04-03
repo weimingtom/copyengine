@@ -8,6 +8,11 @@ package
 		public static const VIEWPORT_WIDTH:Number = 640;
 		public static const VIEWPORT_HEIGHT:Number = 700;
 		
+		/**
+		 * the tile width in iso world.
+		 * 		in iso world the tile should be an square, and rotate/scale to 2D world space.
+		 * 		in 2D world space the widht/height = 80/40
+		 */
 		public static const ISO_TILE_WIDTH:int = 40;
 		
 		public static const SCREEN_TILE_WIDTH:int = 80;

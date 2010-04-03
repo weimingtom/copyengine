@@ -49,14 +49,17 @@ package copyengine.scenes.isometric
 			return isoObjectMangerContainer;
 		}
 		
-		public function noMoveUpdate(_viewPortX:int , _viewPortY:int):void
+		public function viewPortMoveToUpdate(_viewPortX:int ,_viewPortY:int , _preViewPortX:int , _preViewPortY:int) : void
+		{
+		}
+		
+		public function viewPortInitialzeComplate(_viewPortX:int , _viewPortY:int):void
 		{
 			
 		}
 		
-		public function moveToUpdate(_viewPortX:int ,_viewPortY:int , _perViewPortX:int , _perViewPortY:int):void
+		public function viewPortNoMoveUpdate(_viewPortX:int , _viewPortY:int) : void
 		{
-			
 		}
 		
 	}

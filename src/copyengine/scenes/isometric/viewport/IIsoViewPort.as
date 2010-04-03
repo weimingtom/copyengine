@@ -25,7 +25,12 @@ package copyengine.scenes.isometric.viewport
 		 */
 		function initializeIsoViewPort(_moveSpeed:int ,_viewPortWidth:int , _viewPortHeight:int , 
 			_screenWidth:int , _screenHeight:int) : void;
-
+		
+		/**
+		 *  call this function to statr viewPort function 
+		 */		
+		function viewPortStart(_viewPortX:int , _viewPortY:int):void;
+		
 		/**
 		 * viewport will be addChild to BaiseSceen.
 		 * (in one CEScreen , not only need to show viewport, but also need to add other container ex: UIContainer)

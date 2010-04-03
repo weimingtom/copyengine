@@ -1,0 +1,86 @@
+<flex-config>
+	<compiler>
+		<!--
+			compiler.define: define a global AS3 conditional compilation
+			definition, e.g. -define=CONFIG::debugging,true or
+			-define+=CONFIG::debugging,true (to append to existing definitions in
+			flex-config.xml)
+		-->
+
+		<!--  Isometric -->
+		<define>
+			<!-- IsoViewPortWidth -->
+			<name>ISO::VW</name>
+			<value>640</value>
+		</define>
+
+		<define>
+			<!-- IsoViewPortHeight -->
+			<name>ISO::VH</name>
+			<value>480</value>
+		</define>
+
+		<define>
+			<!-- HalfIsoViewPortWidth -->
+			<name>ISO::HVW</name>
+			<value>320</value>
+		</define>
+
+		<define>
+			<!-- HalfIsoViewPortHeight -->
+			<name>ISO::HVH</name>
+			<value>240</value>
+		</define>
+
+		<define>
+			<!-- ScreenTileWidth -->
+			<name>ISO::STW</name>
+			<value>80</value>
+		</define>
+
+		<define>
+			<!-- HalfScreenTileWidth -->
+			<name>ISO::HSTW</name>
+			<value>40</value>
+		</define>
+
+		<define>
+			<!-- ScreenTileHeight -->
+			<name>ISO::STH</name>
+			<value>40</value>
+		</define>
+
+		<define>
+			<!-- HalfScreenTileHeight -->
+			<name>ISO::HSTH</name>
+			<value>20</value>
+		</define>
+
+		<define>
+			<!-- TileNumber -->
+			<name>ISO::TN</name>
+			<value>60</value>
+		</define>
+
+	</compiler>
+
+	<!--
+		default-background-color: default background color (may be overridden
+		by the application code)
+	-->
+	<default-background-color>0xFFFFFF</default-background-color>
+
+	<!-- default-frame-rate: default frame rate to be used in the SWF.-->
+	<default-frame-rate>25</default-frame-rate>
+
+	<!--
+		default-size: default application size (may be overridden by root
+		attributes in the application)
+	-->
+	<default-size>
+		<width>800</width>
+		<height>600</height>
+	</default-size>
+
+
+</flex-config>
