@@ -1,6 +1,8 @@
 package copyengine.scenes.isometric
 {
 	import copyengine.scenes.isometric.viewport.IViewPortListener;
+	import copyengine.utils.GeneralUtils;
+	import copyengine.utils.KeyCode;
 	import copyengine.utils.Random;
 	import copyengine.utils.ResUtlis;
 	
@@ -35,7 +37,7 @@ package copyengine.scenes.isometric
 		private var isoFloorContainer:DisplayObjectContainer;
 
 		private var isoFloor:IsoFloor;
-		
+
 		private var viewPortRender:Bitmap;
 		private var viewPortRenderBitmapData:BitmapData
 
@@ -51,10 +53,60 @@ package copyengine.scenes.isometric
 			viewPortRenderBitmapData = new BitmapData(ISO::VW,ISO::VH);
 			viewPortRender = new Bitmap(viewPortRenderBitmapData);
 			isoFloorContainer.addChild(viewPortRender);
-			
+
 			initialzeTempValue();
+			
+			GeneralUtils.addTargetEventListener(CopyEngineAS.getStage(),KeyboardEvent.KEY_DOWN, onKeyDown);
 		}
 
+		private function onKeyDown(e:KeyboardEvent):void
+		{
+			switch(e.keyCode)
+			{
+				case KeyCode.W:
+					viewPortMoveUp(10,vpx,vpy);
+					vpy -= 10;
+					break;
+				case KeyCode.X:
+					viewPortMoveDown(10,vpx,vpy);
+					vpy += 10;
+					break;
+				case KeyCode.A:
+					viewPortMoveLeft(20,vpx,vpy);
+					vpx -= 20
+					break;
+				case KeyCode.D:
+					viewPortMoveRight(20,vpx,vpy);
+					vpx += 20
+					break;
+				case KeyCode.Q:
+					viewPortMoveLeft(20,vpx,vpy);
+					vpx -= 20
+					viewPortMoveUp(10,vpx,vpy);
+					vpy -= 10;
+					break;
+				case KeyCode.Z:
+					viewPortMoveLeft(20,vpx,vpy);
+					vpx -= 20;
+					viewPortMoveDown(10,vpx,vpy);
+					vpy += 10;
+					break;
+				case KeyCode.C:
+					viewPortMoveRight(40,vpx,vpy);
+					vpx += 40;
+					viewPortMoveDown(20,vpx,vpy);
+					vpy += 20;
+					break;
+				case KeyCode.E:
+					viewPortMoveRight(20,vpx,vpy);
+					vpx += 20;
+					viewPortMoveUp(10,vpx,vpy);
+					vpy -= 10;
+					break;
+				
+			}
+		}
+		
 		public function dispose() : void
 		{
 		}
@@ -64,30 +116,39 @@ package copyengine.scenes.isometric
 			return isoFloorContainer;
 		}
 
+		/**
+		 * 这个函数没有问题的条件是 
+		 */		
 		public function viewPortMoveToUpdate(_viewPortX:int ,_viewPortY:int , _preViewPortX:int , _preViewPortY:int) : void
 		{
 			var offsetX:int = _viewPortX - _preViewPortX;
 			var offsetY:int = _viewPortY - _preViewPortY;
-			if(offsetX > 0)
+			trace("offsetX :" + offsetX + "offsetY : " + offsetY);
+			if (offsetX > 0)
 			{
 				viewPortMoveRight(offsetX,_preViewPortX,_preViewPortY);
 			}
-			else if(offsetX < 0)
+			else if (offsetX < 0)
 			{
 				viewPortMoveLeft(-offsetX,_preViewPortX,_preViewPortY);
 			}
-			if(offsetY > 0)
+			if (offsetY > 0)
 			{
-				viewPortMoveDown(offsetY,_preViewPortX,_preViewPortY);
+				viewPortMoveDown(offsetY,_viewPortX,_preViewPortY);
 			}
-			else if(offsetY < 0)
+			else if (offsetY < 0)
 			{
-				viewPortMoveUp(offsetY,_preViewPortX,_preViewPortY);
+				viewPortMoveUp(-offsetY,_viewPortX,_preViewPortY);
 			}
 		}
-
+		
+		private var vpx:int;
+		private var vpy:int
+		
 		public function viewPortInitialzeComplate(_viewPortX:int , _viewPortY:int) : void
 		{
+			vpx = _viewPortX;
+			vpy = _viewPortY;
 			drawAreaToBitmap(viewPortRenderBitmapData,ISO::VW,ISO::VH,new Point(_viewPortX,_viewPortY),new Point());
 		}
 
@@ -116,165 +177,203 @@ package copyengine.scenes.isometric
 			viewPortMovePoint = new Point();
 			viewPortDrawArearLeftTopPoint = new Point();
 			viewPortBitmapLeftTopPoint = new Point();
-			
+
 			viewPortMoveUpTempBitmapData = new BitmapData(ISO::VW,ISO::VH);
+			bufferBitmapData = new BitmapData(ISO::VW ,ISO::VH);
 		}
-		
+
 		/**
 		 * use in viewPort move function(up,left,right,down)
-		 */		
+		 */
 		private var viewPortMoveRectangle:Rectangle;
-		
+
 		/**
 		 * use in viewPort move function(up,left,right,down)
-		 */		
+		 */
 		private var viewPortMovePoint:Point;
-		
+
 		/**
 		 * use in viewPort move function(up,left,right,down). to decide the new draw part left-top point.
-		 */		
+		 */
 		private var viewPortDrawArearLeftTopPoint:Point;
-		
+
 		/**
 		 * use in viewPort move function(up,left,right,down) to decide the left-top point that draw to the target bimmapdata.
-		 */		
+		 */
 		private var viewPortBitmapLeftTopPoint:Point;
-		
+
 		/**
-		 * only use in viewProt move up 
+		 * only use in viewProt move up
 		 * @see more in  viewPortMoveUp();
-		 */		
+		 */
 		private var viewPortMoveUpTempBitmapData:BitmapData;
-		
-		
-		private function viewPortMoveRight(_offset:int , _perViewPortX:int , _perViewPortY:int):void
+
+		private var bufferBitmapData:BitmapData;
+
+
+		private function viewPortMoveRight(_offset:int , _perViewPortX:int , _perViewPortY:int) : void
 		{
 			//Copy the old part
 			viewPortMoveRectangle.x = _offset;
 			viewPortMoveRectangle.y = 0;
 			viewPortMoveRectangle.width = ISO::VW - _offset;
 			viewPortMoveRectangle.height = ISO::VH;
-			
+
 			viewPortMovePoint.x = viewPortMovePoint.y = 0;
-			
+
 			viewPortRenderBitmapData.copyPixels(viewPortRenderBitmapData,viewPortMoveRectangle,viewPortMovePoint);
-			
+
 			//clean the new part data
-			viewPortMoveRectangle.x = ISO::VW - _offset;
+			cleanBuffer();
+
+			//draw new part to buffer
+			viewPortDrawArearLeftTopPoint.x  = _perViewPortX + ISO::VW;
+			viewPortDrawArearLeftTopPoint.y = _perViewPortY;
+
+			viewPortBitmapLeftTopPoint.x = 0;
+			viewPortBitmapLeftTopPoint.y = 0;
+
+			drawAreaToBitmap(bufferBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
+
+			//draw buffer to viewport
+			viewPortMoveRectangle.x = 0;
 			viewPortMoveRectangle.y = 0;
 			viewPortMoveRectangle.width = _offset;
 			viewPortMoveRectangle.height = ISO::VH;
-			viewPortRenderBitmapData.fillRect(viewPortMoveRectangle,0xffffff);
-			
-			//draw new part
-			viewPortDrawArearLeftTopPoint.x  = _perViewPortX + ISO::VW;
-			viewPortDrawArearLeftTopPoint.y = _perViewPortY;
-			
+
 			viewPortBitmapLeftTopPoint.x = ISO::VW - _offset;
 			viewPortBitmapLeftTopPoint.y = 0;
-			drawAreaToBitmap(viewPortRenderBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
+
+			viewPortRenderBitmapData.copyPixels(bufferBitmapData,viewPortMoveRectangle,viewPortBitmapLeftTopPoint);
 		}
-		
-		private function viewPortMoveLeft(_offset:int , _perViewPortX:int , _perViewPortY:int):void
+
+		private function viewPortMoveLeft(_offset:int , _perViewPortX:int , _perViewPortY:int) : void
 		{
 			//Copy the old part
 			viewPortMoveRectangle.x = 0;
 			viewPortMoveRectangle.y = 0;
 			viewPortMoveRectangle.width = ISO::VW - _offset;
 			viewPortMoveRectangle.height = ISO::VH;
-			
+
 			viewPortMovePoint.x = _offset;
 			viewPortMovePoint.y = 0;
-			
+
 			viewPortRenderBitmapData.copyPixels(viewPortRenderBitmapData,viewPortMoveRectangle,viewPortMovePoint);
+
+			//clean buffer
+			cleanBuffer();
+
+			//draw the new part to buffer
+			viewPortDrawArearLeftTopPoint.x  = _perViewPortX - _offset;
+			viewPortDrawArearLeftTopPoint.y = _perViewPortY;
+
+			viewPortBitmapLeftTopPoint.x = 0;
+			viewPortBitmapLeftTopPoint.y = 0;
 			
-			//clean the new part data
+			drawAreaToBitmap(bufferBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
+
+			//draw buffer to view prot
 			viewPortMoveRectangle.x =0;
 			viewPortMoveRectangle.y = 0;
 			viewPortMoveRectangle.width = _offset;
 			viewPortMoveRectangle.height = ISO::VH;
-			viewPortRenderBitmapData.fillRect(viewPortMoveRectangle,0xffffff); 
-			
-			//draw new part
-			viewPortDrawArearLeftTopPoint.x  = _perViewPortX - _offset;
-			viewPortDrawArearLeftTopPoint.y = _perViewPortY;
-			
-			viewPortBitmapLeftTopPoint.x = 0;
-			viewPortBitmapLeftTopPoint.y = 0;
-//			drawAreaToBitmap(viewPortRenderBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
-		}
-		
-		
-		private function viewPortMoveDown(_offset:int , _perViewPortX:int , _perViewPortY:int):void
-		{
-			//Copy the old part
-			viewPortMoveRectangle.x = 0;
-			viewPortMoveRectangle.y = 0;
-			viewPortMoveRectangle.width = ISO::VW;
-			viewPortMoveRectangle.height = ISO::VH - _offset;
-			
-			viewPortMovePoint.x = 0;
-			viewPortMovePoint.y = _offset;
-			
-			viewPortRenderBitmapData.copyPixels(viewPortRenderBitmapData,viewPortMoveRectangle,viewPortMovePoint);
-			
-			//clean the new part data
-			viewPortMoveRectangle.x =0;
-			viewPortMoveRectangle.y = 0;
-			viewPortMoveRectangle.width = ISO::VW;
-			viewPortMoveRectangle.height = _offset;
-			viewPortRenderBitmapData.fillRect(viewPortMoveRectangle,0xffffff); 
-			
-			//draw new part
-			viewPortDrawArearLeftTopPoint.x  = _perViewPortX;
-			viewPortDrawArearLeftTopPoint.y = _perViewPortY - _offset;
-			
-			viewPortBitmapLeftTopPoint.x = 0;
-			viewPortBitmapLeftTopPoint.y = 0;
-			drawAreaToBitmap(viewPortRenderBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
-		}
-		/**
-		 * moveUp viewport is different form others
-		 * @see more detail in http://forums.adobe.com/thread/609687?tstart=0
-		 */		
-		private function viewPortMoveUp(_offset:int , _perViewPortX:int , _perViewPortY:int):void
-		{
-			viewPortMoveUpTempBitmapData.fillRect(viewPortMoveUpTempBitmapData.rect,0xffffff);
-			
-			viewPortMoveRectangle.x = 0;
-			viewPortMoveRectangle.y = _offset;
-			viewPortMoveRectangle.width = ISO::VW;
-			viewPortMoveRectangle.height = ISO::VH - _offset;
 			
 			viewPortMovePoint.x = 0;
 			viewPortMovePoint.y = 0;
 			
-			//need to copy twice
-			viewPortMoveUpTempBitmapData.copyPixels(viewPortRenderBitmapData,viewPortMoveRectangle,viewPortMovePoint);
+			viewPortRenderBitmapData.copyPixels(bufferBitmapData,viewPortMoveRectangle,viewPortMovePoint);
+
+		}
+
+
+		private function viewPortMoveUp(_offset:int , _perViewPortX:int , _perViewPortY:int) : void
+		{
+			//copy old part
 			viewPortMoveRectangle.x = 0;
 			viewPortMoveRectangle.y = 0;
 			viewPortMoveRectangle.width = ISO::VW;
 			viewPortMoveRectangle.height = ISO::VH - _offset;
-			viewPortRenderBitmapData.copyPixels(viewPortMoveUpTempBitmapData,viewPortMoveRectangle,viewPortMovePoint);
-			
-			//clean the new part data
+
+			viewPortMovePoint.x = 0;
+			viewPortMovePoint.y = _offset;
+			viewPortRenderBitmapData.copyPixels(viewPortRenderBitmapData,viewPortMoveRectangle,viewPortMovePoint);
+
+			//clean buffer
+			cleanBuffer();
+
+			//draw new part to buffer.
+			viewPortDrawArearLeftTopPoint.x  = _perViewPortX;
+			viewPortDrawArearLeftTopPoint.y = _perViewPortY - _offset;
+
+			viewPortBitmapLeftTopPoint.x = 0;
+			viewPortBitmapLeftTopPoint.y = 0;
+
+			drawAreaToBitmap(bufferBitmapData,ISO::VW,_offset,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
+
+			//draw buffer to viewport.
 			viewPortMoveRectangle.x =0;
-			viewPortMoveRectangle.y = ISO::VH - _offset;
+			viewPortMoveRectangle.y = 0;
 			viewPortMoveRectangle.width = ISO::VW;
 			viewPortMoveRectangle.height = _offset;
-			viewPortRenderBitmapData.fillRect(viewPortMoveRectangle,0xffffff); 
-			
-			//draw new part
+
+			viewPortBitmapLeftTopPoint.x = 0;
+			viewPortBitmapLeftTopPoint.y = 0;
+
+			viewPortRenderBitmapData.copyPixels(bufferBitmapData,viewPortMoveRectangle,viewPortBitmapLeftTopPoint);
+		}
+
+		/**
+		 * moveUp viewport is different form others
+		 * @see more detail in http://forums.adobe.com/thread/609687?tstart=0
+		 */
+		private function viewPortMoveDown(_offset:int , _perViewPortX:int , _perViewPortY:int) : void
+		{
+			//copy the old part to buffer
+			cleanBuffer();
+
+			viewPortMoveRectangle.x = 0;
+			viewPortMoveRectangle.y = _offset;
+			viewPortMoveRectangle.width = ISO::VW;
+			viewPortMoveRectangle.height = ISO::VH - _offset;
+
+			viewPortMovePoint.x = 0;
+			viewPortMovePoint.y = 0;
+
+			bufferBitmapData.copyPixels(viewPortRenderBitmapData,viewPortMoveRectangle,viewPortMovePoint);
+
+			//copy the buffer to viewRender
+			viewPortMoveRectangle.x = 0;
+			viewPortMoveRectangle.y = 0;
+			viewPortMoveRectangle.width = ISO::VW;
+			viewPortMoveRectangle.height = ISO::VH - _offset;
+
+			viewPortRenderBitmapData.copyPixels(bufferBitmapData,viewPortMoveRectangle,viewPortMovePoint);
+
+			//clean buffer
+			cleanBuffer();
+
+			//draw the new part to buffer
 			viewPortDrawArearLeftTopPoint.x  = _perViewPortX;
 			viewPortDrawArearLeftTopPoint.y = _perViewPortY + ISO::VH;
-			
+
+			viewPortBitmapLeftTopPoint.x = 0;
+			viewPortBitmapLeftTopPoint.y = 0;
+
+			drawAreaToBitmap(bufferBitmapData,ISO::VW,_offset,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
+
+			//draw the buffer to the viewport
+			viewPortMoveRectangle.x = 0;
+			viewPortMoveRectangle.y = 0;
+			viewPortMoveRectangle.width = ISO::VW;
+			viewPortMoveRectangle.height = _offset;
+
 			viewPortBitmapLeftTopPoint.x = 0;
 			viewPortBitmapLeftTopPoint.y = ISO::VH - _offset;
-			drawAreaToBitmap(viewPortRenderBitmapData,_offset,ISO::VH,viewPortDrawArearLeftTopPoint,viewPortBitmapLeftTopPoint);
-			
+
+			viewPortRenderBitmapData.copyPixels(bufferBitmapData,viewPortMoveRectangle,viewPortBitmapLeftTopPoint);
 		}
-		
-		
+
+
 		/**
 		 * use in drawAreaToBitmap function. to caulate which
 		 */
@@ -303,14 +402,14 @@ package copyengine.scenes.isometric
 		 * draw an rectangle of the projection coordinate to the bitmapData
 		 * this function will separate the big rectangle to each small rectangle
 		 * and call drawRectToBitmap function to really draw the rectangle to the target.
-		 * 
+		 *
 		 * @param _targetBitmapData				target bitmapData
 		 * @param _drawWidth							the rectangle shoul be rectangle(_arearLeftTopPoint.x , _arearLeftTopPoint.y ,_drawWidth , _drawHeight)
 		 * @param _drawHeight
 		 * @param _arearLeftTopPoint
 		 * @param _bitmapLeftTopPoint			the top-left point of the bitmapData. the function will draw the rectangle to that position
-		 * 
-		 */		
+		 *
+		 */
 		private function drawAreaToBitmap(_targetBitmapData:BitmapData , _drawWidth:int , _drawHeight:int ,
 			_arearLeftTopPoint:Point , _bitmapLeftTopPoint:Point) : void
 		{
@@ -341,13 +440,13 @@ package copyengine.scenes.isometric
 			//3 is rectangleIndexPoint.x , 2 is rectangleIndexPoint.y;
 			var startTileCol:int = -1+rectangleIndexPoint.x+rectangleIndexPoint.y;
 			var startTileRow:int = -1-rectangleIndexPoint.x + rectangleIndexPoint.y;
-			
+
 			var currentTileRow:int = startTileRow;
 			var currentTileCol:int = startTileCol;
 
 			var leftWidth:int = _drawWidth;
 			var leftHeight:int = _drawHeight;
-			
+
 
 			cursorArearLeftTopPoint.x = _arearLeftTopPoint.x;
 			cursorArearLeftTopPoint.y = _arearLeftTopPoint.y;
@@ -377,15 +476,15 @@ package copyengine.scenes.isometric
 					pc.y = pa.y + leftHeight;
 					pc.y = pc.y < ISO::STH ? pc.y : ISO::STH;
 					pc.x = pa.x;
-					
+
 					//draw current bitmapData to target
 					drawRectToBitmap(_targetBitmapData,cursorBitmapLeftTopPoint,currentTileCol,currentTileRow,pa,pb,pc);
-					
+
 					var drawWidht:int = pb.x -  pa.x;
 					cursorBitmapLeftTopPoint.x += drawWidht;
 					cursorArearLeftTopPoint.x +=drawWidht;
 					leftWidth -= drawWidht;
-					
+
 					//Right-Tile(m+1,n-1)
 					currentTileCol++;
 					currentTileRow--;
@@ -393,15 +492,15 @@ package copyengine.scenes.isometric
 				//finish one line, change to next line
 				var drawHeight:int = pc.y - pa.y;
 				leftWidth = _drawWidth;
-				
+
 				cursorArearLeftTopPoint.x = _arearLeftTopPoint.x;
 				cursorBitmapLeftTopPoint.x = _bitmapLeftTopPoint.x;
-				
+
 				cursorArearLeftTopPoint.y += drawHeight;
 				cursorBitmapLeftTopPoint.y += drawHeight;
-				
+
 				leftHeight -= drawHeight;
-				
+
 				//Down-Tile(m+1,n+1)
 				startTileCol++;
 				startTileRow++;
@@ -446,13 +545,13 @@ package copyengine.scenes.isometric
 		 *
 		 */
 		private function drawRectToBitmap(_targetBitmapdata:BitmapData , _startPoint:Point ,
-										  _topTileCol:int , _topTileRow:int ,
+			_topTileCol:int , _topTileRow:int ,
 			_pa:Point , _pb:Point , _pc:Point) : void
 		{
 			//caluate current rect area
 			var rectangleWidth:int = _pb.x - _pa.x;
 			var rectangleHeight:int = _pc.y - _pa.y;
-			
+
 
 			//refrence use in each part draw function.
 			var tileBitmapData:BitmapData;
@@ -541,6 +640,11 @@ package copyengine.scenes.isometric
 				tileBitmapData = isoFloor.getTileBitmapData(_topTileCol+1,_topTileRow);
 				_targetBitmapdata.copyPixels(tileBitmapData,drawRectangle,copyPoint,tileBitmapData,alphaPoint,true);
 			}
+		}
+
+		private function cleanBuffer() : void
+		{
+			bufferBitmapData.fillRect(bufferBitmapData.rect,0xFFFFFF);
 		}
 
 	}

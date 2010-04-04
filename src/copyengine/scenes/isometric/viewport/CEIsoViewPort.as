@@ -196,6 +196,7 @@ package copyengine.scenes.isometric.viewport
 			{
 				if (viewPortX == moveTopPointX)
 				{
+					viewPortY = preViewPortY;
 					isViewPortMoved = false;
 					return;
 				}
@@ -222,6 +223,7 @@ package copyengine.scenes.isometric.viewport
 			{
 				if (viewPortX == moveButtomPointX)
 				{
+					viewPortY = preViewPortY;
 					isViewPortMoved = false;
 					return;
 				}
@@ -248,6 +250,7 @@ package copyengine.scenes.isometric.viewport
 			{
 				if (viewPortY == moveLeftPointY)
 				{
+					viewPortX = preViewPortX;
 					isViewPortMoved = false;
 					return;
 				}
@@ -271,6 +274,7 @@ package copyengine.scenes.isometric.viewport
 			{
 				if (viewPortY == moveRightPointY)
 				{
+					viewPortX = preViewPortX;
 					isViewPortMoved = false;
 					return;
 				}

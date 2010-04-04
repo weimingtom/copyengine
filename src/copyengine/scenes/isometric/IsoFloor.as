@@ -3,12 +3,13 @@ package copyengine.scenes.isometric
 	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.utils.Random;
 	import copyengine.utils.ResUtlis;
-
+	
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.geom.Matrix;
 	import flash.geom.Rectangle;
+	import flash.utils.Dictionary;
 
 	/**
 	 *IsoFloor is use to warp the IsoTileVo. it's the mediator of IsoFloorManger and IsoTileVo
@@ -22,23 +23,26 @@ package copyengine.scenes.isometric
 	 */
 	public final class IsoFloor
 	{
-		private var isoTileArray:Array;
+		private var isoTileDic:Dictionary;
 
 		private var red:BitmapData;
 		private var green:BitmapData;
+		private var blue:BitmapData
 
 		public function IsoFloor()
 		{
 		}
 
-		public function initialize(_isoTileArray:Array) : void
+		public function initialize(_isoTileDic:Dictionary) : void
 		{
-			isoTileArray = _isoTileArray;
+			isoTileDic = _isoTileDic;
 			convertIsoTileVo();
 			var tileResRed:MovieClip = ResUtlis.getMovieClip("Tile_Red",ResUtlis.FILE_ISOHAX);
 			var tileResGreen:MovieClip = ResUtlis.getMovieClip("Tile_Green",ResUtlis.FILE_ISOHAX);
+			var tileResBlue:MovieClip = ResUtlis.getMovieClip("Tile_Blue",ResUtlis.FILE_ISOHAX);
 			red = cacheToBitmapData(tileResRed);
 			green = cacheToBitmapData(tileResGreen);
+			blue = cacheToBitmapData(tileResBlue);
 		}
 
 		/**
@@ -50,7 +54,7 @@ package copyengine.scenes.isometric
 			{
 				for (var col:int = 0 ; col < ISO::TN ; col ++)
 				{
-					var isoTileVo:IsoTileVo = isoTileArray[row][col] as IsoTileVo;
+					var isoTileVo:IsoTileVo = isoTileDic[row+"-"+col] as IsoTileVo;
 					isoTileVo.floorSkinId = Random.range(1,3);
 				}
 			}
@@ -61,18 +65,22 @@ package copyengine.scenes.isometric
 		 */
 		public function getTileBitmapData(_col:int , _row:int) : BitmapData
 		{
-			if(_col < 0 || _row < 0)
+			var isoTileVo:IsoTileVo = isoTileDic[_row+"-"+_col];
+			if(isoTileVo == null)
 			{
-				return green;
+				return blue;
 			}
-			switch (isoTileArray[_col][_row].floorSkinId)
+			else
 			{
-				case 1:
-					return red;
-				case 2:
-					return green;
+				switch (isoTileVo.floorSkinId)
+				{
+					case 1:
+						return red;
+					case 2:
+						return green;
+				}
 			}
-			return green;
+			return null;
 		}
 
 		private function cacheToBitmapData(_m:DisplayObjectContainer) : BitmapData
