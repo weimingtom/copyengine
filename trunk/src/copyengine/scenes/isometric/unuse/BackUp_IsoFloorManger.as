@@ -19,6 +19,7 @@ package copyengine.scenes.isometric.unuse
 	import flash.geom.Rectangle;
 	import flash.geom.Vector3D;
 	import flash.sampler.NewObjectSample;
+	import flash.system.System;
 	import flash.ui.Keyboard;
 	
 	import game.scene.IsoMath;
@@ -127,6 +128,18 @@ package copyengine.scenes.isometric.unuse
 			tileMap.x -= tileMap.width>>1;
 			floorMangerContainer.addChild(floor);
 			
+			for (var i:int = 0 ; i < GeneralConfig.TILE_ROW_NUMBER ; i++) //x
+			{
+				for (var j:int = 0 ; j < GeneralConfig.TILE_COL_NUMBER ; j++) //y
+				{
+					var b:Bitmap = 	tileInfoArray[i][j];
+					b.bitmapData.dispose();
+					tileInfoArray[i][j] = null
+				}
+			}
+			tileInfoArray = null;
+			System.gc();
+			
 //			viewportRenderBitmapData = new BitmapData(viewPortWidth,viewPortHeight,false);
 //			viewportPerRenderBitmapData = new BitmapData(viewPortWidth,viewPortHeight,false);
 //			viewportBitmap = new Bitmap(viewportRenderBitmapData);
@@ -163,14 +176,12 @@ package copyengine.scenes.isometric.unuse
 		{
 			floor.x = -_viewPortX;
 			floor.y = -_viewPortY;
-			trace("x :" + _viewPortX + " y :" + _viewPortY);
 		}
 		
 		public function viewPortInitialzeComplate(_viewPortX:int , _viewPortY:int):void
 		{
 			floor.x = -_viewPortX;
 			floor.y = -_viewPortY;
-			trace("x :" + _viewPortX + " y :" + _viewPortY);
 		}
 		
 		/**
@@ -235,7 +246,6 @@ package copyengine.scenes.isometric.unuse
 					pd.y = pc.y;
 					
 					drawRectToBitMap(renderBitmapData,drawPoint,pa,pb,pc,pd);
-					trace("Row :" + row + " Col :" + col);
 					
 					drawPoint.x += pb.x -  pa.x;
 					cursorPoint.x +=pb.x - pa.x;

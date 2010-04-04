@@ -6,6 +6,8 @@ package game.scene
 	import copyengine.scenes.isometric.IsoSceneBasic;
 	import copyengine.scenes.isometric.IsoSceneBasicMediator;
 	
+	import flash.utils.Dictionary;
+	
 	public class IsoSceneTestMediator extends IsoSceneBasicMediator
 	{
 		public static const NAME:String = "IsoSceneTestMediator";
@@ -21,16 +23,15 @@ package game.scene
 			isoScene.setIsoObjectList(isoObjects);
 			
 			var floor:IsoFloor = new IsoFloor();
-			var tileArray:Array = [];
+			var tileDic:Dictionary = new Dictionary();
 			for (var row:int = 0 ; row <ISO::TN ; row ++)
 			{
-				tileArray[row] = [];
 				for (var col:int = 0 ; col < ISO::TN ; col ++)
 				{
-					tileArray[row][col] = new IsoTileVo();
+					tileDic[row +"-" + col] = new IsoTileVo();
 				}
 			}
-			floor.initialize(tileArray);
+			floor.initialize(tileDic);
 			isoScene.setIsoFloor(floor);
 			
 			finishedScenePerLoad();

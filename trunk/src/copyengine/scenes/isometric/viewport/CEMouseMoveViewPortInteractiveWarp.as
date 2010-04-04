@@ -1,12 +1,15 @@
 package copyengine.scenes.isometric.viewport
 {
 	import copyengine.utils.GeneralUtils;
+	import copyengine.utils.KeyCode;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Graphics;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
+	import flash.ui.Keyboard;
 
 	public class CEMouseMoveViewPortInteractiveWarp implements IViewPortInteractiveWarp
 	{
@@ -66,6 +69,7 @@ package copyengine.scenes.isometric.viewport
 			GeneralUtils.addTargetEventListener(warpContainer,MouseEvent.ROLL_OVER , onMouseRollOver);
 			GeneralUtils.addTargetEventListener(warpContainer,MouseEvent.ROLL_OUT,onMouseRollOut);
 			GeneralUtils.addTargetEventListener(warpContainer,MouseEvent.MOUSE_MOVE,onMouseMove);
+//			GeneralUtils.addTargetEventListener(CopyEngineAS.getStage(),KeyboardEvent.KEY_DOWN, onKeyDown);
 		}
 
 		private function removeListener() : void
@@ -74,7 +78,26 @@ package copyengine.scenes.isometric.viewport
 			GeneralUtils.removeTargetEventListener(warpContainer,MouseEvent.ROLL_OUT,onMouseRollOut);
 			GeneralUtils.removeTargetEventListener(warpContainer,MouseEvent.MOUSE_MOVE,onMouseMove);
 		}
-
+		
+		private function onKeyDown(e:KeyboardEvent):void
+		{
+			switch(e.keyCode)
+			{
+				case KeyCode.UP:
+					viewPort.moveUp();
+					break;
+				case KeyCode.DOWN:
+					viewPort.moveDown();
+					break;
+				case KeyCode.LEFT:
+					viewPort.moveLeft();
+					break;
+				case KeyCode.RIGHT:
+					viewPort.moveRight();
+					break;
+			}
+		}
+		
 		private function onMouseRollOver(e:MouseEvent) : void
 		{
 		}
