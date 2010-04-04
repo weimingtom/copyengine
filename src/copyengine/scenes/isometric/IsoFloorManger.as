@@ -55,56 +55,6 @@ package copyengine.scenes.isometric
 			isoFloorContainer.addChild(viewPortRender);
 
 			initialzeTempValue();
-			
-			GeneralUtils.addTargetEventListener(CopyEngineAS.getStage(),KeyboardEvent.KEY_DOWN, onKeyDown);
-		}
-
-		private function onKeyDown(e:KeyboardEvent):void
-		{
-			switch(e.keyCode)
-			{
-				case KeyCode.W:
-					viewPortMoveUp(10,vpx,vpy);
-					vpy -= 10;
-					break;
-				case KeyCode.X:
-					viewPortMoveDown(10,vpx,vpy);
-					vpy += 10;
-					break;
-				case KeyCode.A:
-					viewPortMoveLeft(20,vpx,vpy);
-					vpx -= 20
-					break;
-				case KeyCode.D:
-					viewPortMoveRight(20,vpx,vpy);
-					vpx += 20
-					break;
-				case KeyCode.Q:
-					viewPortMoveLeft(20,vpx,vpy);
-					vpx -= 20
-					viewPortMoveUp(10,vpx,vpy);
-					vpy -= 10;
-					break;
-				case KeyCode.Z:
-					viewPortMoveLeft(20,vpx,vpy);
-					vpx -= 20;
-					viewPortMoveDown(10,vpx,vpy);
-					vpy += 10;
-					break;
-				case KeyCode.C:
-					viewPortMoveRight(40,vpx,vpy);
-					vpx += 40;
-					viewPortMoveDown(20,vpx,vpy);
-					vpy += 20;
-					break;
-				case KeyCode.E:
-					viewPortMoveRight(20,vpx,vpy);
-					vpx += 20;
-					viewPortMoveUp(10,vpx,vpy);
-					vpy -= 10;
-					break;
-				
-			}
 		}
 		
 		public function dispose() : void
@@ -123,7 +73,6 @@ package copyengine.scenes.isometric
 		{
 			var offsetX:int = _viewPortX - _preViewPortX;
 			var offsetY:int = _viewPortY - _preViewPortY;
-			trace("offsetX :" + offsetX + "offsetY : " + offsetY);
 			if (offsetX > 0)
 			{
 				viewPortMoveRight(offsetX,_preViewPortX,_preViewPortY);
@@ -142,13 +91,8 @@ package copyengine.scenes.isometric
 			}
 		}
 		
-		private var vpx:int;
-		private var vpy:int
-		
 		public function viewPortInitialzeComplate(_viewPortX:int , _viewPortY:int) : void
 		{
-			vpx = _viewPortX;
-			vpy = _viewPortY;
 			drawAreaToBitmap(viewPortRenderBitmapData,ISO::VW,ISO::VH,new Point(_viewPortX,_viewPortY),new Point());
 		}
 

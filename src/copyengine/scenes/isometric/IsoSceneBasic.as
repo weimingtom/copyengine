@@ -53,7 +53,7 @@ package copyengine.scenes.isometric
 		 * mange isoFloor(include isoFloor frustum culling logic)
 		 * @see more detail in IsoFloorManger
 		 */
-		protected var isoFloorManger:IsoFloorManger
+		protected var isoFloorManger:IsoFloorManger;
 
 
 		public function IsoSceneBasic()
