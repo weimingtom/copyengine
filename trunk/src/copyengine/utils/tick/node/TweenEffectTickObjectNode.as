@@ -19,6 +19,10 @@ package copyengine.utils.tick.node
 		{
 			super(_tweenMC,_endCallBackFunction,_repeatTime);
 			tweenTarget = _target;
+			//tween animation will start in next tick , but current tick the target already add to the stage.
+			//so need to set the alpha to 0 in this tick
+			tweenTarget.alpha = 0;
+			
 			tweenMC = _tweenMC;
 			tweenMC.visible = false;
 			
@@ -35,6 +39,7 @@ package copyengine.utils.tick.node
 				container.mouseEnabled = container.mouseChildren = false;
 				container = null;
 			}
+			
 		}
 		
 		override protected function tickLogic() : void
