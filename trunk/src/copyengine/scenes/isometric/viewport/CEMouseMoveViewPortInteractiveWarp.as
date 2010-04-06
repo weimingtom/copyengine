@@ -2,6 +2,7 @@ package copyengine.scenes.isometric.viewport
 {
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.KeyCode;
+	import copyengine.utils.Random;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Graphics;
@@ -13,7 +14,7 @@ package copyengine.scenes.isometric.viewport
 
 	public class CEMouseMoveViewPortInteractiveWarp implements IViewPortInteractiveWarp
 	{
-		private static const RESPOND_AREA:int = 30; // Pixel
+		private static const RESPOND_AREA:int = 20; // Pixel
 
 		private static const MOVE_DIR_HOLD:int = 0; // not move
 		private static const MOVE_DIR_UP:int = 1;
@@ -45,12 +46,15 @@ package copyengine.scenes.isometric.viewport
 			warpContainer = new Sprite();
 			var g:Graphics = (warpContainer as Sprite).graphics;
 			g.beginFill(0,0);
-			g.drawRect(0,0,viewPort.getViewPortWidth(),viewPort.getViewPortHeight());
+			g.drawRect(0,0,viewPort.getViewPortWidth()-10,viewPort.getViewPortHeight()-10);
 			g.endFill();
 
 			addListener();
 
 			doInitialize();
+			
+			warpContainer.x = 5;
+			warpContainer.y = 5;
 		}
 
 		public final function get container() : DisplayObjectContainer

@@ -4,6 +4,7 @@ package copyengine.scenes.isometric
 	import copyengine.scenes.isometric.unuse.BackUp_IsoFloorManger;
 	import copyengine.scenes.isometric.viewport.IIsoViewPort;
 	import copyengine.scenes.isometric.viewport.IViewPortInteractiveWarp;
+	import copyengine.actor.isometric.IIsoObject;
 
 	/**
 	 * IsoSceneBasic is ues to manage isometric object.
@@ -99,7 +100,7 @@ package copyengine.scenes.isometric
 			//initialze isoObject , add to viewport.
 			//all isoObject should be heighter than floorlevel, no matrter the floor z value.
 			isoObjectManger = new IsoObjectManger();
-			isoObjectManger.initialize(isoObjectList,viewport.getViewPortWidth(),viewport.getViewPortHeight());
+			isoObjectManger.initialize(isoObjectList);
 			viewport.addListener(isoObjectManger);
 			isoObjectManger.container.mouseChildren = isoObjectManger.container.mouseEnabled = false;
 			viewport.container.addChild(isoObjectManger.container);

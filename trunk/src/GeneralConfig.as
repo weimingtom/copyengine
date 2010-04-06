@@ -15,22 +15,11 @@ package
 		 */
 		public static const ISO_TILE_WIDTH:int = 40;
 		
-		public static const SCREEN_TILE_WIDTH:int = 80;
-		public static const HALF_SCREEN_TILE_WIDTH:int = SCREEN_TILE_WIDTH>>1;
-		
-		public static const SCREEN_TILE_HEIGHT:int = 40;
-		public static const HALF_SCREEN_TILE_HEIGHT:int = SCREEN_TILE_HEIGHT>>1;
-		
-		public static const TILE_ROW_NUMBER:int = 40;
-		public static const TILE_COL_NUMBER:int = 40;
-		
-		public static const FLOOR_WIDHT:int = TILE_ROW_NUMBER * SCREEN_TILE_WIDTH;
-		public static const FLOOR_HEIGHT:int = TILE_COL_NUMBER * SCREEN_TILE_HEIGHT;
+		public static const FLOOR_WIDHT:int = ISO::TN * ISO::STW;
+		public static const FLOOR_HEIGHT:int = ISO::TN * ISO::STH;
 		
 		public static const VIEWPORT_STAR_X:int = -320;
 		public static const VIEWPORT_STAR_Y:int = 160;
-		
-		
 		
 		
 		public function GeneralConfig()
