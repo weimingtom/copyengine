@@ -17,6 +17,8 @@ package copyengine.ui.button.animation
         public function onSelectedChange(_isSelected:Boolean) : void
         {
             isSelected = _isSelected;
+			currentFrameLable = "selected_"+currentFrameLable;
+			refreshBtn();
         }
 
         override public function onMouseUp(e:MouseEvent) : void

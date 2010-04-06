@@ -45,11 +45,11 @@ package copyengine.ui.button
 
 		override protected function onMouseDown(e:MouseEvent) : void
 		{
-			super.onMouseDown(e);
 			if (isClickToSelected)
 			{
 				selected = !selected;
 			}
+			super.onMouseDown(e);
 		}
 
 		private function get selectedButtonInteraction() : ICESelectedButtonAnimation

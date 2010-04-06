@@ -1,10 +1,12 @@
 package copyengine.ui
 {
 	import copyengine.utils.GeneralUtils;
-
+	
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.utils.getTimer;
+	
+	import org.osmf.net.StreamingURLResource;
 
 	/**
 	 *CESprite is all CopyEngine UI Component root class.
@@ -23,17 +25,6 @@ package copyengine.ui
 	 */
 	public class CESprite extends Sprite
 	{
-
-		/**
-		 * Each CESprite have an uniqueName, normally use in those condition
-		 * 1` use in CEContainer UI Component(CEList , CETabBar) , use the uniqueName to find out particular CESprite.
-		 * 2` use in some special condition (Tutorial etc ), some logic class need to do some things on particular CESprite.
-		 *
-		 * in those situation , you need to manually set the uniqueName for each special CESprite.
-		 *
-		 */
-		private var _uniqueName:String;
-
 
 		/**
 		 *
@@ -57,7 +48,9 @@ package copyengine.ui
 			{
 				_uniqueName = "CESprite_UniqueName_" +getTimer().toString();
 			}
+			this.name = _uniqueName;
 		}
+		
 
 		private function initCESprite(e:Event) : void
 		{
@@ -81,10 +74,18 @@ package copyengine.ui
 		{
 
 		}
-
+		
+		/**
+		 * Each CESprite have an uniqueName, normally use in those condition
+		 * 1` use in CEContainer UI Component(CEList , CETabBar) , use the uniqueName to find out particular CESprite.
+		 * 2` use in some special condition (Tutorial etc ), some logic class need to do some things on particular CESprite.
+		 *
+		 * in those situation , you need to manually set the uniqueName for each special CESprite.
+		 *
+		 */
 		public function get uniqueName() : String
 		{
-			return _uniqueName;
+			return name;
 		}
 
 	}

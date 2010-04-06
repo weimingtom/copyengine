@@ -74,7 +74,7 @@ package copyengine.ui.tabbar
 			}
 			if (animation != null)
 			{
-				animation.changeSelected(uniqueName);
+				animation.changeSelected(target.uniqueName);
 			}
 			dispatchTabBarEvent(CETabBarEvent.CHANGE_SELECTED,target.uniqueName);
 		}

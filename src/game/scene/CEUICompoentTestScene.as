@@ -58,7 +58,7 @@ package game.scene
 
 		private function onBtnClick(e:MouseEvent) : void
 		{
-			CEDialogManger.instance.addPopUp( TestDialog ,{value1:"Test"},MovieClipTweenDialogAnimation,true,false,false,false);
+			CEDialogManger.instance.addPopUp( TestDialog ,{value1:"Test"},MovieClipTweenDialogAnimation,true,false,false,true);
 		}
 
 	}

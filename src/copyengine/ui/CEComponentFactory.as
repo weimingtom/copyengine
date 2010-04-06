@@ -9,9 +9,10 @@ package copyengine.ui
 	import copyengine.ui.list.CEListCore;
 	import copyengine.ui.scrollbar.CEScrollBarCore;
 	import copyengine.ui.tabbar.CETabBar;
+	import copyengine.ui.tabbar.animation.CEScrollTabbarAnimation;
 	import copyengine.ui.tabbar.animation.ICETabBarAnimation;
 	import copyengine.utils.ResUtlis;
-
+	
 	import flash.display.DisplayObject;
 
 	/**
@@ -102,7 +103,7 @@ package copyengine.ui
 				subBtns.push(btn);
 			}
 
-			return createCETabBar(subBtns,null);
+			return createCETabBar(subBtns,new CEScrollTabbarAnimation());
 		}
 
 

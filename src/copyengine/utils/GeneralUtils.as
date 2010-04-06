@@ -43,7 +43,7 @@ package copyengine.utils
                 switch (_adjustOrder)
                 {
                     case ADD_TARGET_TO_PARENT_ADJUST_ORDER_TYPE_LAST:
-                        _parent.addChildAt(_target,_parent.numChildren-1);
+                        _parent.addChildAt(_target,Math.max(0,_parent.numChildren-1));
                         break;
                     case ADD_TARGET_TO_PARENT_ADJUST_ORDER_TYPE_TOP:
                         _parent.addChild(_target);
