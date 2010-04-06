@@ -1,6 +1,7 @@
 package copyengine.ui.tabbar.animation
 {
 	import com.greensock.TweenLite;
+	import com.greensock.easing.Elastic;
 	
 	import copyengine.ui.tabbar.CETabBar;
 	import copyengine.utils.GeneralUtils;
@@ -9,6 +10,8 @@ package copyengine.ui.tabbar.animation
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
+	
+	import flashx.textLayout.formats.WhiteSpaceCollapse;
 
 	public class CEScrollTabbarAnimation implements ICETabBarAnimation
 	{
@@ -30,7 +33,8 @@ package copyengine.ui.tabbar.animation
 		public function changeSelected(_selectedUniqueName:String) : void
 		{
 			var child:DisplayObject = target.getChildByName(_selectedUniqueName);
-			TweenLite.to(scrollThumb,0.3,{x:child.x - (child.width>>1) , y:child.y - (child.height>>1)});
+			var b:Rectangle = child.getBounds(child);
+			TweenLite.to(scrollThumb,0.5,{width:child.x , ease:Elastic.easeOut});
 		}
 
 		public function dispose() : void

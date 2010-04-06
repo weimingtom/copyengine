@@ -6,10 +6,9 @@ package copyengine.ui.list
     {
         private var dataProvider:Vector.<Object>;
 
-        public function CEDataProvider(_data:Vector.<Object> = null)
+        public function CEDataProvider()
         {
             dataProvider = new Vector.<Object>();
-            setData(_data);
         }
 
         public function setData(_data:Vector.<Object>) : void
@@ -17,9 +16,14 @@ package copyengine.ui.list
             dataProvider = _data;
         }
 
+		public function addData(_data:Object):void
+		{
+			dataProvider.push(_data);
+		}
+		
         public function getDataByIndex(_index:int) :Object
         {
-            if (_index < dataProvider.length)
+            if (_index < dataProvider.length && _index >= 0)
             {
                 return dataProvider[_index];
             }

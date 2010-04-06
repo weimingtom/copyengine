@@ -4,7 +4,7 @@ package copyengine.ui.list
 	import copyengine.ui.list.animation.ICEListAnimation;
 	import copyengine.ui.list.cellrender.ICECellRender;
 	import copyengine.utils.GeneralUtils;
-	
+
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
 
@@ -106,10 +106,10 @@ package copyengine.ui.list
 		 *
 		 */
 		public function CEListCore(_displayCount:int ,
-								   _layoutDirection:String,
-								   _eachCellRenderWidth:Number ,
-								   _eachCellRenderHeight:Number ,
-								   _contentPadding:Number)
+			_layoutDirection:String,
+			_eachCellRenderWidth:Number ,
+			_eachCellRenderHeight:Number ,
+			_contentPadding:Number)
 		{
 			super();
 			displayCount = _displayCount;
@@ -125,10 +125,13 @@ package copyengine.ui.list
 			cellRenderInstanceClass = _cellRenderInstanceClass;
 
 			listInteraction =  _listInteraction;
-			listInteraction.target = this;
+			if (listInteraction != null)
+			{
+				listInteraction.target = this;
+			}
 
 			_scrollPosition = 0;
-			maxScrollPosition = (dataProvider.totalDataCount - displayCount) * (getCellRenderBoundSizeByLayout() + contentPadding);
+			maxScrollPosition = Math.max(0,(dataProvider.totalDataCount - displayCount) * (getCellRenderBoundSizeByLayout() + contentPadding) );
 
 			cellRenderDistance = getCellRenderBoundSizeByLayout() + contentPadding;
 
@@ -159,7 +162,10 @@ package copyengine.ui.list
 
 		override protected function dispose() : void
 		{
-			listInteraction.dispose();
+			if (listInteraction != null)
+			{
+				listInteraction.dispose();
+			}
 			for each (var cellRender : ICECellRender in visableCellRenderVector)
 			{
 				removeCellRenderListener(cellRender)
@@ -170,6 +176,32 @@ package copyengine.ui.list
 
 			dataProvider = null;
 			visableCellRenderVector = null;
+		}
+
+		/**
+		 * refresh current CEList data provider. when do this will refresh ceList display part.
+		 * and change it with new dataprovider.
+		 *
+		 * @param _newDataProvider		if this property is null means data provider has been change already
+		 *
+		 */
+		public function refreshDataProvider(_newDataProvider:CEDataProvider = null) : void
+		{
+			if (listInteraction != null)
+			{
+				listInteraction.killAnimation();
+			}
+			if (_newDataProvider != null)
+			{
+				dataProvider = _newDataProvider;
+			}
+			for (var i :int = 0 ; i <= displayCount ; i++)
+			{
+				recycleCellRenderByCellIndex(i,i);
+			}
+			_scrollPosition = 0;
+			maxScrollPosition = Math.max(0,(dataProvider.totalDataCount - displayCount) * (getCellRenderBoundSizeByLayout() + contentPadding) );
+			setVisibleCellRenderByScrollPosition();
 		}
 
 		private function addCellRenderListener(_cellRender:ICECellRender) : void
@@ -273,7 +305,14 @@ package copyengine.ui.list
 			}
 			else
 			{
-				listInteraction.scrollPosition = value;
+				if (listInteraction != null)
+				{
+					listInteraction.scrollPosition = value;
+				}
+				else
+				{
+					reallScrollPosition = value;
+				}
 				if (hasEventListener(CEListCoreEvent.SCROLL_START))
 				{
 					var event:CEListCoreEvent = new CEListCoreEvent(CEListCoreEvent.SCROLL_START);
@@ -329,6 +368,8 @@ package copyengine.ui.list
 			if (_scrollPosition > oldScrollPosition)
 			{
 				//reuse start index , form reuseIndex~ displayCount those cellRender can use in this render, others need to recycle
+				//if firstVisableIndex = 10 , visableCellRenderVector[0].cellIndex = 7 the reUseIndex should start with 3
+				//and if displayCount = 5(only show 5 cellrender) then should recycle 0,1,2 and contuine use 3,4,5
 				reuseIndex = firstVisableIndex - visableCellRenderVector[0].cellIndex;
 				currentCellIndex  = firstVisableIndex;
 				for (var cellRenderIndex:int = 0 ; cellRenderIndex <= displayCount ; cellRenderIndex++)
@@ -373,7 +414,8 @@ package copyengine.ui.list
 			var cellRender:ICECellRender = visableCellRenderVector[_cellRenderIndex];
 			cellRender.recycle();
 			cellRender.cellIndex = _cellIndex;
-			GeneralUtils.removeTargetFromParent(cellRender.container);
+
+			//			GeneralUtils.removeTargetFromParent(cellRender.container);
 
 			// if the scrollPosition is maxScrollPosition ,then the last cellRender is empty cellRender
 			var data:Object = dataProvider.getDataByIndex(_cellIndex);
@@ -403,7 +445,7 @@ package copyengine.ui.list
 			for (var i:int = 0 ; i<= displayCount ; i++)
 			{
 				var cellRender:ICECellRender = visableCellRenderVector[i];
-				addChild(cellRender.container);
+				//				addChild(cellRender.container);
 				if (layoutDirection == LAYOUT_HORIZONTAL)
 				{
 					cellRender.container.x = cellRenderPos;

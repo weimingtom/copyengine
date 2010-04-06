@@ -17,24 +17,16 @@ package copyengine.ui.list
 		 */		
 		public static const SCROLL_START:String = "CEListCoreEvent_Scroll_Start";
 		
-		/**
-		 * when CEListCore scrollPosition change ,then send this event; 
-		 */		
-//		public static const SCROLL:String = "CEListCoreEvent_Scroll";
 		
 		/**
 		 * when user click one cellRenderItem , then send this event.
 		 */		
 		public static const ITEM_CLICK:String = "CEListCoreEvent_ItemClick";
-		
-		
+				
 		//===========
 		//== Event
 		//===========
 		
-		/**
-		 * 
-		 */		
 		public var expectScrollPositon:Number;
 		public var currentScrollPosition:Number;
 		public var maxScrollPosition:Number;

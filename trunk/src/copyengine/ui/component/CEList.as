@@ -9,7 +9,7 @@ package copyengine.ui.component
 	import copyengine.ui.scrollbar.CEScrollBarCore;
 	import copyengine.ui.scrollbar.CEScrollBarCoreEvent;
 	import copyengine.utils.GeneralUtils;
-	
+
 	import flash.events.MouseEvent;
 
 	/**
@@ -18,7 +18,7 @@ package copyengine.ui.component
 	 * 				2) 1 scrollBar
 	 *
 	 * user can init all or some of the component.
-	 * 
+	 *
 	 * for now CEList is not provide any events [TBD: maybe change later]
 	 *
 	 * @author Tunied
@@ -55,10 +55,10 @@ package copyengine.ui.component
 		private var ceScrollBarCore:CEScrollBarCore;
 
 		public function CEList(_ceListCore:CEListCore , _ceScrollBarCore:CEScrollBarCore,
-							   _nextOneBtn:CEButton,_nextPageBtn:CEButton,
-							   _prevOneBtn:CEButton , _prevPageBtn:CEButton,
-							   _firstOneBtn:CEButton , _lastOneBtn:CEButton
-							   )
+			_nextOneBtn:CEButton,_nextPageBtn:CEButton,
+			_prevOneBtn:CEButton , _prevPageBtn:CEButton,
+			_firstOneBtn:CEButton , _lastOneBtn:CEButton
+			)
 		{
 			firstOneBtn = _firstOneBtn;
 			lastOneBtn = _lastOneBtn;
@@ -74,7 +74,7 @@ package copyengine.ui.component
 
 			super();
 		}
-		
+
 		override protected function initialize() : void
 		{
 			GeneralUtils.addTargetToParent(firstOneBtn,this);
@@ -85,16 +85,16 @@ package copyengine.ui.component
 			GeneralUtils.addTargetToParent(prevPageBtn,this);
 			GeneralUtils.addTargetToParent(ceListCore,this);
 			GeneralUtils.addTargetToParent(ceScrollBarCore,this);
-			
+
 			addListener();
 		}
-		
+
 		override protected function dispose() : void
 		{
 			removeListener();
 		}
-		
-		private function addListener():void
+
+		private function addListener() : void
 		{
 			GeneralUtils.addTargetEventListener(firstOneBtn,MouseEvent.CLICK,onFirstOneBtnClick);
 			GeneralUtils.addTargetEventListener(lastOneBtn,MouseEvent.CLICK,onLastOneBtnClick);
@@ -104,10 +104,10 @@ package copyengine.ui.component
 			GeneralUtils.addTargetEventListener(prevPageBtn,MouseEvent.CLICK,onPrevPageBtnClick);
 			GeneralUtils.addTargetEventListener(ceListCore,CEListCoreEvent.SCROLL_START,ceListCoreOnScroll);
 			GeneralUtils.addTargetEventListener(ceScrollBarCore,CEScrollBarCoreEvent.SCROLL,ceScrollBarCoreOnScroll);
-			
+
 		}
-		
-		private function removeListener():void
+
+		private function removeListener() : void
 		{
 			GeneralUtils.removeTargetEventListener(firstOneBtn,MouseEvent.CLICK,onFirstOneBtnClick);
 			GeneralUtils.removeTargetEventListener(lastOneBtn,MouseEvent.CLICK,onLastOneBtnClick);
@@ -118,55 +118,76 @@ package copyengine.ui.component
 			GeneralUtils.removeTargetEventListener(ceListCore,CEListCoreEvent.SCROLL_START,ceListCoreOnScroll);
 			GeneralUtils.removeTargetEventListener(ceScrollBarCore,CEScrollBarCoreEvent.SCROLL,ceScrollBarCoreOnScroll);
 		}
-		
+
 		public function initializeCEList(_dataProvider:CEDataProvider , _cellRenderInstanceClass:Class,_listInteraction:ICEListAnimation) : void
 		{
 			ceListCore.initializeCEListCore(_dataProvider,_cellRenderInstanceClass,_listInteraction);
-			ceScrollBarCore.initializeScrollBar(ceListCore.getLineScrollSize(),ceListCore.getPageScrollSize(),ceListCore.getMinScrollValue(),ceListCore.getMaxScrollValue());
+			if (ceScrollBarCore != null)
+			{
+				ceScrollBarCore.initializeScrollBar(ceListCore.getLineScrollSize(),
+					ceListCore.getPageScrollSize(),
+					ceListCore.getMinScrollValue(),
+					ceListCore.getMaxScrollValue());
+			}
 		}
-		
+
+		/**
+		 * @see ceListCore.refreshDataProvider()
+		 */
+		public function refreshDataProvider(_dataProvider:CEDataProvider = null) : void
+		{
+			ceListCore.refreshDataProvider(_dataProvider);
+			if (ceScrollBarCore != null)
+			{
+				ceScrollBarCore.refreshScrollBar(ceListCore.getLineScrollSize(),
+					ceListCore.getPageScrollSize(),
+					ceListCore.getMinScrollValue(),
+					ceListCore.getMaxScrollValue(),0);
+			}
+		}
+
 		//================
 		//== Event Listener
 		//================
-		private function onFirstOneBtnClick(e:MouseEvent):void
+		private function onFirstOneBtnClick(e:MouseEvent) : void
 		{
-			
+
 		}
-		
-		private function onLastOneBtnClick(e:MouseEvent):void
+
+		private function onLastOneBtnClick(e:MouseEvent) : void
 		{
-			
+
 		}
-		
-		private function onNextOneBtnClick(e:MouseEvent):void
+
+		private function onNextOneBtnClick(e:MouseEvent) : void
 		{
 			ceListCore.scrollNext();
 		}
-		
-		private function onNextPageBtnClick(e:MouseEvent):void
+
+		private function onNextPageBtnClick(e:MouseEvent) : void
 		{
 			ceListCore.scrollNextPage();
 		}
-		
-		private function onPrevOneBtnClick(e:MouseEvent):void
+
+		private function onPrevOneBtnClick(e:MouseEvent) : void
 		{
 			ceListCore.scrollPrev();
 		}
-		
-		private function onPrevPageBtnClick(e:MouseEvent):void
+
+		private function onPrevPageBtnClick(e:MouseEvent) : void
 		{
 			ceListCore.scrollPrevPage();
 		}
-		
-		private function ceListCoreOnScroll(e:CEListCoreEvent):void
+
+		private function ceListCoreOnScroll(e:CEListCoreEvent) : void
 		{
 			ceScrollBarCore.scrollPosition = e.expectScrollPositon;
 		}
-		
-		private function ceScrollBarCoreOnScroll(e:CEScrollBarCoreEvent):void
+
+		private function ceScrollBarCoreOnScroll(e:CEScrollBarCoreEvent) : void
 		{
 			ceListCore.scrollPosition = e.scrollPosition;
 		}
-		
+
 	}
 }
