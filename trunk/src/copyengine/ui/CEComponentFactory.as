@@ -5,7 +5,7 @@ package copyengine.ui
 	import copyengine.ui.button.animation.CEButtonFrameAnimation;
 	import copyengine.ui.button.animation.CEButtonTweenAnimation;
 	import copyengine.ui.button.animation.CESelectedButtonFramAnimation;
-	import copyengine.ui.component.CEList;
+	import copyengine.ui.list.CEList;
 	import copyengine.ui.list.CEListCore;
 	import copyengine.ui.scrollbar.CEScrollBarCore;
 	import copyengine.ui.tabbar.CETabBar;

@@ -6,10 +6,10 @@ package game.scene
 	import copyengine.ui.button.CESelectableButton;
 	import copyengine.ui.button.animation.CEButtonFrameAnimation;
 	import copyengine.ui.button.animation.CESelectedButtonFramAnimation;
-	import copyengine.ui.component.CEList;
-	import copyengine.ui.dialog.CEDialogManger;
-	import copyengine.ui.dialog.animation.MovieClipTweenDialogAnimation;
-	import copyengine.ui.list.CEDataProvider;
+	import copyengine.ui.list.CEList;
+	import copyengine.ui.panel.dialog.CEDialogManger;
+	import copyengine.ui.panel.dialog.animation.MovieClipTweenDialogAnimation;
+	import copyengine.ui.list.dataprovider.CEDataProvider;
 	import copyengine.ui.list.animation.CEListTweenAnimation;
 	import copyengine.ui.list.cellrender.CECellRenderSymbol;
 	import copyengine.ui.tabbar.CETabBar;
@@ -56,9 +56,9 @@ package game.scene
 			var btn2:CEButton = CEComponentFactory.instance.createCEButton(
 				CEComponentFactory.CEBUTTON_TYPE_TWEEN,
 				ResUtlis.getSprite("GreenButton","IsoHax_asset"),null,false);
-			btn1.addEventListener(MouseEvent.CLICK,onBtn2Click,false,0,true);
-			container.addChild(btn1);
-			btn2.x = 100;
+			btn2.addEventListener(MouseEvent.CLICK,onBtn2Click,false,0,true);
+			container.addChild(btn2);
+			btn2.x = 200;
 			btn2.y = 30;
 
 

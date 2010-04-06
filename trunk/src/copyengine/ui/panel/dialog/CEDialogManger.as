@@ -1,4 +1,4 @@
-package copyengine.ui.dialog
+package copyengine.ui.panel.dialog
 {
     import flash.display.DisplayObject;
 
