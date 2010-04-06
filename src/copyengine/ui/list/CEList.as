@@ -1,10 +1,8 @@
-package copyengine.ui.component
+package copyengine.ui.list
 {
 	import copyengine.ui.CESprite;
 	import copyengine.ui.button.CEButton;
-	import copyengine.ui.list.CEDataProvider;
-	import copyengine.ui.list.CEListCore;
-	import copyengine.ui.list.CEListCoreEvent;
+	import copyengine.ui.list.dataprovider.CEDataProvider;
 	import copyengine.ui.list.animation.ICEListAnimation;
 	import copyengine.ui.scrollbar.CEScrollBarCore;
 	import copyengine.ui.scrollbar.CEScrollBarCoreEvent;

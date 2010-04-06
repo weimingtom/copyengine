@@ -1,6 +1,6 @@
-package copyengine.ui.dialog.animation
+package copyengine.ui.panel.dialog.animation
 {
-	import copyengine.ui.dialog.CEDialogCore;
+	import copyengine.ui.panel.dialog.CEDialogCore;
 
 	public interface IDialogAnimation
 	{

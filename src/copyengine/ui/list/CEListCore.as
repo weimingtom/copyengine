@@ -7,6 +7,7 @@ package copyengine.ui.list
 
 	import flash.events.MouseEvent;
 	import flash.geom.Rectangle;
+	import copyengine.ui.list.dataprovider.CEDataProvider;
 
 	/**
 	 * CEListCore is List component root , you should not use this class directly.
