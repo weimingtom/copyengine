@@ -59,7 +59,7 @@
 		<define>
 			<!-- TileNumber -->
 			<name>ISO::TN</name>
-			<value>60</value>
+			<value>40</value>
 		</define>
 
 	</compiler>

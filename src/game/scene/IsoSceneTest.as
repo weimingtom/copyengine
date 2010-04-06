@@ -6,6 +6,7 @@ package game.scene
 	import copyengine.scenes.isometric.IsoSceneBasicMediator;
 	import copyengine.scenes.isometric.viewport.CEIsoViewPort;
 	import copyengine.scenes.isometric.viewport.CEMouseMoveViewPortInteractiveWarp;
+	import copyengine.scenes.isometric.viewport.DebugViewPort;
 	import copyengine.scenes.isometric.viewport.IIsoViewPort;
 	import copyengine.scenes.isometric.viewport.IViewPortInteractiveWarp;
 	import copyengine.utils.Random;
@@ -32,7 +33,7 @@ package game.scene
 		
 		override protected function createViewPort():IIsoViewPort
 		{
-			var viewPort:CEIsoViewPort = new CEIsoViewPort();
+			var viewPort:IIsoViewPort = new CEIsoViewPort();
 			viewPort.initializeIsoViewPort(8,GeneralConfig.VIEWPORT_WIDTH,GeneralConfig.VIEWPORT_HEIGHT,GeneralConfig.FLOOR_WIDHT,GeneralConfig.FLOOR_HEIGHT);
 			return viewPort;
 		}

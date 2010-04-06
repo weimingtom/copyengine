@@ -84,10 +84,10 @@ package copyengine.scenes.isometric.unuse
 
 			var testSprite:Sprite = new Sprite();
 			tileInfoArray = [];
-			for (var row:int = 0 ; row < GeneralConfig.TILE_ROW_NUMBER ; row++) //x
+			for (var row:int = 0 ; row < ISO::TN ; row++) //x
 			{
 				tileInfoArray[row] = [];
-				for (var col:int = 0 ; col < GeneralConfig.TILE_COL_NUMBER ; col++) //y
+				for (var col:int = 0 ; col < ISO::TN ; col++) //y
 				{
 					var isoPos:Vector3D = new Vector3D(row*GeneralConfig.ISO_TILE_WIDTH,col*GeneralConfig.ISO_TILE_WIDTH,0);
 					IsoMath.isoToScreen(isoPos);
