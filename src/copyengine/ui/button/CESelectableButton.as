@@ -8,7 +8,15 @@ package copyengine.ui.button
 
 	public class CESelectableButton extends CEButton
 	{
+		/**
+		 * attribute to record current state is selected or not. 
+		 */		
 		private var isSelected:Boolean = false;
+		
+		/**
+		 * define 
+		 * Is when user click the btn when auto set the btn to selected.
+		 */		
 		private var isClickToSelected:Boolean;
 
 		public function CESelectableButton(_buttonBg:DisplayObject, _interaction:ICESelectedButtonAnimation=null,

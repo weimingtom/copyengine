@@ -4,6 +4,9 @@ package copyengine.ui.button.animation
 
     public class CESelectedButtonFramAnimation extends CEButtonFrameAnimation implements ICESelectedButtonAnimation
     {
+		/**
+		 * Selected Btn should use "selected_" as the frame prefix. 
+		 */		
         protected static const FRAME_SELECTED_ON:String = "selected_on";
         protected static const FRAME_SELECTED_DOWN:String = "selected_down";
         protected static const FRAME_SELECTED_OVER:String = "selected_over";

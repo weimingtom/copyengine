@@ -11,7 +11,10 @@ package copyengine.ui.button.animation
 		protected static const FRAME_OVER:String = "over";
 
 		protected var target:MovieClip;
-
+		
+		/**
+		 * use an property to record current btn frma lable.
+		 */		
 		protected var currentFrameLable:String = FRAME_ON;
 
 		public function CEButtonFrameAnimation()
