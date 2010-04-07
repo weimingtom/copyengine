@@ -78,6 +78,7 @@ package game.scene.testUIComponent
 //			CopyEngineFacade.instance.sendNotification(PanelMessage.CHANGE_STATE_TO_ONE);
 			
 			ceList = simulatePanel.getChildCESpriteByUniqueName("FriendList_Bottom") as CEList;
+//			ceList = CEComponentFactory.instance.testCreateCEList();
 			
 			dataProvider = new CEDataProvider();
 			for (var i:int = 0 ; i < 30 ; i++)

@@ -4,7 +4,7 @@ package copyengine.ui.scrollbar
 	import copyengine.ui.button.CEButton;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.tick.GlobalTick;
-
+	
 	import flash.events.MouseEvent;
 
 	public class CEScrollBarCore extends CESprite
@@ -19,7 +19,7 @@ package copyengine.ui.scrollbar
 		 *when user  drage the thumb , it will move with user's mouse. but if mouse.stageX/mouse.stageY
 		 * is out of this range then scrollBar will stop change automate.
 		 */
-		private static const THUMB_REACT_RANGE:Number = 300;
+		private static const THUMB_REACT_RANGE:Number = 800;
 
 
 		public static const LAYOUT_HORIZONTAL:String = "horizontal";
@@ -72,6 +72,9 @@ package copyengine.ui.scrollbar
 		 * define the track skin
 		 */
 		private var track:CEButton;
+		
+		private var maxWidth:Number;
+		private var maxHeight:Number;
 
 		/**
 		 * when user start drag the thumb , the offest between mousePos to top left corner.
@@ -85,8 +88,8 @@ package copyengine.ui.scrollbar
 			thumb = _thumb;
 			track = _track;
 
-			track.width = _width;
-			track.height = _height;
+			track.width = maxWidth = _width;
+			track.height = maxHeight = _height;
 
 			direction = _direction;
 
@@ -295,8 +298,8 @@ package copyengine.ui.scrollbar
 		}
 
 		/**
-		 * when user drage thumb to move , it will check is user mouse out of the range.
-		 * if so , when will stop move action.
+		 * when user drage thumb to move , it will check Is user mouse out of the range.
+		 * if so , then will stop move action.
 		 */
 		private function thumbOnMouseMove(e:MouseEvent) : void
 		{
@@ -305,14 +308,14 @@ package copyengine.ui.scrollbar
 			var newScrollPosition:Number;
 			if (direction == LAYOUT_HORIZONTAL)
 			{
-				pos = GeneralUtils.normalizingVlaue(track.mouseX - track.x - thumbScrollOffset,0,track.width - thumb.width);
+				pos = GeneralUtils.normalizingVlaue(track.mouseX - track.x - thumbScrollOffset,0,maxWidth - thumb.width);
 				newScrollPosition = pos/(track.width - thumb.width) * (maxScrollPosition - minScrollPosition) + minScrollPosition;
 
 				posRange = Math.abs(e.stageY - track.y);
 			}
 			else //loyout == LAYOUT_VERTICAL
 			{
-				pos = GeneralUtils.normalizingVlaue(track.mouseY - track.y - thumbScrollOffset , 0 ,track.height - thumb.height);
+				pos = GeneralUtils.normalizingVlaue(track.mouseY - track.y - thumbScrollOffset , 0 ,maxHeight - thumb.height);
 				newScrollPosition = pos/(track.height - thumb.height) * (maxScrollPosition - minScrollPosition) + minScrollPosition;
 
 				posRange = Math.abs(e.stageX - track.x)
