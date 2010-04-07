@@ -1,7 +1,7 @@
-package copyengine.ui.panel.dialog
+package copyengine.ui.dialog
 {
     import copyengine.ui.CESprite;
-    import copyengine.ui.panel.dialog.animation.IDialogAnimation;
+    import copyengine.ui.dialog.animation.IDialogAnimation;
     import copyengine.utils.GeneralUtils;
 
     public class CEDialogCore extends CESprite

@@ -1,6 +1,6 @@
 package game.ui.test.dialog
 {
-	import copyengine.ui.panel.dialog.CEDialogCore;
+	import copyengine.ui.dialog.CEDialogCore;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.Random;
 	

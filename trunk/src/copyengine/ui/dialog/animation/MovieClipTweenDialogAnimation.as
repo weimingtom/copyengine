@@ -1,6 +1,6 @@
-package copyengine.ui.panel.dialog.animation
+package copyengine.ui.dialog.animation
 {
-	import copyengine.ui.panel.dialog.CEDialogCore;
+	import copyengine.ui.dialog.CEDialogCore;
 	import copyengine.utils.ResUtlis;
 	import copyengine.utils.tick.GlobalTick;
 	
