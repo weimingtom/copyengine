@@ -1,4 +1,4 @@
-package copyengine.ui.panel.dialog
+package copyengine.ui.dialog
 {
     import copyengine.utils.GeneralUtils;
     

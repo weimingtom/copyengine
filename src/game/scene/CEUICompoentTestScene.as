@@ -7,8 +7,8 @@ package game.scene
 	import copyengine.ui.button.animation.CEButtonFrameAnimation;
 	import copyengine.ui.button.animation.CESelectedButtonFramAnimation;
 	import copyengine.ui.list.CEList;
-	import copyengine.ui.panel.dialog.CEDialogManger;
-	import copyengine.ui.panel.dialog.animation.MovieClipTweenDialogAnimation;
+	import copyengine.ui.dialog.CEDialogManger;
+	import copyengine.ui.dialog.animation.MovieClipTweenDialogAnimation;
 	import copyengine.ui.list.dataprovider.CEDataProvider;
 	import copyengine.ui.list.animation.CEListTweenAnimation;
 	import copyengine.ui.list.cellrender.CECellRenderSymbol;
