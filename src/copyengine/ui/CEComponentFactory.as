@@ -228,9 +228,9 @@ package copyengine.ui
 			//layer 0
 			var bg:MovieClip = ResUtlis.getMovieClip("Basic_Panel",ResUtlis.FILE_UI);
 			panel.addChild(bg);
-			bg.x = 329.1;
+			bg.x = 250.8;
 			bg.y = 204.05;
-			bg.width = 658.1;
+			bg.width = 501.1;
 			bg.height = 209;
 			
 			//layer 1
@@ -260,30 +260,30 @@ package copyengine.ui
 			//layer 3
 
 			var leftOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getMovieClip("LeftArrow",ResUtlis.FILE_UI),"",false);
-			leftOneBtn.x = 33.5;
-			leftOneBtn.y = 219.45;
+			leftOneBtn.x = 14.35;
+			leftOneBtn.y = 63.6;
 			leftOneBtn.width = 28.7;
 			leftOneBtn.height = 55.7;
 			
 			var rightOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getMovieClip("RightArrow",ResUtlis.FILE_UI),"",false);
-			rightOneBtn.x = 633.95;
-			rightOneBtn.y = 217.85;
+			rightOneBtn.x = 462.15;
+			rightOneBtn.y = 61.2;
 			rightOneBtn.width = 28.1;
 			rightOneBtn.height = 58.9;
 			
 			var ceListCore:CEListCore = createCEListCore(5,CEListCore.LAYOUT_HORIZONTAL,50,50,10);
-			ceListCore.x = 315.85;
-			ceListCore.y = 50;
+			ceListCore.x = 34.65;
+			ceListCore.y = 0;
 			
-			var thumb:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN ,ResUtlis.getMovieClip("Thumb_Horizontal",ResUtlis.FILE_UI) ,"",false) ;
-			var track:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getMovieClip("Track_Horizontal",ResUtlis.FILE_UI),"",false);
-			var scrollBar:CEScrollBarCore = createScrollBarCore(thumb,track,553.55,26.2,CEScrollBarCore.LAYOUT_HORIZONTAL);
-			scrollBar.x = 54.7;
-			scrollBar.y = 270.3;
+			var thumb:CEButton = new CEButton(ResUtlis.getMovieClip("Thumb_Horizontal",ResUtlis.FILE_UI)) ;
+			var track:CEButton = new CEButton(ResUtlis.getMovieClip("Track_Horizontal",ResUtlis.FILE_UI));
+			var scrollBar:CEScrollBarCore = createScrollBarCore(thumb,track,204.5,26.2,CEScrollBarCore.LAYOUT_HORIZONTAL);
+			scrollBar.x = 34.65;
+			scrollBar.y = 108;
 			
 			var ceList:CEList = createCEList(ceListCore,scrollBar,rightOneBtn,null,leftOneBtn,null,null,null);
-			ceList.x = 63.3;
-			ceList.y = 165.05;
+			ceList.x = 18.3;
+			ceList.y = 108;
 			ceList.uniqueName = "FriendList_Bottom";
 			
 			panel.addChild(ceList);
