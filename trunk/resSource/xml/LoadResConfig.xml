@@ -6,5 +6,6 @@
 	</loadQueue>
 	<loadFile>
 		<file name="IsoHax_asset" path="../res/swf/IsoHax_asset.swf" type="swf" weight="500" loadQueue="perLoadQueue" />
+		<file name="UI_asset" path="../res/swf/UI_asset.swf" type="swf" weight="500" loadQueue="perLoadQueue" />
 	</loadFile>
 </root>

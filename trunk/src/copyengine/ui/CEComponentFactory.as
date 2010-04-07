@@ -5,8 +5,10 @@ package copyengine.ui
 	import copyengine.ui.button.animation.CEButtonFrameAnimation;
 	import copyengine.ui.button.animation.CEButtonTweenAnimation;
 	import copyengine.ui.button.animation.CESelectedButtonFramAnimation;
+	import copyengine.ui.button.animation.CESelectedButtonTweenAnimation;
 	import copyengine.ui.list.CEList;
 	import copyengine.ui.list.CEListCore;
+	import copyengine.ui.panel.CEPanelCore;
 	import copyengine.ui.scrollbar.CEScrollBarCore;
 	import copyengine.ui.tabbar.CETabBar;
 	import copyengine.ui.tabbar.animation.CEScrollTabbarAnimation;
@@ -14,6 +16,7 @@ package copyengine.ui
 	import copyengine.utils.ResUtlis;
 	
 	import flash.display.DisplayObject;
+	import flash.display.MovieClip;
 
 	/**
 	 *CEComponentFactory is use to create those CEComponent(CEButton , CEList etc),
@@ -27,7 +30,7 @@ package copyengine.ui
 	 * @author Tunied
 	 *
 	 */
-	public class CEComponentFactory
+	public final class CEComponentFactory
 	{
 		private static var _instance:CEComponentFactory;
 
@@ -54,12 +57,19 @@ package copyengine.ui
 
 		//===================
 		//== Automate create function
+		//				get the cePanel form the xml file.
+		// normally user should directly call this function to get the cePanel
+		//===================
+		public function getCEPanelByUniqueName(_uniqueName:String) : CEPanelCore
+		{
+			return null;
+		}
+
+		//===================
+		//== Automate create function
 		//           get the component config info form xml file
 		//===================
 
-		/**
-		 *
-		 */
 		private function getCEListByXml(_xml:XML) : CEList
 		{
 			var ceListCore:CEListCore = createCEListCore(5,CEListCore.LAYOUT_HORIZONTAL,50,50,10);
@@ -83,6 +93,8 @@ package copyengine.ui
 
 			scrollBar.x = 0;
 			scrollBar.y = ceListCore.y + ceListCore.height + 50;
+
+			ceList.uniqueName = "Test_CEList";
 
 			return ceList;
 		}
@@ -175,6 +187,110 @@ package copyengine.ui
 		{
 			return getTabBarByXml(null);
 		}
+
+		/**
+		 * <component name ="simulatePanel">
+		 * 		<layer level ="0">
+		 * 			<component name ="Panel" skinClass = "Basic_Panel" x ="5.3" y ="170.05" width = "658.1" height = "209" rotation = "0" alpha = "1" />
+		 * 		</layer>
+		 * 		<layer level = "1">
+		 * 			<TabBar name = "Tabbar_Top" x="0" y="0" width = "502" height = "100.7" rotation = "0" alpha = "1">
+		 * 				<Thumb name ="Thumb_TopTabBar" skinClass = "Basic_Gray" x = "38.65" y = "21.2" width = "74"  height= "42.2" rotation = "0" alpha = "1" />
+		 * 				<Btns>
+		 * 					<component name ="Icon1" skinClass = "IconAnimalHouse" x ="38.35" y ="66" width = "77.35" height = "65.6" rotation = "0" alpha = "1" />
+		 * 					<component name ="Icon2" skinClass = "IconBank" x ="142.9" y ="66.3" width = "66" height = "67.3" rotation = "0" alpha = "1" />
+		 * 					....
+		 * 				<Btns>
+		 * 				<Bg name = "..." skinClass = "..."  ....>
+		 * 			</TabBar>
+		 * 		</layer>
+		 * 		<layer level = "2">
+		 * 			<TabBar name = "..."/>
+		 * 		</layer>
+		 * 		<layer level ="3">
+		 * 			<List name ="FriendList_Bottom" x="" y="" >
+		 * 				<ScrollBar skinclass ="" ...>
+		 * 				<LeftOneBtn/>
+		 * 				<RightOneBtn/>
+		 * 				<LeftPageBtn/>
+		 * 				<RightPageBtn/>
+		 * 				<EndBtn/>
+		 * 				<HomeBtn/>
+		 * 				<ListCore displayCount = ""  eachCellRenerWidth = ""  eachCellRenderHeight ="" contentPadding = "">
+		 * 			</List>
+		 * 		</layer>
+		 * </component>
+		 */
+		public function testGetSimulatePanel() : CEPanelCore
+		{
+			var panel:CEPanelCore = new CEPanelCore();
+			
+			//layer 0
+			var bg:MovieClip = ResUtlis.getMovieClip("Basic_Panel",ResUtlis.FILE_UI);
+			panel.addChild(bg);
+			bg.x = 329.1;
+			bg.y = 204.05;
+			bg.width = 658.1;
+			bg.height = 209;
+			
+			//layer 1
+			var subBtns:Vector.<CESelectableButton> = new Vector.<CESelectableButton>();
+			var btn:CESelectableButton;
+			btn = new CESelectableButton(ResUtlis.getMovieClip("IconAnimalHouse",ResUtlis.FILE_UI) , new CESelectedButtonTweenAnimation() ,false,null,false,true,"Icon1");
+			btn.x = 38.35;
+			btn.y = 66;
+			btn.width = 77.35;
+			btn.height = 65.6;
+			subBtns.push(btn);
+			
+			btn = new CESelectableButton(ResUtlis.getMovieClip("IconBank",ResUtlis.FILE_UI) , new CESelectedButtonTweenAnimation() ,false,null,false,true,"Icon2");
+			btn.x = 142.95;
+			btn.y = 66.3;
+			btn.width = 66;
+			btn.height = 67;
+			subBtns.push(btn);
+			
+			var tabbar:CETabBar = new CETabBar(subBtns , new CEScrollTabbarAnimation() );
+			panel.addChild(tabbar);
+			tabbar.x = 0;
+			tabbar.y = 0;
+			
+			//layer 2
+			
+			//layer 3
+
+			var leftOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getMovieClip("LeftArrow",ResUtlis.FILE_UI),"",false);
+			leftOneBtn.x = 33.5;
+			leftOneBtn.y = 219.45;
+			leftOneBtn.width = 28.7;
+			leftOneBtn.height = 55.7;
+			
+			var rightOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getMovieClip("RightArrow",ResUtlis.FILE_UI),"",false);
+			rightOneBtn.x = 633.95;
+			rightOneBtn.y = 217.85;
+			rightOneBtn.width = 28.1;
+			rightOneBtn.height = 58.9;
+			
+			var ceListCore:CEListCore = createCEListCore(5,CEListCore.LAYOUT_HORIZONTAL,50,50,10);
+			ceListCore.x = 315.85;
+			ceListCore.y = 50;
+			
+			var thumb:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN ,ResUtlis.getMovieClip("Thumb_Horizontal",ResUtlis.FILE_UI) ,"",false) ;
+			var track:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getMovieClip("Track_Horizontal",ResUtlis.FILE_UI),"",false);
+			var scrollBar:CEScrollBarCore = createScrollBarCore(thumb,track,553.55,26.2,CEScrollBarCore.LAYOUT_HORIZONTAL);
+			scrollBar.x = 54.7;
+			scrollBar.y = 270.3;
+			
+			var ceList:CEList = createCEList(ceListCore,scrollBar,rightOneBtn,null,leftOneBtn,null,null,null);
+			ceList.x = 63.3;
+			ceList.y = 165.05;
+			ceList.uniqueName = "FriendList_Bottom";
+			
+			panel.addChild(ceList);
+			
+			return panel;
+		}
+
 
 
 	}
