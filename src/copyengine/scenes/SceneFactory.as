@@ -1,7 +1,7 @@
 package copyengine.scenes
 {
 	import game.scene.CEDragDropScreen;
-	import game.scene.CEUICompoentTestScene;
+	import game.scene.testUIComponent.CEUICompoentTestScene;
 	import game.scene.IsoHexScene;
 	import game.scene.IsoSceneTest;
 	import game.scene.PerLoaderScene;

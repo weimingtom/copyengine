@@ -1,4 +1,4 @@
-package game.scene
+package game.scene.testUIComponent
 {
 	import copyengine.scenes.SceneBasic;
 	import copyengine.ui.CEComponentFactory;
@@ -6,21 +6,22 @@ package game.scene
 	import copyengine.ui.button.CESelectableButton;
 	import copyengine.ui.button.animation.CEButtonFrameAnimation;
 	import copyengine.ui.button.animation.CESelectedButtonFramAnimation;
-	import copyengine.ui.list.CEList;
 	import copyengine.ui.dialog.CEDialogManger;
 	import copyengine.ui.dialog.animation.MovieClipTweenDialogAnimation;
-	import copyengine.ui.list.dataprovider.CEDataProvider;
+	import copyengine.ui.list.CEList;
 	import copyengine.ui.list.animation.CEListTweenAnimation;
 	import copyengine.ui.list.cellrender.CECellRenderSymbol;
+	import copyengine.ui.list.dataprovider.CEDataProvider;
+	import copyengine.ui.panel.CEPanelCore;
 	import copyengine.ui.tabbar.CETabBar;
 	import copyengine.utils.Random;
 	import copyengine.utils.ResUtlis;
-
+	
 	import flash.events.MouseEvent;
-
+	
 	import game.ui.test.dialog.TestDialog;
 	import game.ui.test.list.TShapeCellRender;
-
+	
 	import mx.core.ComponentDescriptor;
 
 	public class CEUICompoentTestScene extends SceneBasic
@@ -66,9 +67,18 @@ package game.scene
 			container.addChild(tabBar);
 			tabBar.x = 50;
 			tabBar.y = 100;
-
-			ceList = CEComponentFactory.instance.testCreateCEList();
-
+			
+			
+			var simulatePanel:CEPanelCore = CEComponentFactory.instance.testGetSimulatePanel();
+			container.addChild(simulatePanel);
+			simulatePanel.x = 50;
+			simulatePanel.y  =300;
+			
+			CopyEngineFacade.instance.registerMediator(new UIListPanelMediator() );
+//			CopyEngineFacade.instance.sendNotification(PanelMessage.CHANGE_STATE_TO_ONE);
+			
+			ceList = simulatePanel.getChildCESpriteByUniqueName("FriendList_Bottom") as CEList;
+			
 			dataProvider = new CEDataProvider();
 			for (var i:int = 0 ; i < 30 ; i++)
 			{
@@ -77,23 +87,32 @@ package game.scene
 				dataProvider.addData(data);
 			}
 			ceList.initializeCEList(dataProvider,TShapeCellRender,new CEListTweenAnimation());
-			container.addChild(ceList);
-			ceList.x = 50;
-			ceList.y = 150;
+//			container.addChild(ceList);
+//			ceList.x = 50;
+//			ceList.y = 150;
 
 		}
 
+		/**
+		 * test change provider after the celist has been create,
+		 */		
+//		private function onBtnClick(e:MouseEvent) : void
+//		{
+//			dataProvider = new CEDataProvider();
+//			for (var i:int = 0 ; i < 4 ; i++)
+//			{
+//				var data:Object = {};
+//				data.index = Random.range(100,500);
+//				dataProvider.addData(data);
+//			}
+//			ceList.refreshDataProvider(dataProvider);
+//		}
+		
 		private function onBtnClick(e:MouseEvent) : void
 		{
-			dataProvider = new CEDataProvider();
-			for (var i:int = 0 ; i < 4 ; i++)
-			{
-				var data:Object = {};
-				data.index = Random.range(100,500);
-				dataProvider.addData(data);
-			}
-			ceList.refreshDataProvider(dataProvider);
+			CopyEngineFacade.instance.sendNotification(PanelMessage.CHANGE_STATE_TO_TWO);
 		}
+		
 
 		private function onBtn2Click(e:MouseEvent) : void
 		{

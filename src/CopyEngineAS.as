@@ -1,7 +1,7 @@
 package
 {
 	import com.flashdynamix.utils.SWFProfiler;
-	
+
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.display.Stage;
@@ -42,6 +42,11 @@ package
 			return _instance.gamePerLoader.container;
 		}
 
+		public static function get panelLayer() : DisplayObjectContainer
+		{
+			return _instance.panelLayer;
+		}
+
 		public static function cleanGamePerLoader() : void
 		{
 			_instance.gamePerLoader.destory();
@@ -58,7 +63,9 @@ package
 		 */
 		private var gameDialogLayer:DisplayObjectContainer;
 		private var dragdropLayer:DisplayObjectContainer;
+		private var panelLayer:DisplayObjectContainer;
 		private var screenLayer:DisplayObjectContainer;
+
 
 		public function CopyEngineAS()
 		{
@@ -78,14 +85,17 @@ package
 			screenLayer = new Sprite();
 			addChild(screenLayer);
 
+			panelLayer = new Sprite();
+			addChild(panelLayer);
+
 			dragdropLayer = new Sprite();
 			addChild(dragdropLayer);
 
 			gameDialogLayer = new Sprite();
 			addChild( gameDialogLayer);
-			
+
 			SWFProfiler.init(stage,this);
-			
+
 			_instance = this;
 			CopyEngineFacade.instance.startup(this);
 		}

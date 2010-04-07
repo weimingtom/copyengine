@@ -2,6 +2,7 @@ package copyengine.ui
 {
 	import copyengine.utils.GeneralUtils;
 	
+	import flash.display.DisplayObject;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.utils.getTimer;
@@ -87,6 +88,37 @@ package copyengine.ui
 		{
 			return name;
 		}
-
+		
+		public function set uniqueName(_name:String):void
+		{
+			this.name = _name;
+		}
+		
+		public function getChildCESpriteByUniqueName(_uniqueName:String):CESprite
+		{
+			if(this.uniqueName == _uniqueName)
+			{
+				return this;
+			}
+			else
+			{
+				var length:int = this.numChildren;
+				for(var i:int = 0 ; i < length ; i++)
+				{
+					var child:DisplayObject = this.getChildAt(i);
+					if(child is CESprite)
+					{
+						var target:CESprite = (child as CESprite).getChildCESpriteByUniqueName(_uniqueName);
+						if(target != null)
+						{
+							return target;
+						}
+					}
+				}
+			}
+			return null;
+		}
+		
+		
 	}
 }
