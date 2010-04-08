@@ -2,18 +2,18 @@ package game.scene.testUIComponent
 {
 	import copyengine.scenes.SceneBasic;
 	import copyengine.ui.CEComponentFactory;
-	import copyengine.ui.button.CEButton;
-	import copyengine.ui.button.CESelectableButton;
-	import copyengine.ui.button.animation.CEButtonFrameAnimation;
-	import copyengine.ui.button.animation.CESelectedButtonFramAnimation;
+	import copyengine.ui.component.button.CEButton;
+	import copyengine.ui.component.button.CESelectableButton;
+	import copyengine.ui.component.button.animation.CEButtonFrameAnimation;
+	import copyengine.ui.component.button.animation.CESelectedButtonFramAnimation;
 	import copyengine.ui.dialog.CEDialogManger;
 	import copyengine.ui.dialog.animation.MovieClipTweenDialogAnimation;
-	import copyengine.ui.list.CEList;
-	import copyengine.ui.list.animation.CEListTweenAnimation;
-	import copyengine.ui.list.cellrender.CECellRenderSymbol;
-	import copyengine.ui.list.dataprovider.CEDataProvider;
-	import copyengine.ui.panel.CEPanelCore;
-	import copyengine.ui.tabbar.CETabBar;
+	import copyengine.ui.component.list.CEList;
+	import copyengine.ui.component.list.animation.CEListTweenAnimation;
+	import copyengine.ui.component.list.cellrender.CECellRenderSymbol;
+	import copyengine.ui.component.list.dataprovider.CEDataProvider;
+	import copyengine.ui.component.panel.CEPanelCore;
+	import copyengine.ui.component.tabbar.CETabBar;
 	import copyengine.utils.Random;
 	import copyengine.utils.ResUtlis;
 	
@@ -48,7 +48,7 @@ package game.scene.testUIComponent
 		{
 			var btn1:CEButton = CEComponentFactory.instance.createCEButton(
 				CEComponentFactory.CEBUTTON_TYPE_TWEEN,
-				ResUtlis.getSprite("GreenButton","IsoHax_asset"),null,false);
+				ResUtlis.getSprite("GreenButton","IsoHax_asset"),null);
 			btn1.addEventListener(MouseEvent.CLICK,onBtnClick,false,0,true);
 			container.addChild(btn1);
 			btn1.x = 100;
@@ -56,7 +56,7 @@ package game.scene.testUIComponent
 
 			var btn2:CEButton = CEComponentFactory.instance.createCEButton(
 				CEComponentFactory.CEBUTTON_TYPE_TWEEN,
-				ResUtlis.getSprite("GreenButton","IsoHax_asset"),null,false);
+				ResUtlis.getSprite("GreenButton","IsoHax_asset"),null);
 			btn2.addEventListener(MouseEvent.CLICK,onBtn2Click,false,0,true);
 			container.addChild(btn2);
 			btn2.x = 200;

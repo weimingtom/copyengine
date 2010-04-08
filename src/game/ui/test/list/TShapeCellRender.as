@@ -1,6 +1,6 @@
 package game.ui.test.list
 {
-    import copyengine.ui.list.cellrender.CECellRenderSymbol;
+    import copyengine.ui.component.list.cellrender.CECellRenderSymbol;
     import copyengine.utils.Random;
 
     import flash.text.TextField;

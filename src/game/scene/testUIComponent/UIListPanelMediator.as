@@ -3,10 +3,10 @@ package game.scene.testUIComponent
 	import com.greensock.TweenLite;
 	
 	import copyengine.ui.CEComponentFactory;
-	import copyengine.ui.list.CEList;
-	import copyengine.ui.list.animation.CEListTweenAnimation;
-	import copyengine.ui.list.dataprovider.CEDataProvider;
-	import copyengine.ui.panel.CEPanelCore;
+	import copyengine.ui.component.list.CEList;
+	import copyengine.ui.component.list.animation.CEListTweenAnimation;
+	import copyengine.ui.component.list.dataprovider.CEDataProvider;
+	import copyengine.ui.component.panel.CEPanelCore;
 	
 	import game.ui.test.list.TShapeCellRender;
 	
