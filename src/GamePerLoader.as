@@ -7,6 +7,7 @@ package
 	import flash.events.Event;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
+	import flash.system.Security;
 
 	/**
 	 * GamePerLoader is special gameScene.
@@ -36,7 +37,8 @@ package
 			mainLoader = new Loader();
 			mainLoader.load( new URLRequest("CopyEngineAS.swf") );
 			mainLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadMainComplate,false,0,true);
-
+			
+			Security.allowDomain("*");
 			super();
 		}
 

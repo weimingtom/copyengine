@@ -48,7 +48,7 @@ package game.scene.testUIComponent
 		{
 			var btn1:CEButton = CEComponentFactory.instance.createCEButton(
 				CEComponentFactory.CEBUTTON_TYPE_TWEEN,
-				ResUtlis.getSprite("GreenButton","IsoHax_asset"),null);
+				ResUtlis.getSprite("GreenButton","UI_asset"),null);
 			btn1.addEventListener(MouseEvent.CLICK,onBtnClick,false,0,true);
 			container.addChild(btn1);
 			btn1.x = 100;
@@ -78,7 +78,6 @@ package game.scene.testUIComponent
 //			CopyEngineFacade.instance.sendNotification(PanelMessage.CHANGE_STATE_TO_ONE);
 			
 			ceList = simulatePanel.getChildCESpriteByUniqueName("FriendList_Bottom") as CEList;
-//			ceList = CEComponentFactory.instance.testCreateCEList();
 			
 			dataProvider = new CEDataProvider();
 			for (var i:int = 0 ; i < 30 ; i++)
@@ -88,9 +87,6 @@ package game.scene.testUIComponent
 				dataProvider.addData(data);
 			}
 			ceList.initializeCEList(dataProvider,TShapeCellRender,new CEListTweenAnimation());
-//			container.addChild(ceList);
-//			ceList.x = 50;
-//			ceList.y = 150;
 
 		}
 
