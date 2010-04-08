@@ -260,30 +260,30 @@ package copyengine.ui
 			//layer 3
 
 			var leftOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getMovieClip("LeftArrow",ResUtlis.FILE_UI),"",false);
-			leftOneBtn.x = 14.35;
-			leftOneBtn.y = 63.6;
+			leftOneBtn.x = 17.9;
+			leftOneBtn.y = 27.9;
 			leftOneBtn.width = 28.7;
 			leftOneBtn.height = 55.7;
 			
 			var rightOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getMovieClip("RightArrow",ResUtlis.FILE_UI),"",false);
-			rightOneBtn.x = 462.15;
-			rightOneBtn.y = 61.2;
+			rightOneBtn.x = 466;
+			rightOneBtn.y = 25.8;
 			rightOneBtn.width = 28.1;
 			rightOneBtn.height = 58.9;
 			
 			var ceListCore:CEListCore = createCEListCore(5,CEListCore.LAYOUT_HORIZONTAL,50,50,10);
-			ceListCore.x = 34.65;
+			ceListCore.x = 41;
 			ceListCore.y = 0;
 			
 			var thumb:CEButton = new CEButton(ResUtlis.getMovieClip("Thumb_Horizontal",ResUtlis.FILE_UI)) ;
 			var track:CEButton = new CEButton(ResUtlis.getMovieClip("Track_Horizontal",ResUtlis.FILE_UI));
-			var scrollBar:CEScrollBarCore = createScrollBarCore(thumb,track,204.5,26.2,CEScrollBarCore.LAYOUT_HORIZONTAL);
-			scrollBar.x = 34.65;
-			scrollBar.y = 108;
+			var scrollBar:CEScrollBarCore = createScrollBarCore(thumb,track,300,26.2,CEScrollBarCore.LAYOUT_HORIZONTAL);
+			scrollBar.x = 41;
+			scrollBar.y = 57;
 			
 			var ceList:CEList = createCEList(ceListCore,scrollBar,rightOneBtn,null,leftOneBtn,null,null,null);
 			ceList.x = 18.3;
-			ceList.y = 108;
+			ceList.y = 160;
 			ceList.uniqueName = "FriendList_Bottom";
 			
 			panel.addChild(ceList);

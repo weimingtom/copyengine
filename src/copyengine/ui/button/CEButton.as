@@ -2,9 +2,10 @@ package copyengine.ui.button
 {
 	import copyengine.ui.CESprite;
 	import copyengine.ui.button.animation.ICEButtonAnimation;
-
+	
 	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
+	import flash.text.TextField;
 
 	/**
 	 * CEButton is button component root.
@@ -23,30 +24,32 @@ package copyengine.ui.button
 		protected var buttonBg:DisplayObject;
 
 		/**
-		 * if this button contain an labelField then use this key to initialize the textField .
-		 * we use labelKey rather than an real text , because we also need that key to embed font.
+		 * if this button contain an labelField then use this key to initialize the labelField,
+		 * this labelField should be an textField draw in buttonBg, and it should also named as "lable"
+		 * 
+		 * we use labelKey rather than an real text , because we also need that key to 
+		 * embed font. or determine how to show tooltips
 		 */
 		protected var labelTextKey:String;
 
-		/**
-		 * define is show ToolTips on current button or not.
-		 */
-		protected var isUseToolTips:Boolean;
 
 		protected var interaction:ICEButtonAnimation;
 
 		public function CEButton(_buttonBg:DisplayObject ,_interaction:ICEButtonAnimation = null , 
-								 _labelTextKey:String = null , _isUseToolTips:Boolean = false , 
-								 _isAutoInitialzeAndRemove:Boolean = true , _uniqueName:String = null)
+								 _labelTextKey:String = null ,_uniqueName:String = null)
 		{
-			super(_isAutoInitialzeAndRemove,_uniqueName);
+			super(true,_uniqueName);
 			buttonBg = _buttonBg;
 			labelTextKey = _labelTextKey;
-			isUseToolTips = _isUseToolTips;
 			interaction = _interaction;
 			if (interaction != null)
 			{
 				interaction.setTarget( buttonBg );
+			}
+			
+			if(labelTextKey != null)
+			{
+				var lable:TextField = buttonBg["lable"];
 			}
 			//need to add buttonSkin when create this button.
 			//ex:
