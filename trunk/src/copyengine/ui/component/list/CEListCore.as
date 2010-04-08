@@ -227,7 +227,7 @@ package copyengine.ui.component.list
 
 		public function getPageScrollSize() : Number
 		{
-			return cellRenderDistance * displayCount - contentPadding;
+			return cellRenderDistance * displayCount;
 		}
 
 		public function getMinScrollValue() : Number
@@ -271,12 +271,17 @@ package copyengine.ui.component.list
 
 		public function scrollNextPage() : void
 		{
-			scrollPosition = Math.min(_scrollPosition + cellRenderDistance*displayCount - contentPadding,maxScrollPosition - calculateOffsetOfFirstVisableCellRender());
+			scrollPosition = Math.min(_scrollPosition + cellRenderDistance*displayCount - calculateOffsetOfFirstVisableCellRender() ,maxScrollPosition - calculateOffsetOfFirstVisableCellRender());
 		}
 
 		public function scrollPrevPage() : void
 		{
-			scrollPosition = Math.max(0, _scrollPosition - cellRenderDistance*displayCount - contentPadding + calculateOffsetOfFirstVisableCellRender());
+			//if want scroll to prevPage
+			//first assume scrollPosition just at the left-top of the cellRender no offset.
+			//in that case need to scroll  cellRenderDistance*displayCount- contentPadding can get to prevPgae.
+			//then if scrollPosition have the offset . means in prev calculate had sub more than real need to add that part back
+			//the part is getCellRenderBoundSizeByLayout() - calculateOffsetOfFirstVisableCellRender()
+			scrollPosition = Math.max(0, _scrollPosition - cellRenderDistance*displayCount+contentPadding + getCellRenderBoundSizeByLayout() - calculateOffsetOfFirstVisableCellRender());
 		}
 
 		//=============
@@ -479,7 +484,7 @@ package copyengine.ui.component.list
 		 */
 		private function calculateOffsetOfFirstVisableCellRender() : Number
 		{
-			return _scrollPosition - Math.floor(_scrollPosition/(getCellRenderBoundSizeByLayout()+contentPadding))*(getCellRenderBoundSizeByLayout()+contentPadding);
+			return _scrollPosition % (getCellRenderBoundSizeByLayout() + contentPadding);
 		}
 
 

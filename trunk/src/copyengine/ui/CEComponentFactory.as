@@ -280,7 +280,7 @@ package copyengine.ui
 			scrollBar.x = 41;
 			scrollBar.y = 57;
 			
-			var ceList:CEList = createCEList(ceListCore,scrollBar,rightOneBtn,null,leftOneBtn,null,null,null);
+			var ceList:CEList = createCEList(ceListCore,scrollBar,null,rightOneBtn,null,leftOneBtn,null,null);
 			ceList.x = 18.3;
 			ceList.y = 160;
 			ceList.uniqueName = "FriendList_Bottom";
