@@ -19,7 +19,7 @@ package copyengine.ui.scrollbar
 		 *when user  drage the thumb , it will move with user's mouse. but if mouse.stageX/mouse.stageY
 		 * is out of this range then scrollBar will stop change automate.
 		 */
-		private static const THUMB_REACT_RANGE:Number = 800;
+		private static const THUMB_REACT_RANGE:Number = 50;
 
 
 		public static const LAYOUT_HORIZONTAL:String = "horizontal";
@@ -72,9 +72,6 @@ package copyengine.ui.scrollbar
 		 * define the track skin
 		 */
 		private var track:CEButton;
-		
-		private var maxWidth:Number;
-		private var maxHeight:Number;
 
 		/**
 		 * when user start drag the thumb , the offest between mousePos to top left corner.
@@ -88,8 +85,8 @@ package copyengine.ui.scrollbar
 			thumb = _thumb;
 			track = _track;
 
-			track.width = maxWidth = _width;
-			track.height = maxHeight = _height;
+			track.width  = _width;
+			track.height = _height;
 
 			direction = _direction;
 
@@ -190,8 +187,10 @@ package copyengine.ui.scrollbar
 		 */
 		private function initializeScrollBarSkin() : void
 		{
+			//
 			this.addChild(track);
-			track.addChild(thumb);
+			this.addChild(thumb);
+//			track.addChild(thumb);
 
 			if (direction == LAYOUT_HORIZONTAL)
 			{
@@ -308,21 +307,22 @@ package copyengine.ui.scrollbar
 			var newScrollPosition:Number;
 			if (direction == LAYOUT_HORIZONTAL)
 			{
-				pos = GeneralUtils.normalizingVlaue(track.mouseX - track.x - thumbScrollOffset,0,maxWidth - thumb.width);
+				pos = GeneralUtils.normalizingVlaue(this.mouseX - track.x - thumbScrollOffset,0,track.width - thumb.width);
 				newScrollPosition = pos/(track.width - thumb.width) * (maxScrollPosition - minScrollPosition) + minScrollPosition;
-
-				posRange = Math.abs(e.stageY - track.y);
+//				posRange = Math.abs(e.stageY - track.y);
+				posRange = this.mouseY;
 			}
 			else //loyout == LAYOUT_VERTICAL
 			{
-				pos = GeneralUtils.normalizingVlaue(track.mouseY - track.y - thumbScrollOffset , 0 ,maxHeight - thumb.height);
+				pos = GeneralUtils.normalizingVlaue(this.mouseY - track.y - thumbScrollOffset , 0 ,track.height - thumb.height);
 				newScrollPosition = pos/(track.height - thumb.height) * (maxScrollPosition - minScrollPosition) + minScrollPosition;
-
-				posRange = Math.abs(e.stageX - track.x)
+				
+//				posRange = Math.abs(e.stageX - track.x)
+				posRange = this.mouseX;
 			}
 			newScrollPosition = isNaN(newScrollPosition) ? 0 : newScrollPosition;
 			updateScrollPosition(true,newScrollPosition,pos);
-			if (posRange > THUMB_REACT_RANGE)
+			if (posRange > THUMB_REACT_RANGE || posRange < - THUMB_REACT_RANGE)
 			{
 				releaseThumb();
 			}
@@ -346,13 +346,14 @@ package copyengine.ui.scrollbar
 
 		private function trackOnMouseDown(e:MouseEvent) : void
 		{
+			//when user click the track ,first need to calculate which way need to scroll to
 			if (direction == LAYOUT_HORIZONTAL)
 			{
-				isTrackMoveLeftUP = track.mouseX - thumb.x < 0;
+				isTrackMoveLeftUP = this.mouseX - thumb.x < 0;
 			}
 			else //loyout == LAYOUT_VERTICAL
 			{
-				isTrackMoveLeftUP = track.mouseY - thumb.y < 0;
+				isTrackMoveLeftUP = this.mouseY - thumb.y < 0;
 			}
 			// move the thumb once when user click the track,
 			// then delay an time count then autoRepeat call moveByClickTrack() function
@@ -370,15 +371,19 @@ package copyengine.ui.scrollbar
 		 */
 		private function moveByClickTrack() : void
 		{
+			//first calculate current mouse scroll position.
+			//if mouseScrollPosition is lager or small than _scrollPosition+pageScrollSize/_scrollPosition-pageScrollSize
+			//then scroll to the _scrollPosition +- pageScrollSize
+			//else just scroll to mousePosition
 			var mousePosition:Number;
 			var newScrollPosition:Number;
 			if (direction == LAYOUT_HORIZONTAL)
 			{
-				mousePosition = track.mouseX / (track.width - thumb.width) * (maxScrollPosition - minScrollPosition) + minScrollPosition;
+				mousePosition = this.mouseX / (track.width - thumb.width) * (maxScrollPosition - minScrollPosition) + minScrollPosition;
 			}
 			else //loyout == LAYOUT_VERTICAL
 			{
-				mousePosition = track.mouseY / (track.height - thumb.height) * (maxScrollPosition - minScrollPosition) + minScrollPosition;
+				mousePosition = this.mouseY / (track.height - thumb.height) * (maxScrollPosition - minScrollPosition) + minScrollPosition;
 			}
 
 			if (_scrollPosition < mousePosition)
@@ -409,16 +414,19 @@ package copyengine.ui.scrollbar
 		 */
 		private function checkIsReleaseTrack(_newScrollPosition:Number) : Boolean
 		{
-			if (track.mouseX < track.x || track.mouseX > (track.x +track.width )
-				|| track.mouseY < track.y || track.mouseY > (track.y + track.height))
+			// it mouse is moved out of the scrollbar then will release the track implemently
+			if (this.mouseX < track.x || this.mouseX > (track.x +track.width )
+				|| this.mouseY < track.y || this.mouseY > (track.y + track.height))
 			{
 				releaseTrack();
 				return true;
 			}
 			if (isTrackMoveLeftUP)
 			{
-				if ((direction == LAYOUT_HORIZONTAL && track.mouseX > thumb.x) 
-					||(direction == LAYOUT_VERTICAL && track.mouseY > thumb.y))
+				// if the tack is move fore right to left down to up
+				// and mouse already in the thumb. then release the track
+				if ((direction == LAYOUT_HORIZONTAL && this.mouseX > thumb.x) 
+					||(direction == LAYOUT_VERTICAL && this.mouseY > thumb.y))
 				{
 					releaseTrack();
 					return true;
@@ -426,8 +434,8 @@ package copyengine.ui.scrollbar
 			}
 			else
 			{
-				if ((direction == LAYOUT_HORIZONTAL && track.mouseX < thumb.x + thumb.width) 
-					||(direction == LAYOUT_VERTICAL && track.mouseY < thumb.y + thumb.height))
+				if ((direction == LAYOUT_HORIZONTAL && this.mouseX < thumb.x + thumb.width) 
+					||(direction == LAYOUT_VERTICAL && this.mouseY < thumb.y + thumb.height))
 				{
 					releaseTrack();
 					return true;

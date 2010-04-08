@@ -20,10 +20,9 @@ package copyengine.ui.button
 		private var isClickToSelected:Boolean;
 
 		public function CESelectableButton(_buttonBg:DisplayObject, _interaction:ICESelectedButtonAnimation=null,
-			_isClickToSelected:Boolean = true,_labelTextKey:String=null, _isUseToolTips:Boolean=false,
-			_isAutoInitialzeAndRemove:Boolean = true , _uniqueName:String = null)
+			_isClickToSelected:Boolean = true,_labelTextKey:String=null, _uniqueName:String = null)
 		{
-			super(_buttonBg, _interaction, _labelTextKey, _isUseToolTips,_isAutoInitialzeAndRemove,_uniqueName);
+			super(_buttonBg, _interaction, _labelTextKey,_uniqueName);
 			isClickToSelected = _isClickToSelected;
 		}
 
