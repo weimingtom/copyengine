@@ -3,9 +3,10 @@ package copyengine.ui.component.button
 	import copyengine.ui.CESprite;
 	import copyengine.ui.component.button.animation.ICEButtonAnimation;
 	import copyengine.ui.text.CETextManger;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 
@@ -20,6 +21,7 @@ package copyengine.ui.component.button
 	 */
 	public class CEButton extends CESprite
 	{
+
 		/**
 		 * the background for the button
 		 */
@@ -28,8 +30,8 @@ package copyengine.ui.component.button
 		/**
 		 * if this button contain an labelField then use this key to initialize the labelField,
 		 * this labelField should be an textField draw in buttonBg, and it should also named as "lable"
-		 * 
-		 * we use labelKey rather than an real text , because we also need that key to 
+		 *
+		 * we use labelKey rather than an real text , because we also need that key to
 		 * embed font. or determine how to show tooltips
 		 */
 		protected var labelTextKey:String;
@@ -37,29 +39,46 @@ package copyengine.ui.component.button
 
 		protected var interaction:ICEButtonAnimation;
 
-		public function CEButton(_buttonBg:DisplayObject ,_interaction:ICEButtonAnimation = null , 
-								 _labelTextKey:String = null ,_uniqueName:String = null)
+		/**
+		 *  Create new CEButton
+		 *
+		 * @param _buttonBg				background skin. WARNINIG:: should initialze the width/height before pass it throw
+		 * 												@see more on CEButtonTweenAnimation
+		 * 
+		 * @param _lableFiled				an lable show on the btn , if not contain one then leave this attribute null
+		 * 	
+		 * @param _labelTextKey			@see labelTextKey
+		 * 
+		 * @param _interaction
+		 * @param _uniqueName
+		 *
+		 */
+		public function CEButton(_buttonBg:DisplayObject ,_lableFiled:TextField = null , _labelTextKey:String = null  ,
+			_interaction:ICEButtonAnimation = null ,_uniqueName:String = null)
 		{
 			super(true,_uniqueName);
+
 			buttonBg = _buttonBg;
-			labelTextKey = _labelTextKey;
-			interaction = _interaction;
-			if (interaction != null)
-			{
-				interaction.setTarget( buttonBg );
-			}
-			
-			if(labelTextKey != null)
-			{
-				var lable:TextField = buttonBg["lable"];
-				lable.htmlText = CETextManger.instance.getText(labelTextKey);
-			}
+
 			//need to add buttonSkin when create this button.
 			//ex:
 			//   var button:CEButton = new CEButton();
 			//    button.width = 100; 
 			// in this case can't set width right now , beacuse CEButton have no child , the widht always 0
 			addChild(buttonBg);
+
+			labelTextKey = _labelTextKey;
+			if (labelTextKey != null && _lableFiled)
+			{
+				_lableFiled.htmlText = CETextManger.instance.getText(labelTextKey);
+				addChild(_lableFiled);
+			}
+
+			interaction = _interaction;
+			if (interaction != null)
+			{
+				interaction.setTarget( buttonBg );
+			}
 		}
 
 		override protected function initialize() : void

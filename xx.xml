@@ -2,11 +2,25 @@
 <!-- 手写的Xml可以和Node生成的Xml有某些属性是冲突的,如type, 这种情况下以手写的属性为准-->
 
 <root>
-    <component uniqueName = "xPanelOkBtn" isUseToolTips = "false" type = "ButtonFrame"/>
+    <component uniqueName = "xPanelOkBtn" type = "SelectAbleButton"/>
 </root>
 
 
 <!--JSFL生成的Node-->
+<!--
+    需要支持的组件
+    button
+        1 单帧按钮          type="Button" animation="Tween"
+        2 单帧可选按钮      type="Button" animation="Tween"
+        3 3帧按钮           type="SelectAbleButton" animation="Frame"
+        4 6帧可选按钮       type="SelectAbleButton" animation="Frame"
+    TabBar
+        1 支持Thumb滑块
+    ScrollBar
+    List
+        1 支持6组按钮1个ScrollBar
+    Panel的Animation写在默认参数里面,因为Panel大部分情况下都需要new出来一个Mediator来执行相关UI初始化
+-->
 <root>
-    <component uniqueName = "xPanelOkBtn" skinClass = "GreenButton" width = "100" height = "50" rotation = "0" aplha = "1" type = "ButtonTween" labelKey = "COMMON_COMPONENT_OK_BUTTON">
+    <button uniqueName = "xPanelOkBtn" skinClass = "GreenButton" width = "100" height = "50" rotation = "0" aplha = "1" type = "Button" animation = "Tween" labelKey = "COMMON_COMPONENT_OK_BUTTON">
 </root>

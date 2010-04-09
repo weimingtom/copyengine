@@ -107,7 +107,7 @@ package copyengine.ui
 			for (var i:int = 0 ; i < 5 ; i++)
 			{
 				var btn:CESelectableButton = new CESelectableButton(
-					ResUtlis.getSprite("FrameSelectableGreenButton","IsoHax_asset"),new CESelectedButtonFramAnimation,false,null,"Btn" + i);
+					ResUtlis.getSprite("FrameSelectableGreenButton","IsoHax_asset"),null,null,false,new CESelectedButtonFramAnimation,"Btn" + i);
 				btn.x = posX;
 				posX += 80;
 
@@ -131,9 +131,9 @@ package copyengine.ui
 			switch (_type)
 			{
 				case CEBUTTON_TYPE_TWEEN:
-					return new CEButton(_buttonBg,new CEButtonTweenAnimation() ,_labelTextKey);
+					return new CEButton(_buttonBg,null,_labelTextKey ,new CEButtonTweenAnimation());
 				case CEBUTTON_TYPE_FRAME:
-					return new CEButton(_buttonBg, new CEButtonFrameAnimation() ,_labelTextKey);
+					return new CEButton(_buttonBg,null,_labelTextKey, new CEButtonFrameAnimation());
 			}
 			return null;
 		}
@@ -190,6 +190,7 @@ package copyengine.ui
 		/**
 		 * <component name ="simulatePanel">
 		 * 		<layer level ="0">
+		 * 			<btn name ="close_btn" animation = "SelectAble" >
 		 * 			<component name ="Panel" skinClass = "Basic_Panel" x ="5.3" y ="170.05" width = "658.1" height = "209" rotation = "0" alpha = "1" />
 		 * 		</layer>
 		 * 		<layer level = "1">
@@ -235,14 +236,14 @@ package copyengine.ui
 			//layer 1
 			var subBtns:Vector.<CESelectableButton> = new Vector.<CESelectableButton>();
 			var btn:CESelectableButton;
-			btn = new CESelectableButton(ResUtlis.getMovieClip("IconAnimalHouse",ResUtlis.FILE_UI) , new CESelectedButtonTweenAnimation(),false,null,"Icon1");
+			btn = new CESelectableButton(ResUtlis.getMovieClip("IconAnimalHouse",ResUtlis.FILE_UI),null,null,false,new CESelectedButtonTweenAnimation(),"Icon1");
 			btn.x = 38.35;
 			btn.y = 66;
 			btn.width = 77.35;
 			btn.height = 65.6;
 			subBtns.push(btn);
 			
-			btn = new CESelectableButton(ResUtlis.getMovieClip("IconBank",ResUtlis.FILE_UI) , new CESelectedButtonTweenAnimation() ,false,null,"Icon2");
+			btn = new CESelectableButton(ResUtlis.getMovieClip("IconBank",ResUtlis.FILE_UI),null,null,false, new CESelectedButtonTweenAnimation(),"Icon2");
 			btn.x = 142.95;
 			btn.y = 66.3;
 			btn.width = 66;
