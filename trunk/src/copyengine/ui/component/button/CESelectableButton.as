@@ -2,9 +2,10 @@ package copyengine.ui.component.button
 {
 
 	import copyengine.ui.component.button.animation.ICESelectedButtonAnimation;
-
+	
 	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
+	import flash.text.TextField;
 
 	public class CESelectableButton extends CEButton
 	{
@@ -19,10 +20,10 @@ package copyengine.ui.component.button
 		 */		
 		private var isClickToSelected:Boolean;
 
-		public function CESelectableButton(_buttonBg:DisplayObject, _interaction:ICESelectedButtonAnimation=null,
-			_isClickToSelected:Boolean = true,_labelTextKey:String=null, _uniqueName:String = null)
+		public function CESelectableButton(_buttonBg:DisplayObject, _lableFiled:TextField = null ,_labelTextKey:String=null ,_isClickToSelected:Boolean = true,
+			_interaction:ICESelectedButtonAnimation=null, _uniqueName:String = null)
 		{
-			super(_buttonBg, _interaction, _labelTextKey,_uniqueName);
+			super(_buttonBg,_lableFiled,_labelTextKey, _interaction,_uniqueName);
 			isClickToSelected = _isClickToSelected;
 		}
 
