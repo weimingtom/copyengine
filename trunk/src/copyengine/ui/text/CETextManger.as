@@ -4,13 +4,17 @@ package copyengine.ui.text
 	{
 		private static var _instance:CETextManger;
 		
-		public static function get instance():CETextManger()
+		public static function get instance():CETextManger
 		{
 			if(_instance == null)
 			{
 				_instance = new CETextManger();
 			}
 			return _instance;
+		}
+		
+		public function CETextManger()
+		{
 		}
 		
 		public function initialze(_languageXml:XML):void
@@ -21,11 +25,6 @@ package copyengine.ui.text
 		{
 			return _textID;
 		}
-		
-		public function CETextManger()
-		{
-		}
-		
 		
 		
 	}

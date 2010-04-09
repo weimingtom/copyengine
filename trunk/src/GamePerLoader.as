@@ -5,9 +5,12 @@ package
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
+	import flash.net.URLLoader;
+	import flash.net.URLLoaderDataFormat;
 	import flash.net.URLRequest;
 	import flash.system.ApplicationDomain;
 	import flash.system.Security;
+	import flash.utils.ByteArray;
 
 	/**
 	 * GamePerLoader is special gameScene.
@@ -19,25 +22,25 @@ package
 	public class GamePerLoader extends Sprite implements IPerLoader
 	{
 		private var main:IMain;
-
+		
+		private var configLoader:URLLoader;
+		private var configXml:XML;
+		
 		private var screenLoader:Loader
 		private var mainLoader:Loader;
 
 		private var loadingAnimation:MovieClip; // loading Screen UI animation.
-
+		
 		//=================
 		//== Load MainGameJob
 		//==================
 		public function GamePerLoader()
 		{
-			screenLoader = new Loader();
-			screenLoader.load( new URLRequest("../res/swf/preloader_asset.swf"));
-			screenLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadComplate,false,0,true);
+			configLoader = new URLLoader();
+			configLoader.load( new URLRequest(loaderInfo.parameters["configPath"]) );
+			configLoader.dataFormat = URLLoaderDataFormat.BINARY;
+			configLoader.addEventListener(Event.COMPLETE,loadConfigComplate,false,0,true);
 
-			mainLoader = new Loader();
-			mainLoader.load( new URLRequest("CopyEngineAS.swf") );
-			mainLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadMainComplate,false,0,true);
-			
 			Security.allowDomain("*");
 			super();
 		}
@@ -57,7 +60,26 @@ package
 		{
 			return this;
 		}
-
+		
+		private function loadConfigComplate(e:Event):void
+		{
+			var byteArray : ByteArray = configLoader.data as ByteArray;
+			byteArray.uncompress();
+			configXml = new XML(byteArray);
+			
+			configLoader.close();
+			configLoader = null;
+			
+			mainLoader = new Loader();
+			mainLoader.load( new URLRequest(configXml.main.file[0].@path) );
+			mainLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadMainComplate,false,0,true);	
+			
+			screenLoader = new Loader();
+			screenLoader.load( new URLRequest(configXml.main.file[1].@path));
+			screenLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadComplate,false,0,true);
+		}
+		
+		
 		private function loadComplate(e:Event) : void
 		{
 			var resDomain:ApplicationDomain = e.currentTarget.applicationDomain;
@@ -76,11 +98,12 @@ package
 		private function loadMainComplate(e:Event) : void
 		{
 			main = e.target.loader.content as IMain;
-			main.initialize(this,this.stage);
+			main.initialize(this,this.stage,configXml);
 
 			mainLoader.contentLoaderInfo.removeEventListener(Event.COMPLETE,loadMainComplate);
 			mainLoader.unload();
 			mainLoader = null;
+			configXml = null;
 		}
 
 	}

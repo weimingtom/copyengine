@@ -52,7 +52,6 @@ package copyengine.resource
             return _instance;
         }
 
-        private var configLoader : URLLoader // the loader is use to load ResHolder init xml file (LoadResConfig.bin)
 
         private var allUnloadQueueList : Vector.<LoadResourceQueue> //hold the loadQueue that not loaded yet.
 
@@ -65,22 +64,20 @@ package copyengine.resource
         public function GameResManager()
         {
         }
-
-        /**
-         *  need call this function first before call any other function .
-         *
-         * this function will strat to load init xml file(loadResConfig) ,
-         * when load finish will send  notification and wait for further indication;
-         *
-         */
-        public function init() : void
-        {
-            configLoader = new URLLoader();
-            configLoader.load(new URLRequest("../res/bin/LoadResConfig.bin"));
-            configLoader.dataFormat = URLLoaderDataFormat.BINARY;
-            configLoader.addEventListener(Event.COMPLETE , onConfigLoadComplate);
-            configLoader.addEventListener(IOErrorEvent.IO_ERROR , onConfigLoadError);
-        }
+		
+		/**
+		 *  need call this function first before call any other function .
+		 *
+		 * this function will use the config file to initialize all system ,
+		 * when finished then send notification and wait for further indication;
+		 *
+		 */
+		public function initialize(_config:XML):void
+		{
+			initLoadQueue(_config);
+			sendNotification(GameResMessage.GAME_RES_MANAGER_INIT_COMPLATE);
+		}
+		
 
         public function startLoadQueueByName(_name : String) : void
         {
@@ -136,33 +133,6 @@ package copyengine.resource
         //=========================
         //== Private
         //=========================
-
-        /**
-         * when load config.bin finished ,when uncompress it and initialize the loadQueue
-         * then send notification to tell other system , the system can start to loadFile now.
-         *
-         */
-        private function onConfigLoadComplate(e : Event) : void
-        {
-            var byteArray : ByteArray = configLoader.data as ByteArray;
-            byteArray.uncompress();
-            initLoadQueue(new XML(byteArray));
-
-            configLoader.close();
-            configLoader = null;
-
-            _isInitFinished = true;
-
-            sendNotification(GameResMessage.GAME_RES_MANAGER_INIT_COMPLATE);
-        }
-
-        private function onConfigLoadError(e : Event) : void
-        {
-            configLoader.close();
-            configLoader = null;
-
-            sendNotification(GameResMessage.GAME_RES_MANAGER_INIT_FAILD);
-        }
 
         /**
          * use the xml file( LoadResConfig.xml ) to init all loadQueue

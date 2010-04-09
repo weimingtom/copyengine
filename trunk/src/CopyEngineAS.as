@@ -1,11 +1,12 @@
 package
 {
 	import com.flashdynamix.utils.SWFProfiler;
-
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.display.Stage;
 	import flash.events.Event;
+	import flash.system.Security;
 
 	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="24")]
 	public class CopyEngineAS extends Sprite implements IMain
@@ -57,6 +58,12 @@ package
 		//== Engine
 		//================
 		public var gamePerLoader:IPerLoader;
+		
+		/**
+		 * configXML use in GameResManger initialize .
+		 * when ths initialize finished then will set the property to null 
+		 */		
+		public var configXML:XML;
 
 		/**
 		 *  layer structure
@@ -72,9 +79,15 @@ package
 			this.addEventListener(Event.ADDED_TO_STAGE , onAddToStage,false,0,true);
 		}
 
-		public function initialize(_perLoader:IPerLoader , _stage:Stage) : void
+		public function initialize(_perLoader:IPerLoader , _stage:Stage ,  _config:XML) : void
 		{
+			configXML = _config;
 			gamePerLoader = _perLoader
+			
+			//if not add this line will cause Security Sandbox error when mouse roll over an textField
+			Security.allowDomain("*");
+			
+			//this function will trigger onAddToStage event, so need to call at the end
 			_stage.addChild(this);
 		}
 

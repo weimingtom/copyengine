@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
+	<main>
+		<file name ="Main" path = "CopyEngineAS.swf"/>
+		<file name ="loadingAnimation" path ="../res/swf/preloader_asset.swf" />
+	</main>
 	<loadQueue>
 		<queue name="perLoadQueue" priority="1" />
 		<queue name="backGroundLoadQueue" priority="2" />
