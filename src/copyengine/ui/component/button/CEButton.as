@@ -2,8 +2,10 @@ package copyengine.ui.component.button
 {
 	import copyengine.ui.CESprite;
 	import copyengine.ui.component.button.animation.ICEButtonAnimation;
+	import copyengine.ui.text.CETextManger;
 	
 	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
 
@@ -50,6 +52,7 @@ package copyengine.ui.component.button
 			if(labelTextKey != null)
 			{
 				var lable:TextField = buttonBg["lable"];
+				lable.htmlText = CETextManger.instance.getText(labelTextKey);
 			}
 			//need to add buttonSkin when create this button.
 			//ex:
