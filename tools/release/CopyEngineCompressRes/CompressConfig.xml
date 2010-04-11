@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
+	<!--
+		Define the type that need to be conversion to *.bin
+	-->
 	<conversionTpye>
 		<type>xml</type>
 	</conversionTpye>
+	<!--Source path , this tool will convert all file fit for the conversionTpye to *.bin file-->
 	<resRootPath>../../../resSource/xml</resRootPath>
-	<compressPath>../../../res/bin</compressPath>
+	<compressPath>../../../src/res/bin</compressPath>
 </root>

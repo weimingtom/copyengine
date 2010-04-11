@@ -15,8 +15,8 @@ package
 	/**
 	 * GamePerLoader is special gameScene.
 	 * this class have two function .
-	 * 1) this is the portal for the all game load , it's response for load the main game swf file
-	 * 2) the is also an gameScene , when the main system is start , it will mangered by GameScene Manger as normal GameScene
+	 * 1) this is the portal for the all game load , it's response for load the main game swf file.
+	 * 2) the is also include an loading animation , when load main scene complate , it will pass the animation to main game.
 	 */
 	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="24")]
 	public class GamePerLoader extends Sprite implements IPerLoader
@@ -36,6 +36,7 @@ package
 		//==================
 		public function GamePerLoader()
 		{
+			//get the configXml form game parameters. muse define one game parameters in html template named configPath
 			configLoader = new URLLoader();
 			configLoader.load( new URLRequest(loaderInfo.parameters["configPath"]) );
 			configLoader.dataFormat = URLLoaderDataFormat.BINARY;
@@ -70,12 +71,14 @@ package
 			configLoader.close();
 			configLoader = null;
 			
+			trace(configXml.main.file.(@name =="Main").@path);
 			mainLoader = new Loader();
-			mainLoader.load( new URLRequest(configXml.main.file[0].@path) );
+			mainLoader.load( new URLRequest(configXml.main.file.(@name =="Main").@path) );
 			mainLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadMainComplate,false,0,true);	
 			
+			trace(configXml.main.file.(@name == "LoadingAnimation").@path)
 			screenLoader = new Loader();
-			screenLoader.load( new URLRequest(configXml.main.file[1].@path));
+			screenLoader.load( new URLRequest(configXml.main.file.(@name == "LoadingAnimation").@path));
 			screenLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadComplate,false,0,true);
 		}
 		
