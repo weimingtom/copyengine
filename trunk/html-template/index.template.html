@@ -38,7 +38,10 @@
             <!-- To use express install, set to playerProductInstall.swf, otherwise the empty string. -->
             var xiSwfUrlStr = "${expressInstallSwf}";
             var flashvars = {};
-            flashvars.configPath = "./res/bin/LoadResConfig.bin"
+            
+            <!--This property set to define the path of loadConfig file-->
+            flashvars.configPath = "./res/bin/LoadResConfig.bin";
+            
             var params = {};
             params.quality = "high";
             params.bgcolor = "${bgcolor}";

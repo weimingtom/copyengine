@@ -2,14 +2,14 @@
 <root>
 	<main>
 		<file name ="Main" path = "CopyEngineAS.swf"/>
-		<file name ="loadingAnimation" path ="../res/swf/preloader_asset.swf" />
+		<file name ="LoadingAnimation" path ="../src/res/swf/preloader_asset.swf" />
 	</main>
 	<loadQueue>
 		<queue name="perLoadQueue" priority="1" />
 		<queue name="backGroundLoadQueue" priority="2" />
 	</loadQueue>
 	<loadFile>
-		<file name="IsoHax_asset" path="../res/swf/IsoHax_asset.swf" type="swf" weight="500" loadQueue="perLoadQueue" />
-		<file name="UI_asset" path="../res/swf/UI_asset.swf" type="swf" weight="500" loadQueue="perLoadQueue" />
+		<file name="IsoHax_asset" path="../src/res/swf/IsoHax_asset.swf" type="swf" weight="500" loadQueue="perLoadQueue" />
+		<file name="UI_asset" path="../src/res/swf/UI_asset.swf" type="swf" weight="500" loadQueue="perLoadQueue" />
 	</loadFile>
 </root>
