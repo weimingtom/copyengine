@@ -18,7 +18,9 @@ package copyengine.resource
 			super.execute(notification);
 			CopyEngineFacade.instance.registerProxy(GameResManager.instance);
 			GameResManager.instance.initialize((notification.getBody() as CopyEngineAS).configXML);
-			DebugLog.instance.log("ResourceInitalCommand Call");
+			
+			//free the xml file.
+			(notification.getBody() as CopyEngineAS).configXML = null;
 		}
 
 	}

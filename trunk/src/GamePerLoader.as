@@ -71,14 +71,15 @@ package
 			configLoader.close();
 			configLoader = null;
 			
-			trace(configXml.main.file.(@name =="Main").@path);
+			// in config.xml standard element should include 
+			//one file named "Main" as the main gameLogic swf
+			//one file named "LoadingAnimation" as the loading animation swf
 			mainLoader = new Loader();
-			mainLoader.load( new URLRequest(configXml.main.file.(@name =="Main").@path) );
+			mainLoader.load( new URLRequest(configXml.standard.file.(@name =="Main").@path) );
 			mainLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadMainComplate,false,0,true);	
 			
-			trace(configXml.main.file.(@name == "LoadingAnimation").@path)
 			screenLoader = new Loader();
-			screenLoader.load( new URLRequest(configXml.main.file.(@name == "LoadingAnimation").@path));
+			screenLoader.load( new URLRequest(configXml.standard.file.(@name == "LoadingAnimation").@path));
 			screenLoader.contentLoaderInfo.addEventListener(Event.COMPLETE,loadComplate,false,0,true);
 		}
 		
