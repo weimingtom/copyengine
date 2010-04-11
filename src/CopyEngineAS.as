@@ -62,6 +62,7 @@ package
 		/**
 		 * configXML use in GameResManger initialize .
 		 * when ths initialize finished then will set the property to null 
+		 * this file xml will be set free at ResourceInitalCommand
 		 */		
 		public var configXML:XML;
 
