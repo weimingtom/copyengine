@@ -65,14 +65,16 @@ package copyengine.scenes.isometric
 		{
 			return isoFloorContainer;
 		}
-
-		/**
-		 * 这个函数没有问题的条件是 
-		 */		
+		
 		public function viewPortMoveToUpdate(_viewPortX:int ,_viewPortY:int , _preViewPortX:int , _preViewPortY:int) : void
 		{
 			var offsetX:int = _viewPortX - _preViewPortX;
 			var offsetY:int = _viewPortY - _preViewPortY;
+			
+			trace("offsetX :"  + offsetX + "offsetY :" + offsetY);
+			trace("_viewPortX : " + _viewPortX + "_preViewPortX : " + _preViewPortX);
+			trace("_viewPortY : " + _viewPortY + "_preViewPortY : " + _preViewPortY);
+			
 			if (offsetX > 0)
 			{
 				viewPortMoveRight(offsetX,_preViewPortX,_preViewPortY);

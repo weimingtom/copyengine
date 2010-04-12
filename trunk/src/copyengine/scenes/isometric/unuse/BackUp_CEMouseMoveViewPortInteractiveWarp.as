@@ -1,4 +1,4 @@
-package copyengine.scenes.isometric.viewport
+package copyengine.scenes.isometric.unuse
 {
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.KeyCode;
@@ -11,8 +11,10 @@ package copyengine.scenes.isometric.viewport
 	import flash.events.KeyboardEvent;
 	import flash.events.MouseEvent;
 	import flash.ui.Keyboard;
+	import copyengine.scenes.isometric.viewport.IIsoViewPort;
+	import copyengine.scenes.isometric.viewport.IViewPortInteractiveWarp;
 
-	public class CEMouseMoveViewPortInteractiveWarp implements IViewPortInteractiveWarp
+	public class BackUp_CEMouseMoveViewPortInteractiveWarp implements IViewPortInteractiveWarp
 	{
 		private static const RESPOND_AREA:int = 20; // Pixel
 
@@ -33,7 +35,7 @@ package copyengine.scenes.isometric.viewport
 		protected var warpContainer:DisplayObjectContainer;
 		protected var viewPort:IIsoViewPort;
 
-		public function CEMouseMoveViewPortInteractiveWarp()
+		public function BackUp_CEMouseMoveViewPortInteractiveWarp()
 		{
 		}
 

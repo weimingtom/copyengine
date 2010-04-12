@@ -1,4 +1,4 @@
-package copyengine.scenes.isometric.viewport
+package copyengine.scenes.isometric.unuse
 {
 	import copyengine.utils.GeneralUtils;
 	
@@ -8,8 +8,10 @@ package copyengine.scenes.isometric.viewport
 	import flash.geom.Rectangle;
 	
 	import flashx.textLayout.elements.Configuration;
+	import copyengine.scenes.isometric.viewport.IIsoViewPort;
+	import copyengine.scenes.isometric.viewport.IViewPortListener;
 
-	public final class CEIsoViewPort implements IIsoViewPort
+	public final class BackUp_CEIsoViewPort implements IIsoViewPort
 	{
 		/**
 		 * each time move pixel
@@ -84,7 +86,7 @@ package copyengine.scenes.isometric.viewport
 		private var vectorBPointX:int;
 		private var vecrorBPointY:int;
 		
-		public function CEIsoViewPort()
+		public function BackUp_CEIsoViewPort()
 		{
 		}
 
