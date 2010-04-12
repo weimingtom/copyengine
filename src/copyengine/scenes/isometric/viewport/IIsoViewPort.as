@@ -17,14 +17,8 @@ package copyengine.scenes.isometric.viewport
 	{
 		/**
 		 *	call this function initialze IsoViewPort before use it.
-		 *
-		 * @param _moveSpeed				define each time call move*() function will moved distance.
-		 * @param _viewPortWidth			the viewport width size
-		 * @param _viewPortHeight			the viewport height size
-		 *
 		 */
-		function initializeIsoViewPort(_moveSpeed:int ,_viewPortWidth:int , _viewPortHeight:int , 
-			_screenWidth:int , _screenHeight:int) : void;
+		function initializeIsoViewPort(_viewPortWidth:int , _viewPortHeight:int , _screenWidth:int , _screenHeight:int) : void;
 		
 		/**
 		 *  call this function to statr viewPort function 
@@ -36,7 +30,10 @@ package copyengine.scenes.isometric.viewport
 		 * (in one CEScreen , not only need to show viewport, but also need to add other container ex: UIContainer)
 		 */
 		function get container() : DisplayObjectContainer;
-
+		
+		function get currentViewPortX():int;
+		function get currentViewPortY():int;
+		
 		function getViewPortWidth() : int;
 		function getViewPortHeight() : int;
 
@@ -51,15 +48,20 @@ package copyengine.scenes.isometric.viewport
 		function updateListener() : void;
 		function addListener(_listener:IViewPortListener) : void;
 		function removeListener(_listener:IViewPortListener) : void;
-
+		
 		/**
-		 * current math is hard to support move like moveUpLeft()
-		 * for the  isometric scene is diamond shape , when the viewport at the edge, can't do that kind move.
-		 * but maybe support that kind move later [TBD]
-		 */
-		function moveUp() : void;
-		function moveDown() : void;
-		function moveLeft() : void;
-		function moveRight() : void;
+		 * move the view port to new position
+		 */		
+		function moveTo(_viewPortX:int , _viewPortY:int):void;
+		
+//		/**
+//		 * current math is hard to support move like moveUpLeft()
+//		 * for the  isometric scene is diamond shape , when the viewport at the edge, can't do that kind move.
+//		 * but maybe support that kind move later [TBD]
+//		 */
+//		function moveUp() : void;
+//		function moveDown() : void;
+//		function moveLeft() : void;
+//		function moveRight() : void;
 	}
 }
