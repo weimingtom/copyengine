@@ -100,8 +100,8 @@ package copyengine.scenes.isometric.unuse
 					{
 						tile = new Bitmap(cacheTileBitmapDataGreen);
 					}
-					tile.x = isoPos.x - GeneralConfig.HALF_SCREEN_TILE_WIDTH;
-					tile.y = isoPos.y - GeneralConfig.HALF_SCREEN_TILE_HEIGHT;
+					tile.x = isoPos.x - ISO::HSTW;
+					tile.y = isoPos.y - ISO::HSTH;
 					testSprite.addChild(tile);
 					tileInfoArray[row][col] = tile; //tileArray[x][y]
 				}
@@ -114,9 +114,9 @@ package copyengine.scenes.isometric.unuse
 			tileMap.x -= tileMap.width>>1;
 			floorMangerContainer.addChild(floor);
 			
-			for (var i:int = 0 ; i < GeneralConfig.TILE_ROW_NUMBER ; i++) //x
+			for (var i:int = 0 ; i < ISO::TN; i++) //x
 			{
-				for (var j:int = 0 ; j < GeneralConfig.TILE_COL_NUMBER ; j++) //y
+				for (var j:int = 0 ; j < ISO::TN; j++) //y
 				{
 					var b:Bitmap = 	tileInfoArray[i][j];
 					b.bitmapData.dispose();

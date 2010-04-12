@@ -6,6 +6,7 @@ package game.scene
 	import copyengine.scenes.isometric.IsoFloor;
 	import copyengine.scenes.isometric.IsoSceneBasic;
 	import copyengine.scenes.isometric.IsoSceneBasicMediator;
+	import copyengine.utils.Random;
 	import copyengine.utils.ResUtlis;
 	
 	import flash.display.Sprite;
@@ -24,14 +25,34 @@ package game.scene
 		{
 			var isoObjects:Vector.<IIsoObject> = new Vector.<IIsoObject>();
 			
-			var box:Sprite = ResUtlis.getSprite("IsoBox_1_1_Green",ResUtlis.FILE_ISOHAX);
-			var isoBox:IsoBox = new IsoBox(box,8,7,0,1,1);
-			isoObjects.push(isoBox);
+			var objCol:int = 0;
+			var objRow:int = 0;
+			while(objCol < 50)
+			{
+				while(objRow < 10)
+				{
+					isoObjects.push( getIsoObjectByType(Random.range(0,3),objCol,objRow) );
+//					objRow++;
+					objRow += Random.range(1,4);
+				}
+				objRow = 0;
+				objCol += Random.range(1,4);
+//				objCol ++;
+			}
 			
-			var box2:Sprite = ResUtlis.getSprite("IsoBox_1_1_Green",ResUtlis.FILE_ISOHAX);
-			var isoBox2:IsoBox = new IsoBox(box,9,8,0,1,1);
-			isoObjects.push(isoBox2);			
-			
+//			isoObjects.push( getIsoObjectByType(2,0,0) );
+//			isoObjects.push( getIsoObjectByType(2,0,1) );
+//			isoObjects.push( getIsoObjectByType(1,0,2) );
+//			isoObjects.push( getIsoObjectByType(0,0,3) );
+//			isoObjects.push( getIsoObjectByType(0,0,4) );
+				
+//			var box2:Sprite = ResUtlis.getSprite("IsoBox_1_1_Red",ResUtlis.FILE_ISOHAX);
+//			var isoBox2:IsoBox = new IsoBox(box2,3,3,0,1,1);
+//			isoObjects.push(isoBox2);			
+//			
+//			var box:Sprite = ResUtlis.getSprite("IsoBox_1_1_Green",ResUtlis.FILE_ISOHAX);
+//			var isoBox:IsoBox = new IsoBox(box,2,2,0,1,1);
+//			isoObjects.push(isoBox);
 			
 			isoScene.setIsoObjectList(isoObjects);
 			
@@ -48,6 +69,25 @@ package game.scene
 			isoScene.setIsoFloor(floor);
 			
 			finishedScenePerLoad();
+		}
+		
+		private function getIsoObjectByType(_type:int, _col:int , _row:int):IIsoObject
+		{
+			var bg:Sprite;
+			switch(_type)
+			{
+				case 0:
+					bg = ResUtlis.getSprite("IsoBox_1_1_Red",ResUtlis.FILE_ISOHAX);
+					break;
+				case 1:
+					bg = ResUtlis.getSprite("IsoBox_1_1_Green",ResUtlis.FILE_ISOHAX);
+					break;
+				case 2:
+					bg = ResUtlis.getSprite("IsoBox_1_1_Gray",ResUtlis.FILE_ISOHAX);
+					break;
+			}
+			var isoBox:IsoBox = new IsoBox(bg,_col,_row,0,1,1);
+			return isoBox;
 		}
 		
 	}
