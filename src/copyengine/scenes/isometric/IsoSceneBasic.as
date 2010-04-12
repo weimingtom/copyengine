@@ -96,7 +96,7 @@ package copyengine.scenes.isometric
 			isoFloorManger = new IsoFloorManger();
 			isoFloorManger.initialize(isoFloor);
 			viewport.addListener(isoFloorManger);
-			isoFloorManger.container.mouseChildren = isoFloorManger.container.mouseEnabled = false;
+//			isoFloorManger.container.mouseChildren = isoFloorManger.container.mouseEnabled = false;
 			viewport.container.addChild(isoFloorManger.container);
 
 			//initialze isoObject , add to viewport.
@@ -104,7 +104,7 @@ package copyengine.scenes.isometric
 			isoObjectManger = new IsoObjectManger();
 			isoObjectManger.initialize(isoObjectList);
 			viewport.addListener(isoObjectManger);
-			isoObjectManger.container.mouseChildren = isoObjectManger.container.mouseEnabled = false;
+//			isoObjectManger.container.mouseChildren = isoObjectManger.container.mouseEnabled = false;
 			viewport.container.addChild(isoObjectManger.container);
 
 			//initializeViewPortInteractive

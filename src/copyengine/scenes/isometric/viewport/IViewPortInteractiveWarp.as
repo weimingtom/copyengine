@@ -12,8 +12,8 @@ package copyengine.scenes.isometric.viewport
 	public interface IViewPortInteractiveWarp
 	{
 		function initialize(_viewPort:IIsoViewPort):void;
-		function get container():DisplayObjectContainer;
 		function dispose():void;
+		function get container():DisplayObjectContainer;
 		function tick():void;
 	}
 }
