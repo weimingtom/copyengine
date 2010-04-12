@@ -1,6 +1,7 @@
 package copyengine.scenes.isometric.viewport
 {
 	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
 
 	/**
 	 * IIsoViewPort is use in isometric scene ,
@@ -29,7 +30,7 @@ package copyengine.scenes.isometric.viewport
 		 * viewport will be addChild to BaiseSceen.
 		 * (in one CEScreen , not only need to show viewport, but also need to add other container ex: UIContainer)
 		 */
-		function get container() : DisplayObjectContainer;
+		function get container() :DisplayObjectContainer;
 		
 		function get currentViewPortX():int;
 		function get currentViewPortY():int;

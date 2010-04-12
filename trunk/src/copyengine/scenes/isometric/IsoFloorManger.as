@@ -71,10 +71,6 @@ package copyengine.scenes.isometric
 			var offsetX:int = _viewPortX - _preViewPortX;
 			var offsetY:int = _viewPortY - _preViewPortY;
 			
-			trace("offsetX :"  + offsetX + "offsetY :" + offsetY);
-			trace("_viewPortX : " + _viewPortX + "_preViewPortX : " + _preViewPortX);
-			trace("_viewPortY : " + _viewPortY + "_preViewPortY : " + _preViewPortY);
-			
 			if (offsetX > 0)
 			{
 				viewPortMoveRight(offsetX,_preViewPortX,_preViewPortY);

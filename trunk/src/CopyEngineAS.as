@@ -8,7 +8,7 @@ package
 	import flash.events.Event;
 	import flash.system.Security;
 
-	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="24")]
+	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="1000")]
 	public class CopyEngineAS extends Sprite implements IMain
 	{
 
@@ -108,7 +108,7 @@ package
 			gameDialogLayer = new Sprite();
 			addChild( gameDialogLayer);
 
-//			SWFProfiler.init(stage,this);
+			SWFProfiler.init(stage,this);
 
 			_instance = this;
 			CopyEngineFacade.instance.startup(this);

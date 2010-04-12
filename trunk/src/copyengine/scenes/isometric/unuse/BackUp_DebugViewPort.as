@@ -1,13 +1,14 @@
 package copyengine.scenes.isometric.unuse
 {
-	import flash.display.DisplayObjectContainer;
-	import flash.display.Sprite;
 	import copyengine.scenes.isometric.viewport.IIsoViewPort;
 	import copyengine.scenes.isometric.viewport.IViewPortListener;
+	
+	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
 
 	public class BackUp_DebugViewPort implements IIsoViewPort
 	{
-		private var viewportContainer:DisplayObjectContainer;
+		private var viewportContainer:Sprite;
 		private var allViewPortListener:Vector.<IViewPortListener>
 
 		private var moveSpeed:int;
@@ -41,7 +42,7 @@ package copyengine.scenes.isometric.unuse
 			}
 		}
 
-		public function get container() : DisplayObjectContainer
+		public function get container() :DisplayObjectContainer
 		{
 			return viewportContainer;
 		}
