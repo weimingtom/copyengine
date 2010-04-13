@@ -63,11 +63,21 @@ package copyengine.scenes.isometric
 
 		public function addIsoObject(_obj:IIsoObject) : void
 		{
-
+			isoObjectList.push(_obj);
+			isoObjectListLength++;
 		}
 
 		public function removeIsoObject(_obj:IIsoObject) : void
 		{
+			for(var i:int = 0 ; i < isoObjectListLength ; i++)
+			{
+				if(isoObjectList[i] == _obj)
+				{
+					isoObjectList.splice(i,1);
+					isoObjectListLength--;
+					return;
+				}
+			}
 		}
 
 

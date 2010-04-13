@@ -35,10 +35,20 @@ package copyengine.actor.isometric
 		{
 			return isoBoxCol;
 		}
+		
+		public function set col(_value:int):void
+		{
+			isoBoxCol = _value;
+		}
 
 		public function get row() : int
 		{
 			return isoBoxRow;
+		}
+		
+		public function set row(_value:int):void
+		{
+			isoBoxRow = _value;
 		}
 		
 		public function get height():int
@@ -46,16 +56,31 @@ package copyengine.actor.isometric
 			return isoBoxHeight;
 		}
 		
+		public function set height(_value:int):void
+		{
+			isoBoxHeight = _value;
+		}
+		
 		public function get maxCols() : int
 		{
 			return isoBoxMaxCols;
 		}
-
+		
+		public function set maxCols(_value:int):void
+		{
+			isoBoxMaxCols = _value;
+		}
+		
 		public function get maxRows() : int
 		{
 			return isoBoxMaxRows;
 		}
-
+		
+		public function set maxRows(_value:int):void
+		{
+			isoBoxMaxRows = _value;
+		}
+		
 		public function get container() : DisplayObjectContainer
 		{
 			return isoBoxSkin;

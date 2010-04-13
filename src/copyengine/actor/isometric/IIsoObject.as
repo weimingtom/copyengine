@@ -5,11 +5,19 @@ package copyengine.actor.isometric
 	public interface IIsoObject
 	{
 		function get col():int;
-		function get row():int;
-		function get height():int;
+		function set col(_value:int):void;
 		
+		function get row():int;
+		function set row(_value:int):void;
+		
+		function get height():int;
+		function set height(_value:int):void;
+			
 		function get maxCols():int;
+		function set  maxCols(_value:int):void;
+		
 		function get maxRows():int;
+		function set maxRows(_value:int):void;
 		
 		function get container():DisplayObjectContainer;
 	}
