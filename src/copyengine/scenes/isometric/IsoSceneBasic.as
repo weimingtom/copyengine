@@ -6,6 +6,8 @@ package copyengine.scenes.isometric
 	import copyengine.scenes.isometric.viewport.IIsoViewPort;
 	import copyengine.scenes.isometric.viewport.IViewPortInteractiveWarp;
 	
+	import flash.display.DisplayObjectContainer;
+	import flash.display.Sprite;
 	import flash.geom.Rectangle;
 
 	/**
@@ -24,6 +26,11 @@ package copyengine.scenes.isometric
 	 */
 	public class IsoSceneBasic extends SceneBasic
 	{
+		/**
+		 * all UI stuff should add to this layer.
+		 */		
+		protected var uiContainer:DisplayObjectContainer 
+		
 		/**
 		 * all isometric will display in this viewPort.
 		 * @see more detail in IIsoViewPort
@@ -79,11 +86,6 @@ package copyengine.scenes.isometric
 
 		override final protected function initialize() : void
 		{
-			//WARNINIG:: 
-			//			all view port container except IViewPortInteractive.container will not listne for any mouseEvent
-			//			it means  can't dispatch or listener event  in viewport , all user mouse operate will proxy by IViewPortInteractive.
-			//			in case to improve performance.
-
 			//initialze viewport
 			//view port will add to the buttom layer of current scene.
 			//if child class need to add some other layer(ex. UILayer), need to override doInitailze function
@@ -110,7 +112,8 @@ package copyengine.scenes.isometric
 			//initializeViewPortInteractive
 			viewportInteractiveWarp = createViewPortInteractive();
 			viewportInteractiveWarp.initialize(viewport);
-
+			
+			uiContainer = new Sprite();
 			doInitialize();
 
 			//WARNINIG::
@@ -118,6 +121,8 @@ package copyengine.scenes.isometric
 			viewport.container.addChild(viewportInteractiveWarp.container);
 			viewport.container.scrollRect = new Rectangle(0,0,ISO::VW,ISO::VH);
 			viewport.viewPortStart( GeneralConfig.VIEWPORT_STAR_X,GeneralConfig.VIEWPORT_STAR_Y);
+			
+			container.addChild(uiContainer);
 		}
 
 		override final protected function dispose() : void

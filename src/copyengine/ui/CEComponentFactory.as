@@ -291,7 +291,5 @@ package copyengine.ui
 			return panel;
 		}
 
-
-
 	}
 }

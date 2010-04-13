@@ -147,6 +147,13 @@ package copyengine.dragdrop.impl
 		//===============
 		protected function findTargetAtPoint(_x:Number , _y:Number) : IDragDropTarget
 		{
+			for each(var target:IDragDropTarget in dragDropTargetList)
+			{
+				if(target.isPositionInTarget(_x,_y))
+				{
+					return target;
+				}
+			}
 			return null;
 		}
 

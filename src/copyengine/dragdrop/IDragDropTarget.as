@@ -35,5 +35,11 @@ package copyengine.dragdrop
 		 * call when current dragdrop end.
 		 */		
 		function onDragDropEnd():void;
+		
+		/**
+		 * use this function to caulate is current position(global system) in target or not.
+		 * use in CEDragDropEngine.findTargetAtPoint() function
+		 */		
+		function isPositionInTarget(_posX:Number , _posY:Number):Boolean
 	}
 }

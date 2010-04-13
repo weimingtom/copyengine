@@ -1,5 +1,7 @@
 package copyengine.scenes.isometric.viewport
 {
+	import copyengine.scenes.isometric.IsoObjectManger;
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 
@@ -26,15 +28,6 @@ package copyengine.scenes.isometric.viewport
 		 */		
 		function viewPortStart(_viewPortX:int , _viewPortY:int):void;
 		
-		/**
-		 * viewport will be addChild to BaiseSceen.
-		 * (in one CEScreen , not only need to show viewport, but also need to add other container ex: UIContainer)
-		 */
-		function get container() :DisplayObjectContainer;
-		
-		function get currentViewPortX():int;
-		function get currentViewPortY():int;
-		
 		function getViewPortWidth() : int;
 		function getViewPortHeight() : int;
 
@@ -54,15 +47,15 @@ package copyengine.scenes.isometric.viewport
 		 * move the view port to new position
 		 */		
 		function moveTo(_viewPortX:int , _viewPortY:int):void;
+
+		/**
+		 * viewport will be addChild to BaiseSceen.
+		 * (in one CEScreen , not only need to show viewport, but also need to add other container ex: UIContainer)
+		 */
+		function get container() :DisplayObjectContainer;
 		
-//		/**
-//		 * current math is hard to support move like moveUpLeft()
-//		 * for the  isometric scene is diamond shape , when the viewport at the edge, can't do that kind move.
-//		 * but maybe support that kind move later [TBD]
-//		 */
-//		function moveUp() : void;
-//		function moveDown() : void;
-//		function moveLeft() : void;
-//		function moveRight() : void;
+		function get currentViewPortX():int;
+		function get currentViewPortY():int;
+		
 	}
 }
