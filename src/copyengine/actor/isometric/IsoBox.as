@@ -28,7 +28,7 @@ package copyengine.actor.isometric
 			isoBoxMaxCols = _maxCols;
 			isoBoxMaxRows = _maxRows;
 			
-//			addListener();
+			addListener();
 		}
 
 		public function get col() : int
