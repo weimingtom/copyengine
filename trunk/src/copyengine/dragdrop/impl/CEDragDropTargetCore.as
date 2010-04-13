@@ -28,7 +28,7 @@ package copyengine.dragdrop.impl
 
 		final public function set engine(_engine:IDragDropEngine) : void
 		{
-			dragDropEngine
+			dragDropEngine = _engine;
 		}
 
 		final public function bindEntity(_entity:Object, _x:Number, _y:Number) : void
@@ -74,7 +74,12 @@ package copyengine.dragdrop.impl
 		{
 			dragDropEngine = null;
 		}
-
+		
+		public function isPositionInTarget(_posX:Number , _posY:Number):Boolean
+		{
+			return false;
+		}
+		
 		//===============
 		//== Protected Function
 		//===============

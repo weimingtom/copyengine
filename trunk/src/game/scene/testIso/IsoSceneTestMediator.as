@@ -1,4 +1,4 @@
-package game.scene
+package game.scene.testIso
 {
 	import copyengine.actor.isometric.IIsoObject;
 	import copyengine.actor.isometric.IsoBox;
@@ -9,6 +9,7 @@ package game.scene
 	import copyengine.utils.Random;
 	import copyengine.utils.ResUtlis;
 	
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
@@ -27,9 +28,9 @@ package game.scene
 			
 			var objCol:int = 0;
 			var objRow:int = 0;
-			while(objCol < 50)
+			while(objCol < 20)
 			{
-				while(objRow < 10)
+				while(objRow < 20)
 				{
 					isoObjects.push( getIsoObjectByType(Random.range(0,3),objCol,objRow) );
 //					objRow++;

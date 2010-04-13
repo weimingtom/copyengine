@@ -1,7 +1,7 @@
 package copyengine.scenes.isometric.viewport
 {
 	import copyengine.utils.GeneralUtils;
-
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Graphics;
 	import flash.display.Sprite;
@@ -45,14 +45,19 @@ package copyengine.scenes.isometric.viewport
 
 		private function addListener() : void
 		{
-			GeneralUtils.addTargetEventListener(CopyEngineAS.getStage(),MouseEvent.MOUSE_DOWN , warpOnMouseDown);
-			GeneralUtils.addTargetEventListener(CopyEngineAS.getStage(),MouseEvent.MOUSE_UP , warpOnMouseUp);
+			//could not add Mouse Up.Down Listener on warpContainer 
+			//beacuse in that case other layer can not respond any mouse event.
+			//only add Mouse Move Evnet on that layer beacuse , during mouse move not want any other layer respond mouse event
+			GeneralUtils.addTargetEventListener(viewPort.container,MouseEvent.ROLL_OUT , warpOnMouseRollOut);
+			GeneralUtils.addTargetEventListener(viewPort.container,MouseEvent.MOUSE_DOWN , warpOnMouseDown);
+			GeneralUtils.addTargetEventListener(viewPort.container,MouseEvent.MOUSE_UP , warpOnMouseUp);
 		}
 
 		private function removeListener() : void
 		{
-			GeneralUtils.removeTargetEventListener(CopyEngineAS.getStage(),MouseEvent.MOUSE_DOWN , warpOnMouseDown);
-			GeneralUtils.removeTargetEventListener(CopyEngineAS.getStage(),MouseEvent.MOUSE_UP , warpOnMouseUp);
+			GeneralUtils.removeTargetEventListener(viewPort.container,MouseEvent.ROLL_OUT , warpOnMouseRollOut);
+			GeneralUtils.removeTargetEventListener(viewPort.container,MouseEvent.MOUSE_DOWN , warpOnMouseDown);
+			GeneralUtils.removeTargetEventListener(viewPort.container,MouseEvent.MOUSE_UP , warpOnMouseUp);
 			GeneralUtils.removeTargetEventListener(warpContainer,MouseEvent.MOUSE_MOVE , warpOnMouseMove);
 		}
 
@@ -76,7 +81,12 @@ package copyengine.scenes.isometric.viewport
 			preMouseX = e.stageX;
 			preMouseY = e.stageY;
 		}
-
+		
+		private function warpOnMouseRollOut(e:MouseEvent):void
+		{
+			warpOnMouseUp(null);
+		}
+		
 		private function fillWarpContainer() : void
 		{
 			var g:Graphics = warpContainer.graphics;
