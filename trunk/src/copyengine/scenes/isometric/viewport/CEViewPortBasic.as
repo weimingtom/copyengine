@@ -32,7 +32,7 @@ package copyengine.scenes.isometric.viewport
 			allViewPortListener = new Vector.<IViewPortListener>();
 			
 			viewPortWidth = _viewPortWidth;
-			viewPortHeigth = _screenHeight;
+			viewPortHeigth = _viewPortHeight;
 			
 			screenWidth = _screenWidth;
 			screenHeight = _screenHeight;
