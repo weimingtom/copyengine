@@ -1,6 +1,6 @@
 package copyengine.scenes.isometric
 {
-	
+
 	import copyengine.actor.isometric.IIsoObject;
 	import copyengine.datastructure.DoubleLinkNode;
 	import copyengine.scenes.isometric.viewport.IViewPortListener;
@@ -28,9 +28,9 @@ package copyengine.scenes.isometric
 	{
 		private var isoObjectList:Vector.<IIsoObject>;
 		private var isoObjectListLength:int;
-		
+
 		private var isoObjectMangerContainer:DisplayObjectContainer
-		
+
 		public function IsoObjectManger()
 		{
 		}
@@ -69,9 +69,9 @@ package copyengine.scenes.isometric
 
 		public function removeIsoObject(_obj:IIsoObject) : void
 		{
-			for(var i:int = 0 ; i < isoObjectListLength ; i++)
+			for (var i:int = 0 ; i < isoObjectListLength ; i++)
 			{
-				if(isoObjectList[i] == _obj)
+				if (isoObjectList[i] == _obj)
 				{
 					isoObjectList.splice(i,1);
 					isoObjectListLength--;
@@ -105,16 +105,21 @@ package copyengine.scenes.isometric
 
 		public function viewPortNoMoveUpdate(_viewPortX:int , _viewPortY:int) : void
 		{
-//			drawIsoObjects();
+			drawIsoObjects();
 		}
 
 		private function drawIsoObjects() : void
 		{
 			isoObjectList.sort(sortIsoObjects);
-			for (var i:int = 0 ; i < isoObjectListLength ; i++)
-			{
-				isoObjectMangerContainer.addChildAt(isoObjectList[i].container,i);
-			}
+//			var index:int;
+//			for (var i:int = 0 ; i < isoObjectListLength ; i++)
+//			{
+//				index = isoObjectMangerContainer.getChildIndex(isoObjectList[i].container);
+//				if (i != index)
+//				{
+//					isoObjectMangerContainer.addChildAt(isoObjectList[i].container,i);
+//				}
+//			}
 		}
 
 		/**
@@ -130,11 +135,11 @@ package copyengine.scenes.isometric
 			{
 				return -1;
 			}
-			else if(_objB.col <= _objA.col + _objA.maxCols - 1 && _objB.row <= _objA.row + _objA.maxRows -1)
+			else if (_objB.col <= _objA.col + _objA.maxCols - 1 && _objB.row <= _objA.row + _objA.maxRows -1)
 			{
 				return 1;
 			}
-			else if(_objA.col > _objB.col)
+			else if (_objA.col > _objB.col)
 			{
 				return 1;
 			}
