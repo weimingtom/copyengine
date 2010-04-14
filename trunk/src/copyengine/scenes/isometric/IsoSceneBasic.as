@@ -1,6 +1,7 @@
 package copyengine.scenes.isometric
 {
 	import copyengine.actor.isometric.IIsoObject;
+	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.scenes.SceneBasic;
 	import copyengine.scenes.isometric.unuse.BackUp_IsoFloorManger;
 	import copyengine.scenes.isometric.viewport.IIsoViewPort;
@@ -9,6 +10,7 @@ package copyengine.scenes.isometric
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
+	import flash.utils.Dictionary;
 
 	/**
 	 * IsoSceneBasic is ues to manage isometric object.
@@ -54,16 +56,15 @@ package copyengine.scenes.isometric
 		protected var isoObjectManger:IsoObjectManger;
 
 		/**
-		 * the isoTileVo warp data.
-		 * @see more detail in IsoFloor;
-		 */
-		protected var isoFloor:IsoFloor
-
-		/**
 		 * mange isoFloor(include isoFloor frustum culling logic)
 		 * @see more detail in IsoFloorManger
 		 */
 		protected var isoFloorManger:IsoFloorManger;
+		
+		/**
+		 * hold all IsoTileVo 
+		 */		
+		protected var isoTileVoDic:Dictionary;
 
 
 		public function IsoSceneBasic()
@@ -96,7 +97,7 @@ package copyengine.scenes.isometric
 
 			//initialze floor
 			isoFloorManger = new IsoFloorManger();
-			isoFloorManger.initialize(isoFloor);
+			isoFloorManger.initialize(isoTileVoDic);
 			viewport.addListener(isoFloorManger);
 //			isoFloorManger.container.mouseChildren = isoFloorManger.container.mouseEnabled = false;
 			viewport.container.addChild(isoFloorManger.container);
@@ -104,7 +105,7 @@ package copyengine.scenes.isometric
 			//initialze isoObject , add to viewport.
 			//all isoObject should be heighter than floorlevel, no matrter the floor z value.
 			isoObjectManger = new IsoObjectManger();
-			isoObjectManger.initialize(isoObjectList);
+			isoObjectManger.initialize(isoObjectList , isoTileVoDic);
 			viewport.addListener(isoObjectManger);
 //			isoObjectManger.container.mouseChildren = isoObjectManger.container.mouseEnabled = false;
 			viewport.container.addChild(isoObjectManger.container);
@@ -142,7 +143,8 @@ package copyengine.scenes.isometric
 			viewport.dispose();
 
 			CopyEngineFacade.instance.removeMediator(getMediatorName() );
-			isoFloor = null;
+			
+			isoTileVoDic = null;
 			isoFloorManger = null;
 			isoObjectManger = null;
 			viewportInteractiveWarp = null;
@@ -218,11 +220,11 @@ package copyengine.scenes.isometric
 		{
 			isoObjectList = _list;
 		}
-
-		public final function setIsoFloor(_floor:IsoFloor) : void
+		
+		public final function setIsoTileVoDic(_isoTileVoDic:Dictionary):void
 		{
-			isoFloor = _floor;
+			isoTileVoDic = _isoTileVoDic;
 		}
-
+		
 	}
 }

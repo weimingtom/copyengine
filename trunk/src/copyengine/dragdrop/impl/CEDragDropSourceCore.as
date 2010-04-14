@@ -41,6 +41,11 @@ package copyengine.dragdrop.impl
 			initializeDragDropIcon();
 			return dragDropIconContainer;
 		}
+		
+		final public function get dragIcon():DisplayObjectContainer
+		{
+			return dragDropIconContainer;
+		}
 
 		final public function bindEntity(_entity:Object, _x:Number, _y:Number) : void
 		{

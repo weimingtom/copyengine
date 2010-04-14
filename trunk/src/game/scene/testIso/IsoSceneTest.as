@@ -7,6 +7,7 @@ package game.scene.testIso
 	import copyengine.dragdrop.IDragDropSource;
 	import copyengine.dragdrop.IDragDropTarget;
 	import copyengine.dragdrop.impl.CEDragDropEngine;
+	import copyengine.dragdrop.impl.CEDragDropMangerClick;
 	import copyengine.dragdrop.impl.CEDragDropMangerDrag;
 	import copyengine.scenes.isometric.IsoSceneBasic;
 	import copyengine.scenes.isometric.IsoSceneBasicMediator;
@@ -72,7 +73,7 @@ package game.scene.testIso
 			uiContainer.addChild(box);
 			box.y = GeneralConfig.VIEWPORT_HEIGHT;
 			
-			dragDropManger = new CEDragDropMangerDrag();
+			dragDropManger = new CEDragDropMangerClick();
 			dragDropEngine = new CEDragDropEngine();
 			dragDropManger.initialize(CopyEngineAS.dragdropLayer , dragDropEngine );
 			
