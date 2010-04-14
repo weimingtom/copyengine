@@ -33,6 +33,14 @@ package copyengine.datas.isometric
 		 */		
 		public var floorSkinId:int;
 		
+		/**
+		 *  use an uint to record current tile attribute. use in many instance.
+		 * ex: drag drop , actor move 
+		 */		
+		public var tileAttribute:uint;
+		public static const TILE_ATTRIBUTE_BLOCK:int = 0;
+		
+		
 		public function IsoTileVo()
 		{
 		}

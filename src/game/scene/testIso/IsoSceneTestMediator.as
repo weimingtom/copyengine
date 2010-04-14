@@ -28,36 +28,20 @@ package game.scene.testIso
 			
 			var objCol:int = 0;
 			var objRow:int = 0;
-			while(objCol < 20)
+			while(objCol < 3)
 			{
-				while(objRow < 20)
+				while(objRow < 3)
 				{
 					isoObjects.push( getIsoObjectByType(Random.range(0,3),objCol,objRow) );
-//					objRow++;
-					objRow += Random.range(1,4);
+					objRow++;
+//					objRow += Random.range(1,4);
 				}
 				objRow = 0;
-				objCol += Random.range(1,4);
-//				objCol ++;
+//				objCol += Random.range(1,4);
+				objCol ++;
 			}
-			
-//			isoObjects.push( getIsoObjectByType(2,0,0) );
-//			isoObjects.push( getIsoObjectByType(2,0,1) );
-//			isoObjects.push( getIsoObjectByType(1,0,2) );
-//			isoObjects.push( getIsoObjectByType(0,0,3) );
-//			isoObjects.push( getIsoObjectByType(0,0,4) );
-				
-//			var box2:Sprite = ResUtlis.getSprite("IsoBox_1_1_Red",ResUtlis.FILE_ISOHAX);
-//			var isoBox2:IsoBox = new IsoBox(box2,3,3,0,1,1);
-//			isoObjects.push(isoBox2);			
-//			
-//			var box:Sprite = ResUtlis.getSprite("IsoBox_1_1_Green",ResUtlis.FILE_ISOHAX);
-//			var isoBox:IsoBox = new IsoBox(box,2,2,0,1,1);
-//			isoObjects.push(isoBox);
-			
 			isoScene.setIsoObjectList(isoObjects);
 			
-			var floor:IsoFloor = new IsoFloor();
 			var tileDic:Dictionary = new Dictionary();
 			for (var row:int = 0 ; row <ISO::TN ; row ++)
 			{
@@ -66,8 +50,7 @@ package game.scene.testIso
 					tileDic[row +"-" + col] = new IsoTileVo();
 				}
 			}
-			floor.initialize(tileDic);
-			isoScene.setIsoFloor(floor);
+			isoScene.setIsoTileVoDic(tileDic);
 			
 			finishedScenePerLoad();
 		}

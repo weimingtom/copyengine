@@ -23,6 +23,11 @@ package copyengine.dragdrop
 		function createDragIcon() :DisplayObjectContainer;
 		
 		/**
+		 * get current dragdrop source icon
+		 */		
+		function get dragIcon():DisplayObjectContainer;
+		
+		/**
 		 * call when enter an dragdrop target like mouseRollOver
 		 */
 		function onEnterTarget(_target:IDragDropTarget) : void;

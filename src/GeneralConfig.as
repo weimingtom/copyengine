@@ -14,6 +14,7 @@ package
 		 * 		in 2D world space the widht/height = 80/40
 		 */
 		public static const ISO_TILE_WIDTH:int = 40;
+		public static const INVERT_ISO_TILE_WIDTH:Number = 1/ISO_TILE_WIDTH;
 		
 		public static const FLOOR_WIDHT:int = ISO::TN * ISO::STW;
 		public static const FLOOR_HEIGHT:int = ISO::TN * ISO::STH;

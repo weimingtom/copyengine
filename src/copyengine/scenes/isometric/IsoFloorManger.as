@@ -18,6 +18,7 @@ package copyengine.scenes.isometric
 	import flash.geom.Vector3D;
 	import flash.sampler.NewObjectSample;
 	import flash.ui.Keyboard;
+	import flash.utils.Dictionary;
 	
 	import game.scene.IsoMath;
 
@@ -46,9 +47,11 @@ package copyengine.scenes.isometric
 		}
 
 
-		public function initialize(_isoFloor:IsoFloor) : void
+		public function initialize(_isoTileVoDic:Dictionary) : void
 		{
-			isoFloor = _isoFloor;
+			isoFloor = new IsoFloor();
+			isoFloor.initialize(_isoTileVoDic);
+			
 			isoFloorContainer = new Sprite();
 			viewPortRenderBitmapData = new BitmapData(ISO::VW,ISO::VH);
 			viewPortRender = new Bitmap(viewPortRenderBitmapData);

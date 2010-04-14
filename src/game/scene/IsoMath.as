@@ -18,8 +18,8 @@ package game.scene
 		 */
 		static public function screenToIso (screenPt:Vector3D):void
 		{
-			var y:Number = screenPt.y - screenPt.x / 2 + screenPt.z;
-			var x:Number = screenPt.x / 2 + screenPt.y + screenPt.z;
+			var y:Number = screenPt.y - screenPt.x * 0.5 + screenPt.z;
+			var x:Number = screenPt.x * 0.5 + screenPt.y + screenPt.z;
 			screenPt.x=x;
 			screenPt.y=y;
 		}
@@ -32,8 +32,8 @@ package game.scene
 		 */
 		static public function screenToIso2(screenPt:Vector3D):Vector3D
 		{
-			var y:Number = screenPt.y - screenPt.x / 2 + screenPt.z;
-			var x:Number = screenPt.x / 2 + screenPt.y + screenPt.z;
+			var y:Number = screenPt.y - screenPt.x * 0.5 + screenPt.z;
+			var x:Number = screenPt.x * 0.5 + screenPt.y + screenPt.z;
 			return new Vector3D(x, y, screenPt.z);
 		}
 		
@@ -45,7 +45,7 @@ package game.scene
 		 */
 		static public function isoToScreen (isoPt:Vector3D):void
 		{
-			var y:Number = (isoPt.x + isoPt.y) / 2 - isoPt.z;
+			var y:Number = (isoPt.x + isoPt.y)*0.5 - isoPt.z;
 			var x:Number = isoPt.x - isoPt.y;
 			isoPt.x=x;
 			isoPt.y=y;
@@ -59,7 +59,7 @@ package game.scene
 		 */
 		static public function isoToScreen2(isoPt:Vector3D):Vector3D
 		{
-			var y:Number = (isoPt.x + isoPt.y) / 2 - isoPt.z;
+			var y:Number = (isoPt.x + isoPt.y) * 0.5 - isoPt.z;
 			var x:Number = isoPt.x - isoPt.y;
 			return new Vector3D(x, y, isoPt.z);
 		}
