@@ -90,12 +90,12 @@ package game.scene.testIso
 		override public function onSourceDrop(_source:IDragDropSource, _x:Number, _y:Number) : void
 		{
 			var isoObj:IIsoObject = getDragIsoObject( _source.getEntity() );
-			if (isoTileVoManger.isHaveAttributeUnderObj(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK))
-			{
-				dragDropEngine.confirmSourceDrop(false);
-				isoObjectDisplayManger.removeIsoObject(isoObj);
-			}
-			else
+//			if (isoTileVoManger.isHaveAttributeUnderObj(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK))
+//			{
+//				dragDropEngine.confirmSourceDrop(false);
+//				isoObjectDisplayManger.removeIsoObject(isoObj);
+//			}
+//			else
 			{
 				isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
 				isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObj , isoObj.height + 1);
@@ -146,7 +146,7 @@ package game.scene.testIso
 		{
 			if (dragIsoObject == null)
 			{
-				dragIsoObject = new IsoBox( ResUtlis.getMovieClip("IsoBox_1_1_Gray",ResUtlis.FILE_ISOHAX),0,0,0,1,1 );
+				dragIsoObject = new IsoBox( ResUtlis.getMovieClip("IsoBox_2_1",ResUtlis.FILE_ISOHAX),0,0,0,1,2 );
 				isoObjectDisplayManger.addIsoObject( dragIsoObject );
 			}
 			return dragIsoObject;
