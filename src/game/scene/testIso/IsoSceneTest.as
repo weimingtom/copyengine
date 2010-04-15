@@ -73,6 +73,12 @@ package game.scene.testIso
 			uiContainer.addChild(box);
 			box.y = GeneralConfig.VIEWPORT_HEIGHT;
 			
+			var source:MovieClip = box["dragSource"] as MovieClip;
+			GeneralUtils.addTargetEventListener(source,MouseEvent.MOUSE_DOWN , sourceOnMouseDown);
+		}
+		
+		private function sourceOnMouseDown(e:MouseEvent):void
+		{
 			dragDropManger = new CEDragDropMangerClick();
 			dragDropEngine = new CEDragDropEngine();
 			dragDropManger.initialize(CopyEngineAS.dragdropLayer , dragDropEngine );
@@ -85,12 +91,6 @@ package game.scene.testIso
 			
 			dragDropManger.setDragDropTargets(dragTargetList);
 			
-			var source:MovieClip = box["dragSource"] as MovieClip;
-			GeneralUtils.addTargetEventListener(source,MouseEvent.MOUSE_DOWN , sourceOnMouseDown);
-		}
-		
-		private function sourceOnMouseDown(e:MouseEvent):void
-		{
 			var source:IDragDropSource = new IsoBoxDragDropSource();
 			source.bindEntity(e.target,e.stageX,e.stageY);
 			dragDropManger.startDragDrop(source,e.stageX,e.stageY);

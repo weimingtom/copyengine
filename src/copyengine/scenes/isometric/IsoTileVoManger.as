@@ -3,7 +3,7 @@ package copyengine.scenes.isometric
 	import copyengine.actor.isometric.IIsoObject;
 	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.utils.UintAttribute;
-	
+
 	import flash.utils.Dictionary;
 
 	/**
@@ -28,16 +28,16 @@ package copyengine.scenes.isometric
 		public function dispose() : void
 		{
 		}
-		
-		public function getIsoTileVo(_col:int , _row:int):IsoTileVo
+
+		public function getIsoTileVo(_col:int , _row:int) : IsoTileVo
 		{
 			return isoTileVoDic[_col + "-" + _row] as IsoTileVo;
 		}
-		
+
 		/**
 		 *loop around the obj , change the tile hight , normally happen when you add/remove an obj from the screen
-		 */		
-		public function changeObjAroundIsoTileVoHeight(_obj:IIsoObject , _height:int):void
+		 */
+		public function changeIsoTileVoHeightUnderObj(_obj:IIsoObject , _height:int) : void
 		{
 			var isoTileVo:IsoTileVo;
 			for (var col:int = _obj.col ; col < _obj.col +_obj.maxCols ; col++)
@@ -58,24 +58,41 @@ package copyengine.scenes.isometric
 		 * @param _isAdd					defind is add the attribute or remove the attribute.
 		 *
 		 */
-		public function changeObjAroundIsoTileVoAttribute(_obj:IIsoObject , _attribute:uint , _isAdd:Boolean) : void
+		public function changeIsoTileVoAttributeUnderObj(_obj:IIsoObject , _attribute:uint , _isAdd:Boolean) : void
 		{
 			var isoTileVo:IsoTileVo;
-			for (var col:int = _obj.col ; col <= _obj.maxCols ; col++)
+			for (var col:int = _obj.col ; col < _obj.col +_obj.maxCols ; col++)
 			{
-				for (var row:int = _obj.row ; row <= _obj.maxRows ; row++)
+				for (var row:int = _obj.row ; row < _obj.row + _obj.maxRows ; row++)
 				{
 					isoTileVo = isoTileVoDic[col + "-" + row] as IsoTileVo;
 					if (_isAdd)
 					{
-						UintAttribute.setAttribute(isoTileVo.tileAttribute , _attribute);
+						isoTileVo.tileAttribute = UintAttribute.setAttribute(isoTileVo.tileAttribute , _attribute);
 					}
 					else
 					{
-						UintAttribute.removeAttribute(isoTileVo.tileAttribute , _attribute);
+						isoTileVo.tileAttribute = UintAttribute.removeAttribute(isoTileVo.tileAttribute , _attribute);
 					}
 				}
 			}
+		}
+
+		public function isHaveAttributeUnderObj(_obj:IIsoObject , _attribute:uint) : Boolean
+		{
+			var isoTileVo:IsoTileVo;
+			for (var col:int = _obj.col ; col < _obj.col +_obj.maxCols ; col++)
+			{
+				for (var row:int = _obj.row ; row < _obj.row + _obj.maxRows ; row++)
+				{
+					isoTileVo = isoTileVoDic[col + "-" + row] as IsoTileVo;
+					if (UintAttribute.hasAttribute(isoTileVo.tileAttribute , _attribute))
+					{
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 
 	}
