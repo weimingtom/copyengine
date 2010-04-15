@@ -61,8 +61,7 @@ package copyengine.dragdrop
 		function confirmSourceDrop(_isAccepted:Boolean) : void;
 
 		/**
-		 * call by IDragDropSource/IDragDropTarget when dragDrop finished
-		 * it will not end DragDrop immediately , it will finished in next tick ,like terminateDragDrop();
+		 * call by IDragDropSource/IDragDropTarget when dragDrop finished.
 		 */
 		function endDragDrop() : void;
 

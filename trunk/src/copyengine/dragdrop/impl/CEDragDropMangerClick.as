@@ -10,7 +10,7 @@ package copyengine.dragdrop.impl
 			super();
 		}
 
-		override protected function onMouseClick(e:Event) : void
+		override protected function onMouseDown(e:Event) : void
 		{
 			var mouseEvent:MouseEvent = e as MouseEvent;
 			engine.dropTarget(mouseEvent.stageX,mouseEvent.stageY);

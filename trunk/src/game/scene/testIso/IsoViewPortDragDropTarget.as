@@ -46,7 +46,6 @@ package game.scene.testIso
 
 		override public function onSourceEnter(_source:IDragDropSource) : void
 		{
-			isoObjectDisplayManger.addIsoObject( getDragIsoObject(_source.getEntity()) );
 		}
 
 		override public function onSourceLeave(_source:IDragDropSource) : void
@@ -102,10 +101,21 @@ package game.scene.testIso
 				isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObj , isoObj.height + 1);
 				dragDropEngine.confirmSourceDrop(true);
 			}
+			//set current dragIsoObject is null .
+			//if dragdrop system not terminate, it will still can working. @see more on getDragIsoObject function.
 			dragIsoObject = null;
-			isoObjectDisplayManger.addIsoObject( getDragIsoObject(_source.getEntity()) );
 		}
-
+		
+		override public function onDragDropTerminate():void
+		{
+			if(dragIsoObject != null)
+			{
+				isoObjectDisplayManger.removeIsoObject(dragIsoObject);
+			}
+			isoObjectDisplayManger = null;
+			isoTileVoManger = null;
+		}
+		
 		/**
 		 * use to calculate is mouse point in the viewport or not.
 		 */
@@ -123,15 +133,21 @@ package game.scene.testIso
 
 		/**
 		 * WARNINIG::
-		 * 		do not use this property directly. use   getDragIsoObject(_data:Object):IIsoObject inside.
+		 * 		normally  do not use this property directly. use   getDragIsoObject(_data:Object):IIsoObject inside.
+		 * 		when dragdrop terminate. use this property to do the clean up things.
 		 */
 		private var dragIsoObject:IIsoObject
-
+		
+		/**
+		 *get dragIsoObject. is current dragIsoObject is empty then create one
+		 * and add it to the isoObjectDispalyManger
+		 */		
 		private function getDragIsoObject(_data:Object) : IIsoObject
 		{
 			if (dragIsoObject == null)
 			{
 				dragIsoObject = new IsoBox( ResUtlis.getMovieClip("IsoBox_1_1_Gray",ResUtlis.FILE_ISOHAX),0,0,0,1,1 );
+				isoObjectDisplayManger.addIsoObject( dragIsoObject );
 			}
 			return dragIsoObject;
 		}
