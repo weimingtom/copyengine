@@ -6,12 +6,16 @@ package game.scene.testIso
 	import copyengine.scenes.isometric.IsoFloor;
 	import copyengine.scenes.isometric.IsoSceneBasic;
 	import copyengine.scenes.isometric.IsoSceneBasicMediator;
+	import copyengine.scenes.isometric.IsoTileVoManger;
 	import copyengine.utils.Random;
 	import copyengine.utils.ResUtlis;
 	
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
+	import flash.geom.Vector3D;
 	import flash.utils.Dictionary;
+	
+	import game.scene.IsoMath;
 	
 	public class IsoSceneTestMediator extends IsoSceneBasicMediator
 	{
@@ -24,33 +28,55 @@ package game.scene.testIso
 		
 		override protected function initializeIsoScreenData():void
 		{
-			var isoObjects:Vector.<IIsoObject> = new Vector.<IIsoObject>();
-			
-			var objCol:int = 0;
-			var objRow:int = 0;
-			while(objCol < 3)
-			{
-				while(objRow < 3)
-				{
-					isoObjects.push( getIsoObjectByType(Random.range(0,3),objCol,objRow) );
-					objRow++;
-//					objRow += Random.range(1,4);
-				}
-				objRow = 0;
-//				objCol += Random.range(1,4);
-				objCol ++;
-			}
-			isoScene.setIsoObjectList(isoObjects);
-			
+			//initialze isoTileVo
+			var isoTileVoManger:IsoTileVoManger = new IsoTileVoManger
 			var tileDic:Dictionary = new Dictionary();
 			for (var row:int = 0 ; row <ISO::TN ; row ++)
 			{
 				for (var col:int = 0 ; col < ISO::TN ; col ++)
 				{
-					tileDic[row +"-" + col] = new IsoTileVo();
+					var isoTileVo:IsoTileVo = new IsoTileVo();
+					isoTileVo.col = col;
+					isoTileVo.row = row;
+					isoTileVo.height = 0;
+					tileDic[col +"-" + row] = isoTileVo;
 				}
 			}
-			isoScene.setIsoTileVoDic(tileDic);
+			isoTileVoManger.initialize(tileDic);
+			
+			//initialize  isoObj
+			var isoObjects:Vector.<IIsoObject> = new Vector.<IIsoObject>();
+			var positionTransformVector:Vector3D = new Vector3D();
+			
+			var isoObj:IIsoObject;
+			var objCol:int = 0;
+			var objRow:int = 0;
+			while(objCol < 40)
+			{
+				while(objRow < 40)
+				{
+					isoObj = getIsoObjectByType(Random.range(0,3),objCol,objRow);
+					
+					positionTransformVector.x = isoObj.col*GeneralConfig.ISO_TILE_WIDTH;
+					positionTransformVector.y = isoObj.row*GeneralConfig.ISO_TILE_WIDTH;
+					IsoMath.isoToScreen(positionTransformVector);
+					isoObj.container.x = positionTransformVector.x;
+					isoObj.container.y = positionTransformVector.y;
+					
+					isoTileVoManger.changeObjAroundIsoTileVoAttribute(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
+					isoTileVoManger.changeObjAroundIsoTileVoHeight(isoObj,isoObj.height+1);
+					
+					isoObjects.push( isoObj );
+//					objRow++;
+					objRow += Random.range(1,8);
+				}
+				objRow = 0;
+				objCol += Random.range(1,8);
+//				objCol ++;
+			}
+			
+			isoScene.setIsoObjectList(isoObjects);
+			isoScene.setIsoTileVoDic(isoTileVoManger);
 			
 			finishedScenePerLoad();
 		}

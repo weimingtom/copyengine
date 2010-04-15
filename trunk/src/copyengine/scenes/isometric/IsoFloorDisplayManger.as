@@ -33,7 +33,7 @@ package copyengine.scenes.isometric
 	 * @author Tunied
 	 *
 	 */
-	public final class IsoFloorManger implements IViewPortListener
+	public final class IsoFloorDisplayManger implements IViewPortListener
 	{
 		private var isoFloorContainer:DisplayObjectContainer;
 
@@ -42,15 +42,15 @@ package copyengine.scenes.isometric
 		private var viewPortRender:Bitmap;
 		private var viewPortRenderBitmapData:BitmapData
 
-		public function IsoFloorManger()
+		public function IsoFloorDisplayManger()
 		{
 		}
 
 
-		public function initialize(_isoTileVoDic:Dictionary) : void
+		public function initialize(_isoTileVoManger:IsoTileVoManger) : void
 		{
 			isoFloor = new IsoFloor();
-			isoFloor.initialize(_isoTileVoDic);
+			isoFloor.initialize(_isoTileVoManger);
 			
 			isoFloorContainer = new Sprite();
 			viewPortRenderBitmapData = new BitmapData(ISO::VW,ISO::VH);
