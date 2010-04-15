@@ -106,18 +106,12 @@ package copyengine.dragdrop.impl
 
 		public function endDragDrop() : void
 		{
-			GlobalTick.instance.callLaterAfterTickCount(doEndDragDrop);
-		}
-
-		public function terminateDragDrop() : void
-		{
-			currentSource.onDragDropTerminate();
-
-			while (dragDropTargetList.length > 0)
+			currentSource.onDragDropEnd();
+			
+			for (var i:int = 0 ; i < dragDropTargetList.length ; i++)
 			{
-				dragDropTargetList.pop().onDragDropTerminate();
+				dragDropTargetList[i].onDragDropEnd();
 			}
-
 			// dragDropReceiverList can be null 
 			// beacuse it will  add/remove dynamic
 			if (dragDropReceiverList != null)
@@ -127,12 +121,13 @@ package copyengine.dragdrop.impl
 					dragDropReceiverList.pop().onDragDropTerminate();
 				}
 			}
+			dragDropManger.endDragDrop();
+		}
+
+		public function terminateDragDrop() : void
+		{
 			dragDropManger.terminateDragDrop();
-			
-			currentTarget = null;
-			currentSource = null;
-			dragDropTargetList = null;
-			dragDropReceiverList = null;
+			GlobalTick.instance.callLaterAfterTickCount(doTerminateDragDrop);
 		}
 
 		public function addDragDropReceiver(_receiver:IDragDropReceiver) : void
@@ -157,15 +152,16 @@ package copyengine.dragdrop.impl
 			}
 			return null;
 		}
-
-		private function doEndDragDrop() : void
+		
+		private function doTerminateDragDrop():void
 		{
-			currentSource.onDragDropEnd();
-
-			for (var i:int = 0 ; i < dragDropTargetList.length ; i++)
+			currentSource.onDragDropTerminate();
+			
+			while (dragDropTargetList.length > 0)
 			{
-				dragDropTargetList[i].onDragDropEnd();
+				dragDropTargetList.pop().onDragDropTerminate();
 			}
+			
 			// dragDropReceiverList can be null 
 			// beacuse it will  add/remove dynamic
 			if (dragDropReceiverList != null)
@@ -175,7 +171,11 @@ package copyengine.dragdrop.impl
 					dragDropReceiverList.pop().onDragDropTerminate();
 				}
 			}
-			dragDropManger.endDragDrop();
+			
+			currentTarget = null;
+			currentSource = null;
+			dragDropTargetList = null;
+			dragDropReceiverList = null;
 		}
 
 	}
