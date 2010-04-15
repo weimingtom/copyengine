@@ -1,9 +1,12 @@
 package game.scene.testIso
 {
+	import copyengine.actor.isometric.IIsoObject;
 	import copyengine.actor.isometric.IsoBox;
+	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.dragdrop.IDragDropSource;
 	import copyengine.dragdrop.impl.CEDragDropTargetCore;
-	import copyengine.scenes.isometric.IsoObjectManger;
+	import copyengine.scenes.isometric.IsoObjectDisplayManger;
+	import copyengine.scenes.isometric.IsoTileVoManger;
 	import copyengine.scenes.isometric.viewport.IIsoViewPort;
 	import copyengine.utils.ResUtlis;
 	
@@ -13,16 +16,89 @@ package game.scene.testIso
 	import flash.geom.Vector3D;
 	
 	import game.scene.IsoMath;
+	
+	import org.osmf.traits.IDownloadable;
 
 	public class IsoViewPortDragDropTarget extends CEDragDropTargetCore
 	{
 		public static const NAME:String = "IsoViewPortDragDropTarget";
 		
+		private var isoObjectDisplayManger:IsoObjectDisplayManger;
+		
+		private var isoTileVoManger:IsoTileVoManger;
+		
+		private var sourcePos:Point;
+		private var screenVector:Vector3D;
+		
 		public function IsoViewPortDragDropTarget()
 		{
 			super();
 		}
-
+		
+		override protected function doBindEntity(_x:Number, _y:Number):void
+		{
+			sourcePos = new Point();
+			screenVector = new Vector3D();
+			
+			isoObjectDisplayManger = entity["isoObjectDisplayManger"];
+			isoTileVoManger = entity["isoTileVoManger"];
+		}
+		
+		override public function onSourceEnter(_source:IDragDropSource):void
+		{
+			isoObjectDisplayManger.addIsoObject( getDragIsoObject(_source.getEntity()) );
+		}
+		
+		override public function onSourceLeave(_source:IDragDropSource):void
+		{
+			isoObjectDisplayManger.removeIsoObject( getDragIsoObject(_source.getEntity()) );
+		}
+		
+		override public function onSourceMove(_source:IDragDropSource, _x:Number, _y:Number):void
+		{
+			var dragDropObj:IIsoObject = getDragIsoObject(_source.getEntity());
+			
+			//change the mouse position to porjection coordinates.
+			sourcePos.x = _x;
+			sourcePos.y = _y;
+			sourcePos = isoObjectDisplayManger.container.globalToLocal(sourcePos);
+		
+			//change projection coordinate to isometric coordinates
+			screenVector.x =sourcePos.x;
+			screenVector.y = sourcePos.y;
+			screenVector.z = 0;
+			IsoMath.screenToIso(screenVector);
+			
+			//caulate the target col and row
+			dragDropObj.col = screenVector.x / GeneralConfig.ISO_TILE_WIDTH;
+			dragDropObj.row = screenVector.y / GeneralConfig.ISO_TILE_WIDTH;
+			var isoTileVo:IsoTileVo =  isoTileVoManger.getIsoTileVo(dragDropObj.col,dragDropObj.row);
+			dragDropObj.height = isoTileVo == null ? 0 : isoTileVo.height;
+			trace("Col :" + dragDropObj.col + "Row :" + dragDropObj.row +" Height :" + dragDropObj.height);
+			
+			//caulate the target the screen position
+			screenVector.x = dragDropObj.col * GeneralConfig.ISO_TILE_WIDTH;
+			screenVector.y = dragDropObj.row * GeneralConfig.ISO_TILE_WIDTH;
+			screenVector.z = dragDropObj.height * GeneralConfig.ISO_TILE_WIDTH;
+			IsoMath.isoToScreen(screenVector);
+			
+			//move the objs to the tile
+			dragDropObj.container.x = screenVector.x;
+			dragDropObj.container.y = screenVector.y;
+			
+			isoObjectDisplayManger.sortObjectInNextUpdate();
+		}
+		
+		override public function onSourceDrop(_source:IDragDropSource, _x:Number, _y:Number):void
+		{
+			isoTileVoManger.changeObjAroundIsoTileVoHeight(getDragIsoObject(_source.getEntity()),getDragIsoObject(_source.getEntity()).height+1);
+			dragIsoObject = null;
+			dragDropEngine.confirmSourceDrop(false);
+		}
+		
+		/**
+		 * use to calculate is mouse point in the viewport or not. 
+		 */		
 		override public function isPositionInTarget(_posX:Number, _posY:Number) : Boolean
 		{
 			if(_posX < 0 || _posX > ISO::VW || _posY < 0 || _posY > ISO::VH)
@@ -35,75 +111,20 @@ package game.scene.testIso
 			}
 		}
 		
-		private var sourceBox:IsoBox
-		private var tile:MovieClip
-		
-		private var sourcePos:Point;
-		private var screenVector:Vector3D;
-		
-		override public function onSourceEnter(_source:IDragDropSource):void
+		/**
+		 * WARNINIG:: 
+		 * 		do not use this property directly. use   getDragIsoObject(_data:Object):IIsoObject inside.
+		 */		
+		private var dragIsoObject:IIsoObject
+		private function getDragIsoObject(_data:Object):IIsoObject
 		{
-			sourcePos = new Point();
-			screenVector = new Vector3D();
-			sourceBox = new IsoBox( ResUtlis.getMovieClip("IsoBox_1_1_Gray",ResUtlis.FILE_ISOHAX),-1,-1,0,1,1 );
-			tile = ResUtlis.getMovieClip("Tile_Red",ResUtlis.FILE_ISOHAX);
-			_source.dragIcon.addChild(tile);
-			isoObjectManger.addIsoObject(sourceBox);
+			if(dragIsoObject == null)
+			{
+				dragIsoObject = new IsoBox( ResUtlis.getMovieClip("IsoBox_1_1_Gray",ResUtlis.FILE_ISOHAX),0,0,0,1,1 );
+			}
+			return dragIsoObject;
 		}
 		
-		override public function onSourceLeave(_source:IDragDropSource):void
-		{
-//			isoObjectManger.removeIsoObject(sourceBox);
-		}
-		
-		override public function onSourceMove(_source:IDragDropSource, _x:Number, _y:Number):void
-		{
-			sourcePos.x = _x;
-			sourcePos.y = _y;
-			sourcePos = isoObjectManger.container.globalToLocal(sourcePos);
-		
-			screenVector.x =sourcePos.x;
-			screenVector.y = sourcePos.y;
-			IsoMath.screenToIso(screenVector);
-			
-			//caulate the target col and row
-			sourceBox.col = screenVector.x * GeneralConfig.INVERT_ISO_TILE_WIDTH;
-			sourceBox.row = screenVector.y * GeneralConfig.INVERT_ISO_TILE_WIDTH;
-			sourceBox.height = 1;
-			
-			//caulate the target the screen position
-			screenVector.x = sourceBox.col * GeneralConfig.ISO_TILE_WIDTH;
-			screenVector.y = sourceBox.row *GeneralConfig.ISO_TILE_WIDTH;
-			screenVector.z = 40;
-			IsoMath.isoToScreen(screenVector);
-			
-			//move the objs to the tile
-			sourceBox.container.x = screenVector.x;
-			sourceBox.container.y = screenVector.y;
-			
-			//caulate the ground tile postion
-			screenVector.x = sourceBox.col * GeneralConfig.ISO_TILE_WIDTH;
-			screenVector.y = sourceBox.row *GeneralConfig.ISO_TILE_WIDTH;
-			screenVector.z = 0;
-			IsoMath.isoToScreen(screenVector);
-			sourcePos.x = screenVector.x;
-			sourcePos.y = screenVector.y;
-			sourcePos = isoObjectManger.container.localToGlobal(sourcePos);
-			
-			//move the ground to the tile
-			_source.dragIcon.x = sourcePos.x;
-			_source.dragIcon.y = sourcePos.y;
-		}
-		
-		override public function onSourceDrop(_source:IDragDropSource, _x:Number, _y:Number):void
-		{
-			dragDropEngine.confirmSourceDrop(false);
-		}
-		
-		public function get isoObjectManger():IsoObjectManger
-		{
-			return entity as IsoObjectManger;
-		}
 		
 		override public function get uniqueName():String
 		{

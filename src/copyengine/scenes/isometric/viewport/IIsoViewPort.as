@@ -1,6 +1,6 @@
 package copyengine.scenes.isometric.viewport
 {
-	import copyengine.scenes.isometric.IsoObjectManger;
+	import copyengine.scenes.isometric.IsoObjectDisplayManger;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;

@@ -59,6 +59,6 @@ package game.scene.testIso
 		{
 			return NAME;
 		}
-
+		
 	}
 }

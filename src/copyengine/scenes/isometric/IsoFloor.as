@@ -3,7 +3,7 @@ package copyengine.scenes.isometric
 	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.utils.Random;
 	import copyengine.utils.ResUtlis;
-
+	
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -25,7 +25,7 @@ package copyengine.scenes.isometric
 	{
 		private static const AREA:int = 7;
 
-		private var isoTileDic:Dictionary;
+		private var isoTileVoManger:IsoTileVoManger;
 
 		private var red:BitmapData;
 		private var green:BitmapData;
@@ -36,9 +36,9 @@ package copyengine.scenes.isometric
 		{
 		}
 
-		public function initialize(_isoTileDic:Dictionary) : void
+		public function initialize(_isoTileVoManger:IsoTileVoManger) : void
 		{
-			isoTileDic = _isoTileDic;
+			isoTileVoManger = _isoTileVoManger;
 			convertIsoTileVo();
 			var tileResRed:MovieClip = ResUtlis.getMovieClip("Tile_Red",ResUtlis.FILE_ISOHAX);
 			var tileResGreen:MovieClip = ResUtlis.getMovieClip("Tile_Green",ResUtlis.FILE_ISOHAX);
@@ -60,15 +60,8 @@ package copyengine.scenes.isometric
 			{
 				for (var col:int = 0 ; col < ISO::TN ; col ++)
 				{
-					var isoTileVo:IsoTileVo = isoTileDic[row+"-"+col] as IsoTileVo;
-					//					if(row < AREA || row + AREA > ISO::TN || col < AREA || col + AREA > ISO::TN)
-					//					{
-					//						isoTileVo.floorSkinId = 3;
-					//					}
-					//					else
-					//					{
+					var isoTileVo:IsoTileVo = isoTileVoManger.getIsoTileVo(col,row);
 					isoTileVo.floorSkinId = Random.range(1,3);
-						//					}
 				}
 			}
 		}
@@ -78,7 +71,7 @@ package copyengine.scenes.isometric
 		 */
 		public function getTileBitmapData(_col:int , _row:int) : BitmapData
 		{
-			var isoTileVo:IsoTileVo = isoTileDic[_row+"-"+_col];
+			var isoTileVo:IsoTileVo = isoTileVoManger.getIsoTileVo(_col,_row);
 			if (isoTileVo == null)
 			{
 				return gray;

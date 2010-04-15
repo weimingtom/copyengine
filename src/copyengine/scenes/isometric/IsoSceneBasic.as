@@ -53,18 +53,18 @@ package copyengine.scenes.isometric
 		/**
 		 * mange isoObject (include IsoObject frustum culling logic)
 		 */
-		protected var isoObjectManger:IsoObjectManger;
+		protected var isoObjectDisplayManger:IsoObjectDisplayManger;
 
 		/**
 		 * mange isoFloor(include isoFloor frustum culling logic)
 		 * @see more detail in IsoFloorManger
 		 */
-		protected var isoFloorManger:IsoFloorManger;
+		protected var isoFloorDisplayManger:IsoFloorDisplayManger;
 		
 		/**
-		 * hold all IsoTileVo 
+		 * mange isoTileVo attribute 
 		 */		
-		protected var isoTileVoDic:Dictionary;
+		protected var isoTileVoManger:IsoTileVoManger;
 
 
 		public function IsoSceneBasic()
@@ -96,19 +96,19 @@ package copyengine.scenes.isometric
 			container.addChild(viewport.container);
 
 			//initialze floor
-			isoFloorManger = new IsoFloorManger();
-			isoFloorManger.initialize(isoTileVoDic);
-			viewport.addListener(isoFloorManger);
+			isoFloorDisplayManger = new IsoFloorDisplayManger();
+			isoFloorDisplayManger.initialize(isoTileVoManger);
+			viewport.addListener(isoFloorDisplayManger);
 //			isoFloorManger.container.mouseChildren = isoFloorManger.container.mouseEnabled = false;
-			viewport.container.addChild(isoFloorManger.container);
+			viewport.container.addChild(isoFloorDisplayManger.container);
 
 			//initialze isoObject , add to viewport.
 			//all isoObject should be heighter than floorlevel, no matrter the floor z value.
-			isoObjectManger = new IsoObjectManger();
-			isoObjectManger.initialize(isoObjectList , isoTileVoDic);
-			viewport.addListener(isoObjectManger);
+			isoObjectDisplayManger = new IsoObjectDisplayManger();
+			isoObjectDisplayManger.initialize(isoObjectList);
+			viewport.addListener(isoObjectDisplayManger);
 //			isoObjectManger.container.mouseChildren = isoObjectManger.container.mouseEnabled = false;
-			viewport.container.addChild(isoObjectManger.container);
+			viewport.container.addChild(isoObjectDisplayManger.container);
 
 			//initializeViewPortInteractive
 			viewportInteractiveWarp = createViewPortInteractive();
@@ -130,11 +130,11 @@ package copyengine.scenes.isometric
 		{
 			doDispose();
 
-			viewport.container.removeChild(isoFloorManger.container);
-			isoFloorManger.dispose();
+			viewport.container.removeChild(isoFloorDisplayManger.container);
+			isoFloorDisplayManger.dispose();
 
-			viewport.container.removeChild(isoObjectManger.container);
-			isoObjectManger.dispose();
+			viewport.container.removeChild(isoObjectDisplayManger.container);
+			isoObjectDisplayManger.dispose();
 
 			viewport.container.removeChild(viewportInteractiveWarp.container);
 			viewportInteractiveWarp.dispose();
@@ -144,9 +144,9 @@ package copyengine.scenes.isometric
 
 			CopyEngineFacade.instance.removeMediator(getMediatorName() );
 			
-			isoTileVoDic = null;
-			isoFloorManger = null;
-			isoObjectManger = null;
+			isoTileVoManger = null;
+			isoFloorDisplayManger = null;
+			isoObjectDisplayManger = null;
 			viewportInteractiveWarp = null;
 			viewport = null;
 		}
@@ -221,9 +221,9 @@ package copyengine.scenes.isometric
 			isoObjectList = _list;
 		}
 		
-		public final function setIsoTileVoDic(_isoTileVoDic:Dictionary):void
+		public final function setIsoTileVoDic(_isoTileVoManger:IsoTileVoManger):void
 		{
-			isoTileVoDic = _isoTileVoDic;
+			isoTileVoManger = _isoTileVoManger;
 		}
 		
 	}

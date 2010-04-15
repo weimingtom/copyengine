@@ -21,9 +21,18 @@ package copyengine.scenes.isometric
 	import org.osmf.net.dynamicstreaming.INetStreamMetrics;
 
 	/**
-	 *  IsoObjectManger use to
-	 * 		1` control each object update
-	 * 		2` do the frustum culling logic.
+	 *  IsoObjectDisplayManger use to
+	 * 
+	 * 1` display the isoObject on the screen.
+	 * 2` sort isoObjects display orders when necessary.
+	 * 
+	 * WARNINIG::
+	 * 		1` this class only care for isometric coordinate. it means it's only use col row height to sort objects position.
+	 * 			so , when  put the objects on the screen or move it . need to make sure it's screen coordinate x,y is match for isometric coordinate col,row.
+	 * 
+	 * 		2` add one object on the screen ,most of the time is not really mean already finished added the object. hight level function should need to call
+	 * 			other system to finiehd it's job. like set the IsoTileVo attribute.
+	 * 
 	 *
 	 * This Class is use in decorate screen , when change to render screen maybe need new class[TBD].
 	 * 
@@ -33,7 +42,7 @@ package copyengine.scenes.isometric
 	 * @author Tunied
 	 *
 	 */
-	public final class IsoObjectManger implements IViewPortListener
+	public final class IsoObjectDisplayManger implements IViewPortListener
 	{
 		/**
 		 * hold all IsoObjs that display on the screen.
@@ -46,44 +55,33 @@ package copyengine.scenes.isometric
 		 */
 		private var isoObjectListLength:int;
 
-		private var isoTileVoDic:Dictionary;
-
 		/**
 		 * the parent container of all IsoObject
 		 */
 		private var isoObjectMangerContainer:DisplayObjectContainer
 		
 		/**
-		 *use in moveIsoObjectTo/initialize function. as an temp property.
+		 * use one property to recored is sort all objects in next viewport nomove update.
 		 */		
-		private var positionTransformVector:Vector3D;
+		private var isSortInNextUpdate:Boolean;
+
 		
-		public function IsoObjectManger()
+		public function IsoObjectDisplayManger()
 		{
 		}
 
-		public function initialize(_isoObjs:Vector.<IIsoObject> , _isoTileVoDic:Dictionary) : void
+		public function initialize(_isoObjs:Vector.<IIsoObject>) : void
 		{
 			isoObjectList = _isoObjs;
 			isoObjectListLength = isoObjectList.length;
-			isoTileVoDic = _isoTileVoDic;
 			isoObjectMangerContainer = new Sprite();
 			
-			positionTransformVector = new Vector3D();
-			//caulate isoObject position
-			for (var i:int = 0 ; i < _isoObjs.length ; i++)
+			for(var i:int = 0 ; i < isoObjectListLength ; i++)
 			{
-				isoObjectMangerContainer.addChild(_isoObjs[i].container);
-				positionTransformVector.x = _isoObjs[i].col*GeneralConfig.ISO_TILE_WIDTH;
-				positionTransformVector.y = _isoObjs[i].row*GeneralConfig.ISO_TILE_WIDTH;
-				IsoMath.isoToScreen(positionTransformVector);
-				_isoObjs[i].container.x = positionTransformVector.x;
-				_isoObjs[i].container.y = positionTransformVector.y;
-
-				changeIsoTileVoBlockAttribute(_isoObjs[i],true);
+				isoObjectMangerContainer.addChild(isoObjectList[i].container);
 			}
-
-			drawIsoObjects();
+			
+			sortObjectInNextUpdate();
 		}
 		
 		/**
@@ -94,7 +92,6 @@ package copyengine.scenes.isometric
 			isoObjectList.push(_obj);
 			isoObjectMangerContainer.addChild(_obj.container);
 			isoObjectListLength++;
-			changeIsoTileVoBlockAttribute(_obj,true);
 		}
 		
 		/**
@@ -109,47 +106,9 @@ package copyengine.scenes.isometric
 					isoObjectMangerContainer.removeChild(_obj.container);
 					isoObjectList.splice(i,1);
 					isoObjectListLength--;
-					changeIsoTileVoBlockAttribute(_obj,false);
 					return;
 				}
 			}
-		}
-		
-		/**
-		 * move the isoObject to new position
-		 * 
-		 * WARNINIG::
-		 * 
-		 * when call this function should guarantee the _obj is already in isoObjectList, otherwise
-		 * need to call addIsoObject function first then call this function.
-		 * this function will not do any check.
-		 */		
-		public function moveIsoObjectTo(_obj:IIsoObject , _col:int , _row:int , _height:int):void
-		{
-			changeIsoTileVoBlockAttribute(_obj,false);
-			_obj.col = _col;
-			_obj.row = _row;
-			_obj.height = _height;
-			changeIsoTileVoBlockAttribute(_obj,true);
-			
-			//caulate the target the screen position
-			positionTransformVector.x = _obj.col * GeneralConfig.ISO_TILE_WIDTH;
-			positionTransformVector.y = _obj.row *GeneralConfig.ISO_TILE_WIDTH;
-			positionTransformVector.z = _obj.height * GeneralConfig.ISO_TILE_WIDTH;
-			IsoMath.isoToScreen(positionTransformVector);
-			
-			//move the objs to the tile
-			_obj.container.x = positionTransformVector.x;
-			_obj.container.y = positionTransformVector.y;
-		}
-		
-		public function dispose() : void
-		{
-		}
-
-		public function get container() : DisplayObjectContainer
-		{
-			return isoObjectMangerContainer;
 		}
 
 		public function viewPortMoveToUpdate(_viewPortX:int ,_viewPortY:int , _preViewPortX:int , _preViewPortY:int) : void
@@ -166,9 +125,18 @@ package copyengine.scenes.isometric
 
 		public function viewPortNoMoveUpdate(_viewPortX:int , _viewPortY:int) : void
 		{
-			drawIsoObjects();
+			if(isSortInNextUpdate)
+			{
+				drawIsoObjects();
+				isSortInNextUpdate = false;
+			}
 		}
-
+		
+		public function sortObjectInNextUpdate():void
+		{
+			isSortInNextUpdate = true;
+		}
+		
 		/**
 		 * This function will sort all isoObjs first and then draw those objs on the screen.
 		 */
@@ -187,25 +155,14 @@ package copyengine.scenes.isometric
 				}
 			}
 		}
-
-		private function changeIsoTileVoBlockAttribute(_isoObj:IIsoObject ,_isChangeToBlock:Boolean) : void
+		
+		public function get container() : DisplayObjectContainer
 		{
-			var isoTileVo:IsoTileVo;
-			for (var col:int = _isoObj.col ; col <= _isoObj.maxCols ; col++)
-			{
-				for (var row:int = _isoObj.row ; row <= _isoObj.maxRows ; row++)
-				{
-					isoTileVo = isoTileVoDic[col + "-" + row] as IsoTileVo;
-					if (_isChangeToBlock)
-					{
-						UintAttribute.setAttribute(isoTileVo.tileAttribute,IsoTileVo.TILE_ATTRIBUTE_BLOCK);
-					}
-					else
-					{
-						UintAttribute.removeAttribute(isoTileVo.tileAttribute,IsoTileVo.TILE_ATTRIBUTE_BLOCK);
-					}
-				}
-			}
+			return isoObjectMangerContainer;
+		}
+		
+		public function dispose() : void
+		{
 		}
 
 		/**
