@@ -49,8 +49,18 @@ package game.scene.testIso
 			boxIcon = ResUtlis.getSprite("IsoBox_1_1_Green" ,ResUtlis.FILE_ISOHAX);
 			dragDropIconContainer.addChild(boxIcon);
 		}
-
-		override public function onDragDropEnd() : void
+		
+		override public function onDragDropEnd():void
+		{
+			dragDropEngine.terminateDragDrop();
+		}
+		
+		override public function onDragDropCancel():void
+		{
+			dragDropEngine.terminateDragDrop();
+		}
+		
+		override public function onDragDropTerminate():void
 		{
 			GeneralUtils.removeTargetFromParent(boxIcon);
 		}

@@ -63,8 +63,8 @@ package game.scene.testIso
 					isoObj.container.x = positionTransformVector.x;
 					isoObj.container.y = positionTransformVector.y;
 					
-					isoTileVoManger.changeObjAroundIsoTileVoAttribute(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
-					isoTileVoManger.changeObjAroundIsoTileVoHeight(isoObj,isoObj.height+1);
+					isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
+					isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObj,isoObj.height+1);
 					
 					isoObjects.push( isoObj );
 //					objRow++;

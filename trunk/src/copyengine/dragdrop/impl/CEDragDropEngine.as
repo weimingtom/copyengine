@@ -127,7 +127,8 @@ package copyengine.dragdrop.impl
 					dragDropReceiverList.pop().onDragDropTerminate();
 				}
 			}
-
+			dragDropManger.terminateDragDrop();
+			
 			currentTarget = null;
 			currentSource = null;
 			dragDropTargetList = null;
