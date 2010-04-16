@@ -49,7 +49,7 @@ package copyengine.scenes.isometric
 				}
 			}
 		}
-
+		
 		/**
 		 *loop around the obj , change all tile attribute that under current obj.
 		 *

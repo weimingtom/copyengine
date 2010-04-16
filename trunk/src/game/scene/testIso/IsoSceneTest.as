@@ -75,6 +75,29 @@ package game.scene.testIso
 			
 			var source:MovieClip = box["dragSource"] as MovieClip;
 			GeneralUtils.addTargetEventListener(source,MouseEvent.MOUSE_DOWN , sourceOnMouseDown);
+			
+			var source2:MovieClip = box["dragSource2"] as MovieClip;
+			GeneralUtils.addTargetEventListener(source2,MouseEvent.MOUSE_DOWN , source2OnMouseDown);
+			
+		}
+		
+		private function source2OnMouseDown(e:MouseEvent):void
+		{
+			dragDropManger = new CEDragDropMangerClick();
+			dragDropEngine = new CEDragDropEngine();
+			dragDropManger.initialize(CopyEngineAS.dragdropLayer , dragDropEngine );
+			
+			var dragTargetList:Vector.<IDragDropTarget> = new Vector.<IDragDropTarget>();
+			
+			var viewPortTarget:IDragDropTarget = new TempIsoViewPortDragDropTarget();
+			viewPortTarget.bindEntity({isoObjectDisplayManger:isoObjectDisplayManger , isoTileVoManger:isoTileVoManger},0,0);
+			dragTargetList.push(viewPortTarget);
+			
+			dragDropManger.setDragDropTargets(dragTargetList);
+			
+			var source:IDragDropSource = new IsoBoxDragDropSource();
+			source.bindEntity(e.target,e.stageX,e.stageY);
+			dragDropManger.startDragDrop(source,e.stageX,e.stageY);
 		}
 		
 		private function sourceOnMouseDown(e:MouseEvent):void

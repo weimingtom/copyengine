@@ -23,12 +23,12 @@ package game.scene.testIso
 	{
 		public static const NAME:String = "IsoViewPortDragDropTarget";
 
-		private var isoObjectDisplayManger:IsoObjectDisplayManger;
+		protected var isoObjectDisplayManger:IsoObjectDisplayManger;
 
-		private var isoTileVoManger:IsoTileVoManger;
+		protected var isoTileVoManger:IsoTileVoManger;
 
-		private var sourcePos:Point;
-		private var screenVector:Vector3D;
+		protected var sourcePos:Point;
+		protected var screenVector:Vector3D;
 
 		public function IsoViewPortDragDropTarget()
 		{
@@ -90,12 +90,12 @@ package game.scene.testIso
 		override public function onSourceDrop(_source:IDragDropSource, _x:Number, _y:Number) : void
 		{
 			var isoObj:IIsoObject = getDragIsoObject( _source.getEntity() );
-//			if (isoTileVoManger.isHaveAttributeUnderObj(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK))
-//			{
-//				dragDropEngine.confirmSourceDrop(false);
-//				isoObjectDisplayManger.removeIsoObject(isoObj);
-//			}
-//			else
+			if (isoTileVoManger.isHaveAttributeUnderObj(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK))
+			{
+				dragDropEngine.confirmSourceDrop(false);
+				isoObjectDisplayManger.removeIsoObject(isoObj);
+			}
+			else
 			{
 				isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
 				isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObj , isoObj.height + 1);
@@ -136,17 +136,17 @@ package game.scene.testIso
 		 * 		normally  do not use this property directly. use   getDragIsoObject(_data:Object):IIsoObject inside.
 		 * 		when dragdrop terminate. use this property to do the clean up things.
 		 */
-		private var dragIsoObject:IIsoObject
+		protected var dragIsoObject:IIsoObject
 		
 		/**
 		 *get dragIsoObject. is current dragIsoObject is empty then create one
 		 * and add it to the isoObjectDispalyManger
 		 */		
-		private function getDragIsoObject(_data:Object) : IIsoObject
+		protected function getDragIsoObject(_data:Object) : IIsoObject
 		{
 			if (dragIsoObject == null)
 			{
-				dragIsoObject = new IsoBox( ResUtlis.getMovieClip("IsoBox_2_1",ResUtlis.FILE_ISOHAX),0,0,0,1,2 );
+				dragIsoObject = new IsoBox( ResUtlis.getMovieClip("IsoBox_1_2_Gray",ResUtlis.FILE_ISOHAX),0,0,0,2,1 );
 				isoObjectDisplayManger.addIsoObject( dragIsoObject );
 			}
 			return dragIsoObject;

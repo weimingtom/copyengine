@@ -67,12 +67,12 @@ package game.scene.testIso
 					isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObj,isoObj.height+1);
 					
 					isoObjects.push( isoObj );
-//					objRow++;
-					objRow += Random.range(1,8);
+					objRow++;
+//					objRow += Random.range(1,8);
 				}
 				objRow = 0;
-				objCol += Random.range(1,8);
-//				objCol ++;
+//				objCol += Random.range(1,8);
+				objCol ++;
 			}
 			
 			isoScene.setIsoObjectList(isoObjects);
