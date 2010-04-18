@@ -1,6 +1,5 @@
 package game.scene.testIso
 {
-	import copyengine.actor.isometric.IIsoObject;
 	import copyengine.actor.isometric.IsoBox;
 	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.scenes.isometric.IsoFloor;
@@ -45,15 +44,15 @@ package game.scene.testIso
 			isoTileVoManger.initialize(tileDic);
 			
 			//initialize  isoObj
-			var isoObjects:Vector.<IIsoObject> = new Vector.<IIsoObject>();
+			var isoObjects:Vector.<IsoBox> = new Vector.<IsoBox>();
 			var positionTransformVector:Vector3D = new Vector3D();
 			
-			var isoObj:IIsoObject;
+			var isoObj:IsoBox;
 			var objCol:int = 0;
 			var objRow:int = 0;
-			while(objCol < 40)
+			while(objCol < 10)
 			{
-				while(objRow < 40)
+				while(objRow < 10)
 				{
 					isoObj = getIsoObjectByType(Random.range(0,3),objCol,objRow);
 					
@@ -75,13 +74,21 @@ package game.scene.testIso
 				objCol ++;
 			}
 			
+			isoObjects.sort(randomSort);
+			
 			isoScene.setIsoObjectList(isoObjects);
 			isoScene.setIsoTileVoDic(isoTileVoManger);
 			
 			finishedScenePerLoad();
 		}
 		
-		private function getIsoObjectByType(_type:int, _col:int , _row:int):IIsoObject
+		private function randomSort(_objA:IsoBox , _objB:IsoBox):int
+		{
+			return Random.range(-5,5);
+		}
+		
+		
+		private function getIsoObjectByType(_type:int, _col:int , _row:int):IsoBox
 		{
 			var bg:Sprite;
 			switch(_type)

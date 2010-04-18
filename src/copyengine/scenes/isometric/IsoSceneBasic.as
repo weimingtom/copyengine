@@ -1,6 +1,6 @@
 package copyengine.scenes.isometric
 {
-	import copyengine.actor.isometric.IIsoObject;
+	import copyengine.actor.isometric.IsoBox;
 	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.scenes.SceneBasic;
 	import copyengine.scenes.isometric.unuse.BackUp_IsoFloorManger;
@@ -48,7 +48,7 @@ package copyengine.scenes.isometric
 		/**
 		 *all isoObject will display in the scene(maybe not really dispaly in the viewport).
 		 */
-		protected var isoObjectList:Vector.<IIsoObject>;
+		protected var isoObjectList:Vector.<IsoBox>;
 
 		/**
 		 * mange isoObject (include IsoObject frustum culling logic)
@@ -216,7 +216,7 @@ package copyengine.scenes.isometric
 		/**
 		 * those setter function should only call before IsoScene initialze
 		 */
-		public final function setIsoObjectList(_list:Vector.<IIsoObject>) : void
+		public final function setIsoObjectList(_list:Vector.<IsoBox>) : void
 		{
 			isoObjectList = _list;
 		}
