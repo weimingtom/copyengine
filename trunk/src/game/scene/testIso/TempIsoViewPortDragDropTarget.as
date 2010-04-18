@@ -1,6 +1,5 @@
 package game.scene.testIso
 {
-	import copyengine.actor.isometric.IIsoObject;
 	import copyengine.actor.isometric.IsoBox;
 	import copyengine.utils.ResUtlis;
 
@@ -11,7 +10,7 @@ package game.scene.testIso
 			super();
 		}
 		
-		override protected function getDragIsoObject(_data:Object) : IIsoObject
+		override protected function getDragIsoObject(_data:Object) :IsoBox
 		{
 			if (dragIsoObject == null)
 			{

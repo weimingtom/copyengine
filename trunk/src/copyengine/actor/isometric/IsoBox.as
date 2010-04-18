@@ -5,108 +5,99 @@ package copyengine.actor.isometric
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Vector3D;
+	
+	import game.scene.IsoMath;
 
-	public class IsoBox implements IIsoObject
+	public class IsoBox
 	{
-		private var isoBoxCol:int;
-		private var isoBoxRow:int;
-		private var isoBoxHeight:int;
+		public var col:int;
+		public var row:int;
+		public var height:int;
 
-		private var isoBoxMaxCols:int;
-		private var isoBoxMaxRows:int;
+		public var maxCols:int;
+		public var maxRows:int;
 
-		private var isoBoxSkin:DisplayObjectContainer;
+		public var container:DisplayObjectContainer;
 
 		public function IsoBox(_skin:DisplayObjectContainer , 
 			_col:int , _row:int , _height:int , 
 			_maxCols:int , _maxRows:int)
 		{
-			isoBoxSkin = _skin;
-			isoBoxCol = _col;
-			isoBoxRow = _row;
-			isoBoxHeight = _height;
-			isoBoxMaxCols = _maxCols;
-			isoBoxMaxRows = _maxRows;
+			container = _skin;
+			col = _col;
+			row = _row;
+			height = _height;
+			maxCols = _maxCols;
+			maxRows = _maxRows;
 			
 			addListener();
 		}
 
-		public function get col() : int
+		private function addListener() : void
 		{
-			return isoBoxCol;
-		}
-		
-		public function set col(_value:int):void
-		{
-			isoBoxCol = _value;
+			GeneralUtils.addTargetEventListener(container,MouseEvent.ROLL_OVER,onRollOver);
+			GeneralUtils.addTargetEventListener(container,MouseEvent.ROLL_OUT,onRollOut);
 		}
 
-		public function get row() : int
+		private function removeListener() : void
 		{
-			return isoBoxRow;
+			GeneralUtils.removeTargetEventListener(container,MouseEvent.ROLL_OVER,onRollOver);
+			GeneralUtils.removeTargetEventListener(container,MouseEvent.ROLL_OUT,onRollOut);
+		}
+
+		private function onRollOver(e:Event) : void
+		{
+			container.alpha = 0.7;
+		}
+
+		private function onRollOut(e:Event) : void
+		{
+			container.alpha = 1;
 		}
 		
-		public function set row(_value:int):void
+		public var next:IsoBox;
+		public var prev:IsoBox;
+		
+		/**
+		 * A helper function used solely by the DLinkedList class for inserting
+		 * a given node after this node.
+		 * 
+		 * @param node The node to insert.
+		 */
+		public function insertAfter(node:IsoBox):void
 		{
-			isoBoxRow = _value;
+			node.next = next;
+			node.prev = this;
+			if (next) next.prev = node;
+			next = node;
 		}
 		
-		public function get height():int
+		/**
+		 * A helper function used solely by the DLinkedList class for inserting
+		 * this node in front of a given node.
+		 * 
+		 * @param node A doubly linked list node.
+		 */
+		public function insertBefore(node:IsoBox):void
 		{
-			return isoBoxHeight;
+			node.next = this;
+			node.prev = prev;
+			if (prev) prev.next = node;
+			prev = node;
 		}
 		
-		public function set height(_value:int):void
+		/**
+		 * A helper function used solely by the DLinkedList class to unlink the
+		 * node from the list.
+		 */
+		public function unlink():void
 		{
-			isoBoxHeight = _value;
+			if (prev) prev.next = next;
+			if (next) next.prev = prev;
+			next = prev = null;
 		}
 		
-		public function get maxCols() : int
-		{
-			return isoBoxMaxCols;
-		}
-		
-		public function set maxCols(_value:int):void
-		{
-			isoBoxMaxCols = _value;
-		}
-		
-		public function get maxRows() : int
-		{
-			return isoBoxMaxRows;
-		}
-		
-		public function set maxRows(_value:int):void
-		{
-			isoBoxMaxRows = _value;
-		}
-		
-		public function get container() : DisplayObjectContainer
-		{
-			return isoBoxSkin;
-		}
-		
-		private function addListener():void
-		{
-			GeneralUtils.addTargetEventListener(isoBoxSkin,MouseEvent.ROLL_OVER,onRollOver);
-			GeneralUtils.addTargetEventListener(isoBoxSkin,MouseEvent.ROLL_OUT,onRollOut);
-		}
-		
-		private function removeListener():void
-		{
-			GeneralUtils.removeTargetEventListener(isoBoxSkin,MouseEvent.ROLL_OVER,onRollOver);
-			GeneralUtils.removeTargetEventListener(isoBoxSkin,MouseEvent.ROLL_OUT,onRollOut);
-		}
-		
-		private function onRollOver(e:Event):void
-		{
-			isoBoxSkin.alpha = 0.7;
-		}
-		
-		private function onRollOut(e:Event):void
-		{
-			isoBoxSkin.alpha = 1;
-		}
 		
 	}
 }

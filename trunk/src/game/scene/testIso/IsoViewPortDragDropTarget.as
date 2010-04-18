@@ -1,6 +1,5 @@
 package game.scene.testIso
 {
-	import copyengine.actor.isometric.IIsoObject;
 	import copyengine.actor.isometric.IsoBox;
 	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.dragdrop.IDragDropSource;
@@ -9,14 +8,14 @@ package game.scene.testIso
 	import copyengine.scenes.isometric.IsoTileVoManger;
 	import copyengine.scenes.isometric.viewport.IIsoViewPort;
 	import copyengine.utils.ResUtlis;
-
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
-
+	
 	import game.scene.IsoMath;
-
+	
 	import org.osmf.traits.IDownloadable;
 
 	public class IsoViewPortDragDropTarget extends CEDragDropTargetCore
@@ -55,7 +54,7 @@ package game.scene.testIso
 
 		override public function onSourceMove(_source:IDragDropSource, _x:Number, _y:Number) : void
 		{
-			var dragDropObj:IIsoObject = getDragIsoObject(_source.getEntity());
+			var dragDropObj:IsoBox = getDragIsoObject(_source.getEntity());
 
 			//change the mouse position to porjection coordinates.
 			sourcePos.x = _x;
@@ -89,7 +88,7 @@ package game.scene.testIso
 
 		override public function onSourceDrop(_source:IDragDropSource, _x:Number, _y:Number) : void
 		{
-			var isoObj:IIsoObject = getDragIsoObject( _source.getEntity() );
+			var isoObj:IsoBox = getDragIsoObject( _source.getEntity() );
 			if (isoTileVoManger.isHaveAttributeUnderObj(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK))
 			{
 				dragDropEngine.confirmSourceDrop(false);
@@ -136,13 +135,13 @@ package game.scene.testIso
 		 * 		normally  do not use this property directly. use   getDragIsoObject(_data:Object):IIsoObject inside.
 		 * 		when dragdrop terminate. use this property to do the clean up things.
 		 */
-		protected var dragIsoObject:IIsoObject
+		protected var dragIsoObject:IsoBox
 		
 		/**
 		 *get dragIsoObject. is current dragIsoObject is empty then create one
 		 * and add it to the isoObjectDispalyManger
 		 */		
-		protected function getDragIsoObject(_data:Object) : IIsoObject
+		protected function getDragIsoObject(_data:Object) :IsoBox
 		{
 			if (dragIsoObject == null)
 			{
