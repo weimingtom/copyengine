@@ -40,10 +40,10 @@ package copyengine.scenes.isometric
 		{
 			isoTileVoManger = _isoTileVoManger;
 			convertIsoTileVo();
-			var tileResRed:MovieClip = ResUtlis.getMovieClip("Tile_Red",ResUtlis.FILE_ISOHAX);
-			var tileResGreen:MovieClip = ResUtlis.getMovieClip("Tile_Green",ResUtlis.FILE_ISOHAX);
-			var tileResBlue:MovieClip = ResUtlis.getMovieClip("Tile_Blue",ResUtlis.FILE_ISOHAX);
-			var tileResGray:MovieClip = ResUtlis.getMovieClip("Tile_Gray",ResUtlis.FILE_ISOHAX);
+			var tileResRed:MovieClip = ResUtlis.getMovieClip("FloorTile30",ResUtlis.FILE_ISOHAX);
+			var tileResGreen:MovieClip = ResUtlis.getMovieClip("FloorTile18",ResUtlis.FILE_ISOHAX);
+			var tileResBlue:MovieClip = ResUtlis.getMovieClip("FloorTile18",ResUtlis.FILE_ISOHAX);
+			var tileResGray:MovieClip = ResUtlis.getMovieClip("FloorTile8",ResUtlis.FILE_ISOHAX);
 
 			red = cacheToBitmapData(tileResRed);
 			green = cacheToBitmapData(tileResGreen);

@@ -63,10 +63,13 @@ package copyengine.scenes.isometric.viewport
 
 		private function warpOnMouseDown(e:MouseEvent) : void
 		{
-			fillWarpContainer();
-			preMouseX = e.stageX;
-			preMouseY = e.stageY;
-			GeneralUtils.addTargetEventListener(warpContainer,MouseEvent.MOUSE_MOVE , warpOnMouseMove);
+			if(e.target == viewPort.container)
+			{
+				fillWarpContainer();
+				preMouseX = e.stageX;
+				preMouseY = e.stageY;
+				GeneralUtils.addTargetEventListener(warpContainer,MouseEvent.MOUSE_MOVE , warpOnMouseMove);
+			}
 		}
 
 		private function warpOnMouseUp(e:MouseEvent) : void

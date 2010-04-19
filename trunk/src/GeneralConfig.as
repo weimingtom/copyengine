@@ -13,7 +13,7 @@ package
 		 * 		in iso world the tile should be an square, and rotate/scale to 2D world space.
 		 * 		in 2D world space the widht/height = 80/40
 		 */
-		public static const ISO_TILE_WIDTH:int = 40;
+		public static const ISO_TILE_WIDTH:int = 16;
 		public static const INVERT_ISO_TILE_WIDTH:Number = 1/ISO_TILE_WIDTH;
 		
 		public static const FLOOR_WIDHT:int = ISO::TN * ISO::STW;
