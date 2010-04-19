@@ -21,11 +21,11 @@ package game.scene.testIso
 
 		override public function onMove(_target:IDragDropTarget, _x:Number, _y:Number) : void
 		{
-			if(_target == null)
-			{
+//			if(_target == null)
+//			{
 				dragDropIconContainer.x = _x;
 				dragDropIconContainer.y = _y;
-			}
+//			}
 		}
 
 		override public function onEnterTarget(_target:IDragDropTarget) : void
@@ -46,7 +46,7 @@ package game.scene.testIso
 
 		override protected function initializeDragDropIcon() : void
 		{
-			boxIcon = ResUtlis.getSprite("IsoBox_1_1_Green" ,ResUtlis.FILE_ISOHAX);
+			boxIcon = ResUtlis.getSprite("FloorTile8" ,ResUtlis.FILE_ISOHAX);
 			dragDropIconContainer.addChild(boxIcon);
 		}
 		

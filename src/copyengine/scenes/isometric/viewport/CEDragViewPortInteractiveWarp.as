@@ -69,6 +69,7 @@ package copyengine.scenes.isometric.viewport
 				preMouseX = e.stageX;
 				preMouseY = e.stageY;
 				GeneralUtils.addTargetEventListener(warpContainer,MouseEvent.MOUSE_MOVE , warpOnMouseMove);
+				trace("ViewPort X:" + e.stageX + " Y: " + e.stageY);
 			}
 		}
 
