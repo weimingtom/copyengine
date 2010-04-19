@@ -21,6 +21,8 @@ package game.scene.testIso
 	{
 		public static const NAME:String = "IsoSceneTestMediator";
 		
+		private var isoTileVoManger:IsoTileVoManger;
+		
 		public function IsoSceneTestMediator(viewComponent:IsoSceneBasic)
 		{
 			super(NAME, viewComponent);
@@ -29,7 +31,7 @@ package game.scene.testIso
 		override protected function initializeIsoScreenData():void
 		{
 			//initialze isoTileVo
-			var isoTileVoManger:IsoTileVoManger = new IsoTileVoManger
+			isoTileVoManger = new IsoTileVoManger
 			var tileDic:Dictionary = new Dictionary();
 			for (var row:int = 0 ; row <ISO::TN ; row ++)
 			{
@@ -104,7 +106,7 @@ package game.scene.testIso
 					bg = ResUtlis.getSprite("IsoBox_1_1_Gray",ResUtlis.FILE_ISOHAX);
 					break;
 			}
-			var isoBox:DragAbleIsoObject = new DragAbleIsoObject(isoScene.getIsoObjectDisplayManger() , bg , _col , _row ,0,3,3);
+			var isoBox:DragAbleIsoObject = new DragAbleIsoObject(isoScene.getIsoObjectDisplayManger() , isoTileVoManger , bg , _col , _row ,0,3,3);
 			return isoBox;
 		}
 		

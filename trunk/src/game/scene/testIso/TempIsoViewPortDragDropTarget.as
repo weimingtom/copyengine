@@ -15,7 +15,7 @@ package game.scene.testIso
 		{
 			if (dragIsoObject == null)
 			{
-				dragIsoObject = new DragAbleIsoObject(isoObjectDisplayManger ,ResUtlis.getMovieClip("IsoBox_1_1_Red",ResUtlis.FILE_ISOHAX),0,0,0,3,3 );
+				dragIsoObject = new DragAbleIsoObject(isoObjectDisplayManger,isoTileVoManger,ResUtlis.getMovieClip("IsoBox_1_1_Red",ResUtlis.FILE_ISOHAX),0,0,0,3,3 );
 				isoObjectDisplayManger.addIsoObject( dragIsoObject );
 			}
 			return dragIsoObject;
