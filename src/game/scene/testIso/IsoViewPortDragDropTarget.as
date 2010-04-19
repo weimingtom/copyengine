@@ -1,6 +1,7 @@
 package game.scene.testIso
 {
-	import copyengine.actor.isometric.IsoBox;
+	import copyengine.actor.isometric.DragAbleIsoObject;
+	import copyengine.actor.isometric.IsoObject;
 	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.dragdrop.IDragDropSource;
 	import copyengine.dragdrop.impl.CEDragDropTargetCore;
@@ -54,7 +55,7 @@ package game.scene.testIso
 
 		override public function onSourceMove(_source:IDragDropSource, _x:Number, _y:Number) : void
 		{
-			var dragDropObj:IsoBox = getDragIsoObject(_source.getEntity());
+			var dragDropObj:IsoObject = getDragIsoObject(_source.getEntity());
 
 			//change the mouse position to porjection coordinates.
 			sourcePos.x = _x;
@@ -88,7 +89,7 @@ package game.scene.testIso
 
 		override public function onSourceDrop(_source:IDragDropSource, _x:Number, _y:Number) : void
 		{
-			var isoObj:IsoBox = getDragIsoObject( _source.getEntity() );
+			var isoObj:IsoObject = getDragIsoObject( _source.getEntity() );
 			if (isoTileVoManger.isHaveAttributeUnderObj(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK))
 			{
 				dragDropEngine.confirmSourceDrop(false);
@@ -97,9 +98,10 @@ package game.scene.testIso
 			else
 			{
 				isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
-				isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObj , isoObj.height + 1);
+				isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObj , isoObj.height + 3);
 				dragDropEngine.confirmSourceDrop(true);
 			}
+			isoObjectDisplayManger.sortObjectInNextUpdate();
 			//set current dragIsoObject is null .
 			//if dragdrop system not terminate, it will still can working. @see more on getDragIsoObject function.
 			dragIsoObject = null;
@@ -135,17 +137,17 @@ package game.scene.testIso
 		 * 		normally  do not use this property directly. use   getDragIsoObject(_data:Object):IIsoObject inside.
 		 * 		when dragdrop terminate. use this property to do the clean up things.
 		 */
-		protected var dragIsoObject:IsoBox
+		protected var dragIsoObject:IsoObject
 		
 		/**
 		 *get dragIsoObject. is current dragIsoObject is empty then create one
 		 * and add it to the isoObjectDispalyManger
 		 */		
-		protected function getDragIsoObject(_data:Object) :IsoBox
+		protected function getDragIsoObject(_data:Object) :IsoObject
 		{
 			if (dragIsoObject == null)
 			{
-				dragIsoObject = new IsoBox( ResUtlis.getMovieClip("IsoBox_1_2_Gray",ResUtlis.FILE_ISOHAX),0,0,0,2,1 );
+				dragIsoObject = new DragAbleIsoObject(isoObjectDisplayManger,ResUtlis.getMovieClip("IsoBox_1_1_Green",ResUtlis.FILE_ISOHAX),0,0,0,3,3 );
 				isoObjectDisplayManger.addIsoObject( dragIsoObject );
 			}
 			return dragIsoObject;

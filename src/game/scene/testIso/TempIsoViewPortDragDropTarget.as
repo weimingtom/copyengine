@@ -1,6 +1,7 @@
 package game.scene.testIso
 {
-	import copyengine.actor.isometric.IsoBox;
+	import copyengine.actor.isometric.DragAbleIsoObject;
+	import copyengine.actor.isometric.IsoObject;
 	import copyengine.utils.ResUtlis;
 
 	public class TempIsoViewPortDragDropTarget extends IsoViewPortDragDropTarget
@@ -10,11 +11,11 @@ package game.scene.testIso
 			super();
 		}
 		
-		override protected function getDragIsoObject(_data:Object) :IsoBox
+		override protected function getDragIsoObject(_data:Object) :IsoObject
 		{
 			if (dragIsoObject == null)
 			{
-				dragIsoObject = new IsoBox( ResUtlis.getMovieClip("IsoBox_2_1",ResUtlis.FILE_ISOHAX),0,0,0,1,2 );
+				dragIsoObject = new DragAbleIsoObject(isoObjectDisplayManger ,ResUtlis.getMovieClip("IsoBox_1_1_Red",ResUtlis.FILE_ISOHAX),0,0,0,3,3 );
 				isoObjectDisplayManger.addIsoObject( dragIsoObject );
 			}
 			return dragIsoObject;

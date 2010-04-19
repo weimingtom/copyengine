@@ -1,13 +1,13 @@
 package copyengine.scenes.isometric
 {
 
-	import copyengine.actor.isometric.IsoBox;
+	import copyengine.actor.isometric.IsoObject;
 	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.datastructure.DoubleLinkNode;
 	import copyengine.scenes.isometric.viewport.IViewPortListener;
 	import copyengine.utils.Random;
 	import copyengine.utils.UintAttribute;
-	
+
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
 	import flash.geom.Rectangle;
@@ -15,9 +15,9 @@ package copyengine.scenes.isometric
 	import flash.media.Video;
 	import flash.utils.Dictionary;
 	import flash.utils.getTimer;
-	
+
 	import game.scene.IsoMath;
-	
+
 	import org.osmf.net.dynamicstreaming.INetStreamMetrics;
 	import org.osmf.utils.OSMFStrings;
 
@@ -48,11 +48,13 @@ package copyengine.scenes.isometric
 		/**
 		 * hold all IsoObjs that display on the screen.
 		 */
-		private var isoObjectList:Vector.<IsoBox>;
+		private var isoObjectList:Vector.<IsoObject>;
 
-		private var swapIsoObjectList:Vector.<IsoBox>;
-		
-		
+		/**
+		 * use in fast swap isoObject orders. avoide each time create new vector.
+		 */
+		private var swapIsoObjectList:Vector.<IsoObject>;
+
 		/**
 		 * store isoObjectList.length in an proterty , and change it with function addIsoObject/removeIsoObject
 		 * doing this for the optimize the performance when sorting objs
@@ -74,12 +76,12 @@ package copyengine.scenes.isometric
 		{
 		}
 
-		public function initialize(_isoObjs:Vector.<IsoBox>) : void
+		public function initialize(_isoObjs:Vector.<IsoObject>) : void
 		{
 			isoObjectList = _isoObjs;
 			isoObjectListLength = isoObjectList.length;
 			isoObjectMangerContainer = new Sprite();
-			swapIsoObjectList = new Vector.<IsoBox>();
+			swapIsoObjectList = new Vector.<IsoObject>();
 
 			for (var i:int = 0 ; i < isoObjectListLength ; i++)
 			{
@@ -92,17 +94,18 @@ package copyengine.scenes.isometric
 		/**
 		 * add one IsoObject on the screen
 		 */
-		public function addIsoObject(_obj:IsoBox) : void
+		public function addIsoObject(_obj:IsoObject) : void
 		{
 			isoObjectList.push(_obj);
 			isoObjectMangerContainer.addChild(_obj.container);
 			isoObjectListLength++;
+			sortObjectInNextUpdate();
 		}
 
 		/**
 		 * remove one IsoObject from screen
 		 */
-		public function removeIsoObject(_obj:IsoBox) : void
+		public function removeIsoObject(_obj:IsoObject) : void
 		{
 			for (var i:int = 0 ; i < isoObjectListLength ; i++)
 			{
@@ -130,11 +133,11 @@ package copyengine.scenes.isometric
 
 		public function viewPortNoMoveUpdate(_viewPortX:int , _viewPortY:int) : void
 		{
-			//			if(isSortInNextUpdate)
-			//			{
-			drawIsoObjects();
-			isSortInNextUpdate = false;
-			//			}
+			if (isSortInNextUpdate)
+			{
+				drawIsoObjects();
+				isSortInNextUpdate = false;
+			}
 		}
 
 		public function sortObjectInNextUpdate() : void
@@ -147,24 +150,9 @@ package copyengine.scenes.isometric
 		 */
 		private function drawIsoObjects() : void
 		{
-			var t:int = getTimer();
+			//			var t:int = getTimer();
 			sortAndDisplayIsoObject();
-//			sortIsoObjects2(isoObjectList);
-			//			isoObjectList.sort(sortIsoObjects);
-			//			isoObjectList.sort(newSortWay);
-			trace("Cost : " + (getTimer() - t) );
-
-			//			var index:int;
-			//			for (var i:int = 0 ; i < isoObjectListLength ; i++)
-			//			{
-			//				index = isoObjectMangerContainer.getChildIndex(isoObjectList[i].container);
-			//				//only draw the child that have changed index.
-			//				//doing this will much optimize the performance
-			//				if (i != index)
-			//				{
-			//					isoObjectMangerContainer.addChildAt(isoObjectList[i].container,i);
-			//				}
-			//			}
+			//			trace("Cost : " + (getTimer() - t) );
 		}
 
 		public function get container() : DisplayObjectContainer
@@ -175,7 +163,7 @@ package copyengine.scenes.isometric
 		public function dispose() : void
 		{
 		}
-		
+
 		/**
 		 * Sort:
 		 * 100		 1
@@ -183,21 +171,20 @@ package copyengine.scenes.isometric
 		 * 300		 8~9
 		 * 400		 13~14
 		 * 1600		 180 ~ 188
-		 * 
-		 */		
-		private function sortAndDisplayIsoObject():void
+		 */
+		private function sortAndDisplayIsoObject() : void
 		{
 			var isAdd:Boolean = false;
 			var swapIsoObjectLength:int = swapIsoObjectList.length = 0;
 			var i:int;
 			var j:int;
-			var newSortObject:IsoBox;
-			var sortedObject:IsoBox;
-			for(i = 0 ; i < isoObjectListLength ; i++)
+			var newSortObject:IsoObject;
+			var sortedObject:IsoObject;
+			for (i = 0 ; i < isoObjectListLength ; i++)
 			{
 				newSortObject = isoObjectList[i];
 				isAdd = false;
-				for(j = 0 ; j < swapIsoObjectLength ; j++)
+				for (j = 0 ; j < swapIsoObjectLength ; j++)
 				{
 					sortedObject = swapIsoObjectList[j];
 					if (newSortObject.col <= sortedObject.col+sortedObject.maxCols -1
@@ -214,158 +201,15 @@ package copyengine.scenes.isometric
 				}
 				swapIsoObjectLength++;
 			}
-			
-			for(i = 0 ; i < isoObjectListLength ; i++)
+
+			for (i = 0 ; i < isoObjectListLength ; i++)
 			{
 				sortedObject = swapIsoObjectList[i];
 				j = isoObjectMangerContainer.getChildIndex(sortedObject.container);
-				if(i != j)
+				if (i != j)
 				{
 					isoObjectMangerContainer.addChildAt(sortedObject.container,i);
 				}
-			}
-		}
-		
-		/**
-		 * Sort 
-		 * 100 		5~6
-		 * 200		23~24
-		 * 300		51~52
-		 * 400		93~94
-		 * 
-		 * // not use public
-		 * Sort
-		 * 100
-		 * 400		16~18
-		 * 1600		192~234
-		 */		
-		private function sortIsoObjects2(_objs:Vector.<IsoBox>) : void
-		{
-			var list:Vector.<IsoBox> = _objs.slice(0);
-			_objs = new Vector.<IsoBox>();
-			var listLength:int =list.length;
-			var objlength:int = _objs.length;
-			for (var i:int = 0 ; i < listLength ; i++)
-			{
-				var newSortObject:IsoBox = list[i];
-				var added:Boolean = false;
-				for (var j:int = 0 ; j < objlength ; j++)
-				{
-					var sortedObject:IsoBox = _objs[j];
-					if (newSortObject.col <= sortedObject.col+sortedObject.maxCols -1
-						&& newSortObject.row <= sortedObject.row + sortedObject.maxRows -1)
-					{
-						_objs.splice(j,0,newSortObject);
-						added = true;
-						break;
-					}
-				}
-				if (!added)
-				{
-//					_objs[j] =newSortObject
-					_objs.push(newSortObject);
-				}
-				objlength++;
-			}
-			var index:int;
-//			objlength = _objs.length;
-			for (var k:int = 0 ; k < listLength ; k++)
-			{
-				index = isoObjectMangerContainer.getChildIndex(_objs[k].container);
-				//only draw the child that have changed index.
-				//doing this will much optimize the performance
-				if (k != index)
-				{
-					isoObjectMangerContainer.addChildAt(_objs[k].container,k);
-				}
-			}
-		}
-
-		private function newSortWay(_objA:IsoBox , _objB:IsoBox) : int
-		{
-//			if (_objA.zValue > _objB.zValue)
-//			{
-//				return 1;
-//			}
-//			else if (_objA.zValue < _objB.zValue)
-//			{
-//				return -1;
-//			}
-//			else
-//			{
-//				if (_objA.row > _objB.row)
-//				{
-//					return 1;
-//				}
-//				else
-//				{
-//					return -1;
-//				}
-//			}
-			return 0;
-		}
-
-
-		/**
-		 * use book ActionScript for Multiplayer Games and Virtual Worlds ways( see the comment function  sortIsoObjects(_objs:Vector.<IIsoObject>) )
-		 * the speed is :
-		 * Child Number :500 Cost :121
-		 * but use the vector own sort function, the speed is
-		 * Child Number :500 Cost :21
-		 */
-		private function sortIsoObjects(_objA:IsoBox , _objB:IsoBox) : int
-		{
-			//compare objA with ojbB first , if objA is not behind objB then compare objB with objA
-			//before the code is  if(objA is not behind objB) then return -1. that is not right 
-			//beacuse most of the time objA is not behind objB and objB also not behind objA
-			//ex: objA(col:2 rol:4) objB(col:4 rol:1)
-			//WARNINIG:: all IsoObjs mush have the regular index , so that during each sorting only will change a little objs.
-			if (_objA.col == _objB.col && _objA.row == _objB.row)
-			{
-				// objA and objB are in the same tile
-				if (_objA.height > _objB.height)
-				{
-					return 1;
-				}
-				else
-				{
-					return -1;
-				}
-			}
-			else
-			{
-				var value:int = 0;
-				if (_objA.col <= _objB.col + _objB.maxCols -1 && _objA.row <= _objB.row + _objB.maxRows -1)
-				{
-					value --;
-				}
-				if (_objB.col <= _objA.col + _objA.maxCols - 1 && _objB.row <= _objA.row + _objA.maxRows -1)
-				{
-					value++;
-				}
-				//				if (value != 0)
-				//				{
-				return value;
-					//				}
-					//				else
-					//				{
-					//					if (_objA.col > _objB.col)
-					//					{
-					//						return -1;
-					//					}
-					//					else //(_objA.col < _objB.col)
-					//					{
-					//						return 1
-					//					}
-					//											else if( _objA.row > _objB.row)
-					//											{
-					//												return 1
-					//											}
-					//											else
-					//											{
-					//												return -1;
-					//											}
-					//				}
 			}
 		}
 

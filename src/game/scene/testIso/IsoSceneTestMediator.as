@@ -1,6 +1,7 @@
 package game.scene.testIso
 {
-	import copyengine.actor.isometric.IsoBox;
+	import copyengine.actor.isometric.DragAbleIsoObject;
+	import copyengine.actor.isometric.IsoObject;
 	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.scenes.isometric.IsoFloor;
 	import copyengine.scenes.isometric.IsoSceneBasic;
@@ -44,10 +45,10 @@ package game.scene.testIso
 			isoTileVoManger.initialize(tileDic);
 			
 			//initialize  isoObj
-			var isoObjects:Vector.<IsoBox> = new Vector.<IsoBox>();
+			var isoObjects:Vector.<IsoObject> = new Vector.<IsoObject>();
 			var positionTransformVector:Vector3D = new Vector3D();
 			
-			var isoObj:IsoBox;
+			var isoObj:IsoObject;
 			var objCol:int = 0;
 			var objRow:int = 0;
 			while(objCol < 10)
@@ -66,12 +67,12 @@ package game.scene.testIso
 					isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObj,isoObj.height+1);
 					
 					isoObjects.push( isoObj );
-					objRow++;
+					objRow+= 3;
 //					objRow += Random.range(1,8);
 				}
 				objRow = 0;
 //				objCol += Random.range(1,8);
-				objCol ++;
+				objCol += 3;
 			}
 			
 			isoObjects.sort(randomSort);
@@ -82,13 +83,13 @@ package game.scene.testIso
 			finishedScenePerLoad();
 		}
 		
-		private function randomSort(_objA:IsoBox , _objB:IsoBox):int
+		private function randomSort(_objA:IsoObject , _objB:IsoObject):int
 		{
 			return Random.range(-5,5);
 		}
 		
 		
-		private function getIsoObjectByType(_type:int, _col:int , _row:int):IsoBox
+		private function getIsoObjectByType(_type:int, _col:int , _row:int):IsoObject
 		{
 			var bg:Sprite;
 			switch(_type)
@@ -103,7 +104,7 @@ package game.scene.testIso
 					bg = ResUtlis.getSprite("IsoBox_1_1_Gray",ResUtlis.FILE_ISOHAX);
 					break;
 			}
-			var isoBox:IsoBox = new IsoBox(bg,_col,_row,0,1,1);
+			var isoBox:DragAbleIsoObject = new DragAbleIsoObject(isoScene.getIsoObjectDisplayManger() , bg , _col , _row ,0,3,3);
 			return isoBox;
 		}
 		

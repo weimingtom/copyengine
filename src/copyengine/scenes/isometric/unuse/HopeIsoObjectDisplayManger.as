@@ -1,6 +1,6 @@
-package copyengine.scenes.isometric
+package copyengine.scenes.isometric.unuse
 {
-	import copyengine.actor.isometric.IsoBox;
+	import copyengine.actor.isometric.IsoObject;
 	import copyengine.datastructure.DListNode;
 	import copyengine.datastructure.DoubleLinkNode;
 	import copyengine.scenes.isometric.viewport.IViewPortListener;
@@ -21,14 +21,14 @@ package copyengine.scenes.isometric
 		 */
 		private var isoObjectMangerContainer:DisplayObjectContainer
 
-		private var firstIsoObjectNode:IsoBox
+		private var firstIsoObjectNode:IsoObject
 
 
 		public function HopeIsoObjectDisplayManger()
 		{
 		}
 
-		public function initialize(_isoObjs:Vector.<IsoBox>) : void
+		public function initialize(_isoObjs:Vector.<IsoObject>) : void
 		{
 			isoObjectMangerContainer = new Sprite();
 			for (var i:int = 0 ; i < _isoObjs.length ; i++)
@@ -47,14 +47,14 @@ package copyengine.scenes.isometric
 		/**
 		 * add one IsoObject on the screen
 		 */
-		public function addIsoObject(_obj:IsoBox) : void
+		public function addIsoObject(_obj:IsoObject) : void
 		{
 		}
 
 		/**
 		 * remove one IsoObject from screen
 		 */
-		public function removeIsoObject(_obj:IsoBox) : void
+		public function removeIsoObject(_obj:IsoObject) : void
 		{
 		}
 
@@ -89,23 +89,23 @@ package copyengine.scenes.isometric
 
 		private function sortAndDrawObj() : void
 		{
-			var headSortNode:IsoBox;
-			var endSotNode:IsoBox;
+			var headSortNode:IsoObject;
+			var endSotNode:IsoObject;
 			
-			var node:IsoBox=firstIsoObjectNode;
-			var nextNode:IsoBox;
+			var node:IsoObject=firstIsoObjectNode;
+			var nextNode:IsoObject;
 			
 			while (node != null)
 			{
 				nextNode=node.next;
 				
-				var sortNode:IsoBox = headSortNode;
-				var nextSortNode:IsoBox;
+				var sortNode:IsoObject = headSortNode;
+				var nextSortNode:IsoObject;
 				var isAdd:Boolean = false;
 				while(sortNode != null)
 				{
-					var unSortObj:IsoBox = node;
-					var alreadySortObj:IsoBox = sortNode;
+					var unSortObj:IsoObject = node;
+					var alreadySortObj:IsoObject = sortNode;
 					nextSortNode = sortNode.next;
 					
 					if(unSortObj.col <= alreadySortObj.col + alreadySortObj.maxCols - 1

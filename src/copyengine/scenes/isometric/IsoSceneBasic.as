@@ -1,6 +1,6 @@
 package copyengine.scenes.isometric
 {
-	import copyengine.actor.isometric.IsoBox;
+	import copyengine.actor.isometric.IsoObject;
 	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.scenes.SceneBasic;
 	import copyengine.scenes.isometric.unuse.BackUp_IsoFloorManger;
@@ -48,7 +48,7 @@ package copyengine.scenes.isometric
 		/**
 		 *all isoObject will display in the scene(maybe not really dispaly in the viewport).
 		 */
-		protected var isoObjectList:Vector.<IsoBox>;
+		protected var isoObjectList:Vector.<IsoObject>;
 
 		/**
 		 * mange isoObject (include IsoObject frustum culling logic)
@@ -82,6 +82,10 @@ package copyengine.scenes.isometric
 		 */
 		override final public function startPerloadScene() : void
 		{
+			// before initialze mediator need to create IsoFloorDisplayManger and IsoObjectDisplayManger first
+			// because in IsoSceneMediator maybe use getIsoObjectDisplayManger()/getIsoFloorDisplayManger  to get the property
+			isoFloorDisplayManger = new IsoFloorDisplayManger();
+			isoObjectDisplayManger = new IsoObjectDisplayManger();
 			CopyEngineFacade.instance.registerMediator( createIsoSceneMediator() );
 		}
 
@@ -96,18 +100,15 @@ package copyengine.scenes.isometric
 			container.addChild(viewport.container);
 
 			//initialze floor
-			isoFloorDisplayManger = new IsoFloorDisplayManger();
 			isoFloorDisplayManger.initialize(isoTileVoManger);
 			viewport.addListener(isoFloorDisplayManger);
-//			isoFloorManger.container.mouseChildren = isoFloorManger.container.mouseEnabled = false;
+			isoFloorDisplayManger.container.mouseChildren = isoFloorDisplayManger.container.mouseEnabled = false;
 			viewport.container.addChild(isoFloorDisplayManger.container);
 
 			//initialze isoObject , add to viewport.
 			//all isoObject should be heighter than floorlevel, no matrter the floor z value.
-			isoObjectDisplayManger = new IsoObjectDisplayManger();
 			isoObjectDisplayManger.initialize(isoObjectList);
 			viewport.addListener(isoObjectDisplayManger);
-//			isoObjectManger.container.mouseChildren = isoObjectManger.container.mouseEnabled = false;
 			viewport.container.addChild(isoObjectDisplayManger.container);
 
 			//initializeViewPortInteractive
@@ -213,10 +214,25 @@ package copyengine.scenes.isometric
 			viewport.updateListener();
 		}
 
+		//=========
+		//==those getter / setter function should only call before IsoScene initialze
+		//=========
+		
 		/**
-		 * those setter function should only call before IsoScene initialze
-		 */
-		public final function setIsoObjectList(_list:Vector.<IsoBox>) : void
+		 * isoObjectDisplayManger use in initialze dragAbleIsoObject. 
+		 * that isoObject need to two direction refrence
+		 */		
+		public final function getIsoObjectDisplayManger():IsoObjectDisplayManger
+		{
+			return isoObjectDisplayManger;
+		}
+		
+		public final function getIsoFloorDisplayManger():IsoFloorDisplayManger
+		{
+			return isoFloorDisplayManger;
+		}
+		
+		public final function setIsoObjectList(_list:Vector.<IsoObject>) : void
 		{
 			isoObjectList = _list;
 		}

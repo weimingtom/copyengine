@@ -4,6 +4,7 @@
 package copyengine.scenes.isometric.unuse
 {
 	import copyengine.scenes.isometric.IsoFloor;
+	import copyengine.scenes.isometric.IsoTileVoManger;
 	import copyengine.scenes.isometric.viewport.IViewPortListener;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.Random;
@@ -71,12 +72,12 @@ package copyengine.scenes.isometric.unuse
 		{
 		}
 		
-		public function initialize(_isoFloor:IsoFloor) : void
+		public function initialize(_isoTileVoManger:IsoTileVoManger) : void
 		{
 			floorMangerContainer = new Sprite();
 			
-			var tileResRed:MovieClip = ResUtlis.getMovieClip("Tile_Red",ResUtlis.FILE_ISOHAX);
-			var tileResGreen:MovieClip = ResUtlis.getMovieClip("Tile_Green",ResUtlis.FILE_ISOHAX);
+			var tileResRed:MovieClip = ResUtlis.getMovieClip("FloorTile8",ResUtlis.FILE_ISOHAX);
+			var tileResGreen:MovieClip = ResUtlis.getMovieClip("FloorTile24",ResUtlis.FILE_ISOHAX);
 			
 			
 			cacheTileBitmapDataRed = cacheToBitmapData(tileResRed);
@@ -156,7 +157,7 @@ package copyengine.scenes.isometric.unuse
 		private function cacheToBitmapData(_m:DisplayObjectContainer) : BitmapData
 		{
 			var bound:Rectangle = _m.getRect(_m);
-			var cacheBitmapDataSource:BitmapData = new BitmapData(bound.width,bound.height,true,0xFFFFFF);
+			var cacheBitmapDataSource:BitmapData = new BitmapData(bound.width,bound.height,true,0);
 			cacheBitmapDataSource.draw(_m,new Matrix(1,0,0,1,-bound.x ,-bound.y));
 			return cacheBitmapDataSource;
 		}
