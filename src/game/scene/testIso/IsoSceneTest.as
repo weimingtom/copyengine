@@ -85,7 +85,7 @@ package game.scene.testIso
 			
 			var dragTargetList:Vector.<IDragDropTarget> = new Vector.<IDragDropTarget>();
 			
-			var viewPortTarget:IDragDropTarget = new TempIsoViewPortDragDropTarget();
+			var viewPortTarget:IDragDropTarget = new DragFromOutsideViewPortDragDropTarget();
 			viewPortTarget.bindEntity({isoObjectDisplayManger:isoObjectDisplayManger , isoTileVoManger:isoTileVoManger},0,0);
 			dragTargetList.push(viewPortTarget);
 			
