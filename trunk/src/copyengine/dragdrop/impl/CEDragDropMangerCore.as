@@ -55,19 +55,20 @@ package copyengine.dragdrop.impl
 			doStartDragDrop(_source,_x,_y);
 		}
 		
-		final public function endDragDrop() : void
+		final public function onEndDragDrop() : void
 		{
-//			layer.visible = false;
-//			removeListener();
-//			GeneralUtils.removeTargetFromParent(dragdropSourceIcon);
 		}
-
-		final public function terminateDragDrop() : void
+		
+		final public function onTerminateDragDrop() : void
 		{
 			layer.visible = false;
 			removeListener();
 			GeneralUtils.removeTargetFromParent(dragdropSourceIcon);
-			
+		}
+		
+		final public function disposeDragDrop():void
+		{
+			engine.
 			(layer as Sprite).graphics.clear();
 			engine = null;
 			layer = null;

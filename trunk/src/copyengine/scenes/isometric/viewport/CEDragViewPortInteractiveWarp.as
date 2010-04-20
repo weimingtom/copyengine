@@ -6,6 +6,7 @@ package copyengine.scenes.isometric.viewport
 	import flash.display.Graphics;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import flash.text.engine.GraphicElement;
 
 	public final class CEDragViewPortInteractiveWarp implements IViewPortInteractiveWarp
@@ -69,7 +70,10 @@ package copyengine.scenes.isometric.viewport
 				preMouseX = e.stageX;
 				preMouseY = e.stageY;
 				GeneralUtils.addTargetEventListener(warpContainer,MouseEvent.MOUSE_MOVE , warpOnMouseMove);
+				var globalPoint:Point = warpContainer.localToGlobal( new Point(e.localX,e.localY) );
+				trace("ViewPortL X :" + e.localX + " Y :" + e.localY);
 				trace("ViewPort X:" + e.stageX + " Y: " + e.stageY);
+				trace("GlobalPoint X : " + globalPoint.x + " Y :" + globalPoint.y);
 			}
 		}
 

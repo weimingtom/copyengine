@@ -35,9 +35,5 @@ package game.dragdrop.test
 			dragDropIconContainer.addChild(avtorIcon);
 		}
 
-		override public function get uniqueName() : String
-		{
-			return NAME;
-		}
 	}
 }

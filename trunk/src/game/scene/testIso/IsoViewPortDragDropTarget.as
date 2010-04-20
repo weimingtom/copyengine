@@ -55,36 +55,36 @@ package game.scene.testIso
 
 		override public function onSourceMove(_source:IDragDropSource, _x:Number, _y:Number) : void
 		{
-			var dragDropObj:IsoObject = getDragIsoObject(_source.getEntity());
-
-			//change the mouse position to porjection coordinates.
-			sourcePos.x = _x;
-			sourcePos.y = _y;
-			sourcePos = isoObjectDisplayManger.container.globalToLocal(sourcePos);
-
-			//change projection coordinate to isometric coordinates
-			screenVector.x =sourcePos.x;
-			screenVector.y = sourcePos.y;
-			screenVector.z = 0;
-			IsoMath.screenToIso(screenVector);
-
-			//caulate the target col and row
-			dragDropObj.col = screenVector.x / GeneralConfig.ISO_TILE_WIDTH;
-			dragDropObj.row = screenVector.y / GeneralConfig.ISO_TILE_WIDTH;
-			var isoTileVo:IsoTileVo =  isoTileVoManger.getIsoTileVo(dragDropObj.col,dragDropObj.row);
-			dragDropObj.height = isoTileVo == null ? 0 : isoTileVo.height;
-
-			//caulate the target the screen position
-			screenVector.x = dragDropObj.col * GeneralConfig.ISO_TILE_WIDTH;
-			screenVector.y = dragDropObj.row * GeneralConfig.ISO_TILE_WIDTH;
-			screenVector.z = dragDropObj.height * GeneralConfig.ISO_TILE_WIDTH;
-			IsoMath.isoToScreen(screenVector);
-
-			//move the objs to the tile
-			dragDropObj.container.x = screenVector.x;
-			dragDropObj.container.y = screenVector.y;
-
-			isoObjectDisplayManger.sortObjectInNextUpdate();
+//			var dragDropObj:IsoObject = getDragIsoObject(_source.getEntity());
+//
+//			//change the mouse position to porjection coordinates.
+//			sourcePos.x = _x;
+//			sourcePos.y = _y;
+//			sourcePos = isoObjectDisplayManger.container.globalToLocal(sourcePos);
+//
+//			//change projection coordinate to isometric coordinates
+//			screenVector.x =sourcePos.x;
+//			screenVector.y = sourcePos.y;
+//			screenVector.z = 0;
+//			IsoMath.screenToIso(screenVector);
+//
+//			//caulate the target col and row
+//			dragDropObj.col = screenVector.x / GeneralConfig.ISO_TILE_WIDTH;
+//			dragDropObj.row = screenVector.y / GeneralConfig.ISO_TILE_WIDTH;
+//			var isoTileVo:IsoTileVo =  isoTileVoManger.getIsoTileVo(dragDropObj.col,dragDropObj.row);
+//			dragDropObj.height = isoTileVo == null ? 0 : isoTileVo.height;
+//
+//			//caulate the target the screen position
+//			screenVector.x = dragDropObj.col * GeneralConfig.ISO_TILE_WIDTH;
+//			screenVector.y = dragDropObj.row * GeneralConfig.ISO_TILE_WIDTH;
+//			screenVector.z = dragDropObj.height * GeneralConfig.ISO_TILE_WIDTH;
+//			IsoMath.isoToScreen(screenVector);
+//
+//			//move the objs to the tile
+//			dragDropObj.container.x = screenVector.x;
+//			dragDropObj.container.y = screenVector.y;
+//
+//			isoObjectDisplayManger.sortObjectInNextUpdate();
 		}
 
 		override public function onSourceDrop(_source:IDragDropSource, _x:Number, _y:Number) : void
@@ -151,12 +151,6 @@ package game.scene.testIso
 				isoObjectDisplayManger.addIsoObject( dragIsoObject );
 			}
 			return dragIsoObject;
-		}
-
-
-		override public function get uniqueName() : String
-		{
-			return NAME;
 		}
 
 	}
