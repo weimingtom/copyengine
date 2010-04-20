@@ -52,7 +52,7 @@ package game.scene.testIso
 		
 		override public function onDragDropEnd():void
 		{
-			dragDropEngine.terminateDragDrop();
+//			dragDropEngine.terminateDragDrop();
 		}
 		
 		override public function onDragDropCancel():void

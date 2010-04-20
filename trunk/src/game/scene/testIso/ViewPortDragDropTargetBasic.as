@@ -1,6 +1,19 @@
 package game.scene.testIso
 {
+	import copyengine.actor.isometric.DragAbleIsoObject;
+	import copyengine.actor.isometric.IsoObject;
+	import copyengine.datas.isometric.IsoTileVo;
+	import copyengine.dragdrop.IDragDropSource;
 	import copyengine.dragdrop.impl.CEDragDropTargetCore;
+	import copyengine.scenes.isometric.IsoObjectDisplayManger;
+	import copyengine.scenes.isometric.IsoTileVoManger;
+	import copyengine.utils.GeneralUtils;
+	import copyengine.utils.ResUtlis;
+	
+	import flash.geom.Point;
+	import flash.geom.Vector3D;
+	
+	import game.scene.IsoMath;
 	
 	public class ViewPortDragDropTargetBasic extends CEDragDropTargetCore
 	{
@@ -8,6 +21,9 @@ package game.scene.testIso
 		
 		protected var isoObjectDisplayManger:IsoObjectDisplayManger;
 		protected var isoTileVoManger:IsoTileVoManger;
+		
+		private var sourcePos:Point;
+		private var screenVector:Vector3D;
 		
 		/**
 		 * WARNINIG::
@@ -20,6 +36,16 @@ package game.scene.testIso
 		public function ViewPortDragDropTargetBasic()
 		{
 			super();
+		}
+		
+		override public function onSourceEnter(_source:IDragDropSource):void
+		{
+			getDragIsoObject(_source).container.visible = true;
+		}
+		
+		override public function onSourceLeave(_source:IDragDropSource) : void
+		{
+			getDragIsoObject(_source).container.visible = false;
 		}
 		
 		override public function onSourceMove(_source:IDragDropSource, _x:Number, _y:Number) : void
@@ -78,11 +104,6 @@ package game.scene.testIso
 			{
 				return true;
 			}
-		}
-		
-		override public function get uniqueName() : String
-		{
-			return NAME;
 		}
 		
 		/**
