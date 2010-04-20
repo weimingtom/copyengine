@@ -51,9 +51,12 @@ package copyengine.dragdrop.impl
 
 			//dragdropSource initialize
 			currentSource.engine = this;
-			currentSource.onDragDropBegin(_x,_y);
-
-			move(_x,_y);
+			var target:IDragDropTarget = findTargetAtPoint(_x,_y);
+			currentSource.onDragDropBegin(target , _x , _y);
+			if(target != null)
+			{
+				target.onDragDropBegin(currentSource,_x,_y);
+			}
 		}
 
 		public function move(_x:Number, _y:Number) : void
@@ -121,13 +124,36 @@ package copyengine.dragdrop.impl
 					dragDropReceiverList.pop().onDragDropTerminate();
 				}
 			}
-			dragDropManger.endDragDrop();
+			dragDropManger.onEndDragDrop();
 		}
 
 		public function terminateDragDrop() : void
 		{
-			dragDropManger.terminateDragDrop();
+			dragDropManger.onTerminateDragDrop();
 			GlobalTick.instance.callLaterAfterTickCount(doTerminateDragDrop);
+		}
+		
+		public function onDragDropDispose():void
+		{
+			while (dragDropTargetList.length > 0)
+			{
+				dragDropTargetList.pop().onDragDropDispose();
+			}
+			
+			// dragDropReceiverList can be null 
+			// beacuse it will  add/remove dynamic
+			if (dragDropReceiverList != null)
+			{
+				while (dragDropReceiverList.length > 0)
+				{
+					dragDropReceiverList.pop().onDragDropTerminate();
+				}
+			}
+			
+			currentTarget = null;
+			currentSource = null;
+			dragDropTargetList = null;
+			dragDropReceiverList = null;
 		}
 
 		public function addDragDropReceiver(_receiver:IDragDropReceiver) : void
@@ -157,25 +183,18 @@ package copyengine.dragdrop.impl
 		{
 			currentSource.onDragDropTerminate();
 			
-			while (dragDropTargetList.length > 0)
+			for(var i:int = 0 ; i < dragDropTargetList.length ; i++)
 			{
-				dragDropTargetList.pop().onDragDropTerminate();
+				dragDropTargetList[i].onDragDropTerminate();
 			}
 			
-			// dragDropReceiverList can be null 
-			// beacuse it will  add/remove dynamic
-			if (dragDropReceiverList != null)
+			if(dragDropReceiverList != null)
 			{
-				while (dragDropReceiverList.length > 0)
+				for(var j:int = 0 ; j < dragDropReceiverList.length ; j++)
 				{
-					dragDropReceiverList.pop().onDragDropTerminate();
+					dragDropReceiverList[j].onDragDropTerminate();
 				}
 			}
-			
-			currentTarget = null;
-			currentSource = null;
-			dragDropTargetList = null;
-			dragDropReceiverList = null;
 		}
 
 	}

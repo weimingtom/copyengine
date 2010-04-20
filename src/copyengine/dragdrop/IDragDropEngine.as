@@ -16,19 +16,19 @@ package copyengine.dragdrop
 	{
 		/**
 		 *  hold an reference of current dragDropManger
-		 * 
+		 *
 		 * should call before startDragDrop;
-		 */		
-		function set manger(_manger:IDragDropManger):void;
-		
+		 */
+		function set manger(_manger:IDragDropManger) : void;
+
 		/**
 		 *set dragdrop targets for the current source . should call befor startDragDrop() functon .
 		 * otherwise will use per dragdropTarget inside.
 		 * WARNINIG::
 		 * 			if engine have target before , those target will be terminate and remove
-		 */		
-		function setDragDropTargets(_targets:Vector.<IDragDropTarget>):void;
-		
+		 */
+		function setDragDropTargets(_targets:Vector.<IDragDropTarget>) : void;
+
 		/**
 		 * Start drag-drop
 		 * will call by IDragDropManger , before that , it need to create an dropSource
@@ -77,7 +77,12 @@ package copyengine.dragdrop
 		 *  lineB maybe need to operate some property but already dispose by terminateDragDrop() function.
 		 * )
 		 */
-		function terminateDragDrop() : void
+		function terminateDragDrop() : void;
+
+		/**
+		 * call by IDragDropManger to dispose dragdrop system.
+		 */
+		function onDragDropDispose() : void;
 
 		/**
 		 * call by dragdropSource/dragdropTarget , add or remove an temporary receiver.

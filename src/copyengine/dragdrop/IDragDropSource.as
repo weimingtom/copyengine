@@ -12,11 +12,6 @@ package copyengine.dragdrop
 		function set engine(_engine:IDragDropEngine) : void;
 		
 		/**
-		 * call when the dragdrop system begin.
-		 */
-		function onDragDropBegin(_x:Number , _y:Number) : void;
-		
-		/**
 		 * this dragIcon will display in dragMangerLayer, and remove automatic when dragDrop system terminate.
 		 * this function only call once when the the dragdrop begin(it will call before onDragDropBegin funtion.)
 		 */
@@ -26,6 +21,11 @@ package copyengine.dragdrop
 		 * get current dragdrop source icon
 		 */		
 		function get dragIcon():DisplayObjectContainer;
+		
+		/**
+		 * call when the dragdrop system begin.
+		 */
+		function onDragDropBegin(_target:IDragDropTarget , _x:Number , _y:Number) : void;
 		
 		/**
 		 * call when enter an dragdrop target like mouseRollOver
@@ -59,11 +59,6 @@ package copyengine.dragdrop
 		 * call when release the source in no target
 		 */		
 		function onDragDropCancel():void;	
-			
-		/**
-		 * call when current dragdrop end.
-		 */		
-		function onDragDropEnd():void;
 
 	}
 }

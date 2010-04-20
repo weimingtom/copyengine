@@ -4,7 +4,7 @@ package game.scene.testIso
 	import copyengine.dragdrop.impl.CEDragDropSourceCore;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.ResUtlis;
-
+	
 	import flash.display.Sprite;
 
 	public class IsoBoxDragDropSource extends CEDragDropSourceCore
@@ -30,7 +30,7 @@ package game.scene.testIso
 
 		override public function onEnterTarget(_target:IDragDropTarget) : void
 		{
-			if (_target.uniqueName == IsoViewPortDragDropTarget.NAME)
+			if(_target is IsoViewPortDragDropTarget)
 			{
 				dragDropIconContainer.removeChild(boxIcon);
 			}
@@ -38,7 +38,7 @@ package game.scene.testIso
 
 		override public function onLeaveTarget(_target:IDragDropTarget) : void
 		{
-			if (_target.uniqueName == IsoViewPortDragDropTarget.NAME)
+			if(_target is IsoViewPortDragDropTarget)
 			{
 				dragDropIconContainer.addChild(boxIcon);
 			}
@@ -46,7 +46,7 @@ package game.scene.testIso
 
 		override protected function initializeDragDropIcon() : void
 		{
-			boxIcon = ResUtlis.getSprite("FloorTile8" ,ResUtlis.FILE_ISOHAX);
+			boxIcon = ResUtlis.getSprite("Tile_Red" ,ResUtlis.FILE_ISOHAX);
 			dragDropIconContainer.addChild(boxIcon);
 		}
 		
@@ -63,11 +63,6 @@ package game.scene.testIso
 		override public function onDragDropTerminate():void
 		{
 			GeneralUtils.removeTargetFromParent(boxIcon);
-		}
-
-		override public function get uniqueName() : String
-		{
-			return NAME;
 		}
 		
 	}

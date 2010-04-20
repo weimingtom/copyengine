@@ -51,27 +51,27 @@ package copyengine.actor.isometric
 
 		private function onMouseDown(e:MouseEvent) : void
 		{
-			isoObjectDisplayManger.removeIsoObject(this);
-			
-			var dragDropManger:CEDragDropMangerClick = new CEDragDropMangerClick();
-			var dragDropEngine:CEDragDropEngine = new CEDragDropEngine();
-			dragDropManger.initialize(CopyEngineAS.dragdropLayer , dragDropEngine );
-			
-			var dragTargetList:Vector.<IDragDropTarget> = new Vector.<IDragDropTarget>();
-			
-			var viewPortTarget:IDragDropTarget = new IsoViewPortDragDropTarget();
-			viewPortTarget.bindEntity({isoObjectDisplayManger:isoObjectDisplayManger , isoTileVoManger:isoTileVoManger},0,0);
-			dragTargetList.push(viewPortTarget);
-			
-			dragDropManger.setDragDropTargets(dragTargetList);
-			
-			var source:IDragDropSource = new IsoBoxDragDropSource();
-//			var point:Point = new Point(e.stageX,e.stageY);
-			var point:Point = CopyEngineAS.dragdropLayer.globalToLocal(new Point(e.stageX , e.stageY) );
-			trace("stageX :" + e.stageX + "stageY :" + e.stageY);
-			trace("pointX :" + point.x + " pointY :" + point.y);
-			source.bindEntity(this,point.x,point.y);
-			dragDropManger.startDragDrop(source,point.x,point.y);
+			//need to recorder the the position before call removeChild .
+			//because the e.stageX/Y will chang when removed the child. WTF!!
+			var removePosX:Number = e.stageX;
+			var removePosY:Number = e.stageY;
+				isoObjectDisplayManger.removeIsoObject(this);
+				
+				var dragDropManger:CEDragDropMangerClick = new CEDragDropMangerClick();
+				var dragDropEngine:CEDragDropEngine = new CEDragDropEngine();
+				dragDropManger.initialize(CopyEngineAS.dragdropLayer , dragDropEngine );
+				
+				var dragTargetList:Vector.<IDragDropTarget> = new Vector.<IDragDropTarget>();
+				
+				var viewPortTarget:IDragDropTarget = new IsoViewPortDragDropTarget();
+				viewPortTarget.bindEntity({isoObjectDisplayManger:isoObjectDisplayManger , isoTileVoManger:isoTileVoManger},0,0);
+				dragTargetList.push(viewPortTarget);
+				
+				dragDropManger.setDragDropTargets(dragTargetList);
+				
+				var source:IDragDropSource = new IsoBoxDragDropSource();
+				source.bindEntity(this,removePosX,removePosY);
+				dragDropManger.startDragDrop(source,removePosX,removePosY);
 		}
 
 		private function onRollOver(e:MouseEvent) : void

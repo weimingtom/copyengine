@@ -41,10 +41,21 @@ package copyengine.dragdrop.impl
 		{
 			return entity
 		}
+		
+		final public function onDragDropDispose():void
+		{
+			doDragDropDispose();
+			dragDropEngine = null;
+			entity = null;
+		}
 
 		//======================
 		//== Public OverrideAble Function
 		//======================
+		public function onDragDropBegin(_source:IDragDropSource , _x:Number , _y:Number):void
+		{
+		}
+		
 		public function onSourceEnter(_source:IDragDropSource) : void
 		{
 		}
@@ -61,18 +72,12 @@ package copyengine.dragdrop.impl
 		{
 		}
 
-		public function get uniqueName() : String
-		{
-			return null;
-		}
-
 		public function onDragDropEnd():void
 		{
 		}
 
 		public function onDragDropTerminate():void
 		{
-			dragDropEngine = null;
 		}
 		
 		public function isPositionInTarget(_posX:Number , _posY:Number):Boolean
@@ -90,5 +95,10 @@ package copyengine.dragdrop.impl
 		protected function doBindEntity(_x:Number , _y:Number) : void
 		{
 		}
+		
+		protected function doDragDropDispose():void
+		{
+		}
+		
 	}
 }

@@ -61,7 +61,7 @@ package copyengine.dragdrop.impl
 		//======================
 		//== Public OverrideAble Function
 		//======================
-		public function onDragDropBegin(_x:Number, _y:Number) : void
+		public function onDragDropBegin(_target:IDragDropTarget , _x:Number , _y:Number) : void
 		{
 		}
 
@@ -84,27 +84,32 @@ package copyengine.dragdrop.impl
 		public function onDropConfim(_target:IDragDropTarget, _isAccepted:Boolean) : void
 		{
 		}
-
-		public function get uniqueName() : String
-		{
-			return null;
-		}
-
-		public function onDragDropEnd():void
-		{
-		}
-
+		
+		/**
+		 * by default , when drapdrop been cancled then terminate current dragdrop
+		 * child class need to override this function ,if need do other things. 
+		 */		
 		public function onDragDropCancel():void
 		{
 			dragDropEngine.endDragDrop();
+			dragDropEngine.terminateDragDrop();
+		}
+		
+		public function onDragDropEnd():void
+		{
 		}
 		
 		public function onDragDropTerminate():void
 		{
+		}
+		
+		public final function onDragDropDispose():void
+		{
+			doDragDropDispose();
 			dragDropIconContainer = null;
 			dragDropEngine = null;
 		}
-
+		
 		//===============
 		//== Protected Function
 		//===============
@@ -122,6 +127,10 @@ package copyengine.dragdrop.impl
 		protected function doBindEntity(_x:Number , _y:Number) : void
 		{
 		}
-
+		
+		protected function doDragDropDispose():void
+		{
+		}
+		
 	}
 }

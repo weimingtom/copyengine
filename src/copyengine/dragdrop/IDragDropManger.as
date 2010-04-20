@@ -24,18 +24,18 @@ package copyengine.dragdrop
 		function initialize(_layer:DisplayObjectContainer , _engine:IDragDropEngine) : void;
 		
 		/**
-		 * call by dragdropEngine to terminate the dragdrop system.
-		 * it will not terminate immediately , it will terminate in next tick ,
-		 * so that this function can avoide invocation stack error
-		 * (
-		 *   call lineA
-		 *         -->terminateDragDrop();
-		 *   call lineB
-		 *
-		 *  lineB maybe need to operate some property but already dispose by terminateDragDrop() function.
-		 * )
-		 */
-		function terminateDragDrop() : void;
+		 * call to dispoase dragDrop system.
+		 * 
+		 * WARNINIG::
+		 * 		this is the only portal to dispose dragdrop dragdrop system.
+		 */		
+		function disposeDragDrop():void;
+		
+		/**
+		 * same as IDragDropObject
+		 */		
+		function onEndDragDrop() : void;
+		function onTerminateDragDrop() : void;
 		
 		/**
 		 *	set drapDropTarget for current source.
@@ -53,13 +53,6 @@ package copyengine.dragdrop
 		 * @param _y
 		 */
 		function startDragDrop(_source:IDragDropSource ,_x:Number , _y:Number) : void;
-		
-		
-		/**
-		 * call by IDragDropEngine when it receive current dragDrop finished, can not call directly.
-		 */
-		function endDragDrop() : void
-
 
 	}
 }

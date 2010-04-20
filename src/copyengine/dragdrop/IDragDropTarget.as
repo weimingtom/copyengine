@@ -8,7 +8,12 @@ package copyengine.dragdrop
 		 * it can call engine.confirmSourceDrop(boolean) back.
 		 */
 		function set engine(_engine:IDragDropEngine) : void;
-
+		
+		/**
+		 * call when begin dragdrop
+		 */		
+		function onDragDropBegin(_source:IDragDropSource , _x:Number , _y:Number):void;
+		
 		/**
 		 * call when dragSource move into target like roll over.
 		 */
@@ -30,11 +35,6 @@ package copyengine.dragdrop
 		 * when it decided , then call  engine.confirmSourceDrop(boolean) back.
 		 */
 		function onSourceDrop(_source:IDragDropSource , _x:Number , _y:Number) : void;
-		
-		/**
-		 * call when current dragdrop end.
-		 */		
-		function onDragDropEnd():void;
 		
 		/**
 		 * use this function to caulate is current position(global system) in target or not.
