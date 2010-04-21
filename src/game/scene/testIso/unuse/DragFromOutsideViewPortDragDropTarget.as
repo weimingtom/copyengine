@@ -1,8 +1,9 @@
-package game.scene.testIso
+package game.scene.testIso.unuse
 {
 	import copyengine.actor.isometric.IsoObject;
 	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.dragdrop.IDragDropSource;
+	import game.scene.testIso.ViewPortDragDropTargetBasic;
 
 	/**
 	 *the source is drag from outside isoScene

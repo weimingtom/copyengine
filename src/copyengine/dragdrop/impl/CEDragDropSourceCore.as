@@ -6,7 +6,14 @@ package copyengine.dragdrop.impl
 
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
-
+	
+	/**
+	 * Should only do onSourceCancel/onDropConfim but accpted logic in CEDragDropSource
+	 * the accpeted logic should do in each target
+	 *  
+	 * @author Tunied
+	 * 
+	 */	
 	public class CEDragDropSourceCore implements IDragDropSource
 	{
 		/**
