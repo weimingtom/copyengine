@@ -17,7 +17,6 @@ package copyengine.actor.isometric
 	import game.scene.testIso.dragdrop.DragFromInsideIsoObjectDragDropSource;
 	import game.scene.testIso.dragdrop.IsoObjectDragDropSourceBasic;
 	import game.scene.testIso.dragdrop.IsoSceneDragDropTarget;
-	import game.scene.testIso.unuse.IsoBoxDragDropSource;
 
 	public class DragAbleIsoObject extends IsoObject
 	{

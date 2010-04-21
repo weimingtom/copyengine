@@ -53,16 +53,7 @@ package game.scene.testIso.dragdrop
 					isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObjectVo,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
 					isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObjectVo,isoObjectVo.height + 3);
 					
-					var screenVector:Vector3D = new Vector3D();
-					//caulate the target the screen position
-					screenVector.x = isoObjectVo.col * GeneralConfig.ISO_TILE_WIDTH;
-					screenVector.y = isoObjectVo.row * GeneralConfig.ISO_TILE_WIDTH;
-					screenVector.z = isoObjectVo.height * GeneralConfig.ISO_TILE_WIDTH;
-					IsoMath.isoToScreen(screenVector);
-					
-					//move the objs to the tile
-					isoBox.container.x = screenVector.x;
-					isoBox.container.y = screenVector.y;
+					isoBox.setScenePositionByIsoPosition();
 					
 					isoObjectDisplayManger.addIsoObject(isoBox);
 					isoObjectDisplayManger.sortObjectInNextUpdate();

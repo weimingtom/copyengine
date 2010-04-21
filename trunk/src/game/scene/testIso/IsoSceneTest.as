@@ -37,7 +37,6 @@ package game.scene.testIso
 	import game.scene.testIso.dragdrop.DragFromOutsideIsoObjectDragDropSource;
 	import game.scene.testIso.dragdrop.IsoObjectDragDropSourceBasic;
 	import game.scene.testIso.dragdrop.IsoSceneDragDropTarget;
-	import game.scene.testIso.unuse.IsoBoxDragDropSource;
 	import game.ui.test.list.TShapeCellRender;
 
 	public class IsoSceneTest extends IsoSceneBasic
@@ -46,9 +45,6 @@ package game.scene.testIso
 		{
 			super();
 		}
-
-		private var dragDropManger:IDragDropManger;
-		private var dragDropEngine:IDragDropEngine;
 
 		override protected function createIsoSceneMediator() : IsoSceneBasicMediator
 		{
@@ -81,17 +77,13 @@ package game.scene.testIso
 			var source2:MovieClip = box["dragSource2"] as MovieClip;
 			GeneralUtils.addTargetEventListener(source2,MouseEvent.MOUSE_DOWN , source2OnMouseDown);
 
-			dragDropManger = new CEDragDropMangerClick();
-			dragDropEngine = new CEDragDropEngine();
-			dragDropManger.initialize(CopyEngineAS.dragdropLayer , dragDropEngine );
-
 			var dragTargetList:Vector.<IDragDropTarget> = new Vector.<IDragDropTarget>();
-
+			
 			var viewPortTarget:IDragDropTarget = new IsoSceneDragDropTarget();
 			viewPortTarget.bindEntity({isoObjectDisplayManger:isoObjectDisplayManger , isoTileVoManger:isoTileVoManger},0,0);
 			dragTargetList.push(viewPortTarget);
-
-			dragDropManger.setDragDropTargets(dragTargetList);
+			
+			CEDragDropMangerClick.instance.setDragDropTargets(dragTargetList);
 		}
 
 		private function source2OnMouseDown(e:MouseEvent) : void
@@ -108,7 +100,8 @@ package game.scene.testIso
 				},
 				e.stageX,e.stageY
 				);
-			dragDropManger.startDragDrop(source,e.stageX,e.stageY);
+			
+			CEDragDropMangerClick.instance.startDragDrop(source,e.stageX,e.stageY);
 		}
 
 	}

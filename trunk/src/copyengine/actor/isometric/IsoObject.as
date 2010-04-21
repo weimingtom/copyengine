@@ -12,6 +12,8 @@ package copyengine.actor.isometric
 
 	public class IsoObject
 	{
+		private static var screenVector:Vector3D = new Vector3D();
+		
 		public var isoObjectVo:IsoObjectVo;
 		public var container:DisplayObjectContainer;
 
@@ -19,6 +21,19 @@ package copyengine.actor.isometric
 		{
 			container = _skin;
 			isoObjectVo = _isoObjectVo;
+		}
+		
+		public function setScenePositionByIsoPosition():void
+		{
+			//caulate the target the screen position
+			screenVector.x = isoObjectVo.col * GeneralConfig.ISO_TILE_WIDTH;
+			screenVector.y = isoObjectVo.row * GeneralConfig.ISO_TILE_WIDTH;
+			screenVector.z = isoObjectVo.height * GeneralConfig.ISO_TILE_WIDTH;
+			IsoMath.isoToScreen(screenVector);
+			
+			//move the objs to the tile
+			container.x = screenVector.x;
+			container.y = screenVector.y;
 		}
 		
 	}
