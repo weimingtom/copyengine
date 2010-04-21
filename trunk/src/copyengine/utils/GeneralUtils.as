@@ -52,7 +52,7 @@ package copyengine.utils
             }
         }
 
-        public static function removeTargetFromParent(_target : DisplayObjectContainer) : void
+        public static function removeTargetFromParent(_target :DisplayObject) : void
         {
             if (_target != null)
             {

@@ -1,5 +1,7 @@
 package copyengine.actor.isometric
 {
+	import copyengine.datas.isometric.IsoObjectVo;
+	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.dragdrop.IDragDropSource;
 	import copyengine.dragdrop.IDragDropTarget;
 	import copyengine.dragdrop.impl.CEDragDropEngine;
@@ -12,21 +14,23 @@ package copyengine.actor.isometric
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
-	import game.scene.testIso.IsoBoxDragDropSource;
-	import game.scene.testIso.IsoViewPortDragDropTarget;
+	import game.scene.testIso.dragdrop.DragFromInsideIsoObjectDragDropSource;
+	import game.scene.testIso.dragdrop.IsoObjectDragDropSourceBasic;
+	import game.scene.testIso.dragdrop.IsoSceneDragDropTarget;
+	import game.scene.testIso.unuse.IsoBoxDragDropSource;
 
 	public class DragAbleIsoObject extends IsoObject
 	{
 		private var isoObjectDisplayManger:IsoObjectDisplayManger;
 		private var isoTileVoManger:IsoTileVoManger
-		
+
 		public function DragAbleIsoObject(_isoObjectDisplayManger:IsoObjectDisplayManger,
-										  _isoTileVoManger:IsoTileVoManger,
-			_skin:DisplayObjectContainer, _col:int, _row:int, _height:int, _maxCols:int, _maxRows:int)
+			_isoTileVoManger:IsoTileVoManger,
+			_skin:DisplayObjectContainer, _isoObjectVo:IsoObjectVo)
 		{
 			isoObjectDisplayManger = _isoObjectDisplayManger;
 			isoTileVoManger = _isoTileVoManger;
-			super(_skin, _col, _row, _height, _maxCols, _maxRows);
+			super(_skin, _isoObjectVo);
 			initialize();
 		}
 
@@ -55,23 +59,31 @@ package copyengine.actor.isometric
 			//because the e.stageX/Y will chang when removed the child. WTF!!
 			var removePosX:Number = e.stageX;
 			var removePosY:Number = e.stageY;
-				isoObjectDisplayManger.removeIsoObject(this);
-				
-				var dragDropManger:CEDragDropMangerClick = new CEDragDropMangerClick();
-				var dragDropEngine:CEDragDropEngine = new CEDragDropEngine();
-				dragDropManger.initialize(CopyEngineAS.dragdropLayer , dragDropEngine );
-				
-				var dragTargetList:Vector.<IDragDropTarget> = new Vector.<IDragDropTarget>();
-				
-				var viewPortTarget:IDragDropTarget = new IsoViewPortDragDropTarget();
-				viewPortTarget.bindEntity({isoObjectDisplayManger:isoObjectDisplayManger , isoTileVoManger:isoTileVoManger},0,0);
-				dragTargetList.push(viewPortTarget);
-				
-				dragDropManger.setDragDropTargets(dragTargetList);
-				
-				var source:IDragDropSource = new IsoBoxDragDropSource();
-				source.bindEntity(this,removePosX,removePosY);
-				dragDropManger.startDragDrop(source,removePosX,removePosY);
+			isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObjectVo,IsoTileVo.TILE_ATTRIBUTE_BLOCK,false);
+			isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObjectVo,0);
+			isoObjectDisplayManger.removeIsoObject(this);
+			
+			var dragDropManger:CEDragDropMangerClick = new CEDragDropMangerClick();
+			var dragDropEngine:CEDragDropEngine = new CEDragDropEngine();
+			dragDropManger.initialize(CopyEngineAS.dragdropLayer , dragDropEngine );
+
+			var dragTargetList:Vector.<IDragDropTarget> = new Vector.<IDragDropTarget>();
+
+			var viewPortTarget:IDragDropTarget = new IsoSceneDragDropTarget();
+			viewPortTarget.bindEntity({isoObjectDisplayManger:isoObjectDisplayManger , isoTileVoManger:isoTileVoManger},0,0);
+			dragTargetList.push(viewPortTarget);
+
+			dragDropManger.setDragDropTargets(dragTargetList);
+
+			var source:IDragDropSource = new DragFromInsideIsoObjectDragDropSource();
+			source.bindEntity(
+				{isoObjectDisplayManger:isoObjectDisplayManger , 
+					isoTileVoManger:isoTileVoManger,
+					isoObjectVo:isoObjectVo
+				},
+				removePosX,removePosY
+				);
+			dragDropManger.startDragDrop(source,removePosX,removePosY);
 		}
 
 		private function onRollOver(e:MouseEvent) : void

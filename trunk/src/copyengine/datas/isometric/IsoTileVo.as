@@ -38,7 +38,7 @@ package copyengine.datas.isometric
 		 * ex: drag drop , actor move 
 		 */		
 		public var tileAttribute:uint;
-		public static const TILE_ATTRIBUTE_BLOCK:int = 0;
+		public static const TILE_ATTRIBUTE_BLOCK:int = 1;
 		
 		
 		public function IsoTileVo()

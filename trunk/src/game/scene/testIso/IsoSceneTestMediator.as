@@ -2,6 +2,7 @@ package game.scene.testIso
 {
 	import copyengine.actor.isometric.DragAbleIsoObject;
 	import copyengine.actor.isometric.IsoObject;
+	import copyengine.datas.isometric.IsoObjectVo;
 	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.scenes.isometric.IsoFloor;
 	import copyengine.scenes.isometric.IsoSceneBasic;
@@ -53,20 +54,20 @@ package game.scene.testIso
 			var isoObj:IsoObject;
 			var objCol:int = 0;
 			var objRow:int = 0;
-			while(objCol < 10)
+			while(objCol < 0)
 			{
-				while(objRow < 10)
+				while(objRow < 0)
 				{
 					isoObj = getIsoObjectByType(Random.range(0,3),objCol,objRow);
 					
-					positionTransformVector.x = isoObj.col*GeneralConfig.ISO_TILE_WIDTH;
-					positionTransformVector.y = isoObj.row*GeneralConfig.ISO_TILE_WIDTH;
+					positionTransformVector.x = isoObj.isoObjectVo.col*GeneralConfig.ISO_TILE_WIDTH;
+					positionTransformVector.y = isoObj.isoObjectVo.row*GeneralConfig.ISO_TILE_WIDTH;
 					IsoMath.isoToScreen(positionTransformVector);
 					isoObj.container.x = positionTransformVector.x;
 					isoObj.container.y = positionTransformVector.y;
 					
-					isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
-					isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObj,isoObj.height+1);
+					isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObj.isoObjectVo,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
+					isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObj.isoObjectVo,isoObj.isoObjectVo.height+1);
 					
 					isoObjects.push( isoObj );
 					objRow+= 3;
@@ -106,7 +107,12 @@ package game.scene.testIso
 					bg = ResUtlis.getSprite("IsoBox_1_1_Gray",ResUtlis.FILE_ISOHAX);
 					break;
 			}
-			var isoBox:DragAbleIsoObject = new DragAbleIsoObject(isoScene.getIsoObjectDisplayManger() , isoTileVoManger , bg , _col , _row ,0,3,3);
+			var isoObjectVo:IsoObjectVo = new IsoObjectVo();
+			isoObjectVo.col = _col;
+			isoObjectVo.row = _row;
+			isoObjectVo.maxCols = 3;
+			isoObjectVo.maxRows = 3;
+			var isoBox:DragAbleIsoObject = new DragAbleIsoObject(isoScene.getIsoObjectDisplayManger() , isoTileVoManger,bg ,isoObjectVo);
 			return isoBox;
 		}
 		

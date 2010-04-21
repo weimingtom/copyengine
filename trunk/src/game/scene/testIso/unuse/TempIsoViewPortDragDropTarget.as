@@ -1,10 +1,11 @@
-package game.scene.testIso
+package game.scene.testIso.unuse
 {
 	import copyengine.actor.isometric.DragAbleIsoObject;
 	import copyengine.actor.isometric.IsoObject;
 	import copyengine.utils.ResUtlis;
+	import game.scene.testIso.dragdrop.IsoSceneDragDropTarget;
 
-	public class TempIsoViewPortDragDropTarget extends IsoViewPortDragDropTarget
+	public class TempIsoViewPortDragDropTarget extends IsoSceneDragDropTarget
 	{
 		public function TempIsoViewPortDragDropTarget()
 		{

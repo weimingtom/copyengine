@@ -1,5 +1,6 @@
 package copyengine.actor.isometric
 {
+	import copyengine.datas.isometric.IsoObjectVo;
 	import copyengine.utils.GeneralUtils;
 	
 	import flash.display.DisplayObjectContainer;
@@ -11,25 +12,13 @@ package copyengine.actor.isometric
 
 	public class IsoObject
 	{
-		public var col:int;
-		public var row:int;
-		public var height:int;
-
-		public var maxCols:int;
-		public var maxRows:int;
-
+		public var isoObjectVo:IsoObjectVo;
 		public var container:DisplayObjectContainer;
 
-		public function IsoObject(_skin:DisplayObjectContainer , 
-			_col:int , _row:int , _height:int , 
-			_maxCols:int , _maxRows:int)
+		public function IsoObject(_skin:DisplayObjectContainer , _isoObjectVo:IsoObjectVo)
 		{
 			container = _skin;
-			col = _col;
-			row = _row;
-			height = _height;
-			maxCols = _maxCols;
-			maxRows = _maxRows;
+			isoObjectVo = _isoObjectVo;
 		}
 		
 	}

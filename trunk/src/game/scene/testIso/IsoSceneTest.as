@@ -2,6 +2,7 @@ package game.scene.testIso
 {
 	import com.adobe.viewsource.ViewSource;
 	
+	import copyengine.datas.isometric.IsoObjectVo;
 	import copyengine.dragdrop.IDragDropEngine;
 	import copyengine.dragdrop.IDragDropManger;
 	import copyengine.dragdrop.IDragDropSource;
@@ -33,78 +34,82 @@ package game.scene.testIso
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
+	import game.scene.testIso.dragdrop.DragFromOutsideIsoObjectDragDropSource;
+	import game.scene.testIso.dragdrop.IsoObjectDragDropSourceBasic;
+	import game.scene.testIso.dragdrop.IsoSceneDragDropTarget;
+	import game.scene.testIso.unuse.IsoBoxDragDropSource;
 	import game.ui.test.list.TShapeCellRender;
-	
+
 	public class IsoSceneTest extends IsoSceneBasic
 	{
 		public function IsoSceneTest()
 		{
 			super();
 		}
-		
+
 		private var dragDropManger:IDragDropManger;
 		private var dragDropEngine:IDragDropEngine;
-		
-		override protected function createIsoSceneMediator():IsoSceneBasicMediator
+
+		override protected function createIsoSceneMediator() : IsoSceneBasicMediator
 		{
 			return new IsoSceneTestMediator(this);
 		}
-		
-		override protected function getMediatorName():String
+
+		override protected function getMediatorName() : String
 		{
 			return IsoSceneTestMediator.NAME;
 		}
-		
-		override protected function createViewPort():IIsoViewPort
+
+		override protected function createViewPort() : IIsoViewPort
 		{
 			var viewPort:IIsoViewPort = new CERectangleViewPort();
 			viewPort.initializeIsoViewPort(GeneralConfig.VIEWPORT_WIDTH,GeneralConfig.VIEWPORT_HEIGHT,GeneralConfig.FLOOR_WIDHT,GeneralConfig.FLOOR_HEIGHT);
 			return viewPort;
 		}
-		
-		override protected function createViewPortInteractive():IViewPortInteractiveWarp
+
+		override protected function createViewPortInteractive() : IViewPortInteractiveWarp
 		{
 			return new CEDragViewPortInteractiveWarp();
 		}
-		
-		override protected function doInitialize():void
+
+		override protected function doInitialize() : void
 		{
 			var box:MovieClip = ResUtlis.getMovieClip("DragDropBox",ResUtlis.FILE_UI);
 			uiContainer.addChild(box);
 			box.y = GeneralConfig.VIEWPORT_HEIGHT;
-			
-			var source:MovieClip = box["dragSource"] as MovieClip;
-			GeneralUtils.addTargetEventListener(source,MouseEvent.MOUSE_DOWN , sourceOnMouseDown);
-			
+
 			var source2:MovieClip = box["dragSource2"] as MovieClip;
 			GeneralUtils.addTargetEventListener(source2,MouseEvent.MOUSE_DOWN , source2OnMouseDown);
-			
+
 			dragDropManger = new CEDragDropMangerClick();
 			dragDropEngine = new CEDragDropEngine();
 			dragDropManger.initialize(CopyEngineAS.dragdropLayer , dragDropEngine );
-			
+
 			var dragTargetList:Vector.<IDragDropTarget> = new Vector.<IDragDropTarget>();
-			
-			var viewPortTarget:IDragDropTarget = new DragFromOutsideViewPortDragDropTarget();
+
+			var viewPortTarget:IDragDropTarget = new IsoSceneDragDropTarget();
 			viewPortTarget.bindEntity({isoObjectDisplayManger:isoObjectDisplayManger , isoTileVoManger:isoTileVoManger},0,0);
 			dragTargetList.push(viewPortTarget);
-			
+
 			dragDropManger.setDragDropTargets(dragTargetList);
 		}
-		
-		private function source2OnMouseDown(e:MouseEvent):void
+
+		private function source2OnMouseDown(e:MouseEvent) : void
 		{
-			var source:IDragDropSource = new IsoBoxDragDropSource();
-			source.bindEntity(e.target,e.stageX,e.stageY);
+			var isoObjectVo:IsoObjectVo = new IsoObjectVo();
+			isoObjectVo.col = isoObjectVo.row = 0;
+			isoObjectVo.maxCols = isoObjectVo.maxRows = 3;
+			
+			var source:IDragDropSource = new DragFromOutsideIsoObjectDragDropSource();
+			source.bindEntity(
+				{isoObjectDisplayManger:isoObjectDisplayManger , 
+					isoTileVoManger:isoTileVoManger,
+					isoObjectVo:isoObjectVo
+				},
+				e.stageX,e.stageY
+				);
 			dragDropManger.startDragDrop(source,e.stageX,e.stageY);
 		}
-		
-		private function sourceOnMouseDown(e:MouseEvent):void
-		{
-			var source:IDragDropSource = new IsoBoxDragDropSource();
-			source.bindEntity(e.target,e.stageX,e.stageY);
-			dragDropManger.startDragDrop(source,e.stageX,e.stageY);
-		}
-		
+
 	}
 }

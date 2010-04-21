@@ -150,9 +150,9 @@ package copyengine.scenes.isometric
 		 */
 		private function drawIsoObjects() : void
 		{
-			//			var t:int = getTimer();
+//						var t:int = getTimer();
 			sortAndDisplayIsoObject();
-			//			trace("Cost : " + (getTimer() - t) );
+//						trace("Cost : " + (getTimer() - t) );
 		}
 
 		public function get container() : DisplayObjectContainer
@@ -187,8 +187,8 @@ package copyengine.scenes.isometric
 				for (j = 0 ; j < swapIsoObjectLength ; j++)
 				{
 					sortedObject = swapIsoObjectList[j];
-					if (newSortObject.col <= sortedObject.col+sortedObject.maxCols -1
-						&& newSortObject.row <= sortedObject.row + sortedObject.maxRows -1)
+					if (newSortObject.isoObjectVo.col <= sortedObject.isoObjectVo.col+sortedObject.isoObjectVo.maxCols -1
+						&& newSortObject.isoObjectVo.row <= sortedObject.isoObjectVo.row + sortedObject.isoObjectVo.maxRows -1)
 					{
 						swapIsoObjectList.splice(j,0,newSortObject);
 						isAdd = true;
