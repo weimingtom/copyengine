@@ -7,7 +7,7 @@ package copyengine.utils
 	{
 		public static function setAttribute(_val:uint , _index:int) :uint
 		{
-			if (!hasAttribute(_index,_val))
+			if (!hasAttribute(_val,_index))
 			{
 				_val |= (1 << _index);
 			}
@@ -16,7 +16,7 @@ package copyengine.utils
 
 		public static function removeAttribute(_val:uint ,_index:int) :uint
 		{
-			if (hasAttribute(_index,_val))
+			if (hasAttribute(_val,_index))
 			{
 				_val &= ~(1<<_index);
 			}
