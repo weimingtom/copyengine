@@ -32,7 +32,7 @@ package copyengine.dragdrop.impl
 			{
 				while (dragDropTargetList.length > 0)
 				{
-					dragDropTargetList[0].onDragDropTerminate();
+					dragDropTargetList[0].onDragDropDispose();
 				}
 			}
 			dragDropTargetList = _targets;
@@ -119,11 +119,12 @@ package copyengine.dragdrop.impl
 			// beacuse it will  add/remove dynamic
 			if (dragDropReceiverList != null)
 			{
-				while (dragDropReceiverList.length > 0)
+				for(var j:int = 0 ; j < dragDropReceiverList.length ; j++)
 				{
-					dragDropReceiverList.pop().onDragDropTerminate();
+					dragDropReceiverList[j].onDragDropEnd();
 				}
 			}
+			
 			dragDropManger.onEndDragDrop();
 		}
 
@@ -146,7 +147,7 @@ package copyengine.dragdrop.impl
 			{
 				while (dragDropReceiverList.length > 0)
 				{
-					dragDropReceiverList.pop().onDragDropTerminate();
+					dragDropReceiverList.pop().onDragDropDispose();
 				}
 			}
 			
