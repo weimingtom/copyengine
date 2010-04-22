@@ -84,12 +84,6 @@ package copyengine.dragdrop
 		 */
 		function onDragDropDispose() : void;
 
-		/**
-		 * call by dragdropSource/dragdropTarget , add or remove an temporary receiver.
-		 * @see more on IDragDropReceiver.
-		 */
-		function addDragDropReceiver(_receiver:IDragDropReceiver) : void;
-		function removeDragDropReceiver(_receiverName:String) : void;
 
 	}
 }

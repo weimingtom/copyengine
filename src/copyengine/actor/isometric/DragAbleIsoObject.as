@@ -61,18 +61,6 @@ package copyengine.actor.isometric
 			isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObjectVo,IsoTileVo.TILE_ATTRIBUTE_BLOCK,false);
 			isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObjectVo,0);
 			isoObjectDisplayManger.removeIsoObject(this);
-			
-			var dragDropManger:CEDragDropMangerClick = new CEDragDropMangerClick();
-			var dragDropEngine:CEDragDropEngine = new CEDragDropEngine();
-			dragDropManger.initialize(CopyEngineAS.dragdropLayer , dragDropEngine );
-
-			var dragTargetList:Vector.<IDragDropTarget> = new Vector.<IDragDropTarget>();
-
-			var viewPortTarget:IDragDropTarget = new IsoSceneDragDropTarget();
-			viewPortTarget.bindEntity({isoObjectDisplayManger:isoObjectDisplayManger , isoTileVoManger:isoTileVoManger},0,0);
-			dragTargetList.push(viewPortTarget);
-
-			dragDropManger.setDragDropTargets(dragTargetList);
 
 			var source:IDragDropSource = new DragFromInsideIsoObjectDragDropSource();
 			source.bindEntity(
@@ -82,7 +70,7 @@ package copyengine.actor.isometric
 				},
 				removePosX,removePosY
 				);
-			dragDropManger.startDragDrop(source,removePosX,removePosY);
+			CEDragDropMangerClick.instance.startDragDrop(source,removePosX,removePosY);
 		}
 
 		private function onRollOver(e:MouseEvent) : void

@@ -31,7 +31,12 @@ package copyengine.dragdrop.impl
 			downPoint = new Point();
 			this.initialize(CopyEngineAS.dragdropLayer , dragDropEngine);
 		}
-
+		
+		/**
+		 *As3 not really provide mouseClick event . if you mouse down at one point and moveAround(in the same target)
+		 *and mouseUp , As3 still think it's mouseClick Event.
+		 * so i have to use  CLICK_RESPOND_RANGE to simulate click event
+		 */		
 		override protected function onMouseDown(e:MouseEvent) : void
 		{
 			downPoint.x = e.stageX;
@@ -46,8 +51,8 @@ package copyengine.dragdrop.impl
 				&& e.stageY > downPoint.y - CLICK_RESPOND_RANGE)
 			{
 				engine.dropTarget(e.stageX,e.stageY);
-				downPoint.x = downPoint.y = 0;
 			}
+			downPoint.x = downPoint.y = 0;
 		}
 
 	}
