@@ -88,21 +88,20 @@ package copyengine.dragdrop.impl
 			engine.startDragDrop(_source,_x,_y);
 		}
 
-		protected function onMouseMove(e:Event) : void
+		protected function onMouseMove(e:MouseEvent) : void
 		{
-			var mouseEvent:MouseEvent = e as MouseEvent;
-			engine.move(mouseEvent.stageX,mouseEvent.stageY);
+			engine.move(e.stageX,e.stageY);
 		}
 
-		protected function onMouseClick(e:Event) : void
-		{
-		}
-
-		protected function onMouseDown(e:Event) : void
+		protected function onMouseClick(e:MouseEvent) : void
 		{
 		}
 
-		protected function onMouseUp(e:Event) : void
+		protected function onMouseDown(e:MouseEvent) : void
+		{
+		}
+
+		protected function onMouseUp(e:MouseEvent) : void
 		{
 		}
 
@@ -125,31 +124,31 @@ package copyengine.dragdrop.impl
 			GeneralUtils.removeTargetEventListener(layer , MouseEvent.MOUSE_UP , parentOnMouseUp );
 		}
 
-		private function parentOnMouseDown(e:Event) : void
+		private function parentOnMouseDown(e:MouseEvent) : void
 		{
 			stopEvent(e);
 			onMouseDown(e);
 		}
 
-		private function parentOnMouseUp(e:Event) : void
+		private function parentOnMouseUp(e:MouseEvent) : void
 		{
 			stopEvent(e);
 			onMouseUp(e);
 		}
 
-		private function parentOnMouseClick(e:Event) : void
+		private function parentOnMouseClick(e:MouseEvent) : void
 		{
 			stopEvent(e)
 			onMouseClick(e);
 		}
 
-		private function parentOnMouseMove(e:Event) : void
+		private function parentOnMouseMove(e:MouseEvent) : void
 		{
 			stopEvent(e);
 			onMouseMove(e);
 		}
 
-		private function stopEvent(e:Event) : void
+		private function stopEvent(e:MouseEvent) : void
 		{
 			e.stopImmediatePropagation();
 		}
