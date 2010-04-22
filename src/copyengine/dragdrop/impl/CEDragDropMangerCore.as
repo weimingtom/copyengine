@@ -7,7 +7,7 @@ package copyengine.dragdrop.impl
 	import copyengine.dragdrop.IDragDropTarget;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.Random;
-	
+
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Graphics;
 	import flash.display.Sprite;
@@ -22,14 +22,14 @@ package copyengine.dragdrop.impl
 		protected var dragdropSourceIcon:DisplayObjectContainer
 
 		protected var dragDropReceiverList:Vector.<IDragDropReceiver>;
-		
+
 		/**
 		 * for now only use on attribute to recorder current target .
-		 * that is assume at each point only contain one target. if at point have more target 
+		 * that is assume at each point only contain one target. if at point have more target
 		 * then change the receiver to vector.
-		 */		
+		 */
 		protected var currentReceiver:IDragDropReceiver;
-		
+
 		public function CEDragDropMangerCore()
 		{
 		}
@@ -92,8 +92,7 @@ package copyengine.dragdrop.impl
 
 		final public function disposeDragDrop() : void
 		{
-			engine.
-				(layer as Sprite).graphics.clear();
+			(layer as Sprite).graphics.clear();
 			engine = null;
 			layer = null;
 			dragdropSourceIcon = null;
@@ -140,14 +139,14 @@ package copyengine.dragdrop.impl
 		//=============
 		//==Private
 		//=============
-		
-		private function findReceiverAtPoint(_x:Number,_y:Number):IDragDropReceiver
+
+		private function findReceiverAtPoint(_x:Number,_y:Number) : IDragDropReceiver
 		{
-			if(dragDropReceiverList != null)
+			if (dragDropReceiverList != null)
 			{
-				for(var i:int = 0 ; i < dragDropReceiverList.length ; i++)
+				for (var i:int = 0 ; i < dragDropReceiverList.length ; i++)
 				{
-					if( dragDropReceiverList[i].isPositionInTarget(_x,_y) )
+					if (dragDropReceiverList[i].isPositionInTarget(_x,_y))
 					{
 						return dragDropReceiverList[i];
 					}
@@ -155,7 +154,7 @@ package copyengine.dragdrop.impl
 			}
 			return null;
 		}
-		
+
 		private function addListener() : void
 		{
 			GeneralUtils.addTargetEventListener(layer , MouseEvent.MOUSE_MOVE , parentOnMouseMove );
@@ -173,7 +172,7 @@ package copyengine.dragdrop.impl
 		private function parentOnMouseDown(e:MouseEvent) : void
 		{
 			stopEvent(e);
-			if(currentReceiver != null)
+			if (currentReceiver != null)
 			{
 				currentReceiver.onMouseDown(e);
 			}
@@ -183,7 +182,7 @@ package copyengine.dragdrop.impl
 		private function parentOnMouseUp(e:MouseEvent) : void
 		{
 			stopEvent(e);
-			if(currentReceiver != null)
+			if (currentReceiver != null)
 			{
 				currentReceiver.onMouseUp(e);
 			}
@@ -193,7 +192,7 @@ package copyengine.dragdrop.impl
 		private function parentOnMouseMove(e:MouseEvent) : void
 		{
 			stopEvent(e);
-			
+
 			var newReceiver:IDragDropReceiver = findReceiverAtPoint(e.stageX,e.stageY);
 			if (currentReceiver != newReceiver)
 			{
@@ -214,7 +213,7 @@ package copyengine.dragdrop.impl
 				}
 			}
 			currentReceiver = newReceiver;
-			
+
 			onMouseMove(e);
 		}
 

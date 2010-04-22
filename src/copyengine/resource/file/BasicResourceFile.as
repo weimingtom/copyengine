@@ -13,13 +13,13 @@ package copyengine.resource.file
 
 		public static const LOAD_STATE_LOADED : int = 2;
 
-		protected var _fileName : String;
+		protected var resFileName : String;
 
-		protected var _filePath : String;
+		protected var resFilePath : String;
 
-		protected var _fileWeight : int;
+		protected var resFileWeight : int;
 
-		protected var _loadState : int = LOAD_STATE_UNLOAD;
+		protected var resLoadState : int = LOAD_STATE_UNLOAD;
 
 		protected var loadResourceQueue : LoadResourceQueue;
 
@@ -29,15 +29,15 @@ package copyengine.resource.file
 
 		public function init(_name : String , _path : String , _weight : int , _loadQueue : copyengine.resource.loadqueue.LoadResourceQueue) : void
 		{
-			_fileName = _name;
-			_filePath = _path;
-			_fileWeight = _weight;
+			resFileName = _name;
+			resFilePath = _path;
+			resFileWeight = _weight;
 			loadResourceQueue = _loadQueue;
 		}
 
 		public function start() : void
 		{
-			_loadState = LOAD_STATE_LOADING
+			resLoadState = LOAD_STATE_LOADING
 		}
 
 		public function destory() : void
@@ -51,25 +51,25 @@ package copyengine.resource.file
 			return null;
 		}
 
-		public function get fileName() : String
+		public final function get fileName() : String
 		{
-			return _fileName;
+			return resFileName;
 		}
 
-		public function get fileWeight() : int
+		public final function get fileWeight() : int
 		{
-			return _fileWeight;
+			return resFileWeight;
 		}
 
-		public function get loadState() : int
+		public final function get loadState() : int
 		{
-			return _loadState;
+			return resLoadState;
 		}
 
 		protected function onLoaded(e : Event) : void
 		{
 			loadResourceQueue.onResourceFileLoaded(this);
-			_loadState = LOAD_STATE_LOADED;
+			resLoadState = LOAD_STATE_LOADED;
 		}
 
 		protected function onProgress(e : Event) : void

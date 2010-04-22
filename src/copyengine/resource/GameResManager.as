@@ -59,7 +59,6 @@ package copyengine.resource
 
 		private var currentLoadQueue : LoadResourceQueue; // hold the queue that in loading
 
-		private var _isInitFinished : Boolean = false; //when init resManager then set this number to true . so that other system can know about it.
 
 		public function GameResManager()
 		{
@@ -108,11 +107,6 @@ package copyengine.resource
 			}
 		}
 
-		public function get isInitFinished() : Boolean
-		{
-			return _isInitFinished;
-		}
-
 		public function getResFileByName(_fileName:String) : BasicResourceFile
 		{
 			return allResFile[_fileName];
@@ -125,7 +119,7 @@ package copyengine.resource
 		{
 			if (currentLoadQueue == null)
 			{
-				currentLoadQueue = findLoadQueueByName(null);
+				currentLoadQueue = new LoadResourceQueue();
 			}
 			currentLoadQueue.addNewResourceFile(_resFile);
 		}
@@ -136,7 +130,6 @@ package copyengine.resource
 
 		/**
 		 * use the xml file( LoadResConfig.xml ) to init all loadQueue
-		 * the xml file format should like this one:
 		 */
 		private function initLoadQueue(_config : XML) : void
 		{

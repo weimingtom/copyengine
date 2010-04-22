@@ -38,7 +38,7 @@ package copyengine.resource.file
         override public function start() : void
         {
             swfLoader = new Loader();
-            swfLoader.load(new URLRequest(_filePath));
+            swfLoader.load(new URLRequest(resFilePath));
             swfLoader.contentLoaderInfo.addEventListener(Event.COMPLETE , onLoaded,false,0,true);
             swfLoader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS , onProgress,false,0,true);
             swfLoader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR , onError,false,0,true);
