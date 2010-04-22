@@ -5,6 +5,7 @@ package game.scene.testIso
 	import copyengine.datas.isometric.IsoObjectVo;
 	import copyengine.dragdrop.IDragDropEngine;
 	import copyengine.dragdrop.IDragDropManger;
+	import copyengine.dragdrop.IDragDropReceiver;
 	import copyengine.dragdrop.IDragDropSource;
 	import copyengine.dragdrop.IDragDropTarget;
 	import copyengine.dragdrop.impl.CEDragDropEngine;
@@ -34,6 +35,7 @@ package game.scene.testIso
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
+	import game.scene.testIso.dragdrop.DragDropViewPortInteractiveWarpReceiver;
 	import game.scene.testIso.dragdrop.DragFromOutsideIsoObjectDragDropSource;
 	import game.scene.testIso.dragdrop.IsoObjectDragDropSourceBasic;
 	import game.scene.testIso.dragdrop.IsoSceneDragDropTarget;
@@ -78,11 +80,17 @@ package game.scene.testIso
 			GeneralUtils.addTargetEventListener(source2,MouseEvent.MOUSE_DOWN , source2OnMouseDown);
 
 			var dragTargetList:Vector.<IDragDropTarget> = new Vector.<IDragDropTarget>();
+			var dragdropReceiverList:Vector.<IDragDropReceiver> = new Vector.<IDragDropReceiver>();
 			
 			var viewPortTarget:IDragDropTarget = new IsoSceneDragDropTarget();
 			viewPortTarget.bindEntity({isoObjectDisplayManger:isoObjectDisplayManger , isoTileVoManger:isoTileVoManger},0,0);
 			dragTargetList.push(viewPortTarget);
 			
+			var dragDropViewPortInteractiveWarpReceiver:IDragDropReceiver = new DragDropViewPortInteractiveWarpReceiver();
+			dragDropViewPortInteractiveWarpReceiver.bindEntity({viewport:viewport},0,0)
+			dragdropReceiverList.push(dragDropViewPortInteractiveWarpReceiver);
+			
+			CEDragDropMangerClick.instance.setDragDropReceiver(dragdropReceiverList);
 			CEDragDropMangerClick.instance.setDragDropTargets(dragTargetList);
 		}
 

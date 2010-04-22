@@ -44,6 +44,11 @@ package copyengine.dragdrop
 		function setDragDropTargets(_targets:Vector.<IDragDropTarget>):void;
 		
 		/**
+		 * set receiver to this manger. see more detail at IDragDropReceiver
+		 */		
+		function setDragDropReceiver(_receivers:Vector.<IDragDropReceiver>):void;
+		
+		/**
 		 * start the dragdrop system .
 		 * this will only cause dragdrop system start to managed all inputDevice,
 		 * but not mean it will strat the reall dragdrop system immediately.
@@ -53,6 +58,6 @@ package copyengine.dragdrop
 		 * @param _y
 		 */
 		function startDragDrop(_source:IDragDropSource ,_x:Number , _y:Number) : void;
-
+		
 	}
 }

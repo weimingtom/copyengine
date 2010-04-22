@@ -15,7 +15,6 @@ package copyengine.dragdrop.impl
 		private var currentTarget:IDragDropTarget;
 
 		private var dragDropTargetList:Vector.<IDragDropTarget>;
-		private var dragDropReceiverList:Vector.<IDragDropReceiver>;
 
 		public function CEDragDropEngine()
 		{
@@ -115,15 +114,6 @@ package copyengine.dragdrop.impl
 			{
 				dragDropTargetList[i].onDragDropEnd();
 			}
-			// dragDropReceiverList can be null 
-			// beacuse it will  add/remove dynamic
-			if (dragDropReceiverList != null)
-			{
-				for(var j:int = 0 ; j < dragDropReceiverList.length ; j++)
-				{
-					dragDropReceiverList[j].onDragDropEnd();
-				}
-			}
 			
 			dragDropManger.onEndDragDrop();
 		}
@@ -141,20 +131,10 @@ package copyengine.dragdrop.impl
 				dragDropTargetList.pop().onDragDropDispose();
 			}
 			
-			// dragDropReceiverList can be null 
-			// beacuse it will  add/remove dynamic
-			if (dragDropReceiverList != null)
-			{
-				while (dragDropReceiverList.length > 0)
-				{
-					dragDropReceiverList.pop().onDragDropDispose();
-				}
-			}
 			
 			currentTarget = null;
 			currentSource = null;
 			dragDropTargetList = null;
-			dragDropReceiverList = null;
 		}
 
 		public function addDragDropReceiver(_receiver:IDragDropReceiver) : void
@@ -187,14 +167,6 @@ package copyengine.dragdrop.impl
 			for(var i:int = 0 ; i < dragDropTargetList.length ; i++)
 			{
 				dragDropTargetList[i].onDragDropTerminate();
-			}
-			
-			if(dragDropReceiverList != null)
-			{
-				for(var j:int = 0 ; j < dragDropReceiverList.length ; j++)
-				{
-					dragDropReceiverList[j].onDragDropTerminate();
-				}
 			}
 		}
 
