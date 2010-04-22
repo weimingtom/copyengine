@@ -1,7 +1,7 @@
 package copyengine.dragdrop.impl
 {
 	import copyengine.dragdrop.IDragDropSource;
-
+	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 
@@ -12,10 +12,9 @@ package copyengine.dragdrop.impl
 			super();
 		}
 
-		override protected function onMouseUp(e:Event) : void
+		override protected function onMouseUp(e:MouseEvent) : void
 		{
-			var mouseEvent:MouseEvent = e as MouseEvent;
-			engine.dropTarget(mouseEvent.stageX,mouseEvent.stageY);
+			engine.dropTarget(e.stageX,e.stageY);
 		}
 
 	}
