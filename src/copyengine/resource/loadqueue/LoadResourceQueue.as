@@ -3,17 +3,36 @@ package copyengine.resource.loadqueue
     import copyengine.resource.GameResManager;
     import copyengine.resource.file.BasicResourceFile;
 
-    public class LoadResourceQueue
+    public final class LoadResourceQueue
     {
+		/**
+		 *current loadQueue name 
+		 */		
         public var queueName : String;
-
+		
+		/**
+		 * define the loadQueue priority. 
+		 * when necessary file has been loaded , then can use priority to load the hight priority file [NOT SUPPORT YET]
+		 */		
         public var priority : int;
-
+		
+		/**
+		 * hold all resFile in current load queue.
+		 * WARNINIG::
+		 * 			this only hold unload resFile , if the file already been load ,then will removed from loadQueue
+		 * 			@see more at function checkLoadState();
+		 */		
         public var allLoadQueueFile : Vector.<BasicResourceFile>;
+        
+		/**
+		 * define load speed.(how many loader will use)
+		 */		
+		public var loadSpeed : int = GameResManager.LOAD_SPEED_FULL;
 
-        protected var _loadSpeed : int = GameResManager.LOAD_SPEED_FULL;
-
-        protected var currentLoadCount : int = 0;
+		/**
+		 * use in load step , to recorder the load file count. 
+		 */		
+		private var currentLoadCount : int = 0;
 
         public function LoadResourceQueue()
         {
@@ -24,11 +43,6 @@ package copyengine.resource.loadqueue
         {
             currentLoadCount = 0;
             checkLoadState();
-        }
-
-        public function set loadSpeed(_val : int) : void
-        {
-            _loadSpeed = _val;
         }
 
         /**
@@ -53,7 +67,10 @@ package copyengine.resource.loadqueue
             allLoadQueueFile.push(_file);
             return false;
         }
-
+		
+		/**
+		 * concat another loadQueue to current loadQueue.
+		 */		
         public function concatLoadQueue(_loadQueue : LoadResourceQueue) : void
         {
             this.allLoadQueueFile.concat(_loadQueue.allLoadQueueFile);
@@ -80,9 +97,8 @@ package copyengine.resource.loadqueue
 
         /**
          * @private
-         *
-         *  will call when one basicResourceFile can't be load
-         *
+		 * 
+         *  will call when basicResourceFile can't be loaded.
          */
         public function onRescouceFileLoadOnError(_file : BasicResourceFile) : void
         {
@@ -99,17 +115,20 @@ package copyengine.resource.loadqueue
             //this function will call every time the basicResourceFile change ,
             //but no need to send Notification each time 
         }
-
+		
+		/**
+		 * check for load state , if have rest loader then start load next file.
+		 */		
         private function checkLoadState() : void
         {
-            var count : int = Math.max(_loadSpeed - currentLoadCount , 0);
+            var count : int = Math.max(loadSpeed - currentLoadCount , 0);
             for (var i : int = 0 ; i < count ; i++)
             {
                 var resFile : BasicResourceFile = allLoadQueueFile.pop()
                 if (resFile != null)
                 {
                     currentLoadCount++
-                    resFile.start();
+                    resFile.startLoadFile();
                 }
                 else
                 {
