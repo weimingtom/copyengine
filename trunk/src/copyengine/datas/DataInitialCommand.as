@@ -1,6 +1,7 @@
 package copyengine.datas
 {
 
+import copyengine.datas.metadata.item.ItemMetaManger;
 import copyengine.utils.debug.DebugLog;
 
 import org.puremvc.as3.interfaces.INotification;
@@ -16,8 +17,8 @@ public class DataInitialCommand extends SimpleCommand
 	override public function execute (notification:INotification) : void
 	{
 		super.execute(notification);
+		ItemMetaManger.instance.initialize();
 		sendNotification(GameDataMessage.GAME_DATA_INIT_COMPLATE);
-		DebugLog.instance.log("DataInitialCommand Call");
 	}
 }
 }
