@@ -9,14 +9,41 @@ package copyengine.actor.isometric
 	import flash.geom.Vector3D;
 	
 	import game.scene.IsoMath;
+	
+	import org.osmf.net.dynamicstreaming.INetStreamMetrics;
 
+	/**
+	 *IsoObject is basic isometric display object. it contain
+	 * 
+	 * 1`DisplayPart:
+	 * 2`DataPart : 
+	 * 		IsoObjectVo :: contain the data need to upload to server
+	 * 		MetaData :: use an id(get from IsoObjectVo)  map some meta data(like maxRows , maxCols)
+	 *  
+	 * @author Tunied
+	 * 
+	 */	
 	public class IsoObject
 	{
+		/**
+		 * use in setScenePositionByIsoPosition() function.
+		 */		
 		private static var screenVector:Vector3D = new Vector3D();
 		
 		public var isoObjectVo:IsoObjectVo;
 		public var container:DisplayObjectContainer;
-
+		
+		/**
+		 * @private
+		 * WARNING::
+		 * 		col,row,height those three value 
+		 */		
+		public var col:int;
+		public var row:int;
+		public var height:int;
+		public var maxCol:int;
+		public var maxRow:int;
+		
 		public function IsoObject(_skin:DisplayObjectContainer , _isoObjectVo:IsoObjectVo)
 		{
 			container = _skin;

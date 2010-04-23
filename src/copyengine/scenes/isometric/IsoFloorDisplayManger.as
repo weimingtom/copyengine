@@ -123,7 +123,6 @@ package copyengine.scenes.isometric
 			viewPortDrawArearLeftTopPoint = new Point();
 			viewPortBitmapLeftTopPoint = new Point();
 
-			viewPortMoveUpTempBitmapData = new BitmapData(ISO::VW,ISO::VH);
 			bufferBitmapData = new BitmapData(ISO::VW ,ISO::VH);
 		}
 
@@ -146,12 +145,6 @@ package copyengine.scenes.isometric
 		 * use in viewPort move function(up,left,right,down) to decide the left-top point that draw to the target bimmapdata.
 		 */
 		private var viewPortBitmapLeftTopPoint:Point;
-
-		/**
-		 * only use in viewProt move up
-		 * @see more in  viewPortMoveUp();
-		 */
-		private var viewPortMoveUpTempBitmapData:BitmapData;
 
 		private var bufferBitmapData:BitmapData;
 

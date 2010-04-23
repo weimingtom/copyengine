@@ -62,11 +62,16 @@ package copyengine.utils
             return null;
         }
 
-        public function getXML(_name : String) : XML
-        {
-            return null;
+        public static function getXML(_name : String) : XML
+        {	
+            return getResFileByFileName(_name).getObject() as XML;
         }
-
+		
+		public static function disposeFile(_fileName:String):void
+		{
+			getResFileByFileName(_fileName).dispose();
+		}
+		
         /**
          *all the display object are suport lazy load. so if the file is not being loading yet,
          * then add it to current loadQueue(hight PRI) , and also retun with an fakeLoading UI
