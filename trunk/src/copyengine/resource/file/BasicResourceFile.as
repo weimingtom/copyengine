@@ -7,27 +7,52 @@ package copyengine.resource.file
 
 	public class BasicResourceFile
 	{
-		public static const LOAD_STATE_UNLOAD : int = 0;
+		/**
+		 * define how many time will retry to load this file.
+		 */
+		private static const RETRY_TIME:int = 3;
 
-		public static const LOAD_STATE_LOADING : int = 1;
+		public static const LOAD_STATE_UNLOAD:int = 0;
+		public static const LOAD_STATE_LOADING:int = 1;
+		public static const LOAD_STATE_LOADED:int = 2;
+		public static const LOAD_STATE_ERROR:int = 3;
 
-		public static const LOAD_STATE_LOADED : int = 2;
-
+		/**
+		 * resFile is an unique name , use to fine the file.
+		 * WARNINIG::
+		 * 		it maybe not same as the file name(filename maybe add version number to avoide cache)
+		 */
 		protected var resFileName : String;
 
+		/**
+		 * define the resFile path to load current file.
+		 */
 		protected var resFilePath : String;
 
+		/**
+		 *  define the resFile size , use in loading system to calculate the speed.
+		 */
 		protected var resFileWeight : int;
 
+		/**
+		 * define current file load state
+		 * state should be one of
+		 * LOAD_STATE_UNLOAD || LOAD_STATE_LOADING || LOAD_STATE_LOADED || LOAD_STATE_ERROR
+		 */
 		protected var resLoadState : int = LOAD_STATE_UNLOAD;
 
+		/**
+		 * hold an reference
+		 */
 		protected var loadResourceQueue : LoadResourceQueue;
+
+		protected var reTryTime : int = RETRY_TIME;
 
 		public function BasicResourceFile()
 		{
 		}
 
-		public function init(_name : String , _path : String , _weight : int , _loadQueue : copyengine.resource.loadqueue.LoadResourceQueue) : void
+		public final function init(_name : String , _path : String , _weight : int , _loadQueue : copyengine.resource.loadqueue.LoadResourceQueue) : void
 		{
 			resFileName = _name;
 			resFilePath = _path;
@@ -35,20 +60,28 @@ package copyengine.resource.file
 			loadResourceQueue = _loadQueue;
 		}
 
-		public function start() : void
+		public final function startLoadFile() : void
 		{
 			resLoadState = LOAD_STATE_LOADING
+			doStartLoadFile();
 		}
 
-		public function destory() : void
+		protected function doStartLoadFile() : void
 		{
-			loadResourceQueue = null;
+		}
+
+		protected function releaseLoader() : void
+		{
 		}
 
 		public function getObject(... args) : Object
 		{
 			DebugLog.instance.log("This Function should be override" , DebugLog.LOG_TYPE_ERROR);
 			return null;
+		}
+
+		public function dispose() : void
+		{
 		}
 
 		public final function get fileName() : String
@@ -66,22 +99,49 @@ package copyengine.resource.file
 			return resLoadState;
 		}
 
-		protected function onLoaded(e : Event) : void
+		protected final function loadFileComplate() : void
 		{
 			loadResourceQueue.onResourceFileLoaded(this);
 			resLoadState = LOAD_STATE_LOADED;
+			loadResourceQueue = null;
 		}
 
-		protected function onProgress(e : Event) : void
+		protected final function loadFileOnProgress(e:Event = null) : void
 		{
 			loadResourceQueue.onResourceFileLoadOnProgress(this);
 		}
 
-		protected function onError(e : Event) : void
+		protected final function loadFileOnError(e:Event = null) : void
 		{
-			loadResourceQueue.onRescouceFileLoadOnError(this);
+			if (reTryTime > 0)
+			{
+				reTryTime--;
+				DebugLog.instance.log("SwfResourceFile :: start reload file  " + fileName + "  " , DebugLog.LOG_TYPE_WARNING);
+				reload();
+			}
+			else
+			{
+				DebugLog.instance.log("SwfResourceFile :: can't load file  " + fileName + "  " , DebugLog.LOG_TYPE_ERROR);
+				resLoadState = LOAD_STATE_ERROR;
+				loadResourceQueue.onRescouceFileLoadOnError(this);
+			}
+		}
+		
+		/**
+		 * reload current file.
+		 * WARNINIG::
+		 * 		child class should relase the loader complated at releaseLoader() function
+		 * 		and start an new loader at doStartLoadFile() function.
+		 */		
+		private function reload() : void
+		{
+			releaseLoader();
+			doStartLoadFile();
 		}
 
+		//=================
+		//== Static Functon
+		//=================
 		public static function getResouceFileByType(_type : String) : BasicResourceFile
 		{
 			switch (_type)

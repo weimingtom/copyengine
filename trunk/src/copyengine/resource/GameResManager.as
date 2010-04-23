@@ -18,7 +18,7 @@ package copyengine.resource
 
 	import org.puremvc.as3.patterns.proxy.Proxy;
 
-	public class GameResManager extends Proxy
+	public final class GameResManager extends Proxy
 	{
 		/**
 		 * define the load connect number that resLoadSystem is use.
@@ -52,7 +52,6 @@ package copyengine.resource
 			return _instance;
 		}
 
-
 		private var allUnloadQueueList : Vector.<LoadResourceQueue> //hold the loadQueue that not loaded yet.
 
 		private var allResFile : Dictionary; //hold all the resFile ,no matter is loaded or not.
@@ -77,7 +76,6 @@ package copyengine.resource
 			sendNotification(GameResMessage.GAME_RES_MANAGER_INIT_COMPLATE);
 		}
 
-
 		public function startLoadQueueByName(_name : String) : void
 		{
 			var loadQueue : LoadResourceQueue = findLoadQueueByName(_name);
@@ -99,7 +97,7 @@ package copyengine.resource
 			}
 		}
 
-		public function set loadSpeed(_val : int) : void
+		public function changeLoadSpeed(_val : int) : void
 		{
 			if (currentLoadQueue != null)
 			{
@@ -217,7 +215,8 @@ package copyengine.resource
 				}
 			}
 			// not found,return an empty loadQueue
-			return new LoadResourceQueue();
+			DebugLog.instance.log("Can't find loadQueue : " + _name,DebugLog.LOG_TYPE_ERROR);
+			return null;
 		}
 
 	}

@@ -68,6 +68,7 @@ package
 			byteArray.uncompress();
 			configXml = new XML(byteArray);
 			
+			configLoader.removeEventListener(Event.COMPLETE,loadConfigComplate);
 			configLoader.close();
 			configLoader = null;
 			

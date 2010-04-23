@@ -9,7 +9,6 @@
 		<file name="LoadingAnimation" path="../src/res/swf/preloader_asset.swf" />
 		<file name="IsoHax_asset" path="../src/res/swf/IsoHax_asset.swf" />
 		<file name="UI_asset" path="../src/res/swf/UI_asset.swf" />
-		<file name="Testxml" path="../src/res/bin/CopyofLoadResConfig.bin" />
 	</standard>
 	<individual>
 		<loadQueue>
@@ -19,7 +18,6 @@
 		<loadFile>
 			<file name="IsoHax_asset" type="swf" weight="500" loadQueue="perLoadQueue" />
 			<file name="UI_asset" type="swf" weight="500" loadQueue="perLoadQueue" />
-			<file name="Testxml" type="xml" weight="500" loadQueue="perLoadQueue" />
 		</loadFile>
 	</individual>
 </root>
