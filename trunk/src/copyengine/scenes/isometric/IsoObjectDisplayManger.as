@@ -187,8 +187,8 @@ package copyengine.scenes.isometric
 				for (j = 0 ; j < swapIsoObjectLength ; j++)
 				{
 					sortedObject = swapIsoObjectList[j];
-					if (newSortObject.isoObjectVo.col <= sortedObject.isoObjectVo.col+sortedObject.isoObjectVo.maxCols -1
-						&& newSortObject.isoObjectVo.row <= sortedObject.isoObjectVo.row + sortedObject.isoObjectVo.maxRows -1)
+					if (newSortObject.fastGetValue_Col <= sortedObject.fastGetValue_Col+sortedObject.fastGetValue_MaxCols -1
+						&& newSortObject.fastGetValue_Row <= sortedObject.fastGetValue_Row + sortedObject.fastGetValue_MaxRows -1)
 					{
 						swapIsoObjectList.splice(j,0,newSortObject);
 						isAdd = true;
