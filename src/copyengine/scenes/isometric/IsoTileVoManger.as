@@ -38,12 +38,12 @@ package copyengine.scenes.isometric
 		/**
 		 *loop around the obj , change the tile hight , normally happen when you add/remove an obj from the screen
 		 */
-		public function changeIsoTileVoHeightUnderObj(_isoObjVo:IsoObjectVo , _height:int) : void
+		public function changeIsoTileVoHeightUnderObj(_isoObj:IsoObject , _height:int) : void
 		{
 			var isoTileVo:IsoTileVo;
-			for (var col:int = _isoObjVo.col ; col < _isoObjVo.col +_isoObjVo.maxCols ; col++)
+			for (var col:int = _isoObj.fastGetValue_Col ; col < _isoObj.fastGetValue_Col +_isoObj.fastGetValue_MaxCols ; col++)
 			{
-				for (var row:int = _isoObjVo.row ; row < _isoObjVo.row + _isoObjVo.maxRows ; row++)
+				for (var row:int = _isoObj.fastGetValue_Row ; row < _isoObj.fastGetValue_Row + _isoObj.fastGetValue_MaxRows ; row++)
 				{
 					isoTileVo = isoTileVoDic[col + "-" + row] as IsoTileVo;
 					isoTileVo.height = _height;
@@ -59,12 +59,12 @@ package copyengine.scenes.isometric
 		 * @param _isAdd					defind is add the attribute or remove the attribute.
 		 *
 		 */
-		public function changeIsoTileVoAttributeUnderObj(_isoObjVo:IsoObjectVo , _attribute:uint , _isAdd:Boolean) : void
+		public function changeIsoTileVoAttributeUnderObj(_isoObj:IsoObject , _attribute:uint , _isAdd:Boolean) : void
 		{
 			var isoTileVo:IsoTileVo;
-			for (var col:int = _isoObjVo.col ; col < _isoObjVo.col +_isoObjVo.maxCols ; col++)
+			for (var col:int = _isoObj.fastGetValue_Col ; col < _isoObj.fastGetValue_Col +_isoObj.fastGetValue_MaxCols ; col++)
 			{
-				for (var row:int = _isoObjVo.row ; row < _isoObjVo.row + _isoObjVo.maxRows ; row++)
+				for (var row:int = _isoObj.fastGetValue_Row ; row < _isoObj.fastGetValue_Row + _isoObj.fastGetValue_MaxRows ; row++)
 				{
 					isoTileVo = isoTileVoDic[col + "-" + row] as IsoTileVo;
 					if (_isAdd)
@@ -79,12 +79,12 @@ package copyengine.scenes.isometric
 			}
 		}
 
-		public function isHaveAttributeUnderObj(_isoObjVo:IsoObjectVo , _attribute:uint) : Boolean
+		public function isHaveAttributeUnderObj(_isoObj:IsoObject , _attribute:uint) : Boolean
 		{
 			var isoTileVo:IsoTileVo;
-			for (var col:int = _isoObjVo.col ; col < _isoObjVo.col +_isoObjVo.maxCols ; col++)
+			for (var col:int = _isoObj.fastGetValue_Col ; col < _isoObj.fastGetValue_Col +_isoObj.fastGetValue_MaxCols ; col++)
 			{
-				for (var row:int = _isoObjVo.row ; row < _isoObjVo.row + _isoObjVo.maxRows ; row++)
+				for (var row:int = _isoObj.fastGetValue_Row ; row < _isoObj.fastGetValue_Row + _isoObj.fastGetValue_MaxRows ; row++)
 				{
 					isoTileVo = isoTileVoDic[col + "-" + row] as IsoTileVo;
 					if(isoTileVo == null)

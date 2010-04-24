@@ -24,20 +24,23 @@ package copyengine.actor.isometric
 		private var isoTileVoManger:IsoTileVoManger
 
 		public function DragAbleIsoObject(_isoObjectDisplayManger:IsoObjectDisplayManger,
-			_isoTileVoManger:IsoTileVoManger,
-			_skin:DisplayObjectContainer, _isoObjectVo:IsoObjectVo)
+			_isoTileVoManger:IsoTileVoManger,_isoObjectVo:IsoObjectVo)
 		{
 			isoObjectDisplayManger = _isoObjectDisplayManger;
 			isoTileVoManger = _isoTileVoManger;
-			super(_skin, _isoObjectVo);
-			initialize();
+			super(_isoObjectVo);
 		}
 
-		private function initialize() : void
+		override protected function doInitialize():void
 		{
 			addListener();
 		}
-
+		
+		override public function clone():IsoObject
+		{
+			return new DragAbleIsoObject(isoObjectDisplayManger,isoTileVoManger,isoObjectVo.clone());
+		}
+		
 		private function addListener() : void
 		{
 			GeneralUtils.addTargetEventListener(container,MouseEvent.ROLL_OVER,onRollOver);
@@ -58,8 +61,8 @@ package copyengine.actor.isometric
 			//because the e.stageX/Y will chang when removed the child. WTF!!
 			var removePosX:Number = e.stageX;
 			var removePosY:Number = e.stageY;
-			isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObjectVo,IsoTileVo.TILE_ATTRIBUTE_BLOCK,false);
-			isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObjectVo,0);
+			isoTileVoManger.changeIsoTileVoAttributeUnderObj(this,IsoTileVo.TILE_ATTRIBUTE_BLOCK,false);
+			isoTileVoManger.changeIsoTileVoHeightUnderObj(this,0);
 			isoObjectDisplayManger.removeIsoObject(this);
 
 			var source:IDragDropSource = new DragFromInsideIsoObjectDragDropSource();

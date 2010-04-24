@@ -41,21 +41,19 @@ package game.scene.testIso.dragdrop
 		{
 			if(_source is IsoObjectDragDropSourceBasic)
 			{
-				var isoObjectVo:IsoObjectVo = (_source as IsoObjectDragDropSourceBasic).getIsoObjectVo();
-				if (isoTileVoManger.isHaveAttributeUnderObj(isoObjectVo,IsoTileVo.TILE_ATTRIBUTE_BLOCK))
+				var isoObject:IsoObject =  (_source as IsoObjectDragDropSourceBasic).cloneOneDragDropIsoObject();
+				if (isoTileVoManger.isHaveAttributeUnderObj(isoObject,IsoTileVo.TILE_ATTRIBUTE_BLOCK))
 				{
 					dragDropEngine.confirmSourceDrop(false);
 				}
 				else
 				{
-					var bg:Sprite = ResUtlis.getSprite("IsoBox_1_1_Gray",ResUtlis.FILE_ISOHAX);
-					var isoBox:DragAbleIsoObject = new DragAbleIsoObject(isoObjectDisplayManger,isoTileVoManger,bg ,isoObjectVo);
-					isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObjectVo,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
-					isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObjectVo,isoObjectVo.height + 3);
+					isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObject,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
+					isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObject,isoObject.fastGetValue_Height + 3);
 					
-					isoBox.setScenePositionByIsoPosition();
+					isoObject.setScenePositionByIsoPosition();
 					
-					isoObjectDisplayManger.addIsoObject(isoBox);
+					isoObjectDisplayManger.addIsoObject(isoObject);
 					isoObjectDisplayManger.sortObjectInNextUpdate();
 					dragDropEngine.confirmSourceDrop(true);
 				}

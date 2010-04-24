@@ -59,15 +59,10 @@ package game.scene.testIso
 				while(objRow < 0)
 				{
 					isoObj = getIsoObjectByType(Random.range(0,3),objCol,objRow);
+					isoObj.setScenePositionByIsoPosition();
 					
-					positionTransformVector.x = isoObj.isoObjectVo.col*GeneralConfig.ISO_TILE_WIDTH;
-					positionTransformVector.y = isoObj.isoObjectVo.row*GeneralConfig.ISO_TILE_WIDTH;
-					IsoMath.isoToScreen(positionTransformVector);
-					isoObj.container.x = positionTransformVector.x;
-					isoObj.container.y = positionTransformVector.y;
-					
-					isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObj.isoObjectVo,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
-					isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObj.isoObjectVo,isoObj.isoObjectVo.height+1);
+					isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObj,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
+					isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObj,isoObj.fastGetValue_Height+1);
 					
 					isoObjects.push( isoObj );
 					objRow+= 3;
@@ -108,11 +103,10 @@ package game.scene.testIso
 					break;
 			}
 			var isoObjectVo:IsoObjectVo = new IsoObjectVo();
+			isoObjectVo.id = 1;
 			isoObjectVo.col = _col;
 			isoObjectVo.row = _row;
-			isoObjectVo.maxCols = 3;
-			isoObjectVo.maxRows = 3;
-			var isoBox:DragAbleIsoObject = new DragAbleIsoObject(isoScene.getIsoObjectDisplayManger() , isoTileVoManger,bg ,isoObjectVo);
+			var isoBox:DragAbleIsoObject = new DragAbleIsoObject(isoScene.getIsoObjectDisplayManger() , isoTileVoManger,isoObjectVo);
 			return isoBox;
 		}
 		

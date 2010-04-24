@@ -4,13 +4,10 @@ package copyengine.datas.isometric
 
 	public class IsoObjectVo
 	{
+		public var id:int;
 		public var col:int;
 		public var row:int;
 		public var height:int;
-		
-		public var maxCols:int;
-		public var maxRows:int;
-		
 		
 		public function IsoObjectVo()
 		{
@@ -19,12 +16,10 @@ package copyengine.datas.isometric
 		public function clone():IsoObjectVo
 		{
 			var vo:IsoObjectVo = new IsoObjectVo();
+			vo.id = this.id;
 			vo.col = this.col;
 			vo.row = this.row;
 			vo.height = this.height;
-			vo.maxCols = this.maxCols;
-			vo.maxRows = this.maxRows;
-			
 			return vo;
 		}
 		

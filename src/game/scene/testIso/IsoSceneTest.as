@@ -98,7 +98,7 @@ package game.scene.testIso
 		{
 			var isoObjectVo:IsoObjectVo = new IsoObjectVo();
 			isoObjectVo.col = isoObjectVo.row = 0;
-			isoObjectVo.maxCols = isoObjectVo.maxRows = 3;
+			isoObjectVo.id = 1;
 			
 			var source:IDragDropSource = new DragFromOutsideIsoObjectDragDropSource();
 			source.bindEntity(
