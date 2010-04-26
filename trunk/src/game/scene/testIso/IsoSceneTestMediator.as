@@ -78,7 +78,7 @@ package game.scene.testIso
 			var wallVo:IsoObjectVo = new IsoObjectVo();
 			wallVo.col = wallVo.row = 3;
 			wallVo.id = 2;
-			var wall:IsoObject = new IsoFunctionalWall(wallVo);
+			var wall:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NE_SW,5,wallVo);
 			wall.setScenePositionByIsoPosition();
 			isoObjects.push(wall);
 			
