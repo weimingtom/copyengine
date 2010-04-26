@@ -4,6 +4,9 @@ package copyengine.actor.isometric
 	
 	public class IsoFunctionalRoom extends IsoObject
 	{
+		//need stone in metaData later
+		public var roomSize:int;
+		
 		public function IsoFunctionalRoom(_isoObjectVo:IsoObjectVo)
 		{
 			super(_isoObjectVo);
