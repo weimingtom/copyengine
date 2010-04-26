@@ -1,6 +1,7 @@
 package game.scene.testIso
 {
 	import copyengine.actor.isometric.DragAbleIsoObject;
+	import copyengine.actor.isometric.IsoFunctionalWall;
 	import copyengine.actor.isometric.IsoObject;
 	import copyengine.datas.isometric.IsoObjectVo;
 	import copyengine.datas.isometric.IsoTileVo;
@@ -72,6 +73,14 @@ package game.scene.testIso
 //				objCol += Random.range(1,8);
 				objCol += 3;
 			}
+			
+			//addIsoWall
+			var wallVo:IsoObjectVo = new IsoObjectVo();
+			wallVo.col = wallVo.row = 3;
+			wallVo.id = 2;
+			var wall:IsoObject = new IsoFunctionalWall(wallVo);
+			wall.setScenePositionByIsoPosition();
+			isoObjects.push(wall);
 			
 			isoObjects.sort(randomSort);
 			

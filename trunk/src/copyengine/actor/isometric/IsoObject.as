@@ -69,7 +69,7 @@ package copyengine.actor.isometric
 		 */
 		private static var screenVector:Vector3D = new Vector3D();
 
-		public function setScenePositionByIsoPosition() : void
+		public final function setScenePositionByIsoPosition() : void
 		{
 			//caulate the target the screen position
 			screenVector.x = isoObjectVo.col * GeneralConfig.ISO_TILE_WIDTH;
@@ -105,17 +105,17 @@ package copyengine.actor.isometric
 		//============
 		//== Set Function
 		//============
-		public function setCol(_value:int) : void
+		public final function setCol(_value:int) : void
 		{
 			fastGetValue_Col = isoObjectVo.col = _value;
 		}
 
-		public function setRow(_value:int) : void
+		public final function setRow(_value:int) : void
 		{
 			fastGetValue_Row = isoObjectVo.row = _value;
 		}
 
-		public function setHeight(_value:int) : void
+		public final function setHeight(_value:int) : void
 		{
 			fastGetValue_Height = isoObjectVo.height = _value;
 		}
