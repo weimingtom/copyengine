@@ -98,6 +98,9 @@ package game.scene.testIso.dragdrop
 			var col:int = screenVector.x / GeneralConfig.ISO_TILE_WIDTH;
 			var row:int = screenVector.y / GeneralConfig.ISO_TILE_WIDTH;
 			var isoObject:IsoObject = isoObjectDisplayManger.findIsoObjectByTileID(col,row);
+			
+			
+			
 			var isShowDragDropIcon:Boolean = true;
 			if(isoObject != null && isoObject is IsoFunctionalWall)
 			{
@@ -106,14 +109,14 @@ package game.scene.testIso.dragdrop
 				{
 					if (currentIsoFunctionalWall != null)
 					{
-						currentIsoFunctionalWall.removeFunctionalRoomDisplay(dragDropObject);
+						currentIsoFunctionalWall.container.removeChild(dragDropObject.container);
 					}
 					if (newIsoFunctionalWall != null)
 					{
-						if(newIsoFunctionalWall.isCanAddFunctionRoomTo(col,row))
+						if(newIsoFunctionalWall.isCanAddFunctionRoomTo(col,row,dragDropObject))
 						{
 							isShowDragDropIcon = false;
-							newIsoFunctionalWall.addFunctionalRoomDisplay(dragDropObject,col,row);
+							newIsoFunctionalWall.container.addChild(dragDropObject.container);
 						}
 					}
 				}
@@ -121,10 +124,10 @@ package game.scene.testIso.dragdrop
 				{
 					if (currentIsoFunctionalWall != null)
 					{
-						if( currentIsoFunctionalWall.isCanAddFunctionRoomTo(col,row) )
+						if( currentIsoFunctionalWall.isCanAddFunctionRoomTo(col,row,dragDropObject) )
 						{
 							isShowDragDropIcon = false;
-							currentIsoFunctionalWall.moveFunctionalRoomTo(col,row);
+							//change position.
 						}
 					}
 				}

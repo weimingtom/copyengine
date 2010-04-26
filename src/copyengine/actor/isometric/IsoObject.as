@@ -3,12 +3,14 @@ package copyengine.actor.isometric
 	import copyengine.datas.isometric.IsoObjectVo;
 	import copyengine.datas.metadata.item.ItemMeta;
 	import copyengine.datas.metadata.item.ItemMetaManger;
+	import copyengine.scenes.isometric.IsoObjectDisplayManger;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.ResUtlis;
 
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.geom.Point;
 	import flash.geom.Vector3D;
 
 	import game.scene.IsoMath;
@@ -56,7 +58,7 @@ package copyengine.actor.isometric
 			fastGetValue_Col = isoObjectVo.col;
 			fastGetValue_Row = isoObjectVo.row;
 			fastGetValue_Height = isoObjectVo.height;
-			
+
 			var item:ItemMeta = ItemMetaManger.instance.getItemMetaByID(isoObjectVo.id);
 			fastGetValue_MaxCols = item.maxCol;
 			fastGetValue_MaxRows = item.maxRow;
@@ -81,7 +83,28 @@ package copyengine.actor.isometric
 			container.x = screenVector.x;
 			container.y = screenVector.y;
 		}
-		
+
+		private static var sourcePos:Point = new Point();
+		private var screenVector:Vector3D = new Vector3D();
+
+		public final function setIsoPositionByGlobalPoint(_globalPosX:Number , _globalPosY:Number ,_isoObjectDisplayManger:IsoObjectDisplayManger) : void
+		{
+			//change the mouse position to porjection coordinates.
+			sourcePos.x = _globalPosX;
+			sourcePos.y = _globalPosY;
+			sourcePos = _isoObjectDisplayManger.container.globalToLocal(sourcePos);
+
+			//change projection coordinate to isometric coordinates
+			screenVector.x =sourcePos.x;
+			screenVector.y = sourcePos.y;
+			screenVector.z = 0;
+			IsoMath.screenToIso(screenVector);
+
+			setCol(screenVector.x / GeneralConfig.ISO_TILE_WIDTH);
+			setRow( screenVector.y / GeneralConfig.ISO_TILE_WIDTH );
+		}
+
+
 		//===================
 		//== Override Able Function
 		//===================
@@ -101,7 +124,7 @@ package copyengine.actor.isometric
 		protected function doInitialize() : void
 		{
 		}
-		
+
 		//============
 		//== Set Function
 		//============
