@@ -37,6 +37,7 @@ package game.scene.testIso
 	
 	import game.scene.testIso.dragdrop.DragDropViewPortInteractiveWarpReceiver;
 	import game.scene.testIso.dragdrop.DragFromOutsideIsoObjectDragDropSource;
+	import game.scene.testIso.dragdrop.IsoFunctionalRoomDragDropSource;
 	import game.scene.testIso.dragdrop.IsoObjectDragDropSourceBasic;
 	import game.scene.testIso.dragdrop.IsoSceneDragDropTarget;
 	import game.ui.test.list.TShapeCellRender;
@@ -98,9 +99,9 @@ package game.scene.testIso
 		{
 			var isoObjectVo:IsoObjectVo = new IsoObjectVo();
 			isoObjectVo.col = isoObjectVo.row = 0;
-			isoObjectVo.id = 1;
+			isoObjectVo.id = 3;
 			
-			var source:IDragDropSource = new DragFromOutsideIsoObjectDragDropSource();
+			var source:IDragDropSource = new IsoFunctionalRoomDragDropSource();
 			source.bindEntity(
 				{isoObjectDisplayManger:isoObjectDisplayManger , 
 					isoTileVoManger:isoTileVoManger,

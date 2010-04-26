@@ -20,6 +20,7 @@ package copyengine.scenes.isometric
 
 	import org.osmf.net.dynamicstreaming.INetStreamMetrics;
 	import org.osmf.utils.OSMFStrings;
+	import org.puremvc.as3.patterns.facade.Facade;
 
 	/**
 	 *  IsoObjectDisplayManger use to
@@ -62,6 +63,13 @@ package copyengine.scenes.isometric
 		private var isoObjectListLength:int;
 
 		/**
+		 * for each tile can only add one isoObject ,so use an dictionary to mapping
+		 * each tile to an isoObject(if current tile belong to one tile.), it's for fast finding
+		 * isoObject by tileID.
+		 */
+		private var isoObjectDic:Dictionary;
+
+		/**
 		 * the parent container of all IsoObject
 		 */
 		private var isoObjectMangerContainer:DisplayObjectContainer
@@ -82,10 +90,12 @@ package copyengine.scenes.isometric
 			isoObjectListLength = isoObjectList.length;
 			isoObjectMangerContainer = new Sprite();
 			swapIsoObjectList = new Vector.<IsoObject>();
+			isoObjectDic = new Dictionary();
 
 			for (var i:int = 0 ; i < isoObjectListLength ; i++)
 			{
 				isoObjectMangerContainer.addChild(isoObjectList[i].container);
+				addMappingIsoObject(isoObjectList[i]);
 			}
 
 			sortObjectInNextUpdate();
@@ -99,6 +109,7 @@ package copyengine.scenes.isometric
 			isoObjectList.push(_obj);
 			isoObjectMangerContainer.addChild(_obj.container);
 			isoObjectListLength++;
+			addMappingIsoObject(_obj);
 			sortObjectInNextUpdate();
 		}
 
@@ -114,10 +125,17 @@ package copyengine.scenes.isometric
 					isoObjectMangerContainer.removeChild(_obj.container);
 					isoObjectList.splice(i,1);
 					isoObjectListLength--;
+					removeMappingIsoObject(_obj);
 					return;
 				}
 			}
 		}
+
+		public function findIsoObjectByTileID(_col:int , _row:int) : IsoObject
+		{
+			return isoObjectDic[_col+"-"+_row];
+		}
+
 
 		public function viewPortMoveToUpdate(_viewPortX:int ,_viewPortY:int , _preViewPortX:int , _preViewPortY:int) : void
 		{
@@ -145,16 +163,6 @@ package copyengine.scenes.isometric
 			isSortInNextUpdate = true;
 		}
 
-		/**
-		 * This function will sort all isoObjs first and then draw those objs on the screen.
-		 */
-		private function drawIsoObjects() : void
-		{
-//						var t:int = getTimer();
-			sortAndDisplayIsoObject();
-//						trace("Cost : " + (getTimer() - t) );
-		}
-
 		public function get container() : DisplayObjectContainer
 		{
 			return isoObjectMangerContainer;
@@ -162,6 +170,40 @@ package copyengine.scenes.isometric
 
 		public function dispose() : void
 		{
+		}
+
+		private function addMappingIsoObject(_obj:IsoObject) : void
+		{
+			for (var col:int = _obj.fastGetValue_Col ; col < _obj.fastGetValue_Col + _obj.fastGetValue_MaxCols ; col++)
+			{
+				for (var row:int = _obj.fastGetValue_Row ; row < _obj.fastGetValue_Row +_obj.fastGetValue_MaxRows ; row++)
+				{
+					isoObjectDic[col+"-"+row] = _obj;
+				}
+			}
+		}
+
+		private function removeMappingIsoObject(_obj:IsoObject) : void
+		{
+			for (var col:int = _obj.fastGetValue_Col ; col < _obj.fastGetValue_Col + _obj.fastGetValue_MaxCols ; col++)
+			{
+				for (var row:int = _obj.fastGetValue_Row ; row < _obj.fastGetValue_Row +_obj.fastGetValue_MaxRows ; row++)
+				{
+					isoObjectDic[col+"-"+row] = null;
+					delete isoObjectDic[col+"-"+row];
+				}
+			}
+		}
+
+
+		/**
+		 * This function will sort all isoObjs first and then draw those objs on the screen.
+		 */
+		private function drawIsoObjects() : void
+		{
+			//						var t:int = getTimer();
+			sortAndDisplayIsoObject();
+			//						trace("Cost : " + (getTimer() - t) );
 		}
 
 		/**
