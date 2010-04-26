@@ -53,6 +53,10 @@ package copyengine.actor.isometric
 
 		protected final function initialize() : void
 		{
+			fastGetValue_Col = isoObjectVo.col;
+			fastGetValue_Row = isoObjectVo.row;
+			fastGetValue_Height = isoObjectVo.height;
+			
 			var item:ItemMeta = ItemMetaManger.instance.getItemMetaByID(isoObjectVo.id);
 			fastGetValue_MaxCols = item.maxCol;
 			fastGetValue_MaxRows = item.maxRow;
