@@ -1,16 +1,25 @@
 package copyengine.actor.isometric
 {
+	import copyengine.datas.isometric.FunctionalRoomVo;
 	import copyengine.datas.isometric.IsoObjectVo;
-	
-	public class IsoFunctionalRoom extends IsoObject
+
+	public class IsoFunctionalRoom
 	{
 		//need stone in metaData later
 		public var roomSize:int;
 		
-		public function IsoFunctionalRoom(_isoObjectVo:IsoObjectVo)
+		private var functionalRoomVo:FunctionalRoomVo;
+
+		public function IsoFunctionalRoom(_functionalRoomVo:FunctionalRoomVo)
 		{
-			super(_isoObjectVo);
+			functionalRoomVo = _functionalRoomVo;
 		}
+		
+		public function clone():IsoFunctionalRoom
+		{
+			return new IsoFunctionalRoom(functionalRoomVo.clone() as FunctionalRoomVo);
+		}
+		
 		
 	}
 }

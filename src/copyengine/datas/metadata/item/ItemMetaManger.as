@@ -1,8 +1,9 @@
 package copyengine.datas.metadata.item
 {
+	import copyengine.datas.isometric.FunctionalRoomVo;
 	import copyengine.utils.ResUtlis;
 	import copyengine.utils.debug.DebugLog;
-
+	
 	import flash.utils.Dictionary;
 
 	public class ItemMetaManger
@@ -59,7 +60,12 @@ package copyengine.datas.metadata.item
 			DebugLog.instance.log("Can't Find ItemMeta with id : " + _id , DebugLog.LOG_TYPE_ERROR);
 			return null;
 		}
-
+		
+		public function getFunctionalRoomMetaByID(_id:int):ItemMeta
+		{
+			return getItemMetaByID(_id);
+		}
+		
 
 	}
 }

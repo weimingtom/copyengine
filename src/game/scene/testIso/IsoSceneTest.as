@@ -1,7 +1,8 @@
 package game.scene.testIso
 {
 	import com.adobe.viewsource.ViewSource;
-	
+
+	import copyengine.datas.isometric.FunctionalRoomVo;
 	import copyengine.datas.isometric.IsoObjectVo;
 	import copyengine.dragdrop.IDragDropEngine;
 	import copyengine.dragdrop.IDragDropManger;
@@ -28,13 +29,13 @@ package game.scene.testIso
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.Random;
 	import copyengine.utils.ResUtlis;
-	
+
 	import flash.display.Graphics;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-	
+
 	import game.scene.testIso.dragdrop.DragDropViewPortInteractiveWarpReceiver;
 	import game.scene.testIso.dragdrop.DragFromOutsideIsoObjectDragDropSource;
 	import game.scene.testIso.dragdrop.IsoFunctionalRoomDragDropSource;
@@ -82,34 +83,30 @@ package game.scene.testIso
 
 			var dragTargetList:Vector.<IDragDropTarget> = new Vector.<IDragDropTarget>();
 			var dragdropReceiverList:Vector.<IDragDropReceiver> = new Vector.<IDragDropReceiver>();
-			
+
 			var viewPortTarget:IDragDropTarget = new IsoSceneDragDropTarget();
 			viewPortTarget.bindEntity({isoObjectDisplayManger:isoObjectDisplayManger , isoTileVoManger:isoTileVoManger},0,0);
 			dragTargetList.push(viewPortTarget);
-			
+
 			var dragDropViewPortInteractiveWarpReceiver:IDragDropReceiver = new DragDropViewPortInteractiveWarpReceiver();
 			dragDropViewPortInteractiveWarpReceiver.bindEntity({viewport:viewport},0,0)
 			dragdropReceiverList.push(dragDropViewPortInteractiveWarpReceiver);
-			
+
 			CEDragDropMangerClick.instance.setDragDropReceiver(dragdropReceiverList);
 			CEDragDropMangerClick.instance.setDragDropTargets(dragTargetList);
 		}
 
 		private function source2OnMouseDown(e:MouseEvent) : void
 		{
-			var isoObjectVo:IsoObjectVo = new IsoObjectVo();
-			isoObjectVo.col = isoObjectVo.row = 0;
-			isoObjectVo.id = 3;
-			
+			var functionalRoomVo:FunctionalRoomVo = new FunctionalRoomVo();
+			functionalRoomVo.id = 3;
+
 			var source:IDragDropSource = new IsoFunctionalRoomDragDropSource();
 			source.bindEntity(
-				{isoObjectDisplayManger:isoObjectDisplayManger , 
-					isoTileVoManger:isoTileVoManger,
-					isoObjectVo:isoObjectVo
-				},
+				{isoObjectDisplayManger:isoObjectDisplayManger , functionalRoomVo:functionalRoomVo},
 				e.stageX,e.stageY
 				);
-			
+
 			CEDragDropMangerClick.instance.startDragDrop(source,e.stageX,e.stageY);
 		}
 
