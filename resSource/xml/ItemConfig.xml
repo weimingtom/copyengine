@@ -3,7 +3,9 @@
 	<item id="1" iconSymbolName="IsoBox_1_1_Gray" iconFileName="IsoHax_asset" symbolName="IsoBox_1_1_Gray"
 		fileName="IsoHax_asset" maxCol="3" maxRow="3" maxHeight="3" />
 	<item id="2" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_Green_01"
-		fileName="IsoHax_asset" maxCol="1" maxRow="15" maxHeight="4" />
+		fileName="IsoHax_asset" maxCol="3" maxRow="15" maxHeight="4" />
 	<item id="3" iconSymbolName="IsoWall_Decorate_00" iconFileName="IsoHax_asset" symbolName="IsoWall_Decorate_00"
 		fileName="IsoHax_asset" maxCol="1" maxRow="1" maxHeight="1" />
+	<item id="4" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_Green_02"
+		fileName="IsoHax_asset" maxCol="15" maxRow="3" maxHeight="4" />
 </root>
