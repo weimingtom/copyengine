@@ -14,13 +14,16 @@ package game.scene.testIso.dragdrop
 	import copyengine.scenes.isometric.IsoTileVoManger;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.ResUtlis;
-
+	
 	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
-
+	
 	import game.scene.IsoMath;
+	
+	import org.osmf.utils.OSMFStrings;
 
 	public class IsoFunctionalRoomDragDropSource extends IsoSceneDragDropSourceBasic
 	{
@@ -69,6 +72,7 @@ package game.scene.testIso.dragdrop
 					{
 						isShowNormalIcon = false;
 						newIsoFunctionalWall.container.addChild(dragInViewPortIcon);
+						moveFunctionRoomStickWall(newIsoFunctionalWall,dragInViewPortIcon as MovieClip , tilePos.x , tilePos.y );
 					}
 				}
 			}
@@ -79,7 +83,7 @@ package game.scene.testIso.dragdrop
 					if (currentIsoFunctionalWall.isCanAddFunctionRoomTo(tilePos.x,tilePos.y,isoFunctionalRoom))
 					{
 						isShowNormalIcon = false;
-							//change position.
+						moveFunctionRoomStickWall(currentIsoFunctionalWall,dragInViewPortIcon as MovieClip , tilePos.x , tilePos.y );
 					}
 				}
 			}
@@ -91,11 +95,39 @@ package game.scene.testIso.dragdrop
 				{
 					dragDropIconContainer.addChild(dragInViewPortIcon);
 					(dragInViewPortIcon as MovieClip).gotoAndStop(0);
+					dragInViewPortIcon.x = dragInViewPortIcon.y = 0;
 				}
 				dragDropIconContainer.x = _x;
 				dragDropIconContainer.y = _y;
 			}
 		}
+
+		private static var convertVector3D:Vector3D = new Vector3D();
+		
+		private function moveFunctionRoomStickWall(_wall:IsoFunctionalWall , _roomContainer:MovieClip , _roomCol:int , _roomRow:int) : void
+		{
+			var offsetCol:int = 0;
+			var offsetRow:int = 0;
+			if(_wall.direction == IsoFunctionalWall.DIR_NW_ES)
+			{
+				offsetCol =_roomCol - _wall.fastGetValue_Col;
+				_roomContainer.gotoAndStop(3);
+			}
+			else
+			{
+				offsetRow = _roomRow - _wall.fastGetValue_Row;
+				_roomContainer.gotoAndStop(2);
+			}
+			//caulate the target the screen position
+			convertVector3D.x = offsetCol * GeneralConfig.ISO_TILE_WIDTH;
+			convertVector3D.y = offsetRow * GeneralConfig.ISO_TILE_WIDTH;
+			convertVector3D.z = 0;
+			IsoMath.isoToScreen(convertVector3D);
+			
+			_roomContainer.x = convertVector3D.x;
+			_roomContainer.y = convertVector3D.y;
+		}
+
 
 		override public function onDragDropTerminate() : void
 		{

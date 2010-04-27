@@ -21,12 +21,12 @@ package copyengine.actor.isometric
 		/**
 		 * define the wallDirection (NW-ES / NE-SW)
 		 */
-		private var direction:int;
+		public var direction:int;
 
 		/**
 		 * define the space of the wall (how many room can this wall fit in)
 		 */
-		private var roomSpace:int;
+		public var roomSpace:int;
 
 		private var wallAttribute:uint;
 		private var roomList:Vector.<IsoFunctionalRoom>;
