@@ -15,7 +15,17 @@ package copyengine.actor.isometric
 		 * define the minimum room cost tile size
 		 */
 		public static const MINIMUM_ROOM_SIZE:int = 3;
+		/**
+		 *		 *
+		 *     		*
+		 * 		  	   *
+		 */		
 		public static const DIR_NW_ES:int = 0;
+		/**
+		 *			*
+		 * 		  *
+		 * 		*
+		 */		
 		public static const DIR_NE_SW:int = 1;
 
 		/**
