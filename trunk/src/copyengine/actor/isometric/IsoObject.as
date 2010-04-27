@@ -83,28 +83,7 @@ package copyengine.actor.isometric
 			container.x = screenVector.x;
 			container.y = screenVector.y;
 		}
-
-		private static var sourcePos:Point = new Point();
-		private var screenVector:Vector3D = new Vector3D();
-
-		public final function setIsoPositionByGlobalPoint(_globalPosX:Number , _globalPosY:Number ,_isoObjectDisplayManger:IsoObjectDisplayManger) : void
-		{
-			//change the mouse position to porjection coordinates.
-			sourcePos.x = _globalPosX;
-			sourcePos.y = _globalPosY;
-			sourcePos = _isoObjectDisplayManger.container.globalToLocal(sourcePos);
-
-			//change projection coordinate to isometric coordinates
-			screenVector.x =sourcePos.x;
-			screenVector.y = sourcePos.y;
-			screenVector.z = 0;
-			IsoMath.screenToIso(screenVector);
-
-			setCol(screenVector.x / GeneralConfig.ISO_TILE_WIDTH);
-			setRow( screenVector.y / GeneralConfig.ISO_TILE_WIDTH );
-		}
-
-
+		
 		//===================
 		//== Override Able Function
 		//===================

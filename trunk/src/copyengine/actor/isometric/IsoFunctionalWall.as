@@ -44,27 +44,23 @@ package copyengine.actor.isometric
 
 		public function isCanAddFunctionRoomTo(_col:int , _row:int , _room:IsoFunctionalRoom) : Boolean
 		{
-			var startPosition:int = getPositionByTileID(_col,_row);
-			if (startPosition + _room.roomSize > roomSpace + 1)
-			{
-				return false;
-			}
-			else
-			{
-				for (var pos:int = startPosition ; pos < startPosition + _room.roomSize ; pos++)
-				{
-					if (UintAttribute.hasAttribute(wallAttribute,pos))
-					{
-						return false;
-					}
-				}
-				return true;
-			}
-		}
-
-		override public function clone() : IsoObject
-		{
-			return new IsoFunctionalWall(direction , roomSpace , isoObjectVo.clone());
+			return true;
+//			var startPosition:int = getPositionByTileID(_col,_row);
+//			if (startPosition + _room.roomSize > roomSpace + 1)
+//			{
+//				return false;
+//			}
+//			else
+//			{
+//				for (var pos:int = startPosition ; pos < startPosition + _room.roomSize ; pos++)
+//				{
+//					if (UintAttribute.hasAttribute(wallAttribute,pos))
+//					{
+//						return false;
+//					}
+//				}
+//				return true;
+//			}
 		}
 
 		private function getPositionByTileID(_col:int , _row:int) : int
@@ -77,6 +73,11 @@ package copyengine.actor.isometric
 			{
 				return (_col - isoObjectVo.col)/MINIMUM_ROOM_SIZE;
 			}
+		}
+		
+		override public function clone() : IsoObject
+		{
+			return new IsoFunctionalWall(direction , roomSpace , isoObjectVo.clone());
 		}
 
 	}
