@@ -16,7 +16,7 @@ package game.scene.testUIComponent
 	import copyengine.ui.dialog.CEDialogManger;
 	import copyengine.ui.dialog.animation.MovieClipTweenDialogAnimation;
 	import copyengine.utils.Random;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
@@ -56,7 +56,7 @@ package game.scene.testUIComponent
 			t.x = -77.5;
 			t.y = -4.7;
 			
-			var bg:Sprite = ResUtlis.getSprite("GreenButton","UI_asset");
+			var bg:Sprite = ResUtils.getSprite("GreenButton","UI_asset");
 			bg.width = 145.5;
 			bg.height = 40.1;
 			var btn1:CEButton = new CEButton(bg,t,"Test Test Test",new CEButtonTweenAnimation());

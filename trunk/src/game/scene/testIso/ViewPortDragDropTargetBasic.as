@@ -8,7 +8,7 @@ package game.scene.testIso
 	import copyengine.scenes.isometric.IsoObjectDisplayManger;
 	import copyengine.scenes.isometric.IsoTileVoManger;
 	import copyengine.utils.GeneralUtils;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 	
 	import flash.geom.Point;
 	import flash.geom.Vector3D;

@@ -2,9 +2,9 @@ package copyengine.utils
 {
 	import copyengine.ui.CESprite;
 
-    public class CEUIUtlis
+    public class CEUIUtils
     {
-        public function CEUIUtlis()
+        public function CEUIUtils()
         {
         }
 		

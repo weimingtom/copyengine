@@ -11,7 +11,8 @@ package game.scene.testIso.dragdrop
 	import copyengine.scenes.isometric.IsoObjectDisplayManger;
 	import copyengine.scenes.isometric.IsoTileVoManger;
 	import copyengine.utils.GeneralUtils;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.IsometricUtils;
+	import copyengine.utils.ResUtils;
 	
 	import flash.display.DisplayObject;
 	import flash.geom.Point;
@@ -22,6 +23,7 @@ package game.scene.testIso.dragdrop
 
 	public class IsoObjectDragDropSourceBasic extends IsoSceneDragDropSourceBasic
 	{
+		protected var isoObjectDisplayManger:IsoObjectDisplayManger;
 		protected var isoTileVoManger:IsoTileVoManger;
 
 		protected var dragDropObject:IsoObject;
@@ -32,8 +34,9 @@ package game.scene.testIso.dragdrop
 			super();
 		}
 
-		override protected function onBindEntity(_x:Number, _y:Number) : void
+		override protected function doBindEntity(_x:Number, _y:Number):void
 		{
+			isoObjectDisplayManger = entity["isoObjectDisplayManger"];
 			isoTileVoManger = entity["isoTileVoManger"];
 			isoObjectVo = entity["isoObjectVo"];
 		}
@@ -46,7 +49,7 @@ package game.scene.testIso.dragdrop
 			dragInViewPortIcon = dragDropObject.container;
 			
 			var item:ItemMeta = ItemMetaManger.instance.getItemMetaByID(isoObjectVo.id);
-			dragOutViewPortIcon = ResUtlis.getSprite(item.iconSymbolName,item.iconFileName);
+			dragOutViewPortIcon = ResUtils.getSprite(item.iconSymbolName,item.iconFileName);
 			dragDropIconContainer.addChild(dragOutViewPortIcon);
 		}
 
@@ -55,7 +58,7 @@ package game.scene.testIso.dragdrop
 		 */
 		override protected function sourceMoveInScene(_x:Number , _y:Number) : void
 		{
-			var tilePos:Point = convertGlobalPosToIsoPos(_x,_y);
+			var tilePos:Point = IsometricUtils.convertGlobalPosToIsoPos(isoObjectDisplayManger.container,_x,_y);
 
 			dragDropObject.setCol(tilePos.x);
 			dragDropObject.setRow(tilePos.y);

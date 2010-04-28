@@ -5,7 +5,7 @@ package copyengine.ui.component.tabbar.animation
 	
 	import copyengine.ui.component.tabbar.CETabBar;
 	import copyengine.utils.GeneralUtils;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 	
 	import flash.display.DisplayObject;
 	import flash.display.Sprite;
@@ -26,7 +26,7 @@ package copyengine.ui.component.tabbar.animation
 		public function setTarget(_val:CETabBar) : void
 		{
 			target = _val;
-			scrollThumb = ResUtlis.getSprite("Tabbar_Scroll_Thumb",ResUtlis.FILE_ISOHAX);
+			scrollThumb = ResUtils.getSprite("Tabbar_Scroll_Thumb",ResUtils.FILE_ISOHAX);
 			GeneralUtils.addTargetToParent(scrollThumb,target,GeneralUtils.ADD_TARGET_TO_PARENT_ADJUST_ORDER_TYPE_LAST);
 		}
 

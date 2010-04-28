@@ -13,12 +13,12 @@ package copyengine.utils
      * @author Tunied
      *
      */
-    public class ResUtlis
+    public class ResUtils
     {
 		public static const FILE_ISOHAX:String = "IsoHax_asset";
 		public static const FILE_UI:String = "UI_asset";
 		
-        public function ResUtlis()
+        public function ResUtils()
         {
         }
 

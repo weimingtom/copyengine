@@ -3,7 +3,7 @@ package game.dragdrop.test
 	import copyengine.dragdrop.IDragDropTarget;
 	import copyengine.dragdrop.impl.CEDragDropSourceCore;
 	import copyengine.utils.GeneralUtils;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 
 	import flash.display.Sprite;
 
@@ -31,7 +31,7 @@ package game.dragdrop.test
 
 		override protected function initializeDragDropIcon() : void
 		{
-			avtorIcon = ResUtlis.getSprite("DragDropIcon","IsoHax_asset");
+			avtorIcon = ResUtils.getSprite("DragDropIcon","IsoHax_asset");
 			dragDropIconContainer.addChild(avtorIcon);
 		}
 

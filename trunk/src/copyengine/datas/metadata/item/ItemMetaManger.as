@@ -1,7 +1,7 @@
 package copyengine.datas.metadata.item
 {
 	import copyengine.datas.isometric.FunctionalRoomVo;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 	import copyengine.utils.debug.DebugLog;
 	
 	import flash.utils.Dictionary;
@@ -29,7 +29,7 @@ package copyengine.datas.metadata.item
 		public function initialize() : void
 		{
 			itemMetaList = new Vector.<ItemMeta>();
-			var itemConfig:XML = ResUtlis.getXML("ItemConfig");
+			var itemConfig:XML = ResUtils.getXML("ItemConfig");
 			for each (var itemNode : XML in itemConfig.item)
 			{
 				var item:ItemMeta = new ItemMeta();
@@ -45,7 +45,7 @@ package copyengine.datas.metadata.item
 				itemMetaList.push(item);
 			}
 			itemMetaListLength = itemMetaList.length;
-			ResUtlis.disposeFile("ItemConfig");
+			ResUtils.disposeFile("ItemConfig");
 		}
 
 		public function getItemMetaByID(_id:int) : ItemMeta

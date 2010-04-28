@@ -7,7 +7,7 @@ package game.scene
 	import copyengine.dragdrop.impl.CEDragDropMangerDrag;
 	import copyengine.scenes.SceneBasic;
 	import copyengine.utils.GeneralUtils;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 	
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;
@@ -34,7 +34,7 @@ package game.scene
 
 		override protected function initialize() : void
 		{
-			screenBg = ResUtlis.getMovieClip("DragDropScreen","IsoHax_asset");
+			screenBg = ResUtils.getMovieClip("DragDropScreen","IsoHax_asset");
 			giftIcon = screenBg["gift"];
 			sourceIcon = screenBg["source"];
 			dragdropStage = screenBg["dropStage"];
@@ -48,7 +48,6 @@ package game.scene
 			dragDropEngine = new CEDragDropEngine();
 			dragDropManger.initialize(CopyEngineAS.dragdropLayer , dragDropEngine );
 			
-			var dragTargetList:Vector.<IDragDropTarget> = new Vector.<IDragDropTarget>();
 			
 			var giftTarget:DragDropGiftTarget;
 			giftTarget = new DragDropGiftTarget();
@@ -58,11 +57,8 @@ package game.scene
 			stageTarget = new DragDropStageTarget();
 			stageTarget.bindEntity(dragdropStage,dragdropStage.x , dragdropStage.y);
 			
-			dragTargetList.push(giftTarget);
-			dragTargetList.push(stageTarget);
-			
-			
-			dragDropManger.setDragDropTargets(dragTargetList);
+			dragDropManger.addDragDropTarget(giftTarget);
+			dragDropManger.addDragDropTarget(stageTarget);
 		}
 
 		private function bgOnMouseDown(e:MouseEvent) : void

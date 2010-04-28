@@ -1,9 +1,12 @@
 package copyengine.actor.isometric
 {
 	import copyengine.datas.isometric.IsoObjectVo;
+	import copyengine.utils.IsometricUtils;
 	import copyengine.utils.UintAttribute;
 
 	import flash.display.DisplayObject;
+	import flash.display.MovieClip;
+	import flash.geom.Point;
 	import flash.geom.Utils3D;
 	import flash.utils.Dictionary;
 
@@ -15,17 +18,19 @@ package copyengine.actor.isometric
 		 * define the minimum room cost tile size
 		 */
 		public static const MINIMUM_ROOM_SIZE:int = 3;
+
 		/**
 		 *		 *
 		 *     		*
 		 * 		  	   *
-		 */		
+		 */
 		public static const DIR_NW_ES:int = 0;
+
 		/**
 		 *			*
 		 * 		  *
 		 * 		*
-		 */		
+		 */
 		public static const DIR_NE_SW:int = 1;
 
 		/**
@@ -45,6 +50,8 @@ package copyengine.actor.isometric
 		{
 			direction = _direction;
 			roomSpace = _roomSpace;
+			roomList = new Vector.<IsoFunctionalRoom>();
+
 			super(_isoObjectVo);
 		}
 
@@ -52,25 +59,36 @@ package copyengine.actor.isometric
 		{
 		}
 
-		public function isCanAddFunctionRoomTo(_col:int , _row:int , _room:IsoFunctionalRoom) : Boolean
+		public function isCanAddFunctionalRoomTo(_col:int , _row:int , _room:IsoFunctionalRoom) : Boolean
 		{
 			return true;
-//			var startPosition:int = getPositionByTileID(_col,_row);
-//			if (startPosition + _room.roomSize > roomSpace + 1)
-//			{
-//				return false;
-//			}
-//			else
-//			{
-//				for (var pos:int = startPosition ; pos < startPosition + _room.roomSize ; pos++)
-//				{
-//					if (UintAttribute.hasAttribute(wallAttribute,pos))
-//					{
-//						return false;
-//					}
-//				}
-//				return true;
-//			}
+			//			var startPosition:int = getPositionByTileID(_col,_row);
+			//			if (startPosition + _room.roomSize > roomSpace + 1)
+			//			{
+			//				return false;
+			//			}
+			//			else
+			//			{
+			//				for (var pos:int = startPosition ; pos < startPosition + _room.roomSize ; pos++)
+			//				{
+			//					if (UintAttribute.hasAttribute(wallAttribute,pos))
+			//					{
+			//						return false;
+			//					}
+			//				}
+			//				return true;
+			//			}
+		}
+
+		/**
+		 * WARNINIG::
+		 * 		should call isCanAddFunctionRoomTo() function first to check.
+		 */
+		public function addFunctionalRoom(_room:IsoFunctionalRoom , _sceneCol:int , _sceneRow:int) : void
+		{
+			roomList.push(_room);
+			container.addChild(_room.container);
+			stickFunctionalRoomOnTheWall(this,_room.container,_sceneCol,_sceneRow);
 		}
 
 		private function getPositionByTileID(_col:int , _row:int) : int
@@ -84,11 +102,36 @@ package copyengine.actor.isometric
 				return (_col - isoObjectVo.col)/MINIMUM_ROOM_SIZE;
 			}
 		}
-		
+
 		override public function clone() : IsoObject
 		{
 			return new IsoFunctionalWall(direction , roomSpace , isoObjectVo.clone());
 		}
+
+		//===================
+		//== Utils Function
+		//===================
+		public static function stickFunctionalRoomOnTheWall(_wall:IsoFunctionalWall , 
+			_functionalRoomContainer:MovieClip , _roomSceneCol:int , _roomSceneRow:int) : void
+		{
+			var offsetCol:int = 0;
+			var offsetRow:int = 0;
+			if (_wall.direction == DIR_NW_ES)
+			{
+				offsetCol =_roomSceneCol - _wall.fastGetValue_Col;
+				_functionalRoomContainer.gotoAndStop(3);
+			}
+			else
+			{
+				offsetRow = _roomSceneRow - _wall.fastGetValue_Row;
+				_functionalRoomContainer.gotoAndStop(2);
+			}
+			var scenePos:Point = IsometricUtils.convertIsoPosToScreenPos(offsetCol,offsetRow,0);
+			_functionalRoomContainer.x = scenePos.x;
+			_functionalRoomContainer.y = scenePos.y;
+			scenePos = null;
+		}
+
 
 	}
 }
