@@ -1,4 +1,4 @@
-package game.scene.testIso.dragdrop
+package game.scene.testIso.dragdrop.source
 {
 	import copyengine.dragdrop.IDragDropTarget;
 	import copyengine.dragdrop.impl.CEDragDropSourceCore;
@@ -9,6 +9,7 @@ package game.scene.testIso.dragdrop
 	import flash.geom.Vector3D;
 	
 	import game.scene.IsoMath;
+	import game.scene.testIso.dragdrop.target.IsoSceneDragDropTargetBasic;
 
 	public class IsoSceneDragDropSourceBasic extends CEDragDropSourceCore
 	{

@@ -14,9 +14,9 @@ package copyengine.actor.isometric
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	
-	import game.scene.testIso.dragdrop.DragFromInsideIsoObjectDragDropSource;
-	import game.scene.testIso.dragdrop.IsoObjectDragDropSourceBasic;
-	import game.scene.testIso.dragdrop.IsoSceneIsoObjectDragDropTarget;
+	import game.scene.testIso.dragdrop.source.isoobject.DragFromInsideIsoObjectDragDropSource;
+	import game.scene.testIso.dragdrop.source.isoobject.IsoObjectDragDropSourceBasic;
+	import game.scene.testIso.dragdrop.target.IsoSceneIsoObjectDragDropTarget;
 
 	public class DragAbleIsoObject extends IsoObject
 	{

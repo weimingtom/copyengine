@@ -1,4 +1,4 @@
-package game.scene.testIso.dragdrop
+package game.scene.testIso.dragdrop.source.isoobject
 {
 	import copyengine.dragdrop.IDragDropTarget;
 

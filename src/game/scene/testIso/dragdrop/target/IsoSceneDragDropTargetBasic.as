@@ -1,6 +1,7 @@
-package game.scene.testIso.dragdrop
+package game.scene.testIso.dragdrop.target
 {
 	import copyengine.dragdrop.impl.CEDragDropTargetCore;
+	import game.scene.testIso.dragdrop.DragDropTargetType;
 	
 	public class IsoSceneDragDropTargetBasic extends CEDragDropTargetCore
 	{

@@ -1,4 +1,4 @@
-package game.scene.testIso.dragdrop
+package game.scene.testIso.dragdrop.target
 {
 	import copyengine.actor.isometric.IsoFunctionalRoom;
 	import copyengine.actor.isometric.IsoFunctionalWall;
@@ -7,6 +7,7 @@ package game.scene.testIso.dragdrop
 	import copyengine.utils.IsometricUtils;
 	
 	import flash.geom.Point;
+	import game.scene.testIso.dragdrop.source.functionalroom.IsoFunctionalRoomDragDropSource;
 
 	public class IsoSceneFunctionalRoomDragDropTarget extends IsoSceneDragDropTargetBasic
 	{
