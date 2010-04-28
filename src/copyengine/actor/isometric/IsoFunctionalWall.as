@@ -3,13 +3,13 @@ package copyengine.actor.isometric
 	import copyengine.datas.isometric.IsoObjectVo;
 	import copyengine.utils.IsometricUtils;
 	import copyengine.utils.UintAttribute;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.geom.Point;
 	import flash.geom.Utils3D;
 	import flash.utils.Dictionary;
-	
+
 	import flashx.textLayout.formats.Direction;
 
 	public class IsoFunctionalWall extends IsoObject
@@ -88,30 +88,33 @@ package copyengine.actor.isometric
 			roomList.push(_room);
 			container.addChild(_room.container);
 			var startPosition:int = getPositionByTileID(_sceneCol,_sceneRow);
+			_room.functionalRoomVo.spaceId = startPosition;
+			_room.setIsoFunctionalWall(this);
 			for (var pos:int = startPosition ; pos < startPosition + _room.roomSize ; pos++)
 			{
 				wallAttribute = UintAttribute.setAttribute(wallAttribute,pos);
 			}
 			stickFunctionalRoomOnTheWall(this,_room.container,_sceneCol,_sceneRow);
 		}
-		
-		public function removeFunctionalRoom(_room:IsoFunctionalRoom):void
+
+		public function removeFunctionalRoom(_room:IsoFunctionalRoom) : void
 		{
-			for(var i:int = 0 ; i < roomList.length ; i++)
+			for (var i:int = 0 ; i < roomList.length ; i++)
 			{
-				if(_room == roomList[i])
+				if (_room == roomList[i])
 				{
 					roomList.splice(i,1);
 					container.removeChild(_room.container);
-					var startPosition:int = getPositionByTileID(_sceneCol,_sceneRow);
+					var startPosition:int = _room.functionalRoomVo.spaceId;
 					for (var pos:int = startPosition ; pos < startPosition + _room.roomSize ; pos++)
 					{
-						wallAttribute = UintAttribute.setAttribute(wallAttribute,pos);
+						wallAttribute = UintAttribute.removeAttribute(wallAttribute,pos);
 					}
+					break;
 				}
 			}
 		}
-		
+
 		private function getPositionByTileID(_col:int , _row:int) : int
 		{
 			if (direction == DIR_NE_SW)
@@ -122,7 +125,7 @@ package copyengine.actor.isometric
 			{
 				return (_col - isoObjectVo.col)/MINIMUM_ROOM_SIZE;
 			}
-	}
+		}
 
 		override public function clone() : IsoObject
 		{
@@ -139,7 +142,7 @@ package copyengine.actor.isometric
 			var offsetRow:int = 0;
 			if (_wall.direction == DIR_NW_ES)
 			{
-				
+
 				offsetCol =(_roomSceneCol - _wall.fastGetValue_Col)/MINIMUM_ROOM_SIZE;
 				_functionalRoomContainer.gotoAndStop(3);
 			}

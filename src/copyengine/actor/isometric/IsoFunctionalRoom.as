@@ -20,11 +20,12 @@ package copyengine.actor.isometric
 
 		protected var isoFunctionalWall:IsoFunctionalWall;
 
-		protected var functionalRoomVo:FunctionalRoomVo;
+		public var functionalRoomVo:FunctionalRoomVo;
 
 		public function IsoFunctionalRoom(_functionalRoomVo:FunctionalRoomVo)
 		{
 			functionalRoomVo = _functionalRoomVo;
+			initialize();
 		}
 
 		private function initialize() : void
