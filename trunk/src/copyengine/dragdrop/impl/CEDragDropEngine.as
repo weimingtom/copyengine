@@ -18,6 +18,7 @@ package copyengine.dragdrop.impl
 
 		public function CEDragDropEngine()
 		{
+			dragDropTargetList = new Vector.<IDragDropTarget>();
 		}
 
 		public function set manger(_manger:IDragDropManger) : void
@@ -27,16 +28,27 @@ package copyengine.dragdrop.impl
 
 		public function setDragDropTargets(_targets:Vector.<IDragDropTarget>) : void
 		{
-			if (dragDropTargetList != null)
-			{
-				while (dragDropTargetList.length > 0)
-				{
-					dragDropTargetList[0].onDragDropDispose();
-				}
-			}
-			dragDropTargetList = _targets;
 		}
 
+
+		public function addDragDropTarget(_target:IDragDropTarget) : void
+		{
+			removeDragDropTargetsByType(_target.targetType);
+			dragDropTargetList.push(_target);
+		}
+
+		public function removeDragDropTargetsByType(_type:String) : void
+		{
+			for (var i:int = 0 ; i < dragDropTargetList.length ; i++)
+			{
+				if (dragDropTargetList[i].targetType == _type)
+				{
+					dragDropTargetList[i].onDragDropDispose();
+					dragDropTargetList.splice(i,1);
+					break;
+				}
+			}
+		}
 
 		public function startDragDrop(_source:IDragDropSource , _x:Number, _y:Number) : void
 		{
@@ -52,7 +64,7 @@ package copyengine.dragdrop.impl
 			currentSource.engine = this;
 			var target:IDragDropTarget = findTargetAtPoint(_x,_y);
 			currentSource.onDragDropBegin(target , _x , _y);
-			if(target != null)
+			if (target != null)
 			{
 				target.onDragDropBegin(currentSource,_x,_y);
 			}
@@ -109,12 +121,12 @@ package copyengine.dragdrop.impl
 		public function endDragDrop() : void
 		{
 			currentSource.onDragDropEnd();
-			
+
 			for (var i:int = 0 ; i < dragDropTargetList.length ; i++)
 			{
 				dragDropTargetList[i].onDragDropEnd();
 			}
-			
+
 			dragDropManger.onEndDragDrop();
 		}
 
@@ -123,26 +135,18 @@ package copyengine.dragdrop.impl
 			dragDropManger.onTerminateDragDrop();
 			GlobalTick.instance.callLaterAfterTickCount(doTerminateDragDrop);
 		}
-		
-		public function onDragDropDispose():void
+
+		public function onDragDropDispose() : void
 		{
 			while (dragDropTargetList.length > 0)
 			{
 				dragDropTargetList.pop().onDragDropDispose();
 			}
-			
-			
+
+
 			currentTarget = null;
 			currentSource = null;
 			dragDropTargetList = null;
-		}
-
-		public function addDragDropReceiver(_receiver:IDragDropReceiver) : void
-		{
-		}
-
-		public function removeDragDropReceiver(_receiverName:String) : void
-		{
 		}
 
 		//===============
@@ -150,21 +154,21 @@ package copyengine.dragdrop.impl
 		//===============
 		protected function findTargetAtPoint(_x:Number , _y:Number) : IDragDropTarget
 		{
-			for each(var target:IDragDropTarget in dragDropTargetList)
+			for each (var target : IDragDropTarget in dragDropTargetList)
 			{
-				if(target.isPositionInTarget(_x,_y))
+				if (target.isPositionInTarget(_x,_y))
 				{
 					return target;
 				}
 			}
 			return null;
 		}
-		
-		private function doTerminateDragDrop():void
+
+		private function doTerminateDragDrop() : void
 		{
 			currentSource.onDragDropTerminate();
-			
-			for(var i:int = 0 ; i < dragDropTargetList.length ; i++)
+
+			for (var i:int = 0 ; i < dragDropTargetList.length ; i++)
 			{
 				dragDropTargetList[i].onDragDropTerminate();
 			}

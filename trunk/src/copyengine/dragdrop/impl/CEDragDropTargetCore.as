@@ -41,8 +41,8 @@ package copyengine.dragdrop.impl
 		{
 			return entity
 		}
-		
-		final public function onDragDropDispose():void
+
+		final public function onDragDropDispose() : void
 		{
 			doDragDropDispose();
 			dragDropEngine = null;
@@ -52,10 +52,10 @@ package copyengine.dragdrop.impl
 		//======================
 		//== Public OverrideAble Function
 		//======================
-		public function onDragDropBegin(_source:IDragDropSource , _x:Number , _y:Number):void
+		public function onDragDropBegin(_source:IDragDropSource , _x:Number , _y:Number) : void
 		{
 		}
-		
+
 		public function onSourceEnter(_source:IDragDropSource) : void
 		{
 		}
@@ -72,19 +72,24 @@ package copyengine.dragdrop.impl
 		{
 		}
 
-		public function onDragDropEnd():void
+		public function onDragDropEnd() : void
 		{
 		}
 
-		public function onDragDropTerminate():void
+		public function onDragDropTerminate() : void
 		{
 		}
-		
-		public function isPositionInTarget(_posX:Number , _posY:Number):Boolean
+
+		public function isPositionInTarget(_posX:Number , _posY:Number) : Boolean
 		{
 			return false;
 		}
-		
+
+		public function get targetType() : String
+		{
+			return null;
+		}
+
 		//===============
 		//== Protected Function
 		//===============
@@ -95,10 +100,10 @@ package copyengine.dragdrop.impl
 		protected function doBindEntity(_x:Number , _y:Number) : void
 		{
 		}
-		
-		protected function doDragDropDispose():void
+
+		protected function doDragDropDispose() : void
 		{
 		}
-		
+
 	}
 }
