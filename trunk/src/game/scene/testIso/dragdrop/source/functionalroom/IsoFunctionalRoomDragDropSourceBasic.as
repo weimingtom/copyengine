@@ -1,5 +1,6 @@
 package game.scene.testIso.dragdrop.source.functionalroom
 {
+	import copyengine.actor.isometric.DragAbleIsoFunctionalRoom;
 	import copyengine.actor.isometric.IsoFunctionalRoom;
 	import copyengine.actor.isometric.IsoFunctionalWall;
 	import copyengine.actor.isometric.IsoObject;
@@ -15,19 +16,19 @@ package game.scene.testIso.dragdrop.source.functionalroom
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.IsometricUtils;
 	import copyengine.utils.ResUtils;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
-
+	
 	import game.scene.IsoMath;
-
-	import org.osmf.utils.OSMFStrings;
 	import game.scene.testIso.dragdrop.source.IsoSceneDragDropSourceBasic;
+	
+	import org.osmf.utils.OSMFStrings;
 
-	public class IsoFunctionalRoomDragDropSource extends IsoSceneDragDropSourceBasic
+	public class IsoFunctionalRoomDragDropSourceBasic extends IsoSceneDragDropSourceBasic
 	{
 		private var isoObjectDisplayManger:IsoObjectDisplayManger;
 		private var functionalRoomVo:FunctionalRoomVo;
@@ -35,7 +36,7 @@ package game.scene.testIso.dragdrop.source.functionalroom
 
 		private var currentIsoFunctionalWall:IsoFunctionalWall;
 
-		public function IsoFunctionalRoomDragDropSource()
+		public function IsoFunctionalRoomDragDropSourceBasic()
 		{
 			super();
 		}
@@ -48,7 +49,7 @@ package game.scene.testIso.dragdrop.source.functionalroom
 
 		override protected function initializeDragDropIcon() : void
 		{
-			isoFunctionalRoom = new IsoFunctionalRoom(functionalRoomVo);
+			isoFunctionalRoom = new DragAbleIsoFunctionalRoom(isoObjectDisplayManger,functionalRoomVo);
 
 			dragInViewPortIcon = ResUtils.getMovieClip("IsoWall_Decorate" , ResUtils.FILE_ISOHAX );
 			(dragInViewPortIcon as MovieClip).gotoAndStop(0);
@@ -104,14 +105,6 @@ package game.scene.testIso.dragdrop.source.functionalroom
 				dragInViewPortIcon.x = dragInViewPortIcon.y = 0;
 				dragDropIconContainer.x = _x;
 				dragDropIconContainer.y = _y;
-			}
-		}
-
-		override public function onDropConfim(_target:IDragDropTarget, _isAccepted:Boolean) : void
-		{
-			if (_isAccepted == false)
-			{
-				dragDropEngine.terminateDragDrop();
 			}
 		}
 

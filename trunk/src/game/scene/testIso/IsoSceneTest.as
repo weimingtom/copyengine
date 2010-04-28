@@ -37,8 +37,9 @@ package game.scene.testIso
 	import flash.events.MouseEvent;
 	
 	import game.scene.testIso.dragdrop.receiver.DragDropViewPortInteractiveWarpReceiver;
+	import game.scene.testIso.dragdrop.source.functionalroom.DragFromOutsideIsoFunctionalRoomDragDropSource;
+	import game.scene.testIso.dragdrop.source.functionalroom.IsoFunctionalRoomDragDropSourceBasic;
 	import game.scene.testIso.dragdrop.source.isoobject.DragFromOutsideIsoObjectDragDropSource;
-	import game.scene.testIso.dragdrop.source.functionalroom.IsoFunctionalRoomDragDropSource;
 	import game.scene.testIso.dragdrop.source.isoobject.IsoObjectDragDropSourceBasic;
 	import game.scene.testIso.dragdrop.target.IsoSceneFunctionalRoomDragDropTarget;
 	import game.scene.testIso.dragdrop.target.IsoSceneIsoObjectDragDropTarget;
@@ -103,7 +104,7 @@ package game.scene.testIso
 			var functionalRoomVo:FunctionalRoomVo = new FunctionalRoomVo();
 			functionalRoomVo.id = 3;
 
-			var source:IDragDropSource = new IsoFunctionalRoomDragDropSource();
+			var source:IDragDropSource = new DragFromOutsideIsoFunctionalRoomDragDropSource();
 			source.bindEntity(
 				{isoObjectDisplayManger:isoObjectDisplayManger , functionalRoomVo:functionalRoomVo},
 				e.stageX,e.stageY
