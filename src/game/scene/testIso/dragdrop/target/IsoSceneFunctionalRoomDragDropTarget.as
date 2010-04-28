@@ -7,7 +7,7 @@ package game.scene.testIso.dragdrop.target
 	import copyengine.utils.IsometricUtils;
 	
 	import flash.geom.Point;
-	import game.scene.testIso.dragdrop.source.functionalroom.IsoFunctionalRoomDragDropSource;
+	import game.scene.testIso.dragdrop.source.functionalroom.IsoFunctionalRoomDragDropSourceBasic;
 
 	public class IsoSceneFunctionalRoomDragDropTarget extends IsoSceneDragDropTargetBasic
 	{
@@ -25,13 +25,13 @@ package game.scene.testIso.dragdrop.target
 
 		override public function onSourceDrop(_source:IDragDropSource, _x:Number, _y:Number) : void
 		{
-			if (_source is IsoFunctionalRoomDragDropSource)
+			if (_source is IsoFunctionalRoomDragDropSourceBasic)
 			{
 				var tilePos:Point = IsometricUtils.convertGlobalPosToIsoPos(isoObjectDisplayManger.container,_x,_y);
 				var isoFunctionalWall:IsoFunctionalWall = isoObjectDisplayManger.findIsoObjectByTileID(tilePos.x,tilePos.y) as IsoFunctionalWall;
 				if (isoFunctionalWall != null)
 				{
-					var room:IsoFunctionalRoom = (_source as IsoFunctionalRoomDragDropSource).cloneOneDragDropIsoFunctionalRoom();
+					var room:IsoFunctionalRoom = (_source as IsoFunctionalRoomDragDropSourceBasic).cloneOneDragDropIsoFunctionalRoom();
 					if (isoFunctionalWall.isCanAddFunctionalRoomTo(tilePos.x ,tilePos.y , room))
 					{
 						isoFunctionalWall.addFunctionalRoom(room,tilePos.x ,tilePos.y);

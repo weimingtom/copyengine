@@ -3,13 +3,13 @@ package copyengine.actor.isometric
 	import copyengine.datas.isometric.IsoObjectVo;
 	import copyengine.utils.IsometricUtils;
 	import copyengine.utils.UintAttribute;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.geom.Point;
 	import flash.geom.Utils3D;
 	import flash.utils.Dictionary;
-
+	
 	import flashx.textLayout.formats.Direction;
 
 	public class IsoFunctionalWall extends IsoObject
@@ -94,7 +94,24 @@ package copyengine.actor.isometric
 			}
 			stickFunctionalRoomOnTheWall(this,_room.container,_sceneCol,_sceneRow);
 		}
-
+		
+		public function removeFunctionalRoom(_room:IsoFunctionalRoom):void
+		{
+			for(var i:int = 0 ; i < roomList.length ; i++)
+			{
+				if(_room == roomList[i])
+				{
+					roomList.splice(i,1);
+					container.removeChild(_room.container);
+					var startPosition:int = getPositionByTileID(_sceneCol,_sceneRow);
+					for (var pos:int = startPosition ; pos < startPosition + _room.roomSize ; pos++)
+					{
+						wallAttribute = UintAttribute.setAttribute(wallAttribute,pos);
+					}
+				}
+			}
+		}
+		
 		private function getPositionByTileID(_col:int , _row:int) : int
 		{
 			if (direction == DIR_NE_SW)
