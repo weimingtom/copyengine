@@ -15,15 +15,15 @@ package game.scene.testIso.dragdrop
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.IsometricUtils;
 	import copyengine.utils.ResUtils;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
-	
+
 	import game.scene.IsoMath;
-	
+
 	import org.osmf.utils.OSMFStrings;
 
 	public class IsoFunctionalRoomDragDropSource extends IsoSceneDragDropSourceBasic
@@ -38,8 +38,8 @@ package game.scene.testIso.dragdrop
 		{
 			super();
 		}
-		
-		override protected function doBindEntity(_x:Number, _y:Number):void
+
+		override protected function doBindEntity(_x:Number, _y:Number) : void
 		{
 			isoObjectDisplayManger = entity["isoObjectDisplayManger"];
 			functionalRoomVo = entity["functionalRoomVo"];
@@ -67,7 +67,10 @@ package game.scene.testIso.dragdrop
 			{
 				if (currentIsoFunctionalWall != null)
 				{
-					currentIsoFunctionalWall.container.removeChild(dragInViewPortIcon);
+					if (dragInViewPortIcon.parent == currentIsoFunctionalWall.container)
+					{
+						currentIsoFunctionalWall.container.removeChild(dragInViewPortIcon);
+					}
 				}
 				if (newIsoFunctionalWall != null)
 				{
@@ -86,6 +89,7 @@ package game.scene.testIso.dragdrop
 					if (currentIsoFunctionalWall.isCanAddFunctionalRoomTo(tilePos.x,tilePos.y,isoFunctionalRoom))
 					{
 						isShowNormalIcon = false;
+						newIsoFunctionalWall.container.addChild(dragInViewPortIcon);
 						IsoFunctionalWall.stickFunctionalRoomOnTheWall(currentIsoFunctionalWall,dragInViewPortIcon as MovieClip , tilePos.x , tilePos.y );
 					}
 				}
@@ -94,17 +98,14 @@ package game.scene.testIso.dragdrop
 
 			if (isShowNormalIcon)
 			{
-				if (dragInViewPortIcon.parent != dragDropIconContainer)
-				{
-					dragDropIconContainer.addChild(dragInViewPortIcon);
-					(dragInViewPortIcon as MovieClip).gotoAndStop(0);
-					dragInViewPortIcon.x = dragInViewPortIcon.y = 0;
-				}
+				dragDropIconContainer.addChild(dragInViewPortIcon);
+				(dragInViewPortIcon as MovieClip).gotoAndStop(0);
+				dragInViewPortIcon.x = dragInViewPortIcon.y = 0;
 				dragDropIconContainer.x = _x;
 				dragDropIconContainer.y = _y;
 			}
 		}
-		
+
 		override public function onDropConfim(_target:IDragDropTarget, _isAccepted:Boolean) : void
 		{
 			if (_isAccepted == false)
@@ -112,7 +113,7 @@ package game.scene.testIso.dragdrop
 				dragDropEngine.terminateDragDrop();
 			}
 		}
-		
+
 		override public function onDragDropTerminate() : void
 		{
 			GeneralUtils.removeTargetFromParent(dragOutViewPortIcon);
