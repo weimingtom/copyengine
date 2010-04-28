@@ -61,23 +61,22 @@ package copyengine.actor.isometric
 
 		public function isCanAddFunctionalRoomTo(_col:int , _row:int , _room:IsoFunctionalRoom) : Boolean
 		{
-			return true;
-			//			var startPosition:int = getPositionByTileID(_col,_row);
-			//			if (startPosition + _room.roomSize > roomSpace + 1)
-			//			{
-			//				return false;
-			//			}
-			//			else
-			//			{
-			//				for (var pos:int = startPosition ; pos < startPosition + _room.roomSize ; pos++)
-			//				{
-			//					if (UintAttribute.hasAttribute(wallAttribute,pos))
-			//					{
-			//						return false;
-			//					}
-			//				}
-			//				return true;
-			//			}
+			var startPosition:int = getPositionByTileID(_col,_row);
+			if (startPosition + _room.roomSize > roomSpace + 1)
+			{
+				return false;
+			}
+			else
+			{
+				for (var pos:int = startPosition ; pos < startPosition + _room.roomSize ; pos++)
+				{
+					if (UintAttribute.hasAttribute(wallAttribute,pos))
+					{
+						return false;
+					}
+				}
+				return true;
+			}
 		}
 
 		/**
@@ -88,6 +87,11 @@ package copyengine.actor.isometric
 		{
 			roomList.push(_room);
 			container.addChild(_room.container);
+			var startPosition:int = getPositionByTileID(_sceneCol,_sceneRow);
+			for (var pos:int = startPosition ; pos < startPosition + _room.roomSize ; pos++)
+			{
+				wallAttribute = UintAttribute.setAttribute(wallAttribute,pos);
+			}
 			stickFunctionalRoomOnTheWall(this,_room.container,_sceneCol,_sceneRow);
 		}
 
@@ -101,7 +105,7 @@ package copyengine.actor.isometric
 			{
 				return (_col - isoObjectVo.col)/MINIMUM_ROOM_SIZE;
 			}
-		}
+	}
 
 		override public function clone() : IsoObject
 		{
@@ -118,15 +122,16 @@ package copyengine.actor.isometric
 			var offsetRow:int = 0;
 			if (_wall.direction == DIR_NW_ES)
 			{
-				offsetCol =_roomSceneCol - _wall.fastGetValue_Col;
+				
+				offsetCol =(_roomSceneCol - _wall.fastGetValue_Col)/MINIMUM_ROOM_SIZE;
 				_functionalRoomContainer.gotoAndStop(3);
 			}
 			else
 			{
-				offsetRow = _roomSceneRow - _wall.fastGetValue_Row;
+				offsetRow = (_roomSceneRow - _wall.fastGetValue_Row)/MINIMUM_ROOM_SIZE;
 				_functionalRoomContainer.gotoAndStop(2);
 			}
-			var scenePos:Point = IsometricUtils.convertIsoPosToScreenPos(offsetCol,offsetRow,0);
+			var scenePos:Point = IsometricUtils.convertIsoPosToScreenPos(offsetCol*MINIMUM_ROOM_SIZE,offsetRow*MINIMUM_ROOM_SIZE,0);
 			_functionalRoomContainer.x = scenePos.x;
 			_functionalRoomContainer.y = scenePos.y;
 			scenePos = null;

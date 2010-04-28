@@ -4,8 +4,8 @@
 	<item id="2" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_Green_01" fileName="IsoHax_asset" maxCol="3" maxRow="15" maxHeight="4" />
 	<item id="3" iconSymbolName="IsoWall_Decorate_00" iconFileName="IsoHax_asset" symbolName="IsoWall_Decorate_00" fileName="IsoHax_asset" maxCol="1" maxRow="1" maxHeight="1" />
 	<item id="4" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_Green_02" fileName="IsoHax_asset" maxCol="15" maxRow="3" maxHeight="4" />
-	<item id="5" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_00" fileName="IsoHax_asset" maxCol="3" maxRow="7" maxHeight="4" />
-	<item id="6" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_01" fileName="IsoHax_asset" maxCol="7" maxRow="3" maxHeight="4" />
-	<item id="7" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_02" fileName="IsoHax_asset" maxCol="3" maxRow="7" maxHeight="4" />
-	<item id="8" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_03" fileName="IsoHax_asset" maxCol="7" maxRow="3" maxHeight="4" />
+	<item id="5" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_00" fileName="IsoHax_asset" maxCol="3" maxRow="12" maxHeight="4" />
+	<item id="6" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_01" fileName="IsoHax_asset" maxCol="6" maxRow="3" maxHeight="4" />
+	<item id="7" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_02" fileName="IsoHax_asset" maxCol="3" maxRow="6" maxHeight="4" />
+	<item id="8" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_03" fileName="IsoHax_asset" maxCol="6" maxRow="3" maxHeight="4" />
 </root>

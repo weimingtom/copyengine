@@ -9,7 +9,7 @@ package copyengine.actor.isometric
 	public class IsoFunctionalRoom
 	{
 		//need stone in metaData later
-		public var roomSize:int;
+		public var roomSize:int = 1 ;
 		
 		public var container:MovieClip;
 		

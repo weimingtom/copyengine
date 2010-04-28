@@ -112,10 +112,10 @@ package game.scene.testIso
 			wallVo3.row = 7;
 			wallVo3.id = 8;
 
-			var wall0:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NE_SW,5,wallVo0);
-			var wall1:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NW_ES,5,wallVo1);
-			var wall2:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NE_SW,5,wallVo2);
-			var wall3:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NW_ES,5,wallVo3);
+			var wall0:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NE_SW,7,wallVo0);
+			var wall1:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NW_ES,7,wallVo1);
+			var wall2:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NE_SW,7,wallVo2);
+			var wall3:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NW_ES,7,wallVo3);
 
 
 			wall0.setScenePositionByIsoPosition();
