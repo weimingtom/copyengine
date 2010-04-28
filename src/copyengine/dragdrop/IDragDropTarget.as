@@ -10,6 +10,13 @@ package copyengine.dragdrop
 		function set engine(_engine:IDragDropEngine) : void;
 		
 		/**
+		 * each target have an type attribute . when add one target to engine , 
+		 * it will automatic remove same targetTypes target from the engine
+		 * @see more detail at IDragDropEngine.addDragDropTarget
+		 */		
+		function get targetType():String;
+		
+		/**
 		 * call when begin dragdrop
 		 */		
 		function onDragDropBegin(_source:IDragDropSource , _x:Number , _y:Number):void;
