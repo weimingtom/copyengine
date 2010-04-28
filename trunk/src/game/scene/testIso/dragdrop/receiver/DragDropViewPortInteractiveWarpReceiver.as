@@ -1,4 +1,4 @@
-package game.scene.testIso.dragdrop
+package game.scene.testIso.dragdrop.receiver
 {
 	import copyengine.dragdrop.IDragDropReceiver;
 	import copyengine.scenes.isometric.viewport.IIsoViewPort;

@@ -1,4 +1,4 @@
-package game.scene.testIso.dragdrop
+package game.scene.testIso.dragdrop.source.functionalroom
 {
 	import copyengine.actor.isometric.IsoFunctionalRoom;
 	import copyengine.actor.isometric.IsoFunctionalWall;
@@ -25,6 +25,7 @@ package game.scene.testIso.dragdrop
 	import game.scene.IsoMath;
 
 	import org.osmf.utils.OSMFStrings;
+	import game.scene.testIso.dragdrop.source.IsoSceneDragDropSourceBasic;
 
 	public class IsoFunctionalRoomDragDropSource extends IsoSceneDragDropSourceBasic
 	{

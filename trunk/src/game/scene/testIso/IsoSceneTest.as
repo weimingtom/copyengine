@@ -36,12 +36,12 @@ package game.scene.testIso
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	
-	import game.scene.testIso.dragdrop.DragDropViewPortInteractiveWarpReceiver;
-	import game.scene.testIso.dragdrop.DragFromOutsideIsoObjectDragDropSource;
-	import game.scene.testIso.dragdrop.IsoFunctionalRoomDragDropSource;
-	import game.scene.testIso.dragdrop.IsoObjectDragDropSourceBasic;
-	import game.scene.testIso.dragdrop.IsoSceneFunctionalRoomDragDropTarget;
-	import game.scene.testIso.dragdrop.IsoSceneIsoObjectDragDropTarget;
+	import game.scene.testIso.dragdrop.receiver.DragDropViewPortInteractiveWarpReceiver;
+	import game.scene.testIso.dragdrop.source.isoobject.DragFromOutsideIsoObjectDragDropSource;
+	import game.scene.testIso.dragdrop.source.functionalroom.IsoFunctionalRoomDragDropSource;
+	import game.scene.testIso.dragdrop.source.isoobject.IsoObjectDragDropSourceBasic;
+	import game.scene.testIso.dragdrop.target.IsoSceneFunctionalRoomDragDropTarget;
+	import game.scene.testIso.dragdrop.target.IsoSceneIsoObjectDragDropTarget;
 	import game.ui.test.list.TShapeCellRender;
 
 	public class IsoSceneTest extends IsoSceneBasic

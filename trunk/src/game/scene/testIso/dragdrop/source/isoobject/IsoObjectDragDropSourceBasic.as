@@ -1,4 +1,4 @@
-package game.scene.testIso.dragdrop
+package game.scene.testIso.dragdrop.source.isoobject
 {
 	import copyengine.actor.isometric.DragAbleIsoObject;
 	import copyengine.actor.isometric.IsoObject;
@@ -20,6 +20,7 @@ package game.scene.testIso.dragdrop
 	
 	import game.scene.IsoMath;
 	import game.scene.testIso.ViewPortDragDropTargetBasic;
+	import game.scene.testIso.dragdrop.source.IsoSceneDragDropSourceBasic;
 
 	public class IsoObjectDragDropSourceBasic extends IsoSceneDragDropSourceBasic
 	{
