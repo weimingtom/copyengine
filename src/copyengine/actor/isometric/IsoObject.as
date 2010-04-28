@@ -5,16 +5,17 @@ package copyengine.actor.isometric
 	import copyengine.datas.metadata.item.ItemMetaManger;
 	import copyengine.scenes.isometric.IsoObjectDisplayManger;
 	import copyengine.utils.GeneralUtils;
-	import copyengine.utils.ResUtlis;
-
+	import copyengine.utils.IsometricUtils;
+	import copyengine.utils.ResUtils;
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
-
+	
 	import game.scene.IsoMath;
-
+	
 	import org.osmf.net.dynamicstreaming.INetStreamMetrics;
 
 	/**
@@ -62,7 +63,7 @@ package copyengine.actor.isometric
 			var item:ItemMeta = ItemMetaManger.instance.getItemMetaByID(isoObjectVo.id);
 			fastGetValue_MaxCols = item.maxCol;
 			fastGetValue_MaxRows = item.maxRow;
-			container = ResUtlis.getMovieClip(item.symbolName,item.fileName);
+			container = ResUtils.getMovieClip(item.symbolName,item.fileName);
 			doInitialize();
 		}
 
@@ -73,15 +74,10 @@ package copyengine.actor.isometric
 
 		public final function setScenePositionByIsoPosition() : void
 		{
-			//caulate the target the screen position
-			screenVector.x = isoObjectVo.col * GeneralConfig.ISO_TILE_WIDTH;
-			screenVector.y = isoObjectVo.row * GeneralConfig.ISO_TILE_WIDTH;
-			screenVector.z = isoObjectVo.height * GeneralConfig.ISO_TILE_WIDTH;
-			IsoMath.isoToScreen(screenVector);
-
-			//move the objs to the tile
-			container.x = screenVector.x;
-			container.y = screenVector.y;
+			var screenPos:Point = IsometricUtils.convertIsoPosToScreenPos(isoObjectVo.col,isoObjectVo.row,isoObjectVo.height);
+			container.x = screenPos.x;
+			container.y = screenPos.y;
+			screenPos = null;
 		}
 		
 		//===================

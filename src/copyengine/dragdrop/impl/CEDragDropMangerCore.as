@@ -97,11 +97,17 @@ package copyengine.dragdrop.impl
 			layer = null;
 			dragdropSourceIcon = null;
 		}
-
-		final public function setDragDropTargets(_targetList:Vector.<IDragDropTarget>) : void
+		
+		final public  function addDragDropTarget(_target:IDragDropTarget):void
 		{
-			engine.setDragDropTargets(_targetList);
+			engine.addDragDropTarget(_target);
 		}
+		
+		final public function removeDragDropTargetsByType(_type:String):void
+		{
+			engine.removeDragDropTargetsByType(_type);
+		}
+		
 
 		final public function setDragDropReceiver(_receivers:Vector.<IDragDropReceiver>) : void
 		{

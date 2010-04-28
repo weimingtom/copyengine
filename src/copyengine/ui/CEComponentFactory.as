@@ -13,7 +13,7 @@ package copyengine.ui
 	import copyengine.ui.component.tabbar.CETabBar;
 	import copyengine.ui.component.tabbar.animation.CEScrollTabbarAnimation;
 	import copyengine.ui.component.tabbar.animation.ICETabBarAnimation;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
@@ -73,11 +73,11 @@ package copyengine.ui
 		private function getCEListByXml(_xml:XML) : CEList
 		{
 			var ceListCore:CEListCore = createCEListCore(5,CEListCore.LAYOUT_HORIZONTAL,50,50,10);
-			var prevOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getSprite("GreenButton","IsoHax_asset"),null);
-			var nextOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getSprite("GreenButton","IsoHax_asset"),null);
+			var prevOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtils.getSprite("GreenButton","IsoHax_asset"),null);
+			var nextOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtils.getSprite("GreenButton","IsoHax_asset"),null);
 
-			var thumb:CEButton = createCEButton(CEBUTTON_TYPE_FRAME,ResUtlis.getSprite("thumb","IsoHax_asset"),null);
-			var track:CEButton = createCEButton(CEBUTTON_TYPE_FRAME,ResUtlis.getSprite("track","IsoHax_asset"),null);
+			var thumb:CEButton = createCEButton(CEBUTTON_TYPE_FRAME,ResUtils.getSprite("thumb","IsoHax_asset"),null);
+			var track:CEButton = createCEButton(CEBUTTON_TYPE_FRAME,ResUtils.getSprite("track","IsoHax_asset"),null);
 			var scrollBar:CEScrollBarCore = createScrollBarCore(thumb,track,340,50,CEScrollBarCore.LAYOUT_AUTO);
 
 			var ceList:CEList = createCEList(ceListCore,scrollBar,nextOneBtn,null,prevOneBtn,null,null,null);
@@ -107,7 +107,7 @@ package copyengine.ui
 			for (var i:int = 0 ; i < 5 ; i++)
 			{
 				var btn:CESelectableButton = new CESelectableButton(
-					ResUtlis.getSprite("FrameSelectableGreenButton","IsoHax_asset"),null,null,false,new CESelectedButtonFramAnimation,"Btn" + i);
+					ResUtils.getSprite("FrameSelectableGreenButton","IsoHax_asset"),null,null,false,new CESelectedButtonFramAnimation,"Btn" + i);
 				btn.x = posX;
 				posX += 80;
 
@@ -226,7 +226,7 @@ package copyengine.ui
 			var panel:CEPanelCore = new CEPanelCore();
 			
 			//layer 0
-			var bg:MovieClip = ResUtlis.getMovieClip("Basic_Panel",ResUtlis.FILE_UI);
+			var bg:MovieClip = ResUtils.getMovieClip("Basic_Panel",ResUtils.FILE_UI);
 			panel.addChild(bg);
 			bg.x = 250.8;
 			bg.y = 204.05;
@@ -236,14 +236,14 @@ package copyengine.ui
 			//layer 1
 			var subBtns:Vector.<CESelectableButton> = new Vector.<CESelectableButton>();
 			var btn:CESelectableButton;
-			btn = new CESelectableButton(ResUtlis.getMovieClip("IconAnimalHouse",ResUtlis.FILE_UI),null,null,false,new CESelectedButtonTweenAnimation(),"Icon1");
+			btn = new CESelectableButton(ResUtils.getMovieClip("IconAnimalHouse",ResUtils.FILE_UI),null,null,false,new CESelectedButtonTweenAnimation(),"Icon1");
 			btn.x = 38.35;
 			btn.y = 66;
 			btn.width = 77.35;
 			btn.height = 65.6;
 			subBtns.push(btn);
 			
-			btn = new CESelectableButton(ResUtlis.getMovieClip("IconBank",ResUtlis.FILE_UI),null,null,false, new CESelectedButtonTweenAnimation(),"Icon2");
+			btn = new CESelectableButton(ResUtils.getMovieClip("IconBank",ResUtils.FILE_UI),null,null,false, new CESelectedButtonTweenAnimation(),"Icon2");
 			btn.x = 142.95;
 			btn.y = 66.3;
 			btn.width = 66;
@@ -259,13 +259,13 @@ package copyengine.ui
 			
 			//layer 3
 
-			var leftOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getMovieClip("LeftArrow",ResUtlis.FILE_UI),null);
+			var leftOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtils.getMovieClip("LeftArrow",ResUtils.FILE_UI),null);
 			leftOneBtn.x = 17.9;
 			leftOneBtn.y = 27.9;
 			leftOneBtn.width = 28.7;
 			leftOneBtn.height = 55.7;
 			
-			var rightOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtlis.getMovieClip("RightArrow",ResUtlis.FILE_UI),null);
+			var rightOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtils.getMovieClip("RightArrow",ResUtils.FILE_UI),null);
 			rightOneBtn.x = 466;
 			rightOneBtn.y = 25.8;
 			rightOneBtn.width = 28.1;
@@ -275,8 +275,8 @@ package copyengine.ui
 			ceListCore.x = 41;
 			ceListCore.y = 0;
 			
-			var thumb:CEButton = new CEButton(ResUtlis.getMovieClip("Thumb_Horizontal",ResUtlis.FILE_UI)) ;
-			var track:CEButton = new CEButton(ResUtlis.getMovieClip("Track_Horizontal",ResUtlis.FILE_UI));
+			var thumb:CEButton = new CEButton(ResUtils.getMovieClip("Thumb_Horizontal",ResUtils.FILE_UI)) ;
+			var track:CEButton = new CEButton(ResUtils.getMovieClip("Track_Horizontal",ResUtils.FILE_UI));
 			var scrollBar:CEScrollBarCore = createScrollBarCore(thumb,track,300,26.2,CEScrollBarCore.LAYOUT_HORIZONTAL);
 			scrollBar.x = 41;
 			scrollBar.y = 57;

@@ -5,7 +5,7 @@ package game.scene
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.KeyCode;
 	import copyengine.utils.Random;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
@@ -109,7 +109,7 @@ package game.scene
 				{
 					var isoPos:Vector3D = new Vector3D(row*ISO_TILE_WIDTH,col*ISO_TILE_WIDTH,0);
 					IsoMath.isoToScreen(isoPos);
-					var tile:MovieClip = ResUtlis.getMovieClip("FloorTile27","IsoHax_asset");
+					var tile:MovieClip = ResUtils.getMovieClip("FloorTile27","IsoHax_asset");
 					tile.x = isoPos.x;
 					tile.y = isoPos.y;
 					(tile.textMc as TextField).mouseEnabled =false;
@@ -149,13 +149,13 @@ package game.scene
 
 		private function initObject() : void
 		{
-			var box:Sprite = ResUtlis.getSprite("IsoBox","IsoHax_asset");
+			var box:Sprite = ResUtils.getSprite("IsoBox","IsoHax_asset");
 			addChildToIso(box,2,1,0);
 			
-			simulateViewPortTopTile = ResUtlis.getMovieClip("FloorTile27","IsoHax_asset");
-			simulateViewPortButtomTile = ResUtlis.getMovieClip("FloorTile27","IsoHax_asset");
-			simulateViewPortLeftTile = ResUtlis.getMovieClip("FloorTile27","IsoHax_asset");
-			simulateViewPortRightTile = ResUtlis.getMovieClip("FloorTile27","IsoHax_asset");
+			simulateViewPortTopTile = ResUtils.getMovieClip("FloorTile27","IsoHax_asset");
+			simulateViewPortButtomTile = ResUtils.getMovieClip("FloorTile27","IsoHax_asset");
+			simulateViewPortLeftTile = ResUtils.getMovieClip("FloorTile27","IsoHax_asset");
+			simulateViewPortRightTile = ResUtils.getMovieClip("FloorTile27","IsoHax_asset");
 		}
 
 		private function initSimulateViewPort() : void

@@ -2,7 +2,7 @@ package game.scene
 {
 	import copyengine.scenes.SceneBasic;
 	import copyengine.utils.Random;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -29,7 +29,7 @@ package game.scene
 			g.lineTo(container.stage.stageWidth>>1,container.stage.stageHeight>>1);
 			
 			
-			var box:Sprite = ResUtlis.getSprite("CacheAssert_Box",ResUtlis.FILE_ISOHAX);
+			var box:Sprite = ResUtils.getSprite("CacheAssert_Box",ResUtils.FILE_ISOHAX);
 //			container.addChild(box);
 //			box.x = container.stage.stageWidth>>1;
 //			box.y = container.stage.stageHeight>>1;

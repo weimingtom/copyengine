@@ -22,14 +22,6 @@ package copyengine.dragdrop
 		function set manger(_manger:IDragDropManger) : void;
 		
 		/**
-		 *set dragdrop targets for the current source . should call befor startDragDrop() functon .
-		 * otherwise will use per dragdropTarget inside.
-		 * WARNINIG::
-		 * 			if engine have target before , those target will be terminate and remove
-		 */
-		function setDragDropTargets(_targets:Vector.<IDragDropTarget>) : void;
-		
-		/**
 		 *add one target to current dragdrop system. if current system already have one target with the same targetType
 		 * will automatic remove the old target, and add the new target in.
 		 */		

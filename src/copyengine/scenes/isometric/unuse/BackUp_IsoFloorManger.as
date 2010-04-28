@@ -8,7 +8,7 @@ package copyengine.scenes.isometric.unuse
 	import copyengine.scenes.isometric.viewport.IViewPortListener;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.Random;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -76,8 +76,8 @@ package copyengine.scenes.isometric.unuse
 		{
 			floorMangerContainer = new Sprite();
 			
-			var tileResRed:MovieClip = ResUtlis.getMovieClip("FloorTile8",ResUtlis.FILE_ISOHAX);
-			var tileResGreen:MovieClip = ResUtlis.getMovieClip("FloorTile24",ResUtlis.FILE_ISOHAX);
+			var tileResRed:MovieClip = ResUtils.getMovieClip("FloorTile8",ResUtils.FILE_ISOHAX);
+			var tileResGreen:MovieClip = ResUtils.getMovieClip("FloorTile24",ResUtils.FILE_ISOHAX);
 			
 			
 			cacheTileBitmapDataRed = cacheToBitmapData(tileResRed);

@@ -9,7 +9,7 @@ package game.scene.testIso.dragdrop
 	import copyengine.scenes.isometric.IsoObjectDisplayManger;
 	import copyengine.scenes.isometric.IsoTileVoManger;
 	import copyengine.scenes.isometric.viewport.IIsoViewPort;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -21,12 +21,12 @@ package game.scene.testIso.dragdrop
 	
 	import org.osmf.traits.IDownloadable;
 
-	public class IsoSceneDragDropTarget extends CEDragDropTargetCore
+	public class IsoSceneIsoObjectDragDropTarget extends IsoSceneDragDropTargetBasic
 	{
 		protected var isoObjectDisplayManger:IsoObjectDisplayManger;
 		protected var isoTileVoManger:IsoTileVoManger;
 
-		public function IsoSceneDragDropTarget()
+		public function IsoSceneIsoObjectDragDropTarget()
 		{
 			super();
 		}
@@ -39,7 +39,7 @@ package game.scene.testIso.dragdrop
 
 		override public function onSourceDrop(_source:IDragDropSource, _x:Number, _y:Number) : void
 		{
-			if(_source is IsoObjectDragDropSourceBasic)
+			if (_source is IsoObjectDragDropSourceBasic)
 			{
 				var isoObject:IsoObject =  (_source as IsoObjectDragDropSourceBasic).cloneOneDragDropIsoObject();
 				if (isoTileVoManger.isHaveAttributeUnderObj(isoObject,IsoTileVo.TILE_ATTRIBUTE_BLOCK))
@@ -50,9 +50,9 @@ package game.scene.testIso.dragdrop
 				{
 					isoTileVoManger.changeIsoTileVoAttributeUnderObj(isoObject,IsoTileVo.TILE_ATTRIBUTE_BLOCK,true);
 					isoTileVoManger.changeIsoTileVoHeightUnderObj(isoObject,isoObject.fastGetValue_Height + 3);
-					
+
 					isoObject.setScenePositionByIsoPosition();
-					
+
 					isoObjectDisplayManger.addIsoObject(isoObject);
 					isoObjectDisplayManger.sortObjectInNextUpdate();
 					dragDropEngine.confirmSourceDrop(true);
@@ -64,25 +64,11 @@ package game.scene.testIso.dragdrop
 			}
 		}
 
-		override protected function doDragDropDispose():void
+		override protected function doDragDropDispose() : void
 		{
 			isoObjectDisplayManger = null;
 			isoTileVoManger = null;
 		}
 
-		/**
-		 * use to calculate is mouse point in the viewport or not.
-		 */
-		override public function isPositionInTarget(_posX:Number, _posY:Number) : Boolean
-		{
-			if (_posX < 0 || _posX > ISO::VW || _posY < 0 || _posY > ISO::VH)
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
-		}
 	}
 }

@@ -38,10 +38,15 @@ package copyengine.dragdrop
 		function onTerminateDragDrop() : void;
 		
 		/**
-		 *	set drapDropTarget for current source.
-		 * proxy functon of engine.setDragDropTargets();
+		 * proxy functon of engine.addDragDropTarget();
 		 */		
-		function setDragDropTargets(_targets:Vector.<IDragDropTarget>):void;
+		function addDragDropTarget(_target:IDragDropTarget):void;
+		
+		/**
+		 * proxy functon of engine.removeDragDropTargetsByType();
+		 */		
+		function removeDragDropTargetsByType(_type:String):void;
+		
 		
 		/**
 		 * set receiver to this manger. see more detail at IDragDropReceiver

@@ -1,7 +1,7 @@
 package game.scene.testIso
 {
 	import com.adobe.viewsource.ViewSource;
-
+	
 	import copyengine.datas.isometric.FunctionalRoomVo;
 	import copyengine.datas.isometric.IsoObjectVo;
 	import copyengine.dragdrop.IDragDropEngine;
@@ -28,19 +28,20 @@ package game.scene.testIso
 	import copyengine.ui.component.panel.CEPanelCore;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.Random;
-	import copyengine.utils.ResUtlis;
-
+	import copyengine.utils.ResUtils;
+	
 	import flash.display.Graphics;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-
+	
 	import game.scene.testIso.dragdrop.DragDropViewPortInteractiveWarpReceiver;
 	import game.scene.testIso.dragdrop.DragFromOutsideIsoObjectDragDropSource;
 	import game.scene.testIso.dragdrop.IsoFunctionalRoomDragDropSource;
 	import game.scene.testIso.dragdrop.IsoObjectDragDropSourceBasic;
-	import game.scene.testIso.dragdrop.IsoSceneDragDropTarget;
+	import game.scene.testIso.dragdrop.IsoSceneFunctionalRoomDragDropTarget;
+	import game.scene.testIso.dragdrop.IsoSceneIsoObjectDragDropTarget;
 	import game.ui.test.list.TShapeCellRender;
 
 	public class IsoSceneTest extends IsoSceneBasic
@@ -74,26 +75,27 @@ package game.scene.testIso
 
 		override protected function doInitialize() : void
 		{
-			var box:MovieClip = ResUtlis.getMovieClip("DragDropBox",ResUtlis.FILE_UI);
+			var box:MovieClip = ResUtils.getMovieClip("DragDropBox",ResUtils.FILE_UI);
 			uiContainer.addChild(box);
 			box.y = GeneralConfig.VIEWPORT_HEIGHT;
 
 			var source2:MovieClip = box["dragSource2"] as MovieClip;
 			GeneralUtils.addTargetEventListener(source2,MouseEvent.MOUSE_DOWN , source2OnMouseDown);
 
-			var dragTargetList:Vector.<IDragDropTarget> = new Vector.<IDragDropTarget>();
 			var dragdropReceiverList:Vector.<IDragDropReceiver> = new Vector.<IDragDropReceiver>();
 
-			var viewPortTarget:IDragDropTarget = new IsoSceneDragDropTarget();
+//			var viewPortTarget:IDragDropTarget = new IsoSceneIsoObjectDragDropTarget();
+//			viewPortTarget.bindEntity({isoObjectDisplayManger:isoObjectDisplayManger , isoTileVoManger:isoTileVoManger},0,0);
+			
+			var viewPortTarget:IDragDropTarget = new IsoSceneFunctionalRoomDragDropTarget();
 			viewPortTarget.bindEntity({isoObjectDisplayManger:isoObjectDisplayManger , isoTileVoManger:isoTileVoManger},0,0);
-			dragTargetList.push(viewPortTarget);
 
 			var dragDropViewPortInteractiveWarpReceiver:IDragDropReceiver = new DragDropViewPortInteractiveWarpReceiver();
 			dragDropViewPortInteractiveWarpReceiver.bindEntity({viewport:viewport},0,0)
 			dragdropReceiverList.push(dragDropViewPortInteractiveWarpReceiver);
 
 			CEDragDropMangerClick.instance.setDragDropReceiver(dragdropReceiverList);
-			CEDragDropMangerClick.instance.setDragDropTargets(dragTargetList);
+			CEDragDropMangerClick.instance.addDragDropTarget(viewPortTarget);
 		}
 
 		private function source2OnMouseDown(e:MouseEvent) : void

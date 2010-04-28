@@ -4,7 +4,7 @@ package copyengine.scenes.isometric
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.KeyCode;
 	import copyengine.utils.Random;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;

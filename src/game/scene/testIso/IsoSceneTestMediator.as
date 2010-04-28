@@ -10,7 +10,7 @@ package game.scene.testIso
 	import copyengine.scenes.isometric.IsoSceneBasicMediator;
 	import copyengine.scenes.isometric.IsoTileVoManger;
 	import copyengine.utils.Random;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
@@ -149,13 +149,13 @@ package game.scene.testIso
 			switch (_type)
 			{
 				case 0:
-					bg = ResUtlis.getSprite("IsoBox_1_1_Red",ResUtlis.FILE_ISOHAX);
+					bg = ResUtils.getSprite("IsoBox_1_1_Red",ResUtils.FILE_ISOHAX);
 					break;
 				case 1:
-					bg = ResUtlis.getSprite("IsoBox_1_1_Green",ResUtlis.FILE_ISOHAX);
+					bg = ResUtils.getSprite("IsoBox_1_1_Green",ResUtils.FILE_ISOHAX);
 					break;
 				case 2:
-					bg = ResUtlis.getSprite("IsoBox_1_1_Gray",ResUtlis.FILE_ISOHAX);
+					bg = ResUtils.getSprite("IsoBox_1_1_Gray",ResUtils.FILE_ISOHAX);
 					break;
 			}
 			var isoObjectVo:IsoObjectVo = new IsoObjectVo();

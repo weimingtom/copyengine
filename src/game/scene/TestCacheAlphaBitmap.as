@@ -2,7 +2,7 @@ package game.scene
 {
 	import copyengine.scenes.SceneBasic;
 	import copyengine.utils.Random;
-	import copyengine.utils.ResUtlis;
+	import copyengine.utils.ResUtils;
 	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
@@ -42,8 +42,8 @@ package game.scene
 			g.moveTo(container.stage.stageWidth>>1,0);
 			g.lineTo(container.stage.stageWidth>>1,container.stage.stageHeight>>1);
 
-			var tileResRed:MovieClip = ResUtlis.getMovieClip("Tile_Red",ResUtlis.FILE_ISOHAX);
-			var tileResGreen:MovieClip = ResUtlis.getMovieClip("Tile_Green",ResUtlis.FILE_ISOHAX);
+			var tileResRed:MovieClip = ResUtils.getMovieClip("Tile_Red",ResUtils.FILE_ISOHAX);
+			var tileResGreen:MovieClip = ResUtils.getMovieClip("Tile_Green",ResUtils.FILE_ISOHAX);
 
 			cacheTileBitmapDataRed = cacheToBitmapData(tileResRed);
 			cacheTileBitmapDataGreen  = cacheToBitmapData(tileResGreen);
