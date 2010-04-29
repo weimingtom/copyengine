@@ -35,8 +35,17 @@ package game.scene.testIso.dragdrop.source.functionalroom
 	{
 		private var isoObjectDisplayManger:IsoObjectDisplayManger;
 		private var functionalRoomVo:FunctionalRoomVo;
+		
+		/**
+		 * create one source functionalRoom , but this room will not add to any functionalWall , just use it to
+		 * 1`check is can add one same function room on the wall(if can then add dragInViewPortIcon on the wallContainer , not really add anythings)
+		 * 2`when dragdrop target ,then clone one source . and put the source to target , let the target to decide add the room to the wall or not.
+		 */		
 		private var isoFunctionalRoom:IsoFunctionalRoom;
 
+		/**
+		 * hold an refrece of current isoFunctionWall ,  use in sourceMoveInScene function.
+		 */		
 		private var currentIsoFunctionalWall:IsoFunctionalWall;
 
 		public function IsoFunctionalRoomDragDropSourceBasic()
@@ -68,6 +77,9 @@ package game.scene.testIso.dragdrop.source.functionalroom
 			var tilePos:Point = IsometricUtils.convertGlobalPosToIsoPos(isoObjectDisplayManger.container,_x,_y);
 			var newIsoFunctionalWall:IsoFunctionalWall = isoObjectDisplayManger.findIsoObjectByTileID(tilePos.x,tilePos.y) as IsoFunctionalWall;
 			var isShowNormalIcon:Boolean = true;
+			//fist find is current tileHave an isoFunctionalWall refrenece
+			//		if found one then see is the wall is currentWall or newWall
+			//		if not found one then normal icon.
 			if (currentIsoFunctionalWall != newIsoFunctionalWall)
 			{
 				if (currentIsoFunctionalWall != null)
@@ -115,6 +127,9 @@ package game.scene.testIso.dragdrop.source.functionalroom
 		{
 			GeneralUtils.removeTargetFromParent(dragOutViewPortIcon);
 			GeneralUtils.removeTargetFromParent(dragInViewPortIcon);
+			isoObjectDisplayManger = null;
+			functionalRoomVo = null;
+			isoFunctionalRoom = null;
 		}
 
 		public function cloneOneDragDropIsoFunctionalRoom() : IsoFunctionalRoom

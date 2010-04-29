@@ -22,11 +22,13 @@ package game.scene.testIso.dragdrop.target
 		{
 			isoObjectDisplayManger = entity["isoObjectDisplayManger"];
 		}
-
+		
 		override public function onSourceDrop(_source:IDragDropSource, _x:Number, _y:Number) : void
 		{
 			if (_source is IsoFunctionalRoomDragDropSourceBasic)
 			{
+				//if found one isoFunctionWall at dragdrop point ,and source also can drop to current wall  then confirm drop
+				//otherwise then return dragDropEngine.confirmSourceDrop(false);
 				var tilePos:Point = IsometricUtils.convertGlobalPosToIsoPos(isoObjectDisplayManger.container,_x,_y);
 				var isoFunctionalWall:IsoFunctionalWall = isoObjectDisplayManger.findIsoObjectByTileID(tilePos.x,tilePos.y) as IsoFunctionalWall;
 				if (isoFunctionalWall != null)
