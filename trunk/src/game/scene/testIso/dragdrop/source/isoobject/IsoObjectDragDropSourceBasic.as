@@ -6,6 +6,7 @@ package game.scene.testIso.dragdrop.source.isoobject
 	import copyengine.datas.isometric.IsoTileVo;
 	import copyengine.datas.metadata.item.ItemMeta;
 	import copyengine.datas.metadata.item.ItemMetaManger;
+	import copyengine.datas.metadata.item.type.ItemMetaDecorate;
 	import copyengine.dragdrop.IDragDropTarget;
 	import copyengine.dragdrop.impl.CEDragDropSourceCore;
 	import copyengine.scenes.isometric.IsoObjectDisplayManger;
@@ -49,7 +50,7 @@ package game.scene.testIso.dragdrop.source.isoobject
 			isoObjectDisplayManger.addIsoObject( dragDropObject );
 			dragInViewPortIcon = dragDropObject.container;
 			
-			var item:ItemMeta = ItemMetaManger.instance.getItemMetaByID(isoObjectVo.id);
+			var item:ItemMetaDecorate = ItemMetaManger.instance.getItemMetaByID(isoObjectVo.id) as ItemMetaDecorate;
 			dragOutViewPortIcon = ResUtils.getSprite(item.iconSymbolName,item.iconFileName);
 			dragDropIconContainer.addChild(dragOutViewPortIcon);
 		}

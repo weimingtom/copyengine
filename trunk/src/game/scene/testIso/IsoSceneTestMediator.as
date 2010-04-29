@@ -5,18 +5,21 @@ package game.scene.testIso
 	import copyengine.actor.isometric.IsoObject;
 	import copyengine.datas.isometric.IsoObjectVo;
 	import copyengine.datas.isometric.IsoTileVo;
+	import copyengine.datas.metadata.item.ItemMetaManger;
+	import copyengine.datas.metadata.item.type.ItemMetaBasic;
+	import copyengine.datas.metadata.item.type.ItemMetaFunctionalWall;
 	import copyengine.scenes.isometric.IsoFloor;
 	import copyengine.scenes.isometric.IsoSceneBasic;
 	import copyengine.scenes.isometric.IsoSceneBasicMediator;
 	import copyengine.scenes.isometric.IsoTileVoManger;
 	import copyengine.utils.Random;
 	import copyengine.utils.ResUtils;
-
+	
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.geom.Vector3D;
 	import flash.utils.Dictionary;
-
+	
 	import game.scene.IsoMath;
 
 	public class IsoSceneTestMediator extends IsoSceneBasicMediator
@@ -75,59 +78,18 @@ package game.scene.testIso
 			}
 
 			//addIsoWall
-			//			var wallVo:IsoObjectVo = new IsoObjectVo();
-			//			wallVo.col = wallVo.row = 3;
-			//			wallVo.id = 2;
-			//			var wall:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NE_SW,5,wallVo);
-			//			wall.setScenePositionByIsoPosition();
-			//			
-			//			var wallVo2:IsoObjectVo = new IsoObjectVo();
-			//			wallVo2.id = 4;
-			//			wallVo2.col = 5;
-			//			wallVo2.row = 0;
-			//			var wall2:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NW_ES,5,wallVo2);
-			//			wall2.setScenePositionByIsoPosition();
-
-			//			isoObjects.push(wall);
-			//			isoObjects.push(wall2);
-
-			var wallVo0:IsoObjectVo = new IsoObjectVo();
-			var wallVo1:IsoObjectVo = new IsoObjectVo();
-			var wallVo2:IsoObjectVo = new IsoObjectVo();
-			var wallVo3:IsoObjectVo = new IsoObjectVo();
-
-			wallVo0.col = 7;
-			wallVo0.row = 10;
-			wallVo0.id = 5;
-			
-			wallVo1.col = 10;
-			wallVo1.row = 7;
-			wallVo1.id = 6;
-			
-			wallVo2.col = 7;
-			wallVo2.row = 2;
-			wallVo2.id = 7;
-			
-			wallVo3.col = 2;
-			wallVo3.row = 7;
-			wallVo3.id = 8;
-
-			var wall0:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NE_SW,7,wallVo0);
-			var wall1:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NW_ES,7,wallVo1);
-			var wall2:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NE_SW,7,wallVo2);
-			var wall3:IsoObject = new IsoFunctionalWall(IsoFunctionalWall.DIR_NW_ES,7,wallVo3);
-
-
-			wall0.setScenePositionByIsoPosition();
-			wall1.setScenePositionByIsoPosition();
-			wall2.setScenePositionByIsoPosition();
-			wall3.setScenePositionByIsoPosition();
-
-			isoObjects.push(wall0);
-			isoObjects.push(wall1);
-			isoObjects.push(wall2);
-			isoObjects.push(wall3);
-
+			var wallList:Vector.<ItemMetaBasic> = ItemMetaManger.instance.getItemMetaByType(ItemMetaManger.TYPE_ISO_FUNCTIONAL_WALL);
+			for each (var meta:ItemMetaBasic in wallList)
+			{
+				var itemMetaFunctionalWall:ItemMetaFunctionalWall = meta as ItemMetaFunctionalWall;
+				var wallVo:IsoObjectVo = new IsoObjectVo();
+				wallVo.id = itemMetaFunctionalWall.id;
+				wallVo.col = itemMetaFunctionalWall.col;
+				wallVo.row = itemMetaFunctionalWall.row;
+				var wall:IsoFunctionalWall = new IsoFunctionalWall(itemMetaFunctionalWall.direction,itemMetaFunctionalWall.roomSpace,wallVo);
+				wall.setScenePositionByIsoPosition();
+				isoObjects.push(wall);
+			}
 
 			isoObjects.sort(randomSort);
 
