@@ -1,12 +1,13 @@
 package copyengine.scenes
 {
 	import game.scene.CEDragDropScreen;
-	import game.scene.testUIComponent.CEUICompoentTestScene;
 	import game.scene.IsoHexScene;
-	import game.scene.testIso.IsoSceneTest;
 	import game.scene.PerLoaderScene;
 	import game.scene.TestCacheAlphaBitmap;
 	import game.scene.TestCacheScene;
+	import game.scene.TestMatchIsoTile;
+	import game.scene.testIso.IsoSceneTest;
+	import game.scene.testUIComponent.CEUICompoentTestScene;
 
 	public class SceneFactory implements ISceneFactory
 	{
@@ -20,6 +21,7 @@ package copyengine.scenes
 		public static const SCENE_TEST_CACHE_SCENE:String = "SceneFactory_TestCacheScene"
 		public static const SCENE_ISOSCENE_TEST:String = "SceneFactory_IsoSceneTest";
 		public static const SCENE_TEST_CACHE_ALPHA_BITMAP:String = "SceneFactory_TestCacheAlphaBitmap";
+		public static const SCENE_TEST_MATCH_ISO_TILE:String = "SceneFactory_TestMatchIsoTIle";
 		
 		
 		public function SceneFactory()
@@ -53,6 +55,9 @@ package copyengine.scenes
 					break;
 				case SCENE_TEST_CACHE_ALPHA_BITMAP:
 					return new TestCacheAlphaBitmap();
+					break;
+				case SCENE_TEST_MATCH_ISO_TILE:
+					return new TestMatchIsoTile();
 					break;
 			}
 			return null;
