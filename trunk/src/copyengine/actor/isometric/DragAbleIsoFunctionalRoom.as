@@ -21,16 +21,16 @@ package copyengine.actor.isometric
 			super(_functionalRoomVo);
 		}
 		
+		override protected function doInitialize() : void
+		{
+			addListener();
+		}
+		
 		override public function clone():IsoFunctionalRoom
 		{
 			return new DragAbleIsoFunctionalRoom(isoObjectDisplayManger ,functionalRoomVo.clone() as FunctionalRoomVo);
 		}
 		
-		override protected function doInitialize() : void
-		{
-			addListener();
-		}
-
 		private function addListener() : void
 		{
 			GeneralUtils.addTargetEventListener(container,MouseEvent.ROLL_OVER,onRollOver);
