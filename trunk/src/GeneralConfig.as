@@ -5,7 +5,7 @@ package
 		public static const CEDIALOG_SCREEN_WIDTH:Number = 640;
 		public static const CEDIALOG_SCREEN_HEIGHT:Number = 480;
 		
-		public static const VIEWPORT_WIDTH:Number = 640;
+		public static const VIEWPORT_WIDTH:Number = 760;
 		public static const VIEWPORT_HEIGHT:Number = 480;
 		
 		/**
