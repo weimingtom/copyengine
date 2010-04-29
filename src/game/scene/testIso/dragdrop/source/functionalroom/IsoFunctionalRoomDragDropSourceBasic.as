@@ -111,6 +111,7 @@ package game.scene.testIso.dragdrop.source.functionalroom
 		override public function onDragDropTerminate() : void
 		{
 			GeneralUtils.removeTargetFromParent(dragOutViewPortIcon);
+			GeneralUtils.removeTargetFromParent(dragInViewPortIcon);
 		}
 
 		public function cloneOneDragDropIsoFunctionalRoom() : IsoFunctionalRoom
