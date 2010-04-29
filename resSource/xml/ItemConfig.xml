@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
-	<item id="1" iconSymbolName="IsoBox_1_1_Gray" iconFileName="IsoHax_asset" symbolName="IsoBox_1_1_Gray" fileName="IsoHax_asset" maxCol="3" maxRow="3" maxHeight="3" />
-	<item id="2" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_Green_01" fileName="IsoHax_asset" maxCol="3" maxRow="15" maxHeight="4" />
-	<item id="3" iconSymbolName="IsoWall_Decorate_00" iconFileName="IsoHax_asset" symbolName="IsoWall_Decorate_00" fileName="IsoHax_asset" maxCol="1" maxRow="1" maxHeight="1" />
-	<item id="4" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_Green_02" fileName="IsoHax_asset" maxCol="15" maxRow="3" maxHeight="4" />
-	<item id="5" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_00" fileName="IsoHax_asset" maxCol="3" maxRow="12" maxHeight="4" />
-	<item id="6" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_01" fileName="IsoHax_asset" maxCol="6" maxRow="3" maxHeight="4" />
-	<item id="7" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_02" fileName="IsoHax_asset" maxCol="3" maxRow="6" maxHeight="4" />
-	<item id="8" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_03" fileName="IsoHax_asset" maxCol="6" maxRow="3" maxHeight="4" />
+	<decorate>
+		<item id="1" iconSymbolName="IsoBox_1_1_Gray" iconFileName="IsoHax_asset" symbolName="IsoBox_1_1_Gray"
+			fileName="IsoHax_asset" maxCol="3" maxRow="3" maxHeight="3" />
+		<item id="2" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_Green_01"
+			fileName="IsoHax_asset" maxCol="3" maxRow="15" maxHeight="4" />
+		<item id="3" iconSymbolName="IsoWall_Decorate_00" iconFileName="IsoHax_asset" symbolName="IsoWall_Decorate_00"
+			fileName="IsoHax_asset" maxCol="1" maxRow="1" maxHeight="1" />
+		<item id="4" iconSymbolName="IsoWall_Green_Icon_01" iconFileName="IsoHax_asset" symbolName="IsoWall_Green_02"
+			fileName="IsoHax_asset" maxCol="15" maxRow="3" maxHeight="4" />
+	</decorate>
+	<isoFunctionalRoom>
+		<item id="1001" roomSize="1" iconSymbolName="IsoWall_Decorate_00" iconFileName="IsoHax_asset"
+			symbolName="IsoWall_Decorate" fileName="IsoHax_asset" />
+	</isoFunctionalRoom>
+	<isoFunctionalWall>
+		<!--
+			 direction Left-Right = 0;
+			 direction Right-Left = 1;
+		 -->
+		<item id="5" col="7" row="10" maxCol="3" maxRow="12" direction="1" roomSpace="7" symbolName="IsoWall_00"
+			fileName="IsoHax_asset" />
+		<item id="6" col="10" row="7" maxCol="6" maxRow="3" direction="0" roomSpace="7" symbolName="IsoWall_01"
+			fileName="IsoHax_asset" />
+		<item id="7" col="7" row="2" maxCol="3" maxRow="6" direction="1" roomSpace="7" symbolName="IsoWall_02"
+			fileName="IsoHax_asset" />
+		<item id="8" col="2" row="7" maxCol="6" maxRow="3" direction="0" roomSpace="7" symbolName="IsoWall_03"
+			fileName="IsoHax_asset" />
+	</isoFunctionalWall>
 </root>

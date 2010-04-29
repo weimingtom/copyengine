@@ -102,7 +102,7 @@ package game.scene.testIso
 		private function source2OnMouseDown(e:MouseEvent) : void
 		{
 			var functionalRoomVo:FunctionalRoomVo = new FunctionalRoomVo();
-			functionalRoomVo.id = 3;
+			functionalRoomVo.id = 1001;
 
 			var source:IDragDropSource = new DragFromOutsideIsoFunctionalRoomDragDropSource();
 			source.bindEntity(

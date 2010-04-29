@@ -3,6 +3,7 @@ package copyengine.actor.isometric
 	import copyengine.datas.isometric.IsoObjectVo;
 	import copyengine.datas.metadata.item.ItemMeta;
 	import copyengine.datas.metadata.item.ItemMetaManger;
+	import copyengine.datas.metadata.item.type.ItemMetaBasic;
 	import copyengine.scenes.isometric.IsoObjectDisplayManger;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.IsometricUtils;
@@ -38,7 +39,7 @@ package copyengine.actor.isometric
 		 * 		those value are use for fast maxth in IsoObjectDisplayManger sort function.
 		 * 	because use the public value  directly is mort fast than use the get/set function.
 		 * if need to change those property should call setCol(),setRow().. function inside.
-		 * DO NOT change change those value directly.
+		 * DO NOT change those value directly.
 		 */
 		public var fastGetValue_Col:int;
 		public var fastGetValue_Row:int;
@@ -60,7 +61,7 @@ package copyengine.actor.isometric
 			fastGetValue_Row = isoObjectVo.row;
 			fastGetValue_Height = isoObjectVo.height;
 
-			var item:ItemMeta = ItemMetaManger.instance.getItemMetaByID(isoObjectVo.id);
+			var item:ItemMetaBasic = ItemMetaManger.instance.getItemMetaByID(isoObjectVo.id);
 			fastGetValue_MaxCols = item.maxCol;
 			fastGetValue_MaxRows = item.maxRow;
 			container = ResUtils.getMovieClip(item.symbolName,item.fileName);

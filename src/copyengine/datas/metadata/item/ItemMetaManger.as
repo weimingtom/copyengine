@@ -1,6 +1,10 @@
 package copyengine.datas.metadata.item
 {
 	import copyengine.datas.isometric.FunctionalRoomVo;
+	import copyengine.datas.metadata.item.type.ItemMetaBasic;
+	import copyengine.datas.metadata.item.type.ItemMetaDecorate;
+	import copyengine.datas.metadata.item.type.ItemMetaFunctionalRoom;
+	import copyengine.datas.metadata.item.type.ItemMetaFunctionalWall;
 	import copyengine.utils.ResUtils;
 	import copyengine.utils.debug.DebugLog;
 	
@@ -8,6 +12,10 @@ package copyengine.datas.metadata.item
 
 	public class ItemMetaManger
 	{
+		public static const TYPE_DECORATE:String = "decorate";
+		public static const TYPE_ISO_FUNCTIONAL_WALL:String = "isoFunctionalWall";
+		public static const TYPE_ISO_FUNCTIONAL_ROOM:String = "isoFunctionalRoom";
+		
 		private static var _instance:ItemMetaManger;
 
 		public static function get instance() : ItemMetaManger
@@ -19,7 +27,7 @@ package copyengine.datas.metadata.item
 			return _instance;
 		}
 
-		private var itemMetaList:Vector.<ItemMeta>;
+		private var itemMetaList:Vector.<ItemMetaBasic>;
 		private var itemMetaListLength:int;
 
 		public function ItemMetaManger()
@@ -28,27 +36,24 @@ package copyengine.datas.metadata.item
 
 		public function initialize() : void
 		{
-			itemMetaList = new Vector.<ItemMeta>();
+			itemMetaList = new Vector.<ItemMetaBasic>();
 			var itemConfig:XML = ResUtils.getXML("ItemConfig");
-			for each (var itemNode : XML in itemConfig.item)
+			for each (var metaList : XML in itemConfig.elements())
 			{
-				var item:ItemMeta = new ItemMeta();
-				item.id = itemNode.@id;
-				item.iconSymbolName = itemNode.@iconSymbolName;
-				item.iconFileName = itemNode.@iconFileName;
-				item.symbolName = itemNode.@symbolName;
-				item.fileName = itemNode.@fileName;
-				item.maxCol = itemNode.@maxCol;
-				item.maxRow = itemNode.@maxRow;
-				item.maxHeight = itemNode.@maxHeight;
-				
-				itemMetaList.push(item);
+				var type:String = metaList.name().localName;
+				for each (var itemNode : XML in metaList.item)
+				{
+					var itemMetaBasic:ItemMetaBasic = createItemMetaByType(type);
+					itemMetaBasic.type = type;
+					itemMetaBasic.initialize(itemNode);
+					itemMetaList.push(itemMetaBasic);
+				}
 			}
 			itemMetaListLength = itemMetaList.length;
 			ResUtils.disposeFile("ItemConfig");
 		}
 
-		public function getItemMetaByID(_id:int) : ItemMeta
+		public function getItemMetaByID(_id:int) : ItemMetaBasic
 		{
 			for (var i:int = 0 ; i < itemMetaListLength ; i++)
 			{
@@ -60,12 +65,37 @@ package copyengine.datas.metadata.item
 			DebugLog.instance.log("Can't Find ItemMeta with id : " + _id , DebugLog.LOG_TYPE_ERROR);
 			return null;
 		}
-		
-		public function getFunctionalRoomMetaByID(_id:int):ItemMeta
+
+		public function getItemMetaByType(_type:String) : Vector.<ItemMetaBasic>
 		{
-			return getItemMetaByID(_id);
+			var list:Vector.<ItemMetaBasic> = new Vector.<ItemMetaBasic>();
+			for (var i:int = 0 ; i < itemMetaListLength ; i++)
+			{
+				if (itemMetaList[i].type == _type)
+				{
+					list.push(itemMetaList[i]);
+				}
+			}
+			return list;
 		}
-		
+
+		private function createItemMetaByType(_type:String) : ItemMetaBasic
+		{
+			switch (_type)
+			{
+				case TYPE_DECORATE:
+					return new ItemMetaDecorate();
+					break;
+				case TYPE_ISO_FUNCTIONAL_WALL:
+					return new ItemMetaFunctionalWall();
+					break;
+				case TYPE_ISO_FUNCTIONAL_ROOM:
+					return new ItemMetaFunctionalRoom();
+					break;
+			}
+			DebugLog.instance.log("Can't find MetaType :" + _type , DebugLog.LOG_TYPE_ERROR);
+			return null;
+		}
 
 	}
 }

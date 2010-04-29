@@ -9,6 +9,9 @@ package game.scene.testIso.dragdrop.source.functionalroom
 	import copyengine.datas.metadata.item.FunctionalRoomMeta;
 	import copyengine.datas.metadata.item.ItemMeta;
 	import copyengine.datas.metadata.item.ItemMetaManger;
+	import copyengine.datas.metadata.item.type.ItemMetaBasic;
+	import copyengine.datas.metadata.item.type.ItemMetaDecorate;
+	import copyengine.datas.metadata.item.type.ItemMetaFunctionalRoom;
 	import copyengine.dragdrop.IDragDropTarget;
 	import copyengine.dragdrop.impl.CEDragDropSourceCore;
 	import copyengine.scenes.isometric.IsoObjectDisplayManger;
@@ -51,11 +54,11 @@ package game.scene.testIso.dragdrop.source.functionalroom
 		{
 			isoFunctionalRoom = new DragAbleIsoFunctionalRoom(isoObjectDisplayManger,functionalRoomVo);
 
-			dragInViewPortIcon = ResUtils.getMovieClip("IsoWall_Decorate" , ResUtils.FILE_ISOHAX );
+			dragInViewPortIcon = isoFunctionalRoom.container;
 			(dragInViewPortIcon as MovieClip).gotoAndStop(0);
 			dragDropIconContainer.addChild(dragInViewPortIcon);
 
-			var item:ItemMeta = ItemMetaManger.instance.getFunctionalRoomMetaByID(functionalRoomVo.id);
+			var item:ItemMetaFunctionalRoom = ItemMetaManger.instance.getItemMetaByID(functionalRoomVo.id) as ItemMetaFunctionalRoom;
 			dragOutViewPortIcon = ResUtils.getSprite(item.iconSymbolName,item.iconFileName);
 			dragDropIconContainer.addChild(dragOutViewPortIcon);
 		}
