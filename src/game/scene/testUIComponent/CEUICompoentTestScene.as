@@ -53,8 +53,8 @@ package game.scene.testUIComponent
 			var t:TextField = new TextField();
 			t.width = 103.5;
 			t.height = 17;
-			t.x = -77.5;
-			t.y = -4.7;
+			t.x = -55.4;
+			t.y = -10.6;
 			
 			var bg:Sprite = ResUtils.getSprite("GreenButton","UI_asset");
 			bg.width = 145.5;
