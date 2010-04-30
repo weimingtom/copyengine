@@ -8,7 +8,7 @@ package
 	import flash.events.Event;
 	import flash.system.Security;
 
-	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="1000")]
+	[SWF(width="640",height="700",backgroundColor="#CCCCCC",frameRate="1000")]
 	public class CopyEngineAS extends Sprite implements IMain
 	{
 

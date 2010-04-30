@@ -40,10 +40,15 @@ package copyengine.scenes.isometric
 		{
 			isoTileVoManger = _isoTileVoManger;
 			convertIsoTileVo();
-			var tileResRed:MovieClip = ResUtils.getMovieClip("FloorTile30",ResUtils.FILE_ISOHAX);
+			var tileResRed:MovieClip = ResUtils.getMovieClip("FloorTile8",ResUtils.FILE_ISOHAX);
 			var tileResGreen:MovieClip = ResUtils.getMovieClip("FloorTile18",ResUtils.FILE_ISOHAX);
-			var tileResBlue:MovieClip = ResUtils.getMovieClip("FloorTile18",ResUtils.FILE_ISOHAX);
-			var tileResGray:MovieClip = ResUtils.getMovieClip("FloorTile8",ResUtils.FILE_ISOHAX);
+			var tileResBlue:MovieClip = ResUtils.getMovieClip("FloorTile8",ResUtils.FILE_ISOHAX);
+			var tileResGray:MovieClip = ResUtils.getMovieClip("FloorTile30",ResUtils.FILE_ISOHAX);
+			
+//			var tileResRed:MovieClip = ResUtils.getMovieClip("Tile_Red",ResUtils.FILE_ISOHAX);
+//			var tileResGreen:MovieClip = ResUtils.getMovieClip("Tile_Gray",ResUtils.FILE_ISOHAX);
+//			var tileResBlue:MovieClip = ResUtils.getMovieClip("Tile_Blue",ResUtils.FILE_ISOHAX);
+//			var tileResGray:MovieClip = ResUtils.getMovieClip("Tile_Black",ResUtils.FILE_ISOHAX);
 
 			red = cacheToBitmapData(tileResRed);
 			green = cacheToBitmapData(tileResGreen);
@@ -95,7 +100,7 @@ package copyengine.scenes.isometric
 		{
 			var bound:Rectangle = _m.getRect(_m);
 			var cacheBitmapDataSource:BitmapData = new BitmapData(bound.width,bound.height,true,0xFFFFFF);
-			cacheBitmapDataSource.draw(_m,new Matrix(1,0,0,1,-bound.x ,-bound.y));
+			cacheBitmapDataSource.draw(_m,new Matrix(1,0,0,1,-bound.x,-bound.y));
 			return cacheBitmapDataSource;
 		}
 
