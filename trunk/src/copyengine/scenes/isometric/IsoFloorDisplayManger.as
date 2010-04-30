@@ -327,6 +327,8 @@ package copyengine.scenes.isometric
 		/**
 		 * use in drawAreaToBitmap while loop function
 		 * to point out each Arear Rectangle(ideal rectangle coordinates) left-top point .
+		 * normally this point should be (0,0).but at the beging of of the drawAreaToBitmap function.
+		 * this value not be (0,0)
 		 */
 		private var cursorArearLeftTopPoint:Point;
 
@@ -385,7 +387,7 @@ package copyengine.scenes.isometric
 			var leftWidth:int = _drawWidth;
 			var leftHeight:int = _drawHeight;
 
-
+			
 			cursorArearLeftTopPoint.x = _arearLeftTopPoint.x;
 			cursorArearLeftTopPoint.y = _arearLeftTopPoint.y;
 
@@ -396,7 +398,8 @@ package copyengine.scenes.isometric
 			{
 				while (leftWidth > 0)
 				{
-					//caulate the offsetX in the rectangle. if the offset < 0 means the point is at left of the coordinates.
+					//caulate the offsetX in the rectangle. 
+					//if the offset < 0 means the point is at left of the coordinates.
 					//so in that case need to use rectangleWidht + offset beacuse the coordinates in the small ideal rectangle
 					//is form left-top to right-buttom. but projection coordinate is form top-middle.
 					pa.x =(cursorArearLeftTopPoint.x + ISO::HSTW)%ISO::STW;
@@ -415,7 +418,7 @@ package copyengine.scenes.isometric
 					pc.y = pc.y < ISO::STH ? pc.y : ISO::STH;
 					pc.x = pa.x;
 
-					//draw current bitmapData to target
+					//draw current rectangle bitmapData to target
 					drawRectToBitmap(_targetBitmapData,cursorBitmapLeftTopPoint,currentTileCol,currentTileRow,pa,pb,pc);
 
 					var drawWidht:int = pb.x -  pa.x;
@@ -503,7 +506,8 @@ package copyengine.scenes.isometric
 				//if pc.y is lower than ISO::HSTH(Half_Screen_Tile_Height) then can't draw the drawRectangle form
 				//pa.y to pc.y  else then draw the drawRectangle form pa.y to ISO::HSTH.
 				//the drawRectangle is in tileBitmapData coordinates.
-				upTileHeight = ISO::HSTH - _pa.y < _pc.y ? ISO::HSTH - _pa.y : _pc.y;
+//				upTileHeight = ISO::HSTH - _pa.y < _pc.y ? ISO::HSTH - _pa.y : _pc.y;  why this right?
+				upTileHeight = _pc.y > ISO::HSTH ? ISO::HSTH - _pa.y : rectangleHeight;
 
 				drawRectangle.x = _pa.x;
 				drawRectangle.y = ISO::HSTH + _pa.y;
@@ -582,7 +586,7 @@ package copyengine.scenes.isometric
 
 		private function cleanBuffer() : void
 		{
-			bufferBitmapData.fillRect(bufferBitmapData.rect,0xFFFFFF);
+			bufferBitmapData.fillRect(bufferBitmapData.rect,0);
 		}
 
 	}

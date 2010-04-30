@@ -18,7 +18,7 @@ package
 	 * 1) this is the portal for the all game load , it's response for load the main game swf file.
 	 * 2) the is also include an loading animation , when load main scene complate , it will pass the animation to main game.
 	 */
-	[SWF(width="640",height="700",backgroundColor="#FFFFFF",frameRate="1000")]
+	[SWF(width="640",height="700",backgroundColor="#CCCCCC",frameRate="1000")]
 	public class GamePerLoader extends Sprite implements IPerLoader
 	{
 		private var main:IMain;
