@@ -6,7 +6,7 @@ package copyengine.resource
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
 
-	public class ResourceInitalCommand extends SimpleCommand
+	public final class ResourceInitalCommand extends SimpleCommand
 	{
 		public function ResourceInitalCommand()
 		{

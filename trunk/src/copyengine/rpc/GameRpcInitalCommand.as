@@ -5,7 +5,7 @@ package copyengine.rpc
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
 	
-	public class GameRpcInitalCommand extends SimpleCommand
+	public final class GameRpcInitalCommand extends SimpleCommand
 	{
 		public function GameRpcInitalCommand()
 		{

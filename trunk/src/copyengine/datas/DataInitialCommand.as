@@ -7,7 +7,7 @@ import copyengine.utils.debug.DebugLog;
 import org.puremvc.as3.interfaces.INotification;
 import org.puremvc.as3.patterns.command.SimpleCommand;
 
-public class DataInitialCommand extends SimpleCommand
+public final class DataInitialCommand extends SimpleCommand
 {
 	public function DataInitialCommand ()
 	{

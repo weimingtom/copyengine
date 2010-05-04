@@ -1,0 +1,12 @@
+<root>
+	<component name="symbol_01">
+		<layer>
+			<symbol name="TreeHeart_0" symbolName="TreeHeart_0" fileName="UI_asset" x="0" y="-15"
+				width="93" height="105" alpha="1" rotation="0" />
+			<symbol name="TreeHeart_2" symbolName="TreeHeart_2" fileName="UI_asset" x="40" y="-75"
+				width="27" height="28" alpha="1" rotation="0" />
+			<symbol name="TreeHeart_1" symbolName="TreeHeart_1" fileName="UI_asset" x="-39" y="-68"
+				width="20" height="17" alpha="1" rotation="0" />
+		</layer>
+	</component>
+</root>

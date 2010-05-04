@@ -21,7 +21,7 @@ package game.scene.testIso
 	import copyengine.scenes.isometric.viewport.CERectangleViewPort;
 	import copyengine.scenes.isometric.viewport.IIsoViewPort;
 	import copyengine.scenes.isometric.viewport.IViewPortInteractiveWarp;
-	import copyengine.ui.CEComponentFactory;
+	import copyengine.ui.UnUse_CEComponentFactory;
 	import copyengine.ui.component.list.CEList;
 	import copyengine.ui.component.list.animation.CEListTweenAnimation;
 	import copyengine.ui.component.list.dataprovider.CEDataProvider;

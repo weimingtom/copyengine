@@ -1,7 +1,7 @@
 package game.scene.testUIComponent
 {
 	import copyengine.scenes.SceneBasic;
-	import copyengine.ui.CEComponentFactory;
+	import copyengine.ui.UnUse_CEComponentFactory;
 	import copyengine.ui.component.button.CEButton;
 	import copyengine.ui.component.button.CESelectableButton;
 	import copyengine.ui.component.button.animation.CEButtonFrameAnimation;
@@ -79,13 +79,13 @@ package game.scene.testUIComponent
 //			btn2.y = 30;
 
 
-			var tabBar:CETabBar = CEComponentFactory.instance.testCreateCETabBar();
+			var tabBar:CETabBar = UnUse_CEComponentFactory.instance.testCreateCETabBar();
 			container.addChild(tabBar);
 			tabBar.x = 50;
 			tabBar.y = 100;
 			
 			
-			var simulatePanel:CEPanelCore = CEComponentFactory.instance.testGetSimulatePanel();
+			var simulatePanel:CEPanelCore = UnUse_CEComponentFactory.instance.testGetSimulatePanel();
 			container.addChild(simulatePanel);
 			simulatePanel.x = 50;
 			simulatePanel.y  =300;
