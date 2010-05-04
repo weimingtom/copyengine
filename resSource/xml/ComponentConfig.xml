@@ -9,9 +9,41 @@
 				width="20" height="17" alpha="1" rotation="0" />
 		</layer>
 		<layer>
-			<button name="IconBank" x="65" y="61" width="90" height="90" alpha="1" rotation="0">
-				<bg symbolName="IconBank" fileName="UI_asset"  x="0" y="0" width="90" height="90" alpha="1" rotation="0"/>
+			<button name="IconBank" x="65" y="61" alpha="1" rotation="0">
+				<bg symbolName="IconBank" fileName="UI_asset" x="0" y="0" width="90" height="90" alpha="1"
+					rotation="0" />
 			</button>
+		</layer>
+		<layer>
+			<scrollBar name="scrollBarCore01" x="-76" y="124" width="237" height="20"
+				thumbSymbolName="ThumbBtn01" thumbFileName="UI_asset" trackSymbolName="TrackBtn01"
+				trackFileName="UI_asset" />
+		</layer>
+		<layer>
+			<tabBar name="tarBar01" x="-38" y="232" animation="Scale">
+				<bg symbolName="GrayBg" fileName="UI_asset" x="-37" y="-30" width="313" height="60" alpha="1"
+					rotation="0" />
+				<thumb symbolName="TabBar_Thumb" fileName="UI_asset" x="-38" y="-67.5" width="55.5"
+					height="55.5" alpha="1" rotation="0" />
+				<buttons>
+					<button name="Btn01" x="0" y="0" alpha="1" rotation="0">
+						<bg symbolName="SelectedMayorBtn" fileName="UI_asset" x="0" y="0" width="51" height="53"
+							alpha="1" rotation="0" />
+					</button>
+					<button name="Btn02" x="81" y="0" alpha="1" rotation="0">
+						<bg symbolName="SelectedItemHouseBtn" fileName="UI_asset" x="0" y="0" width="63" height="63"
+							alpha="1" rotation="0" />
+					</button>
+					<button name="Btn03" x="149" y="0" alpha="1" rotation="0">
+						<bg symbolName="SelectedMayorBtn" fileName="UI_asset" x="0" y="0" width="51" height="53"
+							alpha="1" rotation="0" />
+					</button>
+					<button name="Btn04" x="222" y="0" alpha="1" rotation="0">
+						<bg symbolName="SelectedItemHouseBtn" fileName="UI_asset" x="0" y="0" width="63" height="63"
+							alpha="1" rotation="0" />
+					</button>
+				</buttons>
+			</tabBar>
 		</layer>
 	</component>
 </root>

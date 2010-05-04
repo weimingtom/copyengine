@@ -11,11 +11,11 @@ package copyengine.ui
 	import copyengine.ui.component.panel.CEPanelCore;
 	import copyengine.ui.component.scrollbar.CEScrollBarCore;
 	import copyengine.ui.component.tabbar.CETabBar;
-	import copyengine.ui.component.tabbar.animation.CEScrollTabbarAnimation;
+	import copyengine.ui.component.tabbar.animation.CETabbarScaleAnimation;
 	import copyengine.ui.component.tabbar.animation.ICETabBarAnimation;
 	import copyengine.utils.ResUtils;
 	import copyengine.utils.debug.DebugLog;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -106,6 +106,12 @@ package copyengine.ui
 					break;
 				case "button":
 					component = CEUIAssembler.buttonAssemble(_node);
+					break;
+				case "scrollBar":
+					component = CEUIAssembler.scrollBarAssemble(_node);
+					break;
+				case "tabBar":
+					component = CEUIAssembler.tabBarAssemble(_node);
 					break;
 			}
 			return component;

@@ -2,7 +2,7 @@ package copyengine.ui.component.button
 {
 
 	import copyengine.ui.component.button.animation.ICESelectedButtonAnimation;
-	
+
 	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
 	import flash.text.TextField;
@@ -10,18 +10,18 @@ package copyengine.ui.component.button
 	public class CESelectableButton extends CEButton
 	{
 		/**
-		 * attribute to record current state is selected or not. 
-		 */		
+		 * attribute to record current state is selected or not.
+		 */
 		private var isSelected:Boolean = false;
-		
+
 		/**
-		 * define 
+		 * define
 		 * Is when user click the btn when auto set the btn to selected.
-		 */		
+		 */
 		private var isClickToSelected:Boolean;
 
-		public function CESelectableButton(_buttonBg:DisplayObject, _lableFiled:TextField = null ,_labelTextKey:String=null ,_isClickToSelected:Boolean = true,
-			_interaction:ICESelectedButtonAnimation=null, _uniqueName:String = null)
+		public function CESelectableButton(_buttonBg:DisplayObject, _lableFiled:TextField = null ,_labelTextKey:String=null ,
+			_interaction:ICESelectedButtonAnimation=null, _uniqueName:String = null,_isClickToSelected:Boolean = true)
 		{
 			super(_buttonBg,_lableFiled,_labelTextKey, _interaction,_uniqueName);
 			isClickToSelected = _isClickToSelected;
