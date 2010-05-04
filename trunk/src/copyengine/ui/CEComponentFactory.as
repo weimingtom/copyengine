@@ -15,7 +15,7 @@ package copyengine.ui
 	import copyengine.ui.component.tabbar.animation.ICETabBarAnimation;
 	import copyengine.utils.ResUtils;
 	import copyengine.utils.debug.DebugLog;
-	
+
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
@@ -103,6 +103,9 @@ package copyengine.ui
 			{
 				case "symbol":
 					component = CEUIAssembler.symbolAssemble(_node);
+					break;
+				case "button":
+					component = CEUIAssembler.buttonAssemble(_node);
 					break;
 			}
 			return component;

@@ -8,5 +8,10 @@
 			<symbol name="TreeHeart_1" symbolName="TreeHeart_1" fileName="UI_asset" x="-39" y="-68"
 				width="20" height="17" alpha="1" rotation="0" />
 		</layer>
+		<layer>
+			<button name="IconBank" x="65" y="61" width="90" height="90" alpha="1" rotation="0">
+				<bg symbolName="IconBank" fileName="UI_asset"  x="0" y="0" width="90" height="90" alpha="1" rotation="0"/>
+			</button>
+		</layer>
 	</component>
 </root>
