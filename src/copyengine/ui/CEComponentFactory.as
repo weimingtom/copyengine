@@ -14,9 +14,11 @@ package copyengine.ui
 	import copyengine.ui.component.tabbar.animation.CEScrollTabbarAnimation;
 	import copyengine.ui.component.tabbar.animation.ICETabBarAnimation;
 	import copyengine.utils.ResUtils;
+	import copyengine.utils.debug.DebugLog;
 	
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
+	import flash.display.Sprite;
 
 	/**
 	 *CEComponentFactory is use to create those CEComponent(CEButton , CEList etc),
@@ -43,8 +45,7 @@ package copyengine.ui
 			return _instance;
 		}
 
-		public static const CEBUTTON_TYPE_TWEEN:String = "CEButton_Tween";
-		public static const CEBUTTON_TYPE_FRAME:String = "CEButton_Frame";
+		private var config:XML;
 
 		public function CEComponentFactory()
 		{
@@ -52,244 +53,96 @@ package copyengine.ui
 
 		public function initialize(_configXml:XML) : void
 		{
-
+			config = _configXml;
 		}
 
-		//===================
-		//== Automate create function
-		//				get the cePanel form the xml file.
-		// normally user should directly call this function to get the cePanel
-		//===================
-		public function getCEPanelByUniqueName(_uniqueName:String) : CEPanelCore
+		public function getComponentByName(_name:String) : CESprite
 		{
-			return null;
+			return assembleCEUIComponent( findComponentConfigByName(_name) );
 		}
 
-		//===================
-		//== Automate create function
-		//           get the component config info form xml file
-		//===================
-
-		private function getCEListByXml(_xml:XML) : CEList
+		private function assembleCEUIComponent(_node:XML) : CESprite
 		{
-			var ceListCore:CEListCore = createCEListCore(5,CEListCore.LAYOUT_HORIZONTAL,50,50,10);
-			var prevOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtils.getSprite("GreenButton","IsoHax_asset"),null);
-			var nextOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtils.getSprite("GreenButton","IsoHax_asset"),null);
-
-			var thumb:CEButton = createCEButton(CEBUTTON_TYPE_FRAME,ResUtils.getSprite("thumb","IsoHax_asset"),null);
-			var track:CEButton = createCEButton(CEBUTTON_TYPE_FRAME,ResUtils.getSprite("track","IsoHax_asset"),null);
-			var scrollBar:CEScrollBarCore = createScrollBarCore(thumb,track,340,50,CEScrollBarCore.LAYOUT_AUTO);
-
-			var ceList:CEList = createCEList(ceListCore,scrollBar,nextOneBtn,null,prevOneBtn,null,null,null);
-
-			ceListCore.x = 0;
-			ceListCore.y = 50;
-
-			prevOneBtn.x = 0;
-			prevOneBtn.y = 0;
-
-			nextOneBtn.x = prevOneBtn.x + prevOneBtn.width + 10;
-			nextOneBtn.y = 0;
-
-			scrollBar.x = 0;
-			scrollBar.y = ceListCore.y + ceListCore.height + 50;
-
-			ceList.uniqueName = "Test_CEList";
-
-			return ceList;
-		}
-
-		private function getTabBarByXml(_xml:XML) : CETabBar
-		{
-			var subBtns:Vector.<CESelectableButton> = new Vector.<CESelectableButton>();
-
-			var posX:Number = 0;
-			for (var i:int = 0 ; i < 5 ; i++)
+			var component:CESprite = new CESprite();
+			for each (var layerNode : XML in _node.layer)
 			{
-				var btn:CESelectableButton = new CESelectableButton(
-					ResUtils.getSprite("FrameSelectableGreenButton","IsoHax_asset"),null,null,false,new CESelectedButtonFramAnimation,"Btn" + i);
-				btn.x = posX;
-				posX += 80;
-
-				subBtns.push(btn);
+				var layerContainer:Sprite = new CESprite();
+				for each (var componentNode : XML in layerNode.elements())
+				{
+					var type:String = componentNode.name().localName;
+					var childCESprite:CESprite = assembleComponentByType(type,componentNode);
+					if (childCESprite == null)
+					{
+						childCESprite = getComponentByName( type );
+					}
+					layerContainer.addChild(childCESprite);
+				}
+				component.addChild(layerContainer);
 			}
-
-			return createCETabBar(subBtns,new CEScrollTabbarAnimation());
+			return component;
 		}
 
-
-		//===================
-		//== Manual Create Function
-		//          normally call by automate create function
-		//===================
-
-		/**
-		 * CEButton
-		 */
-		public function createCEButton(_type:String , _buttonBg:DisplayObject , _labelTextKey:String) : CEButton
+		private function findComponentConfigByName(_name:String) : XML
 		{
+			var node:XML = config.component.(@name == _name)[0];
+			if (node == null)
+			{
+				DebugLog.instance.log("Can't find ComponentConfig name : " + _name ,DebugLog.LOG_TYPE_ERROR);
+				return null;
+			}
+			else
+			{
+				return node;
+			}
+		}
+
+		private function assembleComponentByType(_type:String , _node:XML) : CESprite
+		{
+			var component:CESprite;
 			switch (_type)
 			{
-				case CEBUTTON_TYPE_TWEEN:
-					return new CEButton(_buttonBg,null,_labelTextKey ,new CEButtonTweenAnimation());
-				case CEBUTTON_TYPE_FRAME:
-					return new CEButton(_buttonBg,null,_labelTextKey, new CEButtonFrameAnimation());
+				case "symbol":
+					component = CEUIAssembler.symbolAssemble(_node);
+					break;
 			}
-			return null;
+			return component;
 		}
 
-		/**
-		 * CEList
-		 */
-		public function createCEList(_ceListCore:CEListCore , _ceScrollBarCore:CEScrollBarCore,
-			_nextOneBtn:CEButton,_nextPageBtn:CEButton,
-			_prevOneBtn:CEButton , _prevPageBtn:CEButton,
-			_firstOneBtn:CEButton , _lastOneBtn:CEButton) : CEList
-		{
-			return new CEList(_ceListCore,_ceScrollBarCore,_nextOneBtn,_nextPageBtn,_prevOneBtn,_prevPageBtn,_firstOneBtn,_lastOneBtn);
-		}
 
-		/**
-		 * ScrollBarCore
-		 */
-		public function createScrollBarCore(_thumb:CEButton , _track:CEButton , 
-			_width:Number ,_height:Number , _direction:String) : CEScrollBarCore
-		{
-			return new CEScrollBarCore(_thumb,_track,_width,_height,_direction);
-		}
-
-		/**
-		 * CEListCore
-		 */
-		public function createCEListCore(_displayCount:int , _layoutDirection:String, 
-			_eachCellRenderWidth:Number ,_eachCellRenderHeight:Number ,
-			_contentPadding:Number) : CEListCore
-		{
-			return new CEListCore(_displayCount,_layoutDirection,_eachCellRenderWidth,_eachCellRenderHeight,_contentPadding);
-		}
-
-		public function createCETabBar(_subBtnsVector:Vector.<CESelectableButton>,_animation:ICETabBarAnimation) : CETabBar
-		{
-			return new CETabBar(_subBtnsVector,_animation);
-		}
-
-		//====================
-		//== DeBug Function
-		//					Use in Developing
-		//=====================
-		public function testCreateCEList() : CEList
-		{
-			return getCEListByXml(null);
-		}
-
-		public function testCreateCETabBar() : CETabBar
-		{
-			return getTabBarByXml(null);
-		}
-
-		/**
-		 * <component name ="simulatePanel">
-		 * 		<layer level ="0">
-		 * 			<btn name ="close_btn" animation = "SelectAble" >
-		 * 			<component name ="Panel" skinClass = "Basic_Panel" x ="5.3" y ="170.05" width = "658.1" height = "209" rotation = "0" alpha = "1" />
-		 * 		</layer>
-		 * 		<layer level = "1">
-		 * 			<TabBar name = "Tabbar_Top" x="0" y="0" width = "502" height = "100.7" rotation = "0" alpha = "1">
-		 * 				<Thumb name ="Thumb_TopTabBar" skinClass = "Basic_Gray" x = "38.65" y = "21.2" width = "74"  height= "42.2" rotation = "0" alpha = "1" />
-		 * 				<Btns>
-		 * 					<component name ="Icon1" skinClass = "IconAnimalHouse" x ="38.35" y ="66" width = "77.35" height = "65.6" rotation = "0" alpha = "1" />
-		 * 					<component name ="Icon2" skinClass = "IconBank" x ="142.9" y ="66.3" width = "66" height = "67.3" rotation = "0" alpha = "1" />
-		 * 					....
-		 * 				<Btns>
-		 * 				<Bg name = "..." skinClass = "..."  ....>
-		 * 			</TabBar>
-		 * 		</layer>
-		 * 		<layer level = "2">
-		 * 			<TabBar name = "..."/>
-		 * 		</layer>
-		 * 		<layer level ="3">
-		 * 			<List name ="FriendList_Bottom" x="" y="" >
-		 * 				<ScrollBar skinclass ="" ...>
-		 * 				<LeftOneBtn/>
-		 * 				<RightOneBtn/>
-		 * 				<LeftPageBtn/>
-		 * 				<RightPageBtn/>
-		 * 				<EndBtn/>
-		 * 				<HomeBtn/>
-		 * 				<ListCore displayCount = ""  eachCellRenerWidth = ""  eachCellRenderHeight ="" contentPadding = "">
-		 * 			</List>
-		 * 		</layer>
-		 * </component>
-		 */
-		public function testGetSimulatePanel() : CEPanelCore
-		{
-			var panel:CEPanelCore = new CEPanelCore();
-			
-			//layer 0
-			var bg:MovieClip = ResUtils.getMovieClip("Basic_Panel",ResUtils.FILE_UI);
-			panel.addChild(bg);
-			bg.x = 250.8;
-			bg.y = 204.05;
-			bg.width = 501.1;
-			bg.height = 209;
-			
-			//layer 1
-			var subBtns:Vector.<CESelectableButton> = new Vector.<CESelectableButton>();
-			var btn:CESelectableButton;
-			btn = new CESelectableButton(ResUtils.getMovieClip("IconAnimalHouse",ResUtils.FILE_UI),null,null,false,new CESelectedButtonTweenAnimation(),"Icon1");
-			btn.x = 38.35;
-			btn.y = 66;
-			btn.width = 77.35;
-			btn.height = 65.6;
-			subBtns.push(btn);
-			
-			btn = new CESelectableButton(ResUtils.getMovieClip("IconBank",ResUtils.FILE_UI),null,null,false, new CESelectedButtonTweenAnimation(),"Icon2");
-			btn.x = 142.95;
-			btn.y = 66.3;
-			btn.width = 66;
-			btn.height = 67;
-			subBtns.push(btn);
-			
-			var tabbar:CETabBar = new CETabBar(subBtns , new CEScrollTabbarAnimation() );
-			panel.addChild(tabbar);
-			tabbar.x = 0;
-			tabbar.y = 0;
-			
-			//layer 2
-			
-			//layer 3
-
-			var leftOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtils.getMovieClip("LeftArrow",ResUtils.FILE_UI),null);
-			leftOneBtn.x = 17.9;
-			leftOneBtn.y = 27.9;
-			leftOneBtn.width = 28.7;
-			leftOneBtn.height = 55.7;
-			
-			var rightOneBtn:CEButton = createCEButton(CEBUTTON_TYPE_TWEEN,ResUtils.getMovieClip("RightArrow",ResUtils.FILE_UI),null);
-			rightOneBtn.x = 466;
-			rightOneBtn.y = 25.8;
-			rightOneBtn.width = 28.1;
-			rightOneBtn.height = 58.9;
-			
-			var ceListCore:CEListCore = createCEListCore(5,CEListCore.LAYOUT_HORIZONTAL,50,50,10);
-			ceListCore.x = 41;
-			ceListCore.y = 0;
-			
-			var thumb:CEButton = new CEButton(ResUtils.getMovieClip("Thumb_Horizontal",ResUtils.FILE_UI)) ;
-			var track:CEButton = new CEButton(ResUtils.getMovieClip("Track_Horizontal",ResUtils.FILE_UI));
-			var scrollBar:CEScrollBarCore = createScrollBarCore(thumb,track,300,26.2,CEScrollBarCore.LAYOUT_HORIZONTAL);
-			scrollBar.x = 41;
-			scrollBar.y = 57;
-			
-			var ceList:CEList = createCEList(ceListCore,scrollBar,null,rightOneBtn,null,leftOneBtn,null,null);
-			ceList.x = 18.3;
-			ceList.y = 160;
-			ceList.uniqueName = "FriendList_Bottom";
-			
-			panel.addChild(ceList);
-			
-			return panel;
-		}
+	/**
+	 * <component name ="simulatePanel">
+	 * 		<layer level ="0">
+	 * 			<btn name ="close_btn" animation = "SelectAble" >
+	 * 			<component name ="Panel" skinClass = "Basic_Panel" x ="5.3" y ="170.05" width = "658.1" height = "209" rotation = "0" alpha = "1" />
+	 * 		</layer>
+	 * 		<layer level = "1">
+	 * 			<TabBar name = "Tabbar_Top" x="0" y="0" width = "502" height = "100.7" rotation = "0" alpha = "1">
+	 * 				<Thumb name ="Thumb_TopTabBar" skinClass = "Basic_Gray" x = "38.65" y = "21.2" width = "74"  height= "42.2" rotation = "0" alpha = "1" />
+	 * 				<Btns>
+	 * 					<component name ="Icon1" skinClass = "IconAnimalHouse" x ="38.35" y ="66" width = "77.35" height = "65.6" rotation = "0" alpha = "1" />
+	 * 					<component name ="Icon2" skinClass = "IconBank" x ="142.9" y ="66.3" width = "66" height = "67.3" rotation = "0" alpha = "1" />
+	 * 					....
+	 * 				<Btns>
+	 * 				<Bg name = "..." skinClass = "..."  ....>
+	 * 			</TabBar>
+	 * 		</layer>
+	 * 		<layer level = "2">
+	 * 			<TabBar name = "..."/>
+	 * 		</layer>
+	 * 		<layer level ="3">
+	 * 			<List name ="FriendList_Bottom" x="" y="" >
+	 * 				<ScrollBar skinclass ="" ...>
+	 * 				<LeftOneBtn/>
+	 * 				<RightOneBtn/>
+	 * 				<LeftPageBtn/>
+	 * 				<RightPageBtn/>
+	 * 				<EndBtn/>
+	 * 				<HomeBtn/>
+	 * 				<ListCore displayCount = ""  eachCellRenerWidth = ""  eachCellRenderHeight ="" contentPadding = "">
+	 * 			</List>
+	 * 		</layer>
+	 * </component>
+	 */
 
 	}
 }

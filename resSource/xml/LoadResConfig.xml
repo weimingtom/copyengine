@@ -10,6 +10,7 @@
 		<file name="IsoHax_asset" path="../src/res/swf/IsoHax_asset.swf" />
 		<file name="UI_asset" path="../src/res/swf/UI_asset.swf" />
 		<file name="ItemConfig" path="../src/res/bin/ItemConfig.bin" />
+		<file name="ComponentConfig" path="../src/res/bin/ComponentConfig.bin"/>
 	</standard>
 	<individual>
 		<loadQueue>
@@ -20,6 +21,7 @@
 			<file name="IsoHax_asset" type="swf" weight="500" loadQueue="perLoadQueue" />
 			<file name="UI_asset" type="swf" weight="500" loadQueue="perLoadQueue" />
 			<file name="ItemConfig" type="xml" weight="500" loadQueue="perLoadQueue" />
+			<file name="ComponentConfig" type="xml" weight="500" loadQueue="perLoadQueue" />
 		</loadFile>
 	</individual>
 </root>

@@ -3,7 +3,7 @@ package copyengine.scenes
     import org.puremvc.as3.interfaces.INotification;
     import org.puremvc.as3.patterns.command.SimpleCommand;
 
-    public class SceneInitialCommand extends SimpleCommand
+    public final class SceneInitialCommand extends SimpleCommand
     {
         public function SceneInitialCommand()
         {
