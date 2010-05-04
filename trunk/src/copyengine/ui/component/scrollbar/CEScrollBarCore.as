@@ -80,7 +80,7 @@ package copyengine.ui.component.scrollbar
 
 
 		public function CEScrollBarCore(_thumb:CEButton , _track:CEButton,
-			_width:Number ,_height:Number , _direction:String = LAYOUT_AUTO)
+			_width:Number ,_height:Number,_uniqueName:String = null,_direction:String = LAYOUT_AUTO)
 		{
 			thumb = _thumb;
 			track = _track;
@@ -90,7 +90,7 @@ package copyengine.ui.component.scrollbar
 
 			direction = _direction;
 
-			super();
+			super(true,_uniqueName);
 		}
 
 		public function initializeScrollBar(  _lineScrollSize:Number , _pageScrollSize:Number ,

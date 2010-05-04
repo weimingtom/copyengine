@@ -25,7 +25,7 @@ package copyengine.ui.component.button.animation
 		private var normalScaleX:Number;
 		private var normalScaleY:Number;
 		
-		private var target:DisplayObject;
+		protected var target:DisplayObject;
 		
 		public function CEButtonTweenAnimation()
 		{

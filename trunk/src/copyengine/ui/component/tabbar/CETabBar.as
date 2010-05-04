@@ -4,12 +4,16 @@ package copyengine.ui.component.tabbar
 	import copyengine.ui.component.button.CESelectableButton;
 	import copyengine.ui.component.tabbar.animation.ICETabBarAnimation;
 	import copyengine.utils.GeneralUtils;
-
+	
+	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
 
 	public class CETabBar extends CESprite
 	{
-
+		private var thumb:DisplayObject;
+		
+		private var bg:DisplayObject;
+		
 		private var animation:ICETabBarAnimation;
 
 		/**
@@ -17,17 +21,23 @@ package copyengine.ui.component.tabbar
 		 */
 		private var subBtnsVector:Vector.<CESelectableButton>
 
-		public function CETabBar(_subBtnsVector:Vector.<CESelectableButton>,_animation:ICETabBarAnimation = null ,
-			_isAutoInitialzeAndRemove:Boolean=true)
+		public function CETabBar(_subBtnsVector:Vector.<CESelectableButton>,_animation:ICETabBarAnimation = null , 
+								 _bg:DisplayObject = null , _thumb:DisplayObject = null , _uniqueName:String = null)
 		{
-			super(_isAutoInitialzeAndRemove);
-
+			super(true,_uniqueName);
+			
+			bg = _bg;
+			thumb = _thumb;
+			
+			GeneralUtils.addTargetToParent(bg,this);
+			GeneralUtils.addTargetToParent(thumb,this);
+			subBtnsVector = _subBtnsVector
+				
 			animation = _animation;
 			if (animation != null)
 			{
-				animation.setTarget(this);
+				animation.setTarget(this,thumb);
 			}
-			subBtnsVector = _subBtnsVector
 		}
 
 		/**

@@ -11,7 +11,7 @@ package copyengine.ui
 	import copyengine.ui.component.panel.CEPanelCore;
 	import copyengine.ui.component.scrollbar.CEScrollBarCore;
 	import copyengine.ui.component.tabbar.CETabBar;
-	import copyengine.ui.component.tabbar.animation.CEScrollTabbarAnimation;
+	import copyengine.ui.component.tabbar.animation.CETabbarScaleAnimation;
 	import copyengine.ui.component.tabbar.animation.ICETabBarAnimation;
 	import copyengine.utils.ResUtils;
 	
@@ -107,14 +107,14 @@ package copyengine.ui
 			for (var i:int = 0 ; i < 5 ; i++)
 			{
 				var btn:CESelectableButton = new CESelectableButton(
-					ResUtils.getSprite("FrameSelectableGreenButton","IsoHax_asset"),null,null,false,new CESelectedButtonFramAnimation,"Btn" + i);
+					ResUtils.getSprite("FrameSelectableGreenButton","IsoHax_asset"),null,null,new CESelectedButtonFramAnimation,"Btn" + i,false);
 				btn.x = posX;
 				posX += 80;
 
 				subBtns.push(btn);
 			}
 
-			return createCETabBar(subBtns,new CEScrollTabbarAnimation());
+			return createCETabBar(subBtns,new CETabbarScaleAnimation());
 		}
 
 
@@ -236,21 +236,21 @@ package copyengine.ui
 			//layer 1
 			var subBtns:Vector.<CESelectableButton> = new Vector.<CESelectableButton>();
 			var btn:CESelectableButton;
-			btn = new CESelectableButton(ResUtils.getMovieClip("IconAnimalHouse",ResUtils.FILE_UI),null,null,false,new CESelectedButtonTweenAnimation(),"Icon1");
+			btn = new CESelectableButton(ResUtils.getMovieClip("IconAnimalHouse",ResUtils.FILE_UI),null,null,new CESelectedButtonTweenAnimation(),"Icon1",false);
 			btn.x = 38.35;
 			btn.y = 66;
 			btn.width = 77.35;
 			btn.height = 65.6;
 			subBtns.push(btn);
 			
-			btn = new CESelectableButton(ResUtils.getMovieClip("IconBank",ResUtils.FILE_UI),null,null,false, new CESelectedButtonTweenAnimation(),"Icon2");
+			btn = new CESelectableButton(ResUtils.getMovieClip("IconBank",ResUtils.FILE_UI),null,null, new CESelectedButtonTweenAnimation(),"Icon2",false);
 			btn.x = 142.95;
 			btn.y = 66.3;
 			btn.width = 66;
 			btn.height = 67;
 			subBtns.push(btn);
 			
-			var tabbar:CETabBar = new CETabBar(subBtns , new CEScrollTabbarAnimation() );
+			var tabbar:CETabBar = new CETabBar(subBtns , new CETabbarScaleAnimation() );
 			panel.addChild(tabbar);
 			tabbar.x = 0;
 			tabbar.y = 0;
