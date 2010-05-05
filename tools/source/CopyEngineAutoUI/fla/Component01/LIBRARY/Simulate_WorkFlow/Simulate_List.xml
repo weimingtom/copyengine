@@ -1,0 +1,120 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Simulate_WorkFlow/Simulate_List" itemID="4be10937-0000004d" sourceLibraryItemHRef="Simulate_WorkFlow/元件 1" lastModified="1273040613" lastUniqueIdentifier="13">
+  <timeline>
+    <DOMTimeline name="Simulate_List">
+      <layers>
+        <DOMLayer name="图层 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Btns/Common/LeftArrow" name="" centerPoint3DX="8.8" centerPoint3DY="16.85">
+                  <matrix>
+                    <Matrix tx="8.8" ty="16.9"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/Common/LeftArrow" name="" centerPoint3DX="8.8" centerPoint3DY="82.45">
+                  <matrix>
+                    <Matrix tx="8.8" ty="82.5"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/Common/LeftArrow" name="" centerPoint3DX="8.8" centerPoint3DY="50.6">
+                  <matrix>
+                    <Matrix tx="8.8" ty="50.65"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/Common/RightArrow" name="" centerPoint3DX="337" centerPoint3DY="16.85">
+                  <matrix>
+                    <Matrix tx="335" ty="16.9"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="2" y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/Common/RightArrow" name="" centerPoint3DX="337" centerPoint3DY="50.6">
+                  <matrix>
+                    <Matrix tx="335" ty="50.65"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="2" y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/Common/RightArrow" name="" centerPoint3DX="337" centerPoint3DY="83.35">
+                  <matrix>
+                    <Matrix tx="335" ty="83.4"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="2" y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Common/GrayBg" name="" centerPoint3DX="115.85" centerPoint3DY="32">
+                  <matrix>
+                    <Matrix a="1.55224609375" d="1.60000610351563" tx="15.85" ty="2"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="100" y="30"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_CellRender" name="" selected="true" centerPoint3DX="54.85" centerPoint3DY="50.65">
+                  <matrix>
+                    <Matrix tx="29.85" ty="6.5"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="25" y="44.15"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_CellRender" name="" centerPoint3DX="111.9" centerPoint3DY="50.65">
+                  <matrix>
+                    <Matrix tx="86.9" ty="6.5"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="25" y="44.15"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_CellRender" name="" centerPoint3DX="226" centerPoint3DY="50.65">
+                  <matrix>
+                    <Matrix tx="201" ty="6.5"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="25" y="44.15"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_CellRender" name="" centerPoint3DX="168.95" centerPoint3DY="50.65">
+                  <matrix>
+                    <Matrix tx="143.95" ty="6.5"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="25" y="44.15"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_CellRender" name="" centerPoint3DX="283.2" centerPoint3DY="50.65">
+                  <matrix>
+                    <Matrix tx="258.2" ty="6.5"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="25" y="44.15"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_ScrollBar" name="" centerPoint3DX="135.95" centerPoint3DY="114.35">
+                  <matrix>
+                    <Matrix tx="17" ty="104.35"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="118.95" y="10"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

@@ -29,8 +29,8 @@ package copyengine.ui.component.list
 	 */
 	public class CEListCore extends CESprite
 	{
-		public static const LAYOUT_HORIZONTAL:String = "horizontal";
-		public static const LAYOUT_VERTICAL:String = "vertical";
+		public static const LAYOUT_HORIZONTAL:String = "h"; //horizontal
+		public static const LAYOUT_VERTICAL:String = "v"; //vertical
 
 		/**
 		 *  each page display cellRender number

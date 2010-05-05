@@ -1,0 +1,37 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Simulate_WorkFlow/Simulate_Button" itemID="4bbed765-00000038" sourceLibraryItemHRef="Simulate_WorkFlow/元件 1" lastModified="1272884578" lastUniqueIdentifier="1">
+  <timeline>
+    <DOMTimeline name="Simulate_Button">
+      <layers>
+        <DOMLayer name="图层 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Btns/Common/GreenButton" name="" selected="true" centerPoint3DX="-0.7" centerPoint3DY="-0.2">
+                  <matrix>
+                    <Matrix a="1.77197265625" d="1.19337463378906"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="-0.95" y="-1.2"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMDynamicText selected="true" fontRenderingMode="standard" width="99.5" height="13" isSelectable="false">
+                  <matrix>
+                    <Matrix tx="-70.4" ty="-5.6"/>
+                  </matrix>
+                  <textRuns>
+                    <DOMTextRun>
+                      <characters>Test TestTest</characters>
+                      <textAttrs>
+                        <DOMTextAttrs alignment="center" aliasText="false" size="13" bitmapSize="260" face="SimSun" fillColor="#FFFFFF"/>
+                      </textAttrs>
+                    </DOMTextRun>
+                  </textRuns>
+                </DOMDynamicText>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

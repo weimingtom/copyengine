@@ -1,0 +1,80 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Simulate_WorkFlow/Simulate_TabBar" itemID="4bdfddf4-00000177" sourceLibraryItemHRef="Simulate_WorkFlow/元件 1" lastModified="1272964462" lastUniqueIdentifier="7">
+  <timeline>
+    <DOMTimeline name="Simulate_TabBar">
+      <layers>
+        <DOMLayer name="btn" color="#4FFF4F" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Btns/SelectedBtn/SelectedMayorBtn" name="" centerPoint3DX="0.6">
+                  <matrix>
+                    <Matrix ty="-0.6"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="-0.05" y="-0.1"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/SelectedBtn/SelectedItemHouseBtn" name="" centerPoint3DX="81.35">
+                  <matrix>
+                    <Matrix tx="81.3"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/SelectedBtn/SelectedMayorBtn" name="" centerPoint3DX="150.5">
+                  <matrix>
+                    <Matrix tx="149.9" ty="-0.6"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="-0.05" y="-0.1"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/SelectedBtn/SelectedItemHouseBtn" name="" selected="true" centerPoint3DX="222.5" centerPoint3DY="1.5">
+                  <matrix>
+                    <Matrix tx="222.45" ty="1.5"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="thumb" color="#FF800A" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Common/TabBar_Thumb" name="" centerPoint3DX="-10.25" centerPoint3DY="-39.8">
+                  <matrix>
+                    <Matrix a="0.999984741210938" tx="-38" ty="-67.55"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="27.75" y="27.75"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="bg" color="#9933CC" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Common/GrayBg" name="" centerPoint3DX="62.65" centerPoint3DY="-0.8">
+                  <matrix>
+                    <Matrix a="1.56500244140625" tx="-37.35" ty="-30.8"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="100" y="30"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

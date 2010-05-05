@@ -1,0 +1,34 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="ScrollBar/Track_Horizontal" itemID="4bbc3298-000011dc" linkageExportForAS="true" linkageClassName="Track_Horizontal" sourceLibraryItemHRef="ScrollBar/Track_Vertical 副本" lastModified="1272952213" lastUniqueIdentifier="1">
+  <timeline>
+    <DOMTimeline name="Track_Horizontal">
+      <layers>
+        <DOMLayer name="图层 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor color="#EFE086"/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle1="1" edges="!3521 377[3492 424 3451 424!3451 424|99 424!99 424[58 424 29 377!29 377[0 331 0 265!0 265|0 159!0 159[0 93 29 47!29 47[58 0 99 0!99 0|3451 0!3451 0[3492 0 3521 47!3521 47[3550 93 3550 159!3550 159|3550 265!3550 265[3550 331 3521 377"/>
+                    <Edge cubics="!0 159(;0,72 44,0 99,0q0 159Q0 93q29 47Q58 0q99 0);"/>
+                    <Edge cubics="!99 0(;99,0 3451,0 3451,0q99 0 3451 0);"/>
+                    <Edge cubics="!3451 0(3451,0;3506,0 3550,72 3550,159q3451 0Q3492 0q3521 47Q3550 93q3550 159);"/>
+                    <Edge cubics="!3550 159(;3550,159 3550,265 3550,265q3550 159 3550 265);"/>
+                    <Edge cubics="!3550 265(;3550,353 3506,424 3451,424q3550 265Q3550 331q3521 377Q3492 424q3451 424);"/>
+                    <Edge cubics="!3451 424(;3451,424 99,424 99,424q3451 424 99 424);"/>
+                    <Edge cubics="!99 424(;44,424 0,353 0,265q99 424Q58 424q29 377Q0 331q0 265);"/>
+                    <Edge cubics="!0 265(;0,265 0,159 0,159q0 265 0 159);"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

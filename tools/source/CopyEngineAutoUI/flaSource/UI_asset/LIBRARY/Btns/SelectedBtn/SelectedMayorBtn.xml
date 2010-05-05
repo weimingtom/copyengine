@@ -1,0 +1,39 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Btns/SelectedBtn/SelectedMayorBtn" itemID="4bdfdbcc-0000016e" linkageExportForAS="true" linkageClassName="SelectedMayorBtn" sourceLibraryItemHRef="Btns/元件 1" lastModified="1273030151" lastUniqueIdentifier="1">
+  <timeline>
+    <DOMTimeline name="SelectedMayorBtn" currentFrame="1">
+      <layers>
+        <DOMLayer name="图层 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" name="s" labelType="name" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Btns/Building/IconMayor" name="" centerPoint3DX="0.6" centerPoint3DY="0.6">
+                  <matrix>
+                    <Matrix tx="0.6" ty="0.15"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="-0.65" y="-0.25"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+            <DOMFrame index="1" name="unS" labelType="name" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Btns/Building/IconMayor" name="" centerPoint3DX="0.6" centerPoint3DY="0.6">
+                  <matrix>
+                    <Matrix tx="0.6" ty="0.15"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="-0.65" y="-0.25"/>
+                  </transformationPoint>
+                  <filters>
+                    <BlurFilter/>
+                  </filters>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

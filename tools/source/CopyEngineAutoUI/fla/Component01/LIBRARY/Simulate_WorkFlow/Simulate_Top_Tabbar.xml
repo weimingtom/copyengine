@@ -1,0 +1,88 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Simulate_WorkFlow/Simulate_Top_Tabbar" itemID="4bbc2d84-00000b4f" sourceLibraryItemHRef="Simulate_WorkFlow/元件 1" lastModified="1272963932" lastUniqueIdentifier="7">
+  <timeline>
+    <DOMTimeline name="Simulate_Top_Tabbar">
+      <layers>
+        <DOMLayer name="Icon" color="#4FFF4F" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Btns/Building/IconAnimalHouse" name="Icon1" centerPoint3DX="34.65" centerPoint3DY="61.2">
+                  <matrix>
+                    <Matrix a="1.12345886230469" d="1.16934204101563" tx="38.35" ty="66"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="0.5" y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/Building/IconBank" name="Icon2" centerPoint3DX="141.2" centerPoint3DY="64.3">
+                  <matrix>
+                    <Matrix a="1.05599975585938" d="1.08026123046875" tx="142.95" ty="66.3"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point y="0.5"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/Building/IconBuildingHouse" name="" centerPoint3DX="247.75" centerPoint3DY="64.4">
+                  <matrix>
+                    <Matrix a="1.02761840820313" d="1.07994079589844" tx="248.75" ty="66.95"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/Building/IconItemHouse" name="" centerPoint3DX="354.3" centerPoint3DY="64.95">
+                  <matrix>
+                    <Matrix a="1.10220336914063" d="1.03144836425781" tx="357.55" ty="66"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/Building/IconMayor" name="" centerPoint3DX="460.95" centerPoint3DY="63.6">
+                  <matrix>
+                    <Matrix a="1.26220703125" d="1.22151184082031" tx="464.05" ty="65.15"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="-0.65" y="-0.25"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="Thumb" color="#FF800A" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Panel/Basic_White" name="Thumb_TopTabBar" selected="true" centerPoint3DX="38.65" centerPoint3DY="21.1">
+                  <matrix>
+                    <Matrix a="0.740081787109375" d="0.422393798828125" tx="38.65" ty="21.1"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="Bg" color="#9933CC" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Panel/Basic_Gray" name="" centerPoint3DX="50" centerPoint3DY="82.6">
+                  <matrix>
+                    <Matrix a="5.02000427246094" d="0.650497436523438" tx="251" ty="65.1"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

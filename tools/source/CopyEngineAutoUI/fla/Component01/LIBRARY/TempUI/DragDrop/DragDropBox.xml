@@ -1,0 +1,40 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="TempUI/DragDrop/DragDropBox" itemID="4bc420e1-0000003f" linkageExportForAS="true" linkageClassName="DragDropBox" sourceLibraryItemHRef="元件 1" lastModified="1271409253" lastUniqueIdentifier="3">
+  <timeline>
+    <DOMTimeline name="DragDropBox">
+      <layers>
+        <DOMLayer name="图层 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Panel/Basic_Panel" name="" centerPoint3DX="292" centerPoint3DY="58">
+                  <matrix>
+                    <Matrix a="5.83999633789063" d="1.16000366210938" tx="292" ty="58"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="TempUI/DragDrop/DragDropItem" name="dragSource" centerPoint3DX="84.35" centerPoint3DY="60.3">
+                  <matrix>
+                    <Matrix tx="84.35" ty="60.3"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="TempUI/DragDrop/DragDropItem2" name="dragSource2" selected="true" centerPoint3DX="190.35" centerPoint3DY="60.3">
+                  <matrix>
+                    <Matrix tx="190.35" ty="60.3"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

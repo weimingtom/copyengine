@@ -1,0 +1,29 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Simulate_WorkFlow/Simulate_ScrollBar" itemID="4bdfb6d7-000000c4" sourceLibraryItemHRef="Simulate_WorkFlow/元件 1" lastModified="1273054567" lastUniqueIdentifier="2">
+  <timeline>
+    <DOMTimeline name="Simulate_ScrollBar">
+      <layers>
+        <DOMLayer name="图层 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Btns/ScrollBar/TrackBtn01" name="" centerPoint3DX="50" centerPoint3DY="10">
+                  <matrix>
+                    <Matrix a="3.32015991210938"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="50" y="10"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/ScrollBar/ThumbBtn01" name="" selected="true" centerPoint3DX="25" centerPoint3DY="10">
+                  <transformationPoint>
+                    <Point x="25" y="10"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

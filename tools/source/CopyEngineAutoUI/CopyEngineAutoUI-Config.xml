@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+	<flaSourceFile>
+		<file name="UI_asset" path="flaSource/UI_asset/DOMDocument.xml"/>
+	</flaSourceFile>
+	<componentFile>
+		<file name="UI_asset" path="flaSource/UI_asset/DOMDocument.xml"/>
+	</componentFile>
+</root>

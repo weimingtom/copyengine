@@ -1,0 +1,80 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Simulate_WorkFlow/Simulate_01" itemID="4bdead79-00000044" sourceLibraryItemHRef="元件 1" lastModified="1273042182" lastUniqueIdentifier="13">
+  <timeline>
+    <DOMTimeline name="Simulate_01">
+      <layers>
+        <DOMLayer name="图层 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Symbol/TreeHeart_0" name="" centerPoint3DX="0.2" centerPoint3DY="-14.05">
+                  <matrix>
+                    <Matrix a="3.67584228515625" d="3.86027526855469" ty="-15"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="0.05" y="0.25"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Symbol/TreeHeart_1" name="" centerPoint3DX="-38.95" centerPoint3DY="-68">
+                  <matrix>
+                    <Matrix a="0.956939697265625" d="1.01123046875" tx="-39" ty="-68"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Symbol/TreeHeart_2" name="" centerPoint3DX="40" centerPoint3DY="-75.1">
+                  <matrix>
+                    <Matrix a="0.996307373046875" d="0.97052001953125" tx="40" ty="-75"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point y="-0.1"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_TweenBtn" name="icon_Btn" centerPoint3DX="65.85" centerPoint3DY="62.15">
+                  <matrix>
+                    <Matrix tx="65.5" ty="61.8"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="0.35" y="0.35"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_ScrollBar" name="" centerPoint3DX="-26" centerPoint3DY="134.35">
+                  <matrix>
+                    <Matrix tx="-76" ty="124.35"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_TabBar" name="" centerPoint3DX="80.8" centerPoint3DY="214.95">
+                  <matrix>
+                    <Matrix tx="-38" ty="232.85"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="118.8" y="-17.9"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_TweenBtn" name="" centerPoint3DX="147.35" centerPoint3DY="64.7">
+                  <matrix>
+                    <Matrix tx="149.35" ty="61.8"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="-2" y="2.9"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_List" name="" selected="true" centerPoint3DX="96.45" centerPoint3DY="-163.3">
+                  <matrix>
+                    <Matrix tx="-76.1" ty="-213.4"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="172.55" y="50.1"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

@@ -113,6 +113,12 @@ package copyengine.ui
 				case "tabBar":
 					component = CEUIAssembler.tabBarAssemble(_node);
 					break;
+				case "placeHolder":
+					component = CEUIAssembler.placeHolderAssemble(_node);
+					break;
+				case "list":
+					component = CEUIAssembler.listAssemble(_node);
+					break;
 			}
 			return component;
 		}
