@@ -1,0 +1,164 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="TempUI/DragDrop/DragDropItem" itemID="4bc42139-00000046" linkageExportForAS="true" linkageClassName="DragDropItem" sourceLibraryItemHRef="TempUI/元件 1" lastModified="1271144913">
+  <timeline>
+    <DOMTimeline name="DragDropItem">
+      <layers>
+        <DOMLayer name="图层 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor color="#0066FF"/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle0="1" edges="!730 -550|-730 -550!-730 -550[-830 -550 -830 -450!-830 -450|-830 450!-830 450[-830 550 -730 550!-730 550|730 550!730 550[793 550 817 510!817 510[830 487 830 450!830 450|830 -450!830 -450[830 -550 730 -550"/>
+                  </edges>
+                </DOMShape>
+                <DOMGroup>
+                  <members>
+                    <DOMShape>
+                      <strokes>
+                        <StrokeStyle index="1">
+                          <SolidStroke scaleMode="normal">
+                            <fill>
+                              <SolidColor color="#00D800"/>
+                            </fill>
+                          </SolidStroke>
+                        </StrokeStyle>
+                      </strokes>
+                      <edges>
+                        <Edge strokeStyle="1" edges="!679 120[682 192 618 275!618 275[554 358 484 374!484 374[481 302 545 219!545 219[609 136 679 120!313 459|283 363!283 363|383 363!383 363|483 376!483 376|579 402!579 402|671 441!155 247[168 143 130 82!130 82[77 131 63 235!63 235[49 339
+ 88 399!88 399[141 351 155 247!-300 480|-200 480!-200 480|-100 466!-100 466|-4 441!-4 441|88 402!88 402|184 376!184 376|283 363"/>
+                      </edges>
+                    </DOMShape>
+                  </members>
+                </DOMGroup>
+                <DOMGroup>
+                  <members>
+                    <DOMShape>
+                      <strokes>
+                        <StrokeStyle index="1">
+                          <SolidStroke scaleMode="normal">
+                            <fill>
+                              <SolidColor color="#00D800"/>
+                            </fill>
+                          </SolidStroke>
+                        </StrokeStyle>
+                      </strokes>
+                      <edges>
+                        <Edge strokeStyle="1" edges="
+!345 -300[409 -383 479 -399!479 -399[482 -327 418 -244!418 -244[354 -161 284 -145!284 -145[281 -217 345 -300!775 -112|711 -35!711 -35|637 31!637 31|558 -28!558 -28|471 -78!471 -78|379 -117!379 -117|283 -143!283 -143|183 -156!183 -156
+|83 -156!83 -156|-15 -143!-15 -143|-111 -117!-111 -117|-204 -78!-204 -78|-300 -53!-300 -53|-400 -40!-400 -40|-500 -40!83 -156|113 -60!113 -60|156 29!156 29|209 114!209 114|274 190!274 190|327 275!592 134[546 189 442 208!442 208[339 226
+ 277 190!277 190[323 135 426 116!426 116[530 98 592 134!724 81|637 31!-69 -437[-122 -388 -136 -284!-136 -284[-150 -180 -111 -120!-111 -120[-58 -168 -44 -272!-44 -272[-31 -376 -69 -437!-104 203[-174 187 -238 104!-238 104[-302 21 -299 -50
+!-299 -50[-229 -35 -165 48!-165 48[-101 131 -104 203"/>
+                      </edges>
+                    </DOMShape>
+                  </members>
+                </DOMGroup>
+                <DOMGroup>
+                  <members>
+                    <DOMShape>
+                      <strokes>
+                        <StrokeStyle index="1">
+                          <SolidStroke scaleMode="normal">
+                            <fill>
+                              <SolidColor color="#00D800"/>
+                            </fill>
+                          </SolidStroke>
+                        </StrokeStyle>
+                      </strokes>
+                      <edges>
+                        <Edge strokeStyle="1" edges="
+!-700 -340|-600 -340!-600 -340|-500 -353!-500 -353|-404 -378!-404 -378|-311 -417!-311 -417|-215 -443!-215 -443|-116 -456!-116 -456|-16 -456!-16 -456|83 -443!83 -443|179 -417!179 -417|271 -378!271 -378|358 -328!-438 -195[-374 -112 -304
+ -96!-304 -96[-301 -168 -365 -251!-365 -251[-429 -335 -499 -350!-499 -350[-502 -278 -438 -195"/>
+                      </edges>
+                    </DOMShape>
+                  </members>
+                </DOMGroup>
+                <DOMGroup>
+                  <members>
+                    <DOMShape>
+                      <strokes>
+                        <StrokeStyle index="1">
+                          <SolidStroke scaleMode="normal">
+                            <fill>
+                              <SolidColor color="#00D800"/>
+                            </fill>
+                          </SolidStroke>
+                        </StrokeStyle>
+                      </strokes>
+                      <edges>
+                        <Edge strokeStyle="1" edges="
+!-464 323[-534 307 -598 224!-598 224[-662 141 -659 69!-659 69[-589 84 -525 168!-525 168[-461 251 -464 323!-759 80|-660 66!-660 66|-564 41!-564 41|-471 2!-471 2|-375 -23"/>
+                      </edges>
+                    </DOMShape>
+                  </members>
+                </DOMGroup>
+                <DOMGroup>
+                  <members>
+                    <DOMShape>
+                      <strokes>
+                        <StrokeStyle index="1">
+                          <SolidStroke scaleMode="normal">
+                            <fill>
+                              <SolidColor color="#00D800"/>
+                            </fill>
+                          </SolidStroke>
+                        </StrokeStyle>
+                      </strokes>
+                      <edges>
+                        <Edge strokeStyle="1" edges="
+!-739 380|-639 380!-639 380|-540 366!-540 366|-444 341!-444 341|-351 302!-351 302|-255 276!-255 276|-156 263!-156 263|-126 359!-126 359|-83 449!43 276|-56 263!-56 263|-156 263!-351 299[-298 251 -284 147!-284 147[-271 43 -309 -17!-309
+ -17[-362 31 -376 135!-376 135[-390 239 -351 299"/>
+                      </edges>
+                    </DOMShape>
+                  </members>
+                </DOMGroup>
+                <DOMGroup>
+                  <members>
+                    <DOMShape>
+                      <strokes>
+                        <StrokeStyle index="1">
+                          <SolidStroke scaleMode="normal">
+                            <fill>
+                              <SolidColor color="#00D800"/>
+                            </fill>
+                          </SolidStroke>
+                        </StrokeStyle>
+                      </strokes>
+                      <edges>
+                        <Edge strokeStyle="1" edges="
+!-759 -79|-660 -93!-660 -93|-564 -118!-564 -118|-471 -157"/>
+                      </edges>
+                    </DOMShape>
+                  </members>
+                </DOMGroup>
+                <DOMGroup>
+                  <members>
+                    <DOMShape>
+                      <strokes>
+                        <StrokeStyle index="1">
+                          <SolidStroke scaleMode="normal">
+                            <fill>
+                              <SolidColor color="#00D800"/>
+                            </fill>
+                          </SolidStroke>
+                        </StrokeStyle>
+                      </strokes>
+                      <edges>
+                        <Edge strokeStyle="1" edges="
+!599 -219|699 -219!699 -219|799 -233"/>
+                      </edges>
+                    </DOMShape>
+                  </members>
+                </DOMGroup>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

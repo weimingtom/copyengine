@@ -1,5 +1,7 @@
 package copyengine.ui
 {
+	import com.greensock.easing.Circ;
+	
 	import copyengine.ui.component.button.CEButton;
 	import copyengine.ui.component.button.CESelectableButton;
 	import copyengine.ui.component.button.animation.CEButtonFrameAnimation;
@@ -7,6 +9,9 @@ package copyengine.ui
 	import copyengine.ui.component.button.animation.CESelectedButtonFramAnimation;
 	import copyengine.ui.component.button.animation.CESelectedButtonTweenAnimation;
 	import copyengine.ui.component.button.animation.ICEButtonAnimation;
+	import copyengine.ui.component.list.CEList;
+	import copyengine.ui.component.list.CEListCore;
+	import copyengine.ui.component.placeholder.CEPlaceHolder;
 	import copyengine.ui.component.scrollbar.CEScrollBarCore;
 	import copyengine.ui.component.symbol.CESymbol;
 	import copyengine.ui.component.tabbar.CETabBar;
@@ -19,6 +24,8 @@ package copyengine.ui
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.text.TextField;
+	
+	import flashx.textLayout.debug.assert;
 	
 	import mx.events.RSLEvent;
 
@@ -193,6 +200,95 @@ package copyengine.ui
 		//=============
 		//==PlaceHolder
 		//=============
+		/**
+		 * <placeHolder name="xx" x="88" y="88" widht="88" height="88">
+		 */		
+		public static function placeHolderAssemble(_node:XML):CESprite
+		{
+			var placeHolder:CEPlaceHolder = new CEPlaceHolder(_node.@width ,_node.@height ,_node.@name);
+			placeHolder.x = _node.@x;
+			placeHolder.y = _node.@y;
+			return placeHolder;
+		}
+		
+		/**
+		 * <list name="xx" x="88" y="88" >
+		 * 		<bg symbolName="xx" fileName="xx" x="88" y="88" width="88" height="88" alpha="1" rotation="0" />
+		 * 		<!--prevOne,prevPage,nextOne,nextPage,end,home-->
+		 * 		<button name="prevOne" lableTextKey="xx">
+		 * 			<bg symbolName="xx" fileName="xx" x="88" y="88" widht="88" height="88" alpha="1" rotation="0">
+		 * 			<textFiled/>
+		 * 		</button>
+		 * 		<scrollBar name="xx" x="88" y="88" widht="88" height="88"
+		 * 			thumbSymbolName="xx" thumbFileName="xx" trackSymbolName="xx" trackFileName="xx"/>
+		 * 		<listCore x="88" y="88" displayCount="5" layoutDirection ="h/v" cellRenderWidth="88" cellRenderHeight="88" contentPadding="88"/>
+		 * </list>
+		 */		
+		public static function listAssemble(_node:XML):CESprite
+		{
+			var prevOneBtn:CEButton;
+			var prevOneNode:XML = _node.button.(@name == "prevOne")[0];
+			if(prevOneNode != null)
+			{
+				prevOneBtn = buttonAssemble(prevOneNode) as CEButton;
+			}
+			
+			var prevPageBtn:CEButton;
+			var prevPageNode:XML = _node.button.(@name == "prevPage")[0];
+			if(prevPageNode != null)
+			{
+				prevPageBtn = buttonAssemble( prevPageNode ) as CEButton;
+			}
+			
+			var nextOneBtn:CEButton;
+			var nextOneNode:XML = _node.button.(@name == "nextOne")[0];
+			if(nextOneNode != null)
+			{
+				nextOneBtn = buttonAssemble( nextOneNode ) as CEButton;
+			}
+			
+			var nextPageBtn:CEButton;
+			var nextPageNode:XML = _node.button.(@name == "nextPage")[0];
+			if(nextPageNode != null)
+			{
+				nextPageBtn = buttonAssemble( nextPageNode ) as CEButton;
+			}
+			
+			var homeBtn:CEButton;
+			var homeNode:XML = _node.button.(@name == "home")[0];
+			if(homeNode != null)
+			{
+				homeBtn = buttonAssemble( homeNode ) as CEButton;
+			}
+			
+			var endBtn:CEButton;
+			var endNode:XML = _node.button.(@name == "end")[0];
+			if(endNode != null)
+			{
+				endBtn = buttonAssemble( endNode ) as CEButton;
+			}
+			
+			var scrollBarCore:CEScrollBarCore = scrollBarAssemble(_node.scrollBar[0]) as CEScrollBarCore;
+			
+			var listCoreNode:XML = _node.listCore[0];
+			var listCore:CEListCore = new CEListCore(listCoreNode.@displayCount , listCoreNode.@layoutDirection,
+					listCoreNode.@cellRenderWidth,listCoreNode.@cellRenderHeight,listCoreNode.@contentPadding);
+			listCore.x = listCoreNode.@x;
+			listCore.y = listCoreNode.@y;
+			
+			var bgNode:XML = _node.bg[0];			
+			var bg:DisplayObject;
+			if(bgNode != null)
+			{
+				bg = ResUtils.getSprite(bgNode.@symbolName , bgNode.@fileName);
+				basicAssemble(bgNode,bg);
+			}
+			
+			var ceList:CEList = new CEList(listCore,scrollBarCore,nextOneBtn,nextPageBtn,prevOneBtn,prevPageBtn,homeBtn,endBtn,bg,_node.@name);
+			ceList.x = _node.@x;
+			ceList.y = _node.@y;
+			return ceList;
+		}
 		
 		//=============
 		//== TextField

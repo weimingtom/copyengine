@@ -1,0 +1,36 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="ScrollBar/Thumb_Horizontal" itemID="4bbc32df-000011df" linkageExportForAS="true" linkageClassName="Thumb_Horizontal" sourceLibraryItemHRef="ScrollBar/Thumb_Vertical 副本" lastModified="1272952222">
+  <timeline>
+    <DOMTimeline name="Thumb_Horizontal">
+      <layers>
+        <DOMLayer name="图层 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape isDrawingObject="true">
+                  <matrix>
+                    <Matrix a="0" b="-1" c="1.00126647949219" d="0" tx="19.65" ty="8.25"/>
+                  </matrix>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor color="#99CC00"/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle1="1" edges="!117 -355[165 -318 165 -265!165 -265|165 268!165 268[165 321 117 358!117 358[68 396 0 396!0 396[-68 396 -117 358!-117 358[-165 321 -165 268!-165 268|-165 -265!-165 -265[-165 -318 -117 -355!-117 -355[-68 -393 0 -393!0 -393[68 -393 117
+ -355"/>
+                    <Edge cubics="!165 268(;165,338 91,396 0,396q165 268Q165 321q117 358Q68 396q0 396);"/>
+                    <Edge cubics="!0 396(;-91,396 -165,338 -165,268q0 396Q-68 396q-117 358Q-165 321q-165 268);"/>
+                    <Edge cubics="!-165 268(;-165,268 -165,-265 -165,-265q-165 268 -165 -265);"/>
+                    <Edge cubics="!-165 -265(;-165,-335 -91,-393 0,-393q-165 -265Q-165 -318q-117 -355Q-68 -393q0 -393);"/>
+                    <Edge cubics="!0 -393(;91,-393 165,-335 165,-265q0 -393Q68 -393q117 -355Q165 -318q165 -265);"/>
+                    <Edge cubics="!165 -265(;165,-265 165,268 165,268q165 -265 165 268);"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

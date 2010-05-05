@@ -1,0 +1,38 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="ScrollBar/Track_Vertical" itemID="4bbc3254-000011da" linkageExportForAS="true" linkageClassName="Track_Vertical" sourceFlashFilepath="X:\Playfish\Farm\trunk\resource\fla\ScrollPanel.fla" sourceLibraryItemHRef="scrollPanel/Blank" sourceLastModified="1232077650" lastModified="1270624924" lastUniqueIdentifier="2">
+  <timeline>
+    <DOMTimeline name="Track_Vertical">
+      <layers>
+        <DOMLayer name="图层 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape isDrawingObject="true">
+                  <matrix>
+                    <Matrix tx="603.35" ty="276.85"/>
+                  </matrix>
+                  <fills>
+                    <FillStyle index="1">
+                      <SolidColor color="#EFE086"/>
+                    </FillStyle>
+                  </fills>
+                  <edges>
+                    <Edge fillStyle1="1" edges="!-12014 -7312[-11948 -7312 -11902 -7283!-11902 -7283[-11855 -7254 -11855 -7213!-11855 -7213|-11855 -3861!-11855 -3861[-11855 -3820 -11902 -3791!-11902 -3791[-11948 -3762 -12014 -3762!-12014 -3762|-12120 -3762!-12120 -3762[-12186 -3762
+ -12232 -3791!-12232 -3791[-12279 -3820 -12279 -3861!-12279 -3861|-12279 -7213!-12279 -7213[-12279 -7254 -12232 -7283!-12232 -7283[-12186 -7312 -12120 -7312!-12120 -7312|-12014 -7312"/>
+                    <Edge cubics="!-12014 -7312(;-11927,-7312 -11855,-7268 -11855,-7213q-12014 -7312Q-11948 -7312q-11902 -7283Q-11855 -7254q-11855 -7213);"/>
+                    <Edge cubics="!-11855 -7213(;-11855,-7213 -11855,-3861 -11855,-3861q-11855 -7213 -11855 -3861);"/>
+                    <Edge cubics="!-11855 -3861(-11855,-3861;-11855,-3806 -11927,-3762 -12014,-3762q-11855 -3861Q-11855 -3820q-11902 -3791Q-11948 -3762q-12014 -3762);"/>
+                    <Edge cubics="!-12014 -3762(;-12014,-3762 -12120,-3762 -12120,-3762q-12014 -3762 -12120 -3762);"/>
+                    <Edge cubics="!-12120 -3762(;-12208,-3762 -12279,-3806 -12279,-3861q-12120 -3762Q-12186 -3762q-12232 -3791Q-12279 -3820q-12279 -3861);"/>
+                    <Edge cubics="!-12279 -3861(;-12279,-3861 -12279,-7213 -12279,-7213q-12279 -3861 -12279 -7213);"/>
+                    <Edge cubics="!-12279 -7213(;-12279,-7268 -12208,-7312 -12120,-7312q-12279 -7213Q-12279 -7254q-12232 -7283Q-12186 -7312q-12120 -7312);"/>
+                    <Edge cubics="!-12120 -7312(;-12120,-7312 -12014,-7312 -12014,-7312q-12120 -7312 -12014 -7312);"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

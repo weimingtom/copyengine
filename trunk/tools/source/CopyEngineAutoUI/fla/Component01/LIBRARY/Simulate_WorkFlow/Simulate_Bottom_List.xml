@@ -1,0 +1,55 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Simulate_WorkFlow/Simulate_Bottom_List" itemID="4bbc331d-000011e1" sourceLibraryItemHRef="Simulate_WorkFlow/元件 1" lastModified="1273030543" lastUniqueIdentifier="8">
+  <timeline>
+    <DOMTimeline name="Simulate_Bottom_List">
+      <layers>
+        <DOMLayer name="Btns" color="#9933CC" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements/>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="CEListCore" color="#4FFF4F" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Symbol/Placeholder" name="" centerPoint3DX="-208.35">
+                  <matrix>
+                    <Matrix a="8.09628295898438" d="1.00001525878906" tx="41.15"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="ScrollBar/ScrollBar_Horizontal" name="" centerPoint3DX="-234.75" centerPoint3DY="54.25">
+                  <matrix>
+                    <Matrix a="1.690185546875" d="1.23585510253906" tx="41.15" ty="56.75"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/Common/LeftArrow" name="" centerPoint3DX="17.85" centerPoint3DY="27.8">
+                  <matrix>
+                    <Matrix a="1.65089416503906" d="1.65089416503906" tx="17.85" ty="27.9"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btns/Common/RightArrow" name="" centerPoint3DX="469.8" centerPoint3DY="25.65">
+                  <matrix>
+                    <Matrix a="1.56979370117188" d="1.56979370117188" tx="466.65" ty="25.75"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="2" y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

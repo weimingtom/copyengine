@@ -1,0 +1,45 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Simulate_WorkFlow/Simulate_Stage" itemID="4bbc2d69-00000b4d" sourceLibraryItemHRef="元件 1" lastModified="1270646356" lastUniqueIdentifier="7">
+  <timeline>
+    <DOMTimeline name="Simulate_Stage">
+      <layers>
+        <DOMLayer name="图层 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Panel/Basic_Panel" name="Panel" centerPoint3DX="49.9" centerPoint3DY="149.5">
+                  <matrix>
+                    <Matrix a="5.01144409179688" d="2.08999633789063" tx="250.8" ty="204.05"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_Top_Tabbar" name="Tabbar_Top" selected="true" centerPoint3DX="244.85" centerPoint3DY="32.2">
+                  <transformationPoint>
+                    <Point x="244.85" y="31.4"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_Bottom_List" name="FriendList_Bottom" centerPoint3DX="339.95" centerPoint3DY="226.35">
+                  <matrix>
+                    <Matrix tx="18.3" ty="160.05"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="321.65" y="66.3"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Simulate_WorkFlow/Simulate_Middle_Tabbar" name="Tarbar_Middle" centerPoint3DX="149.3" centerPoint3DY="138.35">
+                  <matrix>
+                    <Matrix tx="51.4" ty="123.1"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="97.9" y="15.25"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

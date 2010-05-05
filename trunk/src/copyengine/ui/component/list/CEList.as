@@ -2,12 +2,13 @@ package copyengine.ui.component.list
 {
 	import copyengine.ui.CESprite;
 	import copyengine.ui.component.button.CEButton;
-	import copyengine.ui.component.list.dataprovider.CEDataProvider;
 	import copyengine.ui.component.list.animation.ICEListAnimation;
+	import copyengine.ui.component.list.dataprovider.CEDataProvider;
 	import copyengine.ui.component.scrollbar.CEScrollBarCore;
 	import copyengine.ui.component.scrollbar.CEScrollBarCoreEvent;
 	import copyengine.utils.GeneralUtils;
-
+	
+	import flash.display.DisplayObject;
 	import flash.events.MouseEvent;
 
 	/**
@@ -51,12 +52,14 @@ package copyengine.ui.component.list
 		 * ScrollBar
 		 */
 		private var ceScrollBarCore:CEScrollBarCore;
+		
+		private var backGround:DisplayObject;
 
 		public function CEList(_ceListCore:CEListCore , _ceScrollBarCore:CEScrollBarCore,
 			_nextOneBtn:CEButton,_nextPageBtn:CEButton,
 			_prevOneBtn:CEButton , _prevPageBtn:CEButton,
-			_firstOneBtn:CEButton , _lastOneBtn:CEButton
-			)
+			_firstOneBtn:CEButton , _lastOneBtn:CEButton,
+			_bg:DisplayObject = null , _uniqueName:String = null)
 		{
 			firstOneBtn = _firstOneBtn;
 			lastOneBtn = _lastOneBtn;
@@ -69,12 +72,16 @@ package copyengine.ui.component.list
 
 			ceScrollBarCore = _ceScrollBarCore;
 			ceListCore = _ceListCore;
-
-			super();
+			
+			backGround = _bg;
+			
+			super(true,_uniqueName);
 		}
 
 		override protected function initialize() : void
 		{
+			GeneralUtils.addTargetToParent(backGround,this);
+			
 			GeneralUtils.addTargetToParent(firstOneBtn,this);
 			GeneralUtils.addTargetToParent(lastOneBtn,this);
 			GeneralUtils.addTargetToParent(nextOneBtn,this);
@@ -83,7 +90,7 @@ package copyengine.ui.component.list
 			GeneralUtils.addTargetToParent(prevPageBtn,this);
 			GeneralUtils.addTargetToParent(ceListCore,this);
 			GeneralUtils.addTargetToParent(ceScrollBarCore,this);
-
+			
 			addListener();
 		}
 
