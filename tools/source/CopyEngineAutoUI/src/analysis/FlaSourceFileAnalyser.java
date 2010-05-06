@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
-import meta.FlaSourceFileMeta;
+import meta.FlaFileMeta;
 
 import utils.XMLUtils;
 import vo.FlaSourceFileVo;
@@ -15,7 +15,7 @@ import vo.FlaSourceFileVo;
 public final class FlaSourceFileAnalyser {
 
 	@SuppressWarnings("unchecked")
-	public static FlaSourceFileVo analysisFlaSourceFile(FlaSourceFileMeta metaFlaSourceFile) {
+	public static FlaSourceFileVo analysisFlaSourceFile(FlaFileMeta metaFlaSourceFile) {
 		FlaSourceFileVo flaSourceFileVo = new FlaSourceFileVo();
 		flaSourceFileVo.flaSourceName = metaFlaSourceFile.fileName;
 
