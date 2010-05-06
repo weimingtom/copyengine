@@ -1,0 +1,24 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Stage01" itemID="4be28e42-0000004d" sourceLibraryItemHRef="Symbol 1" lastModified="1273138830" lastUniqueIdentifier="1">
+  <timeline>
+    <DOMTimeline name="Stage01">
+      <layers>
+        <DOMLayer name="Layer 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Symbol/TreeHeart_6" name="treeHeart_Symbol" centerPoint3DX="3.35" centerPoint3DY="-44.65">
+                  <matrix>
+                    <Matrix a="4.60649108886719" d="4.60649108886719" tx="3.1" ty="-44.65"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="0.1"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>
