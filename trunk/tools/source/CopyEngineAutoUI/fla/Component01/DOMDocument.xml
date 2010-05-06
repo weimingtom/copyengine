@@ -1,17 +1,17 @@
-<DOMDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" backgroundColor="#009900" currentTimeline="1" xflVersion="2.0" creatorInfo="Adobe Flash Professional CS5" platform="Windows" versionInfo="Saved by Adobe Flash Windows 11.0 build 418" majorVersion="11" buildNumber="418" rulerVisible="true" nextSceneIdentifier="50" playOptionsPlayLoop="false" playOptionsPlayPages="false" playOptionsPlayFrameActions="false">
+<DOMDocument xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" backgroundColor="#009900" currentTimeline="1" xflVersion="2.0" creatorInfo="Adobe Flash Professional CS5" platform="Windows" versionInfo="Saved by Adobe Flash Windows 11.0 build 485" majorVersion="11" buildNumber="485" rulerVisible="true" nextSceneIdentifier="50" playOptionsPlayLoop="false" playOptionsPlayPages="false" playOptionsPlayFrameActions="false">
      <folders>
-          <DOMFolderItem name="Btns" itemID="4bbc2aff-000006c5" isExpanded="true"/>
+          <DOMFolderItem name="Btns" itemID="4bbc2aff-000006c5"/>
           <DOMFolderItem name="Btns/Building" itemID="4bbc2d4e-00000b4b"/>
           <DOMFolderItem name="Btns/Common" itemID="4bbc3067-00000de2" isExpanded="true"/>
           <DOMFolderItem name="Btns/ScrollBar" itemID="4bdfb3ff-00000041"/>
           <DOMFolderItem name="Btns/SelectedBtn" itemID="4bdfdb89-0000016b"/>
           <DOMFolderItem name="Btns/TreeHeart" itemID="4bbc2d1c-00000b46"/>
-          <DOMFolderItem name="Common" itemID="4bdfde77-0000018c" isExpanded="true"/>
-          <DOMFolderItem name="Panel" itemID="4bbc2925-0000022f" isExpanded="true"/>
+          <DOMFolderItem name="Common" itemID="4bdfde77-0000018c"/>
+          <DOMFolderItem name="Panel" itemID="4bbc2925-0000022f"/>
           <DOMFolderItem name="ScrollBar" itemID="4bbc322c-000011d7"/>
-          <DOMFolderItem name="Simulate_WorkFlow" itemID="4bbc2a80-000006bd" isExpanded="true"/>
-          <DOMFolderItem name="Symbol" itemID="4bdead86-0000004a" isExpanded="true"/>
-          <DOMFolderItem name="TempUI" itemID="4bc420d1-0000003d" isExpanded="true"/>
+          <DOMFolderItem name="Simulate_WorkFlow" itemID="4bbc2a80-000006bd"/>
+          <DOMFolderItem name="Symbol" itemID="4bdead86-0000004a"/>
+          <DOMFolderItem name="TempUI" itemID="4bc420d1-0000003d"/>
           <DOMFolderItem name="TempUI/DragDrop" itemID="4bc4212d-00000044" isExpanded="true"/>
      </folders>
      <symbols>
@@ -50,6 +50,7 @@
           <Include href="Simulate_WorkFlow/Simulate_TabBar.xml" loadImmediate="false"/>
           <Include href="Simulate_WorkFlow/Simulate_Top_Tabbar.xml" loadImmediate="false"/>
           <Include href="Simulate_WorkFlow/Simulate_TweenBtn.xml" loadImmediate="false"/>
+          <Include href="Symbol 1.xml" loadImmediate="false"/>
           <Include href="Symbol/Placeholder.xml"/>
           <Include href="Symbol/TreeHeart_0.xml"/>
           <Include href="Symbol/TreeHeart_1.xml"/>
