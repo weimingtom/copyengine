@@ -1,4 +1,4 @@
-<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Simulate_WorkFlow/Simulate_Bottom_List" itemID="4bbc331d-000011e1" sourceLibraryItemHRef="Simulate_WorkFlow/元件 1" lastModified="1273030543" lastUniqueIdentifier="8">
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Simulate_WorkFlow/Simulate_Bottom_List" itemID="4be28ce0-00000034" lastModified="1273138400">
   <timeline>
     <DOMTimeline name="Simulate_Bottom_List">
       <layers>
@@ -15,7 +15,7 @@
               <elements>
                 <DOMSymbolInstance libraryItemName="Symbol/Placeholder" name="" centerPoint3DX="-208.35">
                   <matrix>
-                    <Matrix a="8.09628295898438" d="1.00001525878906" tx="41.15"/>
+                    <Matrix a="8.09628295898438" tx="41.15"/>
                   </matrix>
                   <transformationPoint>
                     <Point/>
@@ -23,7 +23,7 @@
                 </DOMSymbolInstance>
                 <DOMSymbolInstance libraryItemName="ScrollBar/ScrollBar_Horizontal" name="" centerPoint3DX="-234.75" centerPoint3DY="54.25">
                   <matrix>
-                    <Matrix a="1.690185546875" d="1.23585510253906" tx="41.15" ty="56.75"/>
+                    <Matrix a="1.690185546875" d="1.23583984375" tx="41.15" ty="56.75"/>
                   </matrix>
                   <transformationPoint>
                     <Point/>
@@ -31,7 +31,7 @@
                 </DOMSymbolInstance>
                 <DOMSymbolInstance libraryItemName="Btns/Common/LeftArrow" name="" centerPoint3DX="17.85" centerPoint3DY="27.8">
                   <matrix>
-                    <Matrix a="1.65089416503906" d="1.65089416503906" tx="17.85" ty="27.9"/>
+                    <Matrix a="1.65087890625" d="1.65087890625" tx="17.85" ty="27.9"/>
                   </matrix>
                   <transformationPoint>
                     <Point y="-0.05"/>

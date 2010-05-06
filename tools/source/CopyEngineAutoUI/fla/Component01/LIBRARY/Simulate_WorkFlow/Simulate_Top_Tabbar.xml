@@ -19,7 +19,7 @@
                     <Matrix a="1.05599975585938" d="1.08026123046875" tx="142.95" ty="66.3"/>
                   </matrix>
                   <transformationPoint>
-                    <Point y="0.5"/>
+                    <Point y="0.55"/>
                   </transformationPoint>
                 </DOMSymbolInstance>
                 <DOMSymbolInstance libraryItemName="Btns/Building/IconBuildingHouse" name="" centerPoint3DX="247.75" centerPoint3DY="64.4">
@@ -32,7 +32,7 @@
                 </DOMSymbolInstance>
                 <DOMSymbolInstance libraryItemName="Btns/Building/IconItemHouse" name="" centerPoint3DX="354.3" centerPoint3DY="64.95">
                   <matrix>
-                    <Matrix a="1.10220336914063" d="1.03144836425781" tx="357.55" ty="66"/>
+                    <Matrix a="1.10220336914063" d="1.03143310546875" tx="357.55" ty="66"/>
                   </matrix>
                   <transformationPoint>
                     <Point y="-0.05"/>
@@ -40,7 +40,7 @@
                 </DOMSymbolInstance>
                 <DOMSymbolInstance libraryItemName="Btns/Building/IconMayor" name="" centerPoint3DX="460.95" centerPoint3DY="63.6">
                   <matrix>
-                    <Matrix a="1.26220703125" d="1.22151184082031" tx="464.05" ty="65.15"/>
+                    <Matrix a="1.26220703125" d="1.22149658203125" tx="464.05" ty="65.15"/>
                   </matrix>
                   <transformationPoint>
                     <Point x="-0.65" y="-0.25"/>
