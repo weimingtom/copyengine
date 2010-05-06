@@ -64,7 +64,7 @@ public final class ProjectConfig {
 			<file name="UI_asset" path="flaSource/UI_asset/DOMDocument.xml"/>
 		</componentFile> 
 		 */
-		for (Iterator flaDesignFileIt = root.element("").elements("file").iterator(); flaDesignFileIt.hasNext();) {
+		for (Iterator flaDesignFileIt = root.element("componentFile").elements("file").iterator(); flaDesignFileIt.hasNext();) {
 			Element flaDesignFileElement = (Element) flaDesignFileIt.next();
 			FlaFileMeta file = new FlaFileMeta();
 			file.fileName = flaDesignFileElement.attributeValue("name");

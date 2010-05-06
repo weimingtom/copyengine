@@ -8,11 +8,12 @@ public class FlaFileMeta {
 	public String filePath;
 
 	public String getFilePathWithoutName() {
-		String regex = "^(.+\\)\\.xml$";
+		String regex = "^((\\.+\\/|(\\w+\\/))*\\w+\\/)(\\w+)\\.xml$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(filePath);
 		if (matcher.find()) {
-			return matcher.group(2);
+			System.out.println( matcher.group(1) );
+			return matcher.group();
 		} else {
 			throw new Error("can't analysis filePath :" + filePath);
 		}

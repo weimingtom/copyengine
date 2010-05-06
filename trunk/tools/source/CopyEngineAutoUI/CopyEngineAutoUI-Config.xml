@@ -4,6 +4,6 @@
 		<file name="UI_asset" path="flaSource/UI_asset/DOMDocument.xml"/>
 	</flaSourceFile>
 	<componentFile>
-		<file name="UI_asset" path="flaSource/UI_asset/DOMDocument.xml"/>
+		<file name="Component01" path="fla/Component01/LIBRARY/Stage01.xml"/>
 	</componentFile>
 </root>
