@@ -1,4 +1,5 @@
 package config;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,8 +9,7 @@ import org.dom4j.Element;
 
 import utils.XMLUtils;
 
-import meta.FlaSourceFileMeta;
-
+import meta.FlaFileMeta;
 
 public final class ProjectConfig {
 
@@ -31,7 +31,8 @@ public final class ProjectConfig {
 		return instance;
 	}
 
-	public ArrayList<FlaSourceFileMeta> flaSourceFileMetaList = new ArrayList<FlaSourceFileMeta>(0);
+	public ArrayList<FlaFileMeta> flaSourceFileMetaList = new ArrayList<FlaFileMeta>(0);
+	public ArrayList<FlaFileMeta> flaDesignFileMetaList = new ArrayList<FlaFileMeta>(0);
 
 	public ProjectConfig() {
 		init();
@@ -41,14 +42,36 @@ public final class ProjectConfig {
 	private void init() {
 		Document confilgFile = XMLUtils.readXml(CONFIG_DOCUMENT_LOACTION);
 		Element root = confilgFile.getRootElement();
+
+		/*
+		   Analyse node:
+		   <flaSourceFile>
+				<file name="UI_asset" path="flaSource/UI_asset/DOMDocument.xml"/>
+			</flaSourceFile>
+		 */
 		for (Iterator flaSourceFileIt = root.element("flaSourceFile").elements("file").iterator(); flaSourceFileIt.hasNext();) {
 			Element flaSourceFileElement = (Element) flaSourceFileIt.next();
 
-			FlaSourceFileMeta file = new FlaSourceFileMeta();
+			FlaFileMeta file = new FlaFileMeta();
 			file.fileName = flaSourceFileElement.attributeValue("name");
 			file.filePath = flaSourceFileElement.attributeValue("path");
 			flaSourceFileMetaList.add(file);
 		}
+
+		/*
+		 Analyse node:
+		 <componentFile>
+			<file name="UI_asset" path="flaSource/UI_asset/DOMDocument.xml"/>
+		</componentFile> 
+		 */
+		for (Iterator flaDesignFileIt = root.element("").elements("file").iterator(); flaDesignFileIt.hasNext();) {
+			Element flaDesignFileElement = (Element) flaDesignFileIt.next();
+			FlaFileMeta file = new FlaFileMeta();
+			file.fileName = flaDesignFileElement.attributeValue("name");
+			file.filePath = flaDesignFileElement.attributeValue("path");
+			flaDesignFileMetaList.add(file);
+		}
+
 	}
 
 }

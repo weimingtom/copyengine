@@ -1,6 +1,6 @@
 package meta;
 
-public class FlaSourceFileMeta {
+public class FlaFileMeta {
 	public String fileName;
 	public String filePath;
 }
