@@ -12,8 +12,7 @@ public class FlaFileMeta {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(filePath);
 		if (matcher.find()) {
-			System.out.println( matcher.group(1) );
-			return matcher.group();
+			return matcher.group(1);
 		} else {
 			throw new Error("can't analysis filePath :" + filePath);
 		}
