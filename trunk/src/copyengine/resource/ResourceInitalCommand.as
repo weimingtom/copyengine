@@ -17,10 +17,10 @@ package copyengine.resource
 		{
 			super.execute(notification);
 			CopyEngineFacade.instance.registerProxy(GameResManager.instance);
-			GameResManager.instance.initialize((notification.getBody() as CopyEngineAS).configXML);
+			GameResManager.instance.initialize((notification.getBody() as IMain).configXML);
 			
 			//free the xml file.
-			(notification.getBody() as CopyEngineAS).configXML = null;
+			(notification.getBody() as IMain).freeConfigXML();
 		}
 
 	}

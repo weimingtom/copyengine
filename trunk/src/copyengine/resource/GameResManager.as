@@ -35,12 +35,6 @@ package copyengine.resource
 		public static const LOAD_SPPED_MIDDLE : int = 5;
 		public static const LOAD_SPPED_LOW : int = 1;
 
-		/**
-		 * define the loadQueue name in LoadResConfig.xml.
-		 */
-		public static const LOAD_QUEUE_PERLOAD:String = "perLoadQueue";
-		public static const LOAD_QUEUE_BACKGROUNDLOADQUEUE:String = "backGroundLoadQueue";
-
 		private static var _instance : GameResManager;
 
 		public static function get instance() : GameResManager

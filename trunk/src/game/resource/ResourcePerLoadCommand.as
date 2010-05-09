@@ -1,6 +1,7 @@
-package copyengine.resource
+package game.resource
 {
 	
+	import copyengine.resource.GameResManager;
 	import copyengine.utils.debug.DebugLog;
 	
 	import org.puremvc.as3.interfaces.INotification;
@@ -14,9 +15,7 @@ package copyengine.resource
 
 		override public function execute(notification:INotification) : void
 		{
-			GameResManager.instance.startLoadQueueByName(GameResManager.LOAD_QUEUE_PERLOAD);
-//			this.sendNotification(GameResMessage.LOAD_RESOURCE_QUEUE_LOAD_COMPLATE,null,GameResManager.LOAD_QUEUE_PERLOAD);
-			DebugLog.instance.log("ResourcePerLoadCommand Call");
+			GameResManager.instance.startLoadQueueByName(ResourceConfig.LOAD_QUEUE_PERLOAD);
 		}
 	}
 }
