@@ -1,4 +1,4 @@
-<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Btn/Common/DownArrow" itemID="4bbc31be-0000119c" linkageExportForAS="true" linkageClassName="DownArrow" sourceFlashFilepath="X:\Playfish\Farm\trunk\resource\fla\ScrollPanel.fla" sourceLibraryItemHRef="scrollPanel/ButtonDown1" sourceLastModified="1245393475" lastModified="1273386336">
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Btn/Common/DownArrow" itemID="4bbc31be-0000119c" linkageExportForAS="true" linkageClassName="DownArrow" sourceFlashFilepath="X:\Playfish\Farm\trunk\resource\fla\ScrollPanel.fla" sourceLibraryItemHRef="scrollPanel/ButtonDown1" sourceLastModified="1245393475" lastModified="1273386336" lastUniqueIdentifier="1">
   <timeline>
     <DOMTimeline name="DownArrow">
       <layers>
@@ -25,10 +25,10 @@
                     </FillStyle>
                   </fills>
                   <edges>
-                    <Edge fillStyle0="4" fillStyle1="2" edges="!199 -107|171 -107"/>
                     <Edge fillStyle0="4" fillStyle1="5" edges="!171 -107[148 -105 121 -105!121 -105[-103 -99 -206 -78!-206 -78[-272 -65 -260 -22!-260 -22[-258 -17 -250 -1!-250 -1[-249 1 -250 1"/>
                     <Edge fillStyle0="4" fillStyle1="2" edges="!-250 1[-172 56 -3 177"/>
                     <Edge fillStyle0="4" fillStyle1="3" edges="!-3 177[-8 174 99 86!99 86[223 -17 259 -56!259 -56[271 -69 232 -89!232 -89[#C1.5F #FFFF95.2C 199 -107"/>
+                    <Edge fillStyle0="4" fillStyle1="2" edges="!199 -107|171 -107"/>
                     <Edge fillStyle0="3" fillStyle1="2" edges="!-3 177[9 169 308 -44!308 -44[342 -65 342 -85!342 -85[342 -107 296 -107!296 -107|199 -107"/>
                     <Edge fillStyle0="2" edges="!419 -96[422 -109 419 -123!419 -123[410 -160 355 -160!355 -160|-363 -160!-363 -160[-417 -160 -427 -123!-427 -123[-435 -88 -397 -58!-397 -58[-396 -58 -396 -57"/>
                     <Edge fillStyle0="2" fillStyle1="1" edges="!-396 -57[-357 -28 -186 93!-186 93[-6 222 -4 221!-4 221[-3 222 179 93!179 93[346 -26 390 -58!390 -58[412 -76 419 -96"/>

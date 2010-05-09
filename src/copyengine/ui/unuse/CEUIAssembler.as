@@ -286,7 +286,7 @@ package copyengine.ui.unuse
 				basicAssemble(bgNode,bg);
 			}
 			
-			var ceList:CEList = new CEList(listCore,scrollBarCore,nextOneBtn,nextPageBtn,prevOneBtn,prevPageBtn,homeBtn,endBtn,bg,_node.@name);
+			var ceList:CEList = new CEList(listCore,scrollBarCore,nextOneBtn,nextPageBtn,prevOneBtn,prevPageBtn,homeBtn,endBtn,_node.@name);
 			ceList.x = _node.@x;
 			ceList.y = _node.@y;
 			return ceList;

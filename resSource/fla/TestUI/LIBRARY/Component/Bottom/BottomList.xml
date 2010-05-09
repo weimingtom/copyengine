@@ -1,0 +1,88 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Component/Bottom/BottomList" itemID="4be6c5ba-000000a6" sourceLibraryItemHRef="Component/Symbol 1" lastModified="1273419879" lastUniqueIdentifier="10">
+  <timeline>
+    <DOMTimeline name="BottomList">
+      <layers>
+        <DOMLayer name="Layer 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Btn/Common/LeftArrow" name="prevOne" centerPoint3DX="8.8" centerPoint3DY="29.65">
+                  <matrix>
+                    <Matrix tx="8.8" ty="29.7"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btn/Common/RightArrow" name="nextOne" centerPoint3DX="508.75" centerPoint3DY="29.65">
+                  <matrix>
+                    <Matrix tx="506.75" ty="29.7"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="2" y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btn/Common/LeftArrow" name="prevPage" centerPoint3DX="8.8" centerPoint3DY="90.25">
+                  <matrix>
+                    <Matrix tx="8.8" ty="90.3"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btn/Common/RightArrow" name="nextPage" centerPoint3DX="508.75" centerPoint3DY="90.25">
+                  <matrix>
+                    <Matrix tx="506.75" ty="90.3"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="2" y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Component/Bottom/BottomList_CellRender" name="c0" centerPoint3DX="79.75" centerPoint3DY="60">
+                  <matrix>
+                    <Matrix tx="29.75"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="50" y="60"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Component/Bottom/BottomList_CellRender" name="c1" centerPoint3DX="199.55" centerPoint3DY="60">
+                  <matrix>
+                    <Matrix tx="149.55"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="50" y="60"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Component/Bottom/BottomList_CellRender" name="c3" centerPoint3DX="439.2" centerPoint3DY="60">
+                  <matrix>
+                    <Matrix tx="389.2"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="50" y="60"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Component/Bottom/BottomList_CellRender" name="c2" centerPoint3DX="319.35" centerPoint3DY="60">
+                  <matrix>
+                    <Matrix tx="269.35"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="50" y="60"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="ScrollBar/ScrollBarHorizontal" name="scrollBar" centerPoint3DX="43.5" centerPoint3DY="159.9">
+                  <matrix>
+                    <Matrix a="5.37950134277344" tx="-6.5" ty="149.9"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="50" y="10"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

@@ -3,7 +3,7 @@ package copyengine.ui.component.button
 	import copyengine.ui.CESprite;
 	import copyengine.ui.component.button.animation.ICEButtonAnimation;
 	import copyengine.ui.text.CETextManger;
-
+	
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -35,7 +35,8 @@ package copyengine.ui.component.button
 		 * embed font. or determine how to show tooltips
 		 */
 		protected var labelTextKey:String;
-
+		
+		protected var lableField:TextField;
 
 		protected var interaction:ICEButtonAnimation;
 
@@ -53,18 +54,14 @@ package copyengine.ui.component.button
 		 * @param _uniqueName
 		 *
 		 */
-		public function CEButton(_buttonBg:DisplayObject ,_lableFiled:TextField = null , _labelTextKey:String = null  ,
+		public function CEButton(_buttonBg:DisplayObject ,_lableField:TextField = null , _labelTextKey:String = null  ,
 			_interaction:ICEButtonAnimation = null ,_uniqueName:String = null)
 		{
 			super(true,_uniqueName);
 
 			buttonBg = _buttonBg;
-			this.x = buttonBg.x;
-			this.y = buttonBg.y;
-			buttonBg.parent.addChild(this);
-			this.addChild(buttonBg);
-			buttonBg.x = buttonBg.y = 0;
-
+			lableField = _lableField;
+			
 			interaction = _interaction;
 			if (interaction != null)
 			{
