@@ -1,0 +1,26 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="ScrollBar/ScrollBarHorizontal" itemID="4be6c53e-00000085" sourceLibraryItemHRef="Symbol 1" lastModified="1273419598" lastUniqueIdentifier="2">
+  <timeline>
+    <DOMTimeline name="ScrollBarHorizontal">
+      <layers>
+        <DOMLayer name="Layer 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Assets/ScrollBar/TrackBtn01" name="track" selected="true" centerPoint3DX="50" centerPoint3DY="10">
+                  <transformationPoint>
+                    <Point x="50" y="10"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Assets/ScrollBar/ThumbBtn01" name="thumb" centerPoint3DX="25" centerPoint3DY="10">
+                  <transformationPoint>
+                    <Point x="25" y="10"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

@@ -1,0 +1,63 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Component/Bottom/BottomListComponent" itemID="4be655a5-00000073" linkageExportForAS="true" linkageClassName="BottomListComponent" sourceLibraryItemHRef="Symbol 1" lastModified="1273419460" lastUniqueIdentifier="23">
+  <timeline>
+    <DOMTimeline name="BottomListComponent">
+      <layers>
+        <DOMLayer name="Btn" color="#9933CC" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Btn/Common/Btn01" name="okBtn" centerPoint3DX="50" centerPoint3DY="20">
+                  <matrix>
+                    <Matrix tx="50" ty="20"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="ScrollBar" color="#FF4FFF" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements/>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="List" color="#FF800A" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Component/Bottom/BottomList" name="list" selected="true" centerPoint3DX="273.95" centerPoint3DY="129.35">
+                  <matrix>
+                    <Matrix tx="15.5" ty="69.45"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="258.45" y="59.9"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="Bg" color="#4FFF4F" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Panel/Basic_Panel" name="" centerPoint3DX="316" centerPoint3DY="129.35">
+                  <matrix>
+                    <Matrix a="5.47947692871094" d="1.69999694824219" tx="273.95" ty="129.35"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

@@ -75,7 +75,7 @@
     <PackageExportFrame>1</PackageExportFrame>
     <PackagePaths></PackagePaths>
     <AS3PackagePaths>.</AS3PackagePaths>
-    <AS3ConfigConst>CONFIG::FLASH_AUTHORING=&quot;true&quot;;</AS3ConfigConst>
+    <AS3ConfigConst></AS3ConfigConst>
     <DebuggingPermitted>0</DebuggingPermitted>
     <DebuggingPassword></DebuggingPassword>
     <CompressMovie>1</CompressMovie>
@@ -96,9 +96,9 @@
     <IncludeXMP>1</IncludeXMP>
     <HardwareAcceleration>0</HardwareAcceleration>
     <AS3Flags>4102</AS3Flags>
-    <DefaultLibraryLinkage>rsl</DefaultLibraryLinkage>
+    <DefaultLibraryLinkage>merge</DefaultLibraryLinkage>
     <RSLPreloaderMethod>wrap</RSLPreloaderMethod>
-    <RSLPreloaderSWF>$(AppConfig)/ActionScript 3.0/rsls/loader_animation.swf</RSLPreloaderSWF>
+    <RSLPreloaderSWF></RSLPreloaderSWF>
     <LibraryPath>
       <library-path-entry>
         <swc-path>$(AppConfig)/ActionScript 3.0/libs</swc-path>
@@ -106,7 +106,7 @@
       </library-path-entry>
       <library-path-entry>
         <swc-path>$(AppConfig)/ActionScript 3.0/libs/11.0/textLayout.swc</swc-path>
-        <linkage usesDefault="true">rsl</linkage>
+        <linkage usesDefault="true">merge</linkage>
         <rsl-url>http://fpdownload.adobe.com/pub/swz/tlf/1.0.0.595/textLayout_1.0.0.595.swz</rsl-url>
         <policy-file-url>http://fpdownload.adobe.com/pub/swz/crossdomain.xml</policy-file-url>
         <rsl-url>textLayout_1.0.0.595.swz</rsl-url>

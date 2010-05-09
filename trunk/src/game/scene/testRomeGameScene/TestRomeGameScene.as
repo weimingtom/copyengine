@@ -17,6 +17,7 @@ package game.scene.testRomeGameScene
 	import flash.ui.Mouse;
 	
 	import game.ui.test.list.TCellRender02;
+	import game.utils.UIUtils;
 	
 	import mx.core.ButtonAsset;
 
@@ -32,19 +33,14 @@ package game.scene.testRomeGameScene
 		override protected function initialize() : void
 		{
 			var bottomList:MovieClip = ResUtils.getMovieClip("BottomListComponent",ResUtils.FILE_TESTUI);
-			prevBtn = new CEButton(bottomList["prevOne"],null,null,new CEButtonTweenAnimation());
-
-			var thumb:CEButton = new CEButton(bottomList["thumb"],null,null,new CEButtonFrameAnimation());
-			var track:CEButton = new CEButton(bottomList["track"],null,null,new CEButtonFrameAnimation());
-			var scrollBar:CEScrollBarCore = new CEScrollBarCore(thumb,track);
-
-			var listPh:MovieClip = bottomList["listPH"];
-			var listCore:CEListCore = new CEListCore(4,CEListCore.LAYOUT_HORIZONTAL,listPh["c1"].width,listPh["c1"].height,
-				5);
-			var list:CEList = new CEList(listCore,scrollBar,null,null,prevBtn,null,null,null,null,null);
-			list.x = listPh.x;
-			list.y = listPh.y;
 			
+			//Component Btn
+			var btn:CEButton = UIUtils.getButton(bottomList["okBtn"],CEButtonTweenAnimation);
+			
+			//Component List
+			var list:CEList = UIUtils.getList(bottomList["list"],CEListCore.LAYOUT_HORIZONTAL,CEButtonTweenAnimation);
+			
+			//Initialze List
 			var dataProvider:CEDataProvider = new CEDataProvider();
 			for (var i:int = 0 ; i < 30 ; i++)
 			{
@@ -53,15 +49,9 @@ package game.scene.testRomeGameScene
 				dataProvider.addData(data);
 			}
 			list.initializeCEList(dataProvider,TCellRender02,new CEListTweenAnimation());
-		
 			
-			listPh.parent.addChild(list);
-			listPh.parent.removeChild(listPh);
-
-			container.addChild(scrollBar);
 			container.addChild(bottomList);
 		}
-
 
 	}
 }

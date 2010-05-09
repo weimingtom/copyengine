@@ -83,10 +83,6 @@ package copyengine.ui.component.scrollbar
 		{
 			thumb = _thumb;
 			track = _track;
-
-			this.x = track.x;
-			this.y = track.y;
-			track.x = track.y=thumb.x = thumb.y = 0;
 			
 			direction = _direction;
 
