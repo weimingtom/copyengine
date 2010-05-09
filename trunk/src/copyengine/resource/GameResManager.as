@@ -14,7 +14,7 @@ package copyengine.resource
 	import flash.utils.ByteArray;
 	import flash.utils.Dictionary;
 
-	import game.GlobalMessage;
+	import copyengine.GlobalMessage;
 
 	import org.puremvc.as3.patterns.proxy.Proxy;
 
