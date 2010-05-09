@@ -4,7 +4,7 @@ package copyengine.utils
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
 	
-	import game.scene.IsoMath;
+	import game.scene.unuse.IsoMath;
 	
 	import org.osmf.net.dynamicstreaming.INetStreamMetrics;
 

@@ -1,4 +1,4 @@
-package copyengine.ui
+package copyengine.ui.unuse
 {
 	import copyengine.ui.component.button.CEButton;
 	import copyengine.ui.component.button.CESelectableButton;
@@ -155,7 +155,7 @@ package copyengine.ui
 		public function createScrollBarCore(_thumb:CEButton , _track:CEButton , 
 			_width:Number ,_height:Number , _direction:String) : CEScrollBarCore
 		{
-			return new CEScrollBarCore(_thumb,_track,_width,_height,_direction);
+			return new CEScrollBarCore(_thumb,_track,_direction);
 		}
 
 		/**

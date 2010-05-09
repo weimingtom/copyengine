@@ -16,7 +16,7 @@ package copyengine.scenes.isometric
 	import flash.utils.Dictionary;
 	import flash.utils.getTimer;
 
-	import game.scene.IsoMath;
+	import game.scene.unuse.IsoMath;
 
 	import org.osmf.net.dynamicstreaming.INetStreamMetrics;
 	import org.osmf.utils.OSMFStrings;

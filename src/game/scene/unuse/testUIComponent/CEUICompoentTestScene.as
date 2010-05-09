@@ -1,7 +1,7 @@
-package game.scene.testUIComponent
+package game.scene.unuse.testUIComponent
 {
 	import copyengine.scenes.SceneBasic;
-	import copyengine.ui.UnUse_CEComponentFactory;
+	import copyengine.ui.unuse.UnUse_CEComponentFactory;
 	import copyengine.ui.component.button.CEButton;
 	import copyengine.ui.component.button.CESelectableButton;
 	import copyengine.ui.component.button.animation.CEButtonFrameAnimation;

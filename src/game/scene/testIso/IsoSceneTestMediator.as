@@ -20,7 +20,7 @@ package game.scene.testIso
 	import flash.geom.Vector3D;
 	import flash.utils.Dictionary;
 	
-	import game.scene.IsoMath;
+	import game.scene.unuse.IsoMath;
 
 	public class IsoSceneTestMediator extends IsoSceneBasicMediator
 	{

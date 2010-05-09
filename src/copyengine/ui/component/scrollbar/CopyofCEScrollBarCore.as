@@ -7,7 +7,7 @@ package copyengine.ui.component.scrollbar
 	
 	import flash.events.MouseEvent;
 
-	public class CEScrollBarCore extends CESprite
+	public class CopyCEScrollBarCore extends CESprite
 	{
 		/**
 		 *define the minimun size of the thumb , the thumb will autoScale by the track size.
@@ -79,11 +79,14 @@ package copyengine.ui.component.scrollbar
 		private var thumbScrollOffset:Number = 0;
 
 
-		public function CEScrollBarCore(_thumb:CEButton , _track:CEButton,_uniqueName:String = null,_direction:String = LAYOUT_AUTO)
+		public function CopyCEScrollBarCore(_thumb:CEButton , _track:CEButton,
+			_width:Number ,_height:Number,_uniqueName:String = null,_direction:String = LAYOUT_AUTO)
 		{
 			thumb = _thumb;
 			track = _track;
 
+//			track.width  = _width;
+//			track.height = _height;
 			this.x = track.x;
 			this.y = track.y;
 			track.x = track.y=thumb.x = thumb.y = 0;

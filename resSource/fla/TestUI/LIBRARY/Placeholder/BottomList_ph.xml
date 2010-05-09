@@ -1,0 +1,45 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Placeholder/BottomList_ph" itemID="4be656d9-000000a3" sourceLibraryItemHRef="Symbol 1" lastModified="1273391405" lastUniqueIdentifier="4">
+  <timeline>
+    <DOMTimeline name="BottomList_ph">
+      <layers>
+        <DOMLayer name="Layer 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Component/BottomList_CellRender" name="c1" selected="true" centerPoint3DX="50" centerPoint3DY="60">
+                  <transformationPoint>
+                    <Point x="50" y="60"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Component/BottomList_CellRender" name="c2" centerPoint3DX="169.8" centerPoint3DY="60">
+                  <matrix>
+                    <Matrix tx="119.8"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="50" y="60"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Component/BottomList_CellRender" name="" centerPoint3DX="409.45" centerPoint3DY="60">
+                  <matrix>
+                    <Matrix tx="359.45"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="50" y="60"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Component/BottomList_CellRender" name="" centerPoint3DX="289.6" centerPoint3DY="60">
+                  <matrix>
+                    <Matrix tx="239.6"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="50" y="60"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

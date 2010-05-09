@@ -19,7 +19,7 @@ package copyengine.ui.component.button
 	 *
 	 * @author Tunied
 	 */
-	public class CEButton extends CESprite
+	public class CopyCEButton extends CESprite
 	{
 
 		/**
@@ -53,17 +53,26 @@ package copyengine.ui.component.button
 		 * @param _uniqueName
 		 *
 		 */
-		public function CEButton(_buttonBg:DisplayObject ,_lableFiled:TextField = null , _labelTextKey:String = null  ,
+		public function CopyCEButton(_buttonBg:DisplayObject ,_lableFiled:TextField = null , _labelTextKey:String = null  ,
 			_interaction:ICEButtonAnimation = null ,_uniqueName:String = null)
 		{
 			super(true,_uniqueName);
 
 			buttonBg = _buttonBg;
-			this.x = buttonBg.x;
-			this.y = buttonBg.y;
-			buttonBg.parent.addChild(this);
-			this.addChild(buttonBg);
-			buttonBg.x = buttonBg.y = 0;
+
+			//need to add buttonSkin when create this button.
+			//ex:
+			//   var button:CEButton = new CEButton();
+			//    button.width = 100; 
+			// in this case can't set width right now , beacuse CEButton have no child , the widht always 0
+			addChild(buttonBg);
+
+			labelTextKey = _labelTextKey;
+			if (labelTextKey != null && _lableFiled)
+			{
+				_lableFiled.htmlText = CETextManger.instance.getText(labelTextKey);
+				addChild(_lableFiled);
+			}
 
 			interaction = _interaction;
 			if (interaction != null)

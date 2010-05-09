@@ -1,8 +1,8 @@
-package game.scene.testUIComponent
+package game.scene.unuse.testUIComponent
 {
 	import com.greensock.TweenLite;
 	
-	import copyengine.ui.UnUse_CEComponentFactory;
+	import copyengine.ui.unuse.UnUse_CEComponentFactory;
 	import copyengine.ui.component.list.CEList;
 	import copyengine.ui.component.list.animation.CEListTweenAnimation;
 	import copyengine.ui.component.list.dataprovider.CEDataProvider;

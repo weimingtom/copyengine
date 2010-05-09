@@ -1,0 +1,34 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Placeholder/BottomScrollBar_ph" itemID="4be66192-0000011c" sourceLibraryItemHRef="Placeholder/Symbol 1" scaleGridLeft="54" scaleGridRight="81.5" scaleGridTop="3" scaleGridBottom="16.5" lastModified="1273389658" lastUniqueIdentifier="2">
+  <timeline>
+    <DOMTimeline name="BottomScrollBar_ph">
+      <layers>
+        <DOMLayer name="Thumb" color="#9933CC" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Btn/ScrollBar/ThumbBtn01" name="" centerPoint3DX="25" centerPoint3DY="10">
+                  <transformationPoint>
+                    <Point x="25" y="10"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="Track" color="#4FFF4F" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Btn/ScrollBar/TrackBtn01" name="" selected="true" centerPoint3DX="46" centerPoint3DY="10">
+                  <transformationPoint>
+                    <Point x="46" y="10"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

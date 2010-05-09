@@ -1,0 +1,104 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Component/BottomListComponent" itemID="4be655a5-00000073" linkageExportForAS="true" linkageClassName="BottomListComponent" sourceLibraryItemHRef="Symbol 1" lastModified="1273394103" lastUniqueIdentifier="18">
+  <timeline>
+    <DOMTimeline name="BottomListComponent">
+      <layers>
+        <DOMLayer name="Btn" color="#9933CC" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Btn/Common/LeftArrow" name="prevOne" centerPoint3DX="25.8" centerPoint3DY="56.65">
+                  <matrix>
+                    <Matrix tx="25.8" ty="56.7"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btn/Common/RightArrow" name="nextOne" centerPoint3DX="525.75" centerPoint3DY="56.65">
+                  <matrix>
+                    <Matrix tx="523.75" ty="56.7"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="2" y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btn/Common/LeftArrow" name="prevPage" centerPoint3DX="25.8" centerPoint3DY="117.25">
+                  <matrix>
+                    <Matrix tx="25.8" ty="117.3"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btn/Common/RightArrow" name="nextPage" centerPoint3DX="525.75" centerPoint3DY="117.25">
+                  <matrix>
+                    <Matrix tx="523.75" ty="117.3"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="2" y="-0.05"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="ScrollBar" color="#FF4FFF" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Btn/ScrollBar/TrackBtn01" name="track" centerPoint3DX="52.5" centerPoint3DY="181.3">
+                  <matrix>
+                    <Matrix a="5.34181213378906" tx="6.5" ty="171.3"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="46" y="10"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+                <DOMSymbolInstance libraryItemName="Btn/ScrollBar/ThumbBtn01" name="thumb" centerPoint3DX="59.85" centerPoint3DY="181.3">
+                  <matrix>
+                    <Matrix tx="34.85" ty="171.3"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="25" y="10"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="List" color="#FF800A" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Placeholder/BottomList_ph" name="listPH" centerPoint3DX="276.3" centerPoint3DY="93">
+                  <matrix>
+                    <Matrix tx="46.6" ty="33"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point x="229.7" y="60"/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+        <DOMLayer name="Bg" color="#4FFF4F" current="true" isSelected="true" autoNamed="false">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMSymbolInstance libraryItemName="Panel/Basic_Panel" name="" centerPoint3DX="316" centerPoint3DY="85">
+                  <matrix>
+                    <Matrix a="5.47947692871094" d="1.69999694824219" tx="273.95" ty="85"/>
+                  </matrix>
+                  <transformationPoint>
+                    <Point/>
+                  </transformationPoint>
+                </DOMSymbolInstance>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

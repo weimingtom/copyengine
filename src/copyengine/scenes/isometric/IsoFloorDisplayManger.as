@@ -20,7 +20,7 @@ package copyengine.scenes.isometric
 	import flash.ui.Keyboard;
 	import flash.utils.Dictionary;
 	
-	import game.scene.IsoMath;
+	import game.scene.unuse.IsoMath;
 
 	/**
 	 * IsoFloorManger use to

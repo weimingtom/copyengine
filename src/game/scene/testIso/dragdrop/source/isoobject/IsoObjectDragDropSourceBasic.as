@@ -19,7 +19,7 @@ package game.scene.testIso.dragdrop.source.isoobject
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
 	
-	import game.scene.IsoMath;
+	import game.scene.unuse.IsoMath;
 	import game.scene.testIso.ViewPortDragDropTargetBasic;
 	import game.scene.testIso.dragdrop.source.IsoSceneDragDropSourceBasic;
 

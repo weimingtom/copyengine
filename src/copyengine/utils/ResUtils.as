@@ -17,6 +17,7 @@ package copyengine.utils
     {
 		public static const FILE_ISOHAX:String = "IsoHax_asset";
 		public static const FILE_UI:String = "UI_asset";
+		public static const FILE_TESTUI:String ="TestUI";
 		
         public function ResUtils()
         {

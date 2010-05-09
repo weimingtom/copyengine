@@ -8,7 +8,7 @@ package game.scene.testIso.dragdrop.source
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
 	
-	import game.scene.IsoMath;
+	import game.scene.unuse.IsoMath;
 	import game.scene.testIso.dragdrop.target.IsoSceneDragDropTargetBasic;
 
 	public class IsoSceneDragDropSourceBasic extends CEDragDropSourceCore

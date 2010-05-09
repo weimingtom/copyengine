@@ -1,4 +1,4 @@
-package game.scene.testUIComponent
+package game.scene.unuse.testUIComponent
 {
 	public class PanelMessage
 	{
