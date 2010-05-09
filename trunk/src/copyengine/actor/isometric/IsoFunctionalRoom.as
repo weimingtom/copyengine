@@ -1,9 +1,9 @@
 package copyengine.actor.isometric
 {
-	import copyengine.datas.isometric.FunctionalRoomVo;
-	import copyengine.datas.isometric.IsoObjectVo;
-	import copyengine.datas.metadata.item.ItemMetaManger;
-	import copyengine.datas.metadata.item.type.ItemMetaFunctionalRoom;
+	import game.datas.isometric.FunctionalRoomVo;
+	import game.datas.isometric.IsoObjectVo;
+	import game.datas.metadata.item.ItemMetaManger;
+	import game.datas.metadata.item.type.ItemMetaFunctionalRoom;
 	import copyengine.dragdrop.IDragDropSource;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.ResUtils;

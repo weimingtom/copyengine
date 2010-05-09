@@ -1,7 +1,7 @@
 package
 {
 
-	import copyengine.initialize.CopyEngineInitManagerMediator;
+	import initialize.CopyEngineInitManagerMediator;
 	
 	import game.GlobalMessage;
 	

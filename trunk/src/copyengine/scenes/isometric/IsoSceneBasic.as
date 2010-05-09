@@ -1,7 +1,7 @@
 package copyengine.scenes.isometric
 {
 	import copyengine.actor.isometric.IsoObject;
-	import copyengine.datas.isometric.IsoTileVo;
+	import game.datas.isometric.IsoTileVo;
 	import copyengine.scenes.SceneBasic;
 	import copyengine.scenes.isometric.unuse.BackUp_IsoFloorManger;
 	import copyengine.scenes.isometric.viewport.IIsoViewPort;

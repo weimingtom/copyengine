@@ -2,8 +2,8 @@ package game.scene.testIso
 {
 	import com.adobe.viewsource.ViewSource;
 	
-	import copyengine.datas.isometric.FunctionalRoomVo;
-	import copyengine.datas.isometric.IsoObjectVo;
+	import game.datas.isometric.FunctionalRoomVo;
+	import game.datas.isometric.IsoObjectVo;
 	import copyengine.dragdrop.IDragDropEngine;
 	import copyengine.dragdrop.IDragDropManger;
 	import copyengine.dragdrop.IDragDropReceiver;

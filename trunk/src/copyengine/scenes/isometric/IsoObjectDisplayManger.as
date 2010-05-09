@@ -2,7 +2,7 @@ package copyengine.scenes.isometric
 {
 
 	import copyengine.actor.isometric.IsoObject;
-	import copyengine.datas.isometric.IsoTileVo;
+	import game.datas.isometric.IsoTileVo;
 	import copyengine.datastructure.DoubleLinkNode;
 	import copyengine.scenes.isometric.viewport.IViewPortListener;
 	import copyengine.utils.Random;

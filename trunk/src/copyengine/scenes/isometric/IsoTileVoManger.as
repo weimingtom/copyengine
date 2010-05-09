@@ -1,8 +1,8 @@
 package copyengine.scenes.isometric
 {
 	import copyengine.actor.isometric.IsoObject;
-	import copyengine.datas.isometric.IsoObjectVo;
-	import copyengine.datas.isometric.IsoTileVo;
+	import game.datas.isometric.IsoObjectVo;
+	import game.datas.isometric.IsoTileVo;
 	import copyengine.utils.UintAttribute;
 	
 	import flash.utils.Dictionary;
