@@ -7,6 +7,17 @@ public class FlaFileMeta {
 	public String fileName;
 	public String filePath;
 
+	/**
+	 * 	analysis file path , find the relative path of current meta
+	 * ex:
+	 * 	current file path maybe:
+	 * 		../../fla/sourcefile/LIBRARY/Symbol.xml
+	 * then the analysis result is 
+	 * 		../../fla/sourcefile/LIBRARY/ 
+	 * 
+	 * more info can check in:
+	 * 		http://jakarta.apache.org/regexp/applet.html
+	 */
 	public String getFilePathWithoutName() {
 		String regex = "^((\\.+\\/|(\\w+\\/))*\\w+\\/)(\\w+)\\.xml$";
 		Pattern pattern = Pattern.compile(regex);
