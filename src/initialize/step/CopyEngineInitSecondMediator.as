@@ -1,11 +1,13 @@
 package initialize.step
 {
+	import copyengine.CopyEngineMessage;
 	import copyengine.resource.GameResManager;
 	import copyengine.resource.GameResMessage;
-
+	
+	import game.resource.ResourceConfig;
+	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
-	import copyengine.CopyEngineMessage;
 
 	public class CopyEngineInitSecondMediator extends Mediator
 	{
@@ -29,7 +31,7 @@ package initialize.step
 			{
 				case GameResMessage.LOAD_RESOURCE_QUEUE_LOAD_COMPLATE:
 
-					if (notification.getType() == GameResManager.LOAD_QUEUE_PERLOAD)
+					if (notification.getType() == ResourceConfig.LOAD_QUEUE_PERLOAD)
 					{
 						onFinished();
 					}
