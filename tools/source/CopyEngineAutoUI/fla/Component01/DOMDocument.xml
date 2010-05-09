@@ -10,7 +10,7 @@
           <DOMFolderItem name="Panel" itemID="4bbc2925-0000022f"/>
           <DOMFolderItem name="ScrollBar" itemID="4bbc322c-000011d7"/>
           <DOMFolderItem name="Simulate_WorkFlow" itemID="4bbc2a80-000006bd"/>
-          <DOMFolderItem name="Symbol" itemID="4bdead86-0000004a" isExpanded="true"/>
+          <DOMFolderItem name="Symbol" itemID="4bdead86-0000004a"/>
           <DOMFolderItem name="TempUI" itemID="4bc420d1-0000003d"/>
           <DOMFolderItem name="TempUI/DragDrop" itemID="4bc4212d-00000044" isExpanded="true"/>
      </folders>

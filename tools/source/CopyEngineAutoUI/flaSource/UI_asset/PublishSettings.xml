@@ -1,5 +1,5 @@
 <flash_profiles>
-<flash_profile version="1.0" name="默认文件">
+<flash_profile version="1.0" name="默认文件" current="true">
   <PublishFormatProperties enabled="true">
     <defaultNames>0</defaultNames>
     <flash>1</flash>
@@ -35,8 +35,8 @@
     <VersionInfo>10,1,0,0;9,0,124,0;8,0,24,0;7,0,14,0;6,0,79,0;5,0,58,0;4,0,32,0;3,0,8,0;2,0,1,12;1,0,0,1;</VersionInfo>
     <UsingDefaultContentFilename>1</UsingDefaultContentFilename>
     <UsingDefaultAlternateFilename>1</UsingDefaultAlternateFilename>
-    <ContentFilename>UI_asset_content.html</ContentFilename>
-    <AlternateFilename>UI_asset_alternate.html</AlternateFilename>
+    <ContentFilename>UI_asset.xfl_content.html</ContentFilename>
+    <AlternateFilename>UI_asset.xfl_alternate.html</AlternateFilename>
     <UsingOwnAlternateFile>0</UsingOwnAlternateFile>
     <OwnAlternateFilename></OwnAlternateFilename>
     <Width>550</Width>
@@ -111,14 +111,18 @@
       <library-path-entry>
         <swc-path>$(AppConfig)/ActionScript 3.0/libs/11.0/textLayout.swc</swc-path>
         <linkage usesDefault="true">rsl</linkage>
-        <rsl-url>textLayout_1.0.0.591.swf</rsl-url>
+        <rsl-url>http://fpdownload.adobe.com/pub/swz/tlf/1.0.0.595/textLayout_1.0.0.595.swz</rsl-url>
+        <policy-file-url>http://fpdownload.adobe.com/pub/swz/crossdomain.xml</policy-file-url>
+        <rsl-url>textLayout_1.0.0.595.swz</rsl-url>
       </library-path-entry>
     </LibraryPath>
     <LibraryVersions>
       <library-version>
         <swc-path>$(AppConfig)/ActionScript 3.0/libs/11.0/textLayout.swc</swc-path>
-        <feature name="tlfText" majorVersion="1" minorVersion="0" build="591"/>
-        <rsl-url>textLayout_1.0.0.591.swf</rsl-url>
+        <feature name="tlfText" majorVersion="1" minorVersion="0" build="595"/>
+        <rsl-url>http://fpdownload.adobe.com/pub/swz/tlf/1.0.0.595/textLayout_1.0.0.595.swz</rsl-url>
+        <policy-file-url>http://fpdownload.adobe.com/pub/swz/crossdomain.xml</policy-file-url>
+        <rsl-url>textLayout_1.0.0.595.swz</rsl-url>
       </library-version>
     </LibraryVersions>
   </PublishFlashProperties>

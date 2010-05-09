@@ -19,7 +19,7 @@
                     <Matrix a="1.05599975585938" d="1.08026123046875" tx="142.95" ty="66.3"/>
                   </matrix>
                   <transformationPoint>
-                    <Point y="0.55"/>
+                    <Point y="0.6"/>
                   </transformationPoint>
                 </DOMSymbolInstance>
                 <DOMSymbolInstance libraryItemName="Btns/Building/IconBuildingHouse" name="" centerPoint3DX="247.75" centerPoint3DY="64.4">
