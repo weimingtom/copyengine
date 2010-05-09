@@ -1,7 +1,7 @@
 package copyengine.actor.isometric
 {
-	import copyengine.datas.isometric.IsoObjectVo;
-	import copyengine.datas.isometric.IsoTileVo;
+	import game.datas.isometric.IsoObjectVo;
+	import game.datas.isometric.IsoTileVo;
 	import copyengine.dragdrop.IDragDropSource;
 	import copyengine.dragdrop.IDragDropTarget;
 	import copyengine.dragdrop.impl.CEDragDropEngine;

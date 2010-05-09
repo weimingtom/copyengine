@@ -2,8 +2,8 @@ package game.scene.testIso.dragdrop.target
 {
 	import copyengine.actor.isometric.DragAbleIsoObject;
 	import copyengine.actor.isometric.IsoObject;
-	import copyengine.datas.isometric.IsoObjectVo;
-	import copyengine.datas.isometric.IsoTileVo;
+	import game.datas.isometric.IsoObjectVo;
+	import game.datas.isometric.IsoTileVo;
 	import copyengine.dragdrop.IDragDropSource;
 	import copyengine.dragdrop.impl.CEDragDropTargetCore;
 	import copyengine.scenes.isometric.IsoObjectDisplayManger;

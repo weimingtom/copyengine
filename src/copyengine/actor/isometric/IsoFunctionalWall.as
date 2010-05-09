@@ -1,6 +1,6 @@
 package copyengine.actor.isometric
 {
-	import copyengine.datas.isometric.IsoObjectVo;
+	import game.datas.isometric.IsoObjectVo;
 	import copyengine.utils.IsometricUtils;
 	import copyengine.utils.UintAttribute;
 

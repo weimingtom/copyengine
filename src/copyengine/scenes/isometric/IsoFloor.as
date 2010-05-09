@@ -1,6 +1,6 @@
 package copyengine.scenes.isometric
 {
-	import copyengine.datas.isometric.IsoTileVo;
+	import game.datas.isometric.IsoTileVo;
 	import copyengine.utils.Random;
 	import copyengine.utils.ResUtils;
 	

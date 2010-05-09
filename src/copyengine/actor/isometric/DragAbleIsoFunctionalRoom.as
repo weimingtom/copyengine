@@ -1,6 +1,6 @@
 package copyengine.actor.isometric
 {
-	import copyengine.datas.isometric.FunctionalRoomVo;
+	import game.datas.isometric.FunctionalRoomVo;
 	import copyengine.dragdrop.IDragDropSource;
 	import copyengine.dragdrop.impl.CEDragDropMangerClick;
 	import copyengine.scenes.isometric.IsoObjectDisplayManger;

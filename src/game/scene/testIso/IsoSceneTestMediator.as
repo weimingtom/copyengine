@@ -3,11 +3,11 @@ package game.scene.testIso
 	import copyengine.actor.isometric.DragAbleIsoObject;
 	import copyengine.actor.isometric.IsoFunctionalWall;
 	import copyengine.actor.isometric.IsoObject;
-	import copyengine.datas.isometric.IsoObjectVo;
-	import copyengine.datas.isometric.IsoTileVo;
-	import copyengine.datas.metadata.item.ItemMetaManger;
-	import copyengine.datas.metadata.item.type.ItemMetaBasic;
-	import copyengine.datas.metadata.item.type.ItemMetaFunctionalWall;
+	import game.datas.isometric.IsoObjectVo;
+	import game.datas.isometric.IsoTileVo;
+	import game.datas.metadata.item.ItemMetaManger;
+	import game.datas.metadata.item.type.ItemMetaBasic;
+	import game.datas.metadata.item.type.ItemMetaFunctionalWall;
 	import copyengine.scenes.isometric.IsoFloor;
 	import copyengine.scenes.isometric.IsoSceneBasic;
 	import copyengine.scenes.isometric.IsoSceneBasicMediator;

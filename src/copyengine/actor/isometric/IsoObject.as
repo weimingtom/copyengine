@@ -1,9 +1,9 @@
 package copyengine.actor.isometric
 {
-	import copyengine.datas.isometric.IsoObjectVo;
-	import copyengine.datas.metadata.item.ItemMeta;
-	import copyengine.datas.metadata.item.ItemMetaManger;
-	import copyengine.datas.metadata.item.type.ItemMetaBasic;
+	import game.datas.isometric.IsoObjectVo;
+	import game.datas.metadata.item.ItemMeta;
+	import game.datas.metadata.item.ItemMetaManger;
+	import game.datas.metadata.item.type.ItemMetaBasic;
 	import copyengine.scenes.isometric.IsoObjectDisplayManger;
 	import copyengine.utils.GeneralUtils;
 	import copyengine.utils.IsometricUtils;
