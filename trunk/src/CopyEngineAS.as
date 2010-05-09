@@ -9,6 +9,10 @@ package
 	import flash.system.Security;
 
 	[SWF(width="640",height="700",backgroundColor="#CCCCCC",frameRate="1000")]
+	/**
+	 * 
+	 * @author Administrator
+	 */
 	public class CopyEngineAS extends Sprite implements IMain
 	{
 
@@ -23,31 +27,54 @@ package
 			return _instance.stage;
 		}
 
+		/**
+		 * 
+		 * @return 
+		 */
 		public static function get gameDialogLayer() : DisplayObjectContainer
 		{
 			return _instance.gameDialogLayer;
 		}
 
+		/**
+		 * 
+		 * @return 
+		 */
 		public static function get screenLayer() : DisplayObjectContainer
 		{
 			return _instance.screenLayer;
 		}
 
+		/**
+		 * 
+		 * @return 
+		 */
 		public static function get dragdropLayer() : DisplayObjectContainer
 		{
 			return _instance.dragdropLayer;
 		}
 
+		/**
+		 * 
+		 * @return 
+		 */
 		public static function get perLoaderContainer() : DisplayObjectContainer
 		{
 			return _instance.gamePerLoader.container;
 		}
 
+		/**
+		 * 
+		 * @return 
+		 */
 		public static function get panelLayer() : DisplayObjectContainer
 		{
 			return _instance.panelLayer;
 		}
 
+		/**
+		 * 
+		 */
 		public static function cleanGamePerLoader() : void
 		{
 			_instance.gamePerLoader.destory();
@@ -57,6 +84,10 @@ package
 		//================
 		//== Engine
 		//================
+		/**
+		 * 
+		 * @default 
+		 */
 		public var gamePerLoader:IPerLoader;
 		
 		/**
@@ -75,11 +106,20 @@ package
 		private var screenLayer:DisplayObjectContainer;
 
 
+		/**
+		 * 
+		 */
 		public function CopyEngineAS()
 		{
 			this.addEventListener(Event.ADDED_TO_STAGE , onAddToStage,false,0,true);
 		}
 
+		/**
+		 * 
+		 * @param _perLoader
+		 * @param _stage
+		 * @param _config
+		 */
 		public function initialize(_perLoader:IPerLoader , _stage:Stage ,  _config:XML) : void
 		{
 			configXML = _config;

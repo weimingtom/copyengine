@@ -80,16 +80,16 @@ package copyengine.ui.component.list
 
 		override protected function initialize() : void
 		{
-			GeneralUtils.addTargetToParent(backGround,this);
-			
-			GeneralUtils.addTargetToParent(firstOneBtn,this);
-			GeneralUtils.addTargetToParent(lastOneBtn,this);
-			GeneralUtils.addTargetToParent(nextOneBtn,this);
-			GeneralUtils.addTargetToParent(nextPageBtn,this);
-			GeneralUtils.addTargetToParent(prevOneBtn,this);
-			GeneralUtils.addTargetToParent(prevPageBtn,this);
+//			GeneralUtils.addTargetToParent(backGround,this);
+//			
+//			GeneralUtils.addTargetToParent(firstOneBtn,this);
+//			GeneralUtils.addTargetToParent(lastOneBtn,this);
+//			GeneralUtils.addTargetToParent(nextOneBtn,this);
+//			GeneralUtils.addTargetToParent(nextPageBtn,this);
+//			GeneralUtils.addTargetToParent(prevOneBtn,this);
+//			GeneralUtils.addTargetToParent(prevPageBtn,this);
 			GeneralUtils.addTargetToParent(ceListCore,this);
-			GeneralUtils.addTargetToParent(ceScrollBarCore,this);
+//			GeneralUtils.addTargetToParent(ceScrollBarCore,this);
 			
 			addListener();
 		}

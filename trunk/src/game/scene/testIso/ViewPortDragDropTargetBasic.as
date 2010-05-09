@@ -13,7 +13,7 @@ package game.scene.testIso
 	import flash.geom.Point;
 	import flash.geom.Vector3D;
 	
-	import game.scene.IsoMath;
+	import game.scene.unuse.IsoMath;
 	
 	public class ViewPortDragDropTargetBasic extends CEDragDropTargetCore
 	{

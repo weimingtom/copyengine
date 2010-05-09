@@ -1,6 +1,6 @@
 package game.ui.test.list
 {
-	import copyengine.ui.CEComponentFactory;
+	import copyengine.ui.unuse.CEComponentFactory;
 	import copyengine.ui.CESprite;
 	import copyengine.ui.component.list.cellrender.CECellRenderSymbol;
 

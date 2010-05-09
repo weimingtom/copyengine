@@ -24,7 +24,7 @@ package copyengine.scenes.isometric.unuse
 	import flash.system.System;
 	import flash.ui.Keyboard;
 	
-	import game.scene.IsoMath;
+	import game.scene.unuse.IsoMath;
 	
 	/**
 	 * IsoFloorManger use to

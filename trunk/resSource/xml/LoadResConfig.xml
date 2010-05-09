@@ -9,8 +9,10 @@
 		<file name="LoadingAnimation" path="../src/res/swf/preloader_asset.swf" />
 		<file name="IsoHax_asset" path="../src/res/swf/IsoHax_asset.swf" />
 		<file name="UI_asset" path="../src/res/swf/UI_asset.swf" />
+		<file name="TestUI" path="../src/res/swf/TestUI.swf"/>
 		<file name="ItemConfig" path="../src/res/bin/ItemConfig.bin" />
 		<file name="ComponentConfig" path="../src/res/bin/ComponentConfig.bin"/>
+		<file name="Text_zh_CN" path="../src/res/bin/Text_zh_CN.bin"/>
 	</standard>
 	<individual>
 		<loadQueue>
@@ -20,8 +22,10 @@
 		<loadFile>
 			<file name="IsoHax_asset" type="swf" weight="500" loadQueue="perLoadQueue" />
 			<file name="UI_asset" type="swf" weight="500" loadQueue="perLoadQueue" />
+			<file name="TestUI" type="swf" weight="500" loadQueue="perLoadQueue" />
 			<file name="ItemConfig" type="xml" weight="500" loadQueue="perLoadQueue" />
 			<file name="ComponentConfig" type="xml" weight="500" loadQueue="perLoadQueue" />
+			<file name="Text_zh_CN" type="xml" weight="500" loadQueue="perLoadQueue" />
 		</loadFile>
 	</individual>
 </root>

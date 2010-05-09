@@ -4,6 +4,7 @@ package copyengine.ui
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
+	import copyengine.ui.unuse.CEComponentFactory;
 	
 	public final class UIInitialCommand extends SimpleCommand
 	{

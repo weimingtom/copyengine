@@ -1,4 +1,4 @@
-package copyengine.ui
+package copyengine.ui.unuse
 {
 	import copyengine.ui.component.button.CEButton;
 	import copyengine.ui.component.button.CESelectableButton;
@@ -19,6 +19,7 @@ package copyengine.ui
 	import flash.display.DisplayObject;
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
+	import copyengine.ui.CESprite;
 
 	/**
 	 *CEComponentFactory is use to create those CEComponent(CEButton , CEList etc),

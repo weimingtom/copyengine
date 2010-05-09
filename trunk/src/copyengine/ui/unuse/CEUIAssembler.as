@@ -1,4 +1,4 @@
-package copyengine.ui
+package copyengine.ui.unuse
 {
 	import com.greensock.easing.Circ;
 	
@@ -28,6 +28,7 @@ package copyengine.ui
 	import flashx.textLayout.debug.assert;
 	
 	import mx.events.RSLEvent;
+	import copyengine.ui.CESprite;
 
 	public final class CEUIAssembler
 	{
@@ -127,7 +128,8 @@ package copyengine.ui
 		{
 			var thumb:CEButton = new CEButton(ResUtils.getMovieClip(_node.@thumbSymbolName , _node.@thumbFileName),null,null,new CEButtonFrameAnimation());
 			var track:CEButton =	 new CEButton(ResUtils.getMovieClip(_node.@trackSymbolName , _node.@trackFileName),null,null,new CEButtonFrameAnimation());
-			var scrollBar:CEScrollBarCore = new CEScrollBarCore(thumb,track,_node.@width,_node.@height,_node.@name);
+//			var scrollBar:CEScrollBarCore = new CEScrollBarCore(thumb,track,_node.@width,_node.@height,_node.@name);
+			var scrollBar:CEScrollBarCore = new CEScrollBarCore(thumb,track,_node.@name);
 			scrollBar.x = _node.@x;
 			scrollBar.y = _node.@y;
 			return scrollBar;
