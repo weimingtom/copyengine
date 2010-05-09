@@ -14,9 +14,6 @@
             <DOMFrame index="0" keyMode="9728">
               <elements>
                 <DOMGroup>
-                  <matrix>
-                    <Matrix tx="0.05" ty="0.05"/>
-                  </matrix>
                   <members>
                     <DOMShape isDrawingObject="true">
                       <matrix>
@@ -44,9 +41,6 @@
                       </edges>
                     </DOMShape>
                     <DOMGroup selected="true">
-                      <matrix>
-                        <Matrix tx="0.05" ty="0.05"/>
-                      </matrix>
                       <members>
                         <DOMShape isDrawingObject="true">
                           <matrix>

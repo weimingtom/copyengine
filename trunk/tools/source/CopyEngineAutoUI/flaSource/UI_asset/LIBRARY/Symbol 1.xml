@@ -1,0 +1,31 @@
+<DOMSymbolItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ns.adobe.com/xfl/2008/" name="Symbol 1" itemID="4be6329f-0000003a" linkageExportForAS="true" linkageClassName="Symbol111" sourceLibraryItemHRef="Symbol 1" lastModified="1273377507">
+  <timeline>
+    <DOMTimeline name="Symbol 1">
+      <layers>
+        <DOMLayer name="Layer 1" color="#4FFF4F" current="true" isSelected="true">
+          <frames>
+            <DOMFrame index="0" keyMode="9728">
+              <elements>
+                <DOMShape>
+                  <strokes>
+                    <StrokeStyle index="1">
+                      <SolidStroke scaleMode="normal">
+                        <fill>
+                          <SolidColor/>
+                        </fill>
+                      </SolidStroke>
+                    </StrokeStyle>
+                  </strokes>
+                  <edges>
+                    <Edge strokeStyle="1" edges="!547 -327[141 -244 31 168!31 168[-20 360 -40 560!-40 560[556 1060 1357 721!1357 721[#5C1.58 #29F.EA 1577.5 610!1577.5 610[#64C.85 #229.D4 1644 492!1644 492[1870 47 1436 -190!1436 -190[1010 -423 547 -327!1577.5 610[#77B.22 #198.B1 2126
+ 71!2126 71[2274 -164 2140 -400!2140 -400|1640 -560!1640 -560[1570 -480 1563 -459!-500 220[-389 1075 465 1140!465 1140[#4BA.F4 #4AD.86 1577.5 610"/>
+                  </edges>
+                </DOMShape>
+              </elements>
+            </DOMFrame>
+          </frames>
+        </DOMLayer>
+      </layers>
+    </DOMTimeline>
+  </timeline>
+</DOMSymbolItem>

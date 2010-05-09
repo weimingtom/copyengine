@@ -6,4 +6,13 @@
 	<componentFile>
 		<file name="Component01" path="fla/Component01/LIBRARY/Stage01.xml"/>
 	</componentFile>
+	<assembly>
+		<!-- 
+			Each fla symbol must name::
+				name_type_paramater
+			Ex:
+				GamePanelIcon01_Symbol_c_d
+		 -->
+		<assembler tpye="Symbol" class="assembly.SymbolAssembly"/>
+	</assembly>
 </root>
