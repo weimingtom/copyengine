@@ -1,4 +1,4 @@
-package game
+package copyengine
 {
 
 	public class GlobalMessage

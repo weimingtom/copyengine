@@ -1,8 +1,7 @@
-package copyengine.scenes
+package game.scene
 {
 	import game.scene.unuse.CEDragDropScreen;
 	import game.scene.unuse.IsoHexScene;
-	import game.scene.PerLoaderScene;
 	import game.scene.unuse.TestCacheAlphaBitmap;
 	import game.scene.unuse.TestCacheScene;
 	import game.scene.unuse.TestMatchIsoTile;
@@ -10,6 +9,9 @@ package copyengine.scenes
 	import game.scene.testRomeGameScene.TestRomeGameScene;
 	import game.scene.unuse.testUIComponent.CEUICompoentTestScene;
 	import game.scene.unuse.testUIComponent.TestGameUIScene;
+	import copyengine.scenes.IScene;
+	import copyengine.scenes.ISceneFactory;
+	import copyengine.scenes.SceneBasic;
 
 	public class SceneFactory implements ISceneFactory
 	{

@@ -1,9 +1,9 @@
 package
 {
-	import copyengine.scenes.SceneFactory;
+	import game.scene.SceneFactory;
 	import copyengine.scenes.SceneManger;
 
-	import game.GlobalMessage;
+	import copyengine.GlobalMessage;
 
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;

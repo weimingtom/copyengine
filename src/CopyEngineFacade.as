@@ -3,7 +3,7 @@ package
 
 	import initialize.CopyEngineInitManagerMediator;
 	
-	import game.GlobalMessage;
+	import copyengine.GlobalMessage;
 	
 	import org.puremvc.as3.patterns.facade.Facade;
 
