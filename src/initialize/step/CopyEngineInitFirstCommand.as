@@ -2,7 +2,7 @@ package initialize.step
 {
 	import copyengine.resource.ResourceInitalCommand;
 	import game.rpc.GameRpcInitalCommand;
-	import copyengine.scenes.SceneInitialCommand;
+	import game.scene.SceneInitialCommand;
 
 	import org.puremvc.as3.patterns.command.MacroCommand;
 
