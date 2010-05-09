@@ -1,7 +1,7 @@
 package initialize.step
 {
 	import game.datas.DataInitialCommand;
-	import copyengine.ui.UIInitialCommand;
+	import copyengine.ui.unuse.UIInitialCommand;
 
 	import org.puremvc.as3.patterns.command.MacroCommand;
 
@@ -15,7 +15,7 @@ package initialize.step
 		override protected function initializeMacroCommand() : void
 		{
 			addSubCommand( DataInitialCommand);
-			addSubCommand( UIInitialCommand );
+//			addSubCommand( UIInitialCommand );
 		}
 	}
 }

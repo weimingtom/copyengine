@@ -1,8 +1,8 @@
-package copyengine.scenes
+package game.scene
 {
     import org.puremvc.as3.interfaces.INotification;
     import org.puremvc.as3.patterns.command.SimpleCommand;
-    import game.scene.SceneFactory;
+    import copyengine.scenes.SceneManger;
 
     public final class SceneInitialCommand extends SimpleCommand
     {
